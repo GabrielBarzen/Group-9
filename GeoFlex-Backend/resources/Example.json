@@ -1,0 +1,20 @@
+{
+    "quizname":"TestQuiz",
+    "quizdescription":"This is for testing purposes.",
+    "questions":
+    [{
+        "question1":"q1",
+        "answers":["a1", "a2", "a3"],
+        "data":"image here"
+    },
+    {
+        "question2":"q2",
+        "answers":["a1", "a2", "a3"],
+        "data":"image here"
+    },
+    {
+        "question3":"q3",
+        "answers":["a1", "a2", "a3"],
+        "data":"image here"
+    }]
+}
