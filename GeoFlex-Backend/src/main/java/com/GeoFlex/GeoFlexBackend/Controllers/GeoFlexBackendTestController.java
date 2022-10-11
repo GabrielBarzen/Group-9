@@ -1,4 +1,4 @@
-package com.GeoFlex.GeoFlexBackend;
+package com.GeoFlex.GeoFlexBackend.Controllers;
 
 import org.springframework.web.bind.annotation.*;
 

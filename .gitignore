@@ -186,4 +186,3 @@ buildNumber.properties
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij,visualstudiocode
-GeoFlex-Backend/src/main/java/com/GeoFlex/GeoFlexBackend/testMain.java
