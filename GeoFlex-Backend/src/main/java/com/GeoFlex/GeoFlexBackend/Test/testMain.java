@@ -12,7 +12,7 @@ public class testMain {
         //Pass the DataBaseConnection objcet to the constructor.
         Procedures procedures = new Procedures(dc);
         //procedures.queryTest();
-        procedures.procedureTest();
+        procedures.createRoute("Runescape Quiz", "A quiz about the game runescape", "QUIZ");
 
         //VideoManager vm = new VideoManager();
         //vm.convertToWebm();

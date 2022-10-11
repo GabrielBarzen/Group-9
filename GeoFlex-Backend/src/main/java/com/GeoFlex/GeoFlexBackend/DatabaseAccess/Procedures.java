@@ -7,12 +7,12 @@ public class Procedures {
     /**
      * Initialize variables.
      */
-    DatabaseConnection dc;
+    private DatabaseConnection dc;
 
 
     /**
      * Construct the class and set the passed database connection in the param to the local variable.
-     * @param dc database connection
+     * @param dc Database Connection object
      */
     public Procedures(DatabaseConnection dc){
         this.dc = dc;
@@ -36,14 +36,17 @@ public class Procedures {
     }
 
     /**
-     * Test function for inserting through stored procedures.
+     * Function to create a route in the database.
+     * @param title Title of the route.
+     * @param description Description of the route.
+     * @param type Type of the round, QUIZ or INFO.
      */
-    public void procedureTest(){
+    public void createRoute(String title, String description, String type){
         try {
             CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialiseRoute(?, ?, ?, ?)}");
-            cs.setString(2, "Test Title5");
-            cs.setString(3, "Test Description");
-            cs.setString(4, "INFO"); //QUIZ or INFO
+            cs.setString(2, title);
+            cs.setString(3, description);
+            cs.setString(4, type); //QUIZ or INFO
 
             //Register the out param from the proecure.
             cs.registerOutParameter(1, Types.INTEGER);

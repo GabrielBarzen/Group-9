@@ -23,7 +23,7 @@ public class DatabaseConnection {
 
     /**
      * Returns the connection.
-     * @return conn
+     * @return Connection to the database.
      */
     public Connection getConnection(){
         return this.conn;
