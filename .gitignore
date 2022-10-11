@@ -186,3 +186,6 @@ buildNumber.properties
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij,visualstudiocode
+GeoFlex-Backend/src/main/resources/FFMPEG/ffmpeg.exe
+GeoFlex-Backend/src/main/resources/FFMPEG/ffplay.exe
+GeoFlex-Backend/src/main/resources/FFMPEG/ffprobe.exe
