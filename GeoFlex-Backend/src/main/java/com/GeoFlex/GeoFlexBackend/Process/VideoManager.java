@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class VideoManager {
 
-    //Download FFMPEG from https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-essentials.7z and put the contents of the bin folder into the resources/FFMPEG folder in the project.
+    //Read the instructions in src/main/resources/FFMPEG/HowToUse.txt.
     FFmpeg ffmpeg;
     FFprobe ffprobe;
 
