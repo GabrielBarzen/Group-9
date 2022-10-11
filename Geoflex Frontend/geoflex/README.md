@@ -1,3 +1,7 @@
+# First time setup
+Using gitbash; navigate to the folder 'Geoflex Frontend/geoflex' and run the command 'npm install'.
+Once this is done see the description below.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
