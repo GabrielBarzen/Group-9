@@ -1,4 +1,4 @@
-package com.GeoFlex.GeoFlexBackend.Process;
+package com.GeoFlex.GeoFlexBackend.Process.Videos;
 
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
