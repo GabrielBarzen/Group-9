@@ -64,6 +64,20 @@ public class RouteController {
     }
 
     /**
+     * Method for uploading data for a location to the database.
+     * @param data The image or video to be uploaded
+     * @param location_id The id for the location, required.
+     * @param route_id The id for the route, required.
+     * @return Ok or Error
+     */
+    @RequestMapping(value = "/upload_location_data", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> uploadLocationData(@RequestParam String data, @RequestParam int location_id, @RequestParam int route_id) {
+
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
+
+    }
+
+    /**
      * Method for getting a specific location. Primarily used for editing the location.
      * @param location_id The id for the location, required.
      * @param route_id The id for the route, required.
