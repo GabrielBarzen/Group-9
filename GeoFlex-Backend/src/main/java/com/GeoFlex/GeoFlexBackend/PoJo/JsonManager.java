@@ -66,10 +66,10 @@ public class JsonManager {
         Root r;
         r = gson.fromJson(new FileReader(input), Root.class);
 
-        //int Array to hold the out parameters returned from the createRoute method.
+        //int variable to hold the out parameter returned from the createRoute method.
         int outParamRoute;
         outParamRoute = p.createRoute(r.route.title, r.route.description, r.route.type);
-        //int variable to hold the outparameter returned from the createLocation method.
+        //int variable to hold the out parameter returned from the createLocation method.
         int outParamLocation;
 
         for (int i = 0; i < r.route.location.size(); i++) {
