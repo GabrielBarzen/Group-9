@@ -34,6 +34,9 @@ public class JsonManager {
         r = gson.fromJson(new FileReader(input), Root.class);
 
         //p.createRoute(r.route.title, r.route.description, r.route.type);
+        System.out.println("Title: " + r.route.title);
+        System.out.println("Description: " +r.route.description);
+        System.out.println("Type: " +r.route.type);
 
         for (int i = 0; i < r.route.location.size(); i++) {
             System.out.println(r.route.location.get(i).id);

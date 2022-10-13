@@ -2,6 +2,9 @@ package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
 import java.sql.*;
 
+/**
+ * This class handles database connections.
+ */
 public class DatabaseConnection {
 
     private String username = "root";
@@ -17,6 +20,7 @@ public class DatabaseConnection {
             conn = DriverManager.getConnection("jdbc:mariadb://gabnet.se:33306/GeoFlex?user="+username+"&password="+password);
             System.out.println("Connected to database.");
         } catch (SQLException e) {
+            System.out.println("Failed to connect to database.");
             throw new RuntimeException(e);
         }
     }

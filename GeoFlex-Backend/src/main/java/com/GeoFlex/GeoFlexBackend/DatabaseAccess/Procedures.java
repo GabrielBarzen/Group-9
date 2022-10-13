@@ -2,6 +2,9 @@ package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
 import java.sql.*;
 
+/**
+ * This class handles all the stored procedures in the database.
+ */
 public class Procedures {
 
     /**

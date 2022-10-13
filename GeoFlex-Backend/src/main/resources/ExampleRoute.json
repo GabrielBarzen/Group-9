@@ -7,7 +7,7 @@
   "code": "000001",
   "location":
   [{
-    "name": "Test",
+    "name": "Vehicles",
     "text_info":"Which answer below is a vehicle?",
     "id": "1",
     "content": [
@@ -18,7 +18,7 @@
     "data":"image here"
   },
     {
-      "name": "Test",
+      "name": "Space",
       "text_info":"Which of the following is a planet?",
       "id": "2",
       "content": [
@@ -29,7 +29,7 @@
       "data":"image here"
     },
     {
-      "name": "Test",
+      "name": "Runescape",
       "text_info":"Which of the following is a runescape item?",
       "id": "3",
       "content": [
