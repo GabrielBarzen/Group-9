@@ -31,31 +31,71 @@ public class JsonManager {
     }
 
     /**
-     * This method extracts data from the recieved Json object then adds it to the database.
+     * Identifies the route type in the passed input then calls the appropriate method.
      * @param input A Json object.
+     * @return True or False depending on input.
      * @throws FileNotFoundException
      */
-    public void jsonToDatabaseCreateRoute(File input) throws FileNotFoundException {
+    public boolean identifyThenCreateRoute(File input) throws FileNotFoundException {
         Gson gson = new Gson();
         Root r;
         r = gson.fromJson(new FileReader(input), Root.class);
 
-        //p.createRoute(r.route.title, r.route.description, r.route.type);
-        System.out.println("Title: " + r.route.title);
-        System.out.println("Description: " +r.route.description);
-        System.out.println("Type: " +r.route.type);
+        if(r.route.type.equals("QUIZ")){
+            jsonToDatabaseCreateQuiz(input);
+            return true;
+        }
+        else if(r.route.type.equals("INFO"))
+        {
+            jsonToDatabaseCreateInfo(input);
+            return true;
+        }
+        else {
+            System.out.println("Route has invalid TYPE.");
+            return false;
+        }
+    }
+
+    /**
+     * This method extracts the quiz data from the recieved Json object then adds it to the database.
+     * @param input A Json object.
+     * @throws FileNotFoundException
+     */
+    public void jsonToDatabaseCreateQuiz(File input) throws FileNotFoundException {
+        Gson gson = new Gson();
+        Root r;
+        r = gson.fromJson(new FileReader(input), Root.class);
+
+        //int Array to hold the out parameters returned from the createRoute method.
+        int outParamRoute;
+        outParamRoute = p.createRoute(r.route.title, r.route.description, r.route.type);
+        //int variable to hold the outparameter returned from the createLocation method.
+        int outParamLocation;
 
         for (int i = 0; i < r.route.location.size(); i++) {
-            System.out.println(r.route.location.get(i).id);
-            System.out.println(r.route.location.get(i).name);
-            System.out.println(r.route.location.get(i).text_info);
+            outParamLocation = p.createLocation(outParamRoute, r.route.location.get(i).name, r.route.location.get(i).text_info);
             for (int j = 0; j < r.route.location.get(i).content.size(); j++) {
-                System.out.print(r.route.location.get(i).content.get(j).answer);
-                System.out.print(" " + r.route.location.get(i).content.get(j).correct);
-                System.out.println(" "+ r.route.location.get(i).content.get(j).id);
+                p.createContent(outParamLocation, r.route.location.get(i).content.get(j).answer, r.route.location.get(i).content.get(j).correct);
             }
         }
-        //String test = gson.toJson(r);
-        //System.out.println(test);
+    }
+
+    /**
+     * This method extracts the info data from the recieved Json object then adds it to the database.
+     * @param input A Json object.
+     * @throws FileNotFoundException
+     */
+    public void jsonToDatabaseCreateInfo(File input) throws FileNotFoundException {
+        Gson gson = new Gson();
+        Root r;
+        r = gson.fromJson(new FileReader(input), Root.class);
+
+        //int Array to hold the out parameters returned from the createRoute method.
+        int outParamRoute;
+        outParamRoute = p.createRoute(r.route.title, r.route.description, r.route.type);
+
+        for (int i = 0; i < r.route.location.size(); i++) {
+            p.createLocation(outParamRoute, r.route.location.get(i).name, r.route.location.get(i).text_info);
+        }
     }
 }
