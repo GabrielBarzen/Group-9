@@ -32,7 +32,7 @@ public class Procedures {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } ;
+        }
     }
 
     /**
