@@ -21,8 +21,7 @@ public class RouteController {
     @RequestMapping(value = "/fetch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> fetch(@RequestParam int code) {
 
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
-
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
     }
 
     /**
@@ -35,7 +34,7 @@ public class RouteController {
     @RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> create (@RequestParam String title, @RequestParam String description, @RequestParam String type) {
 
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
 
     }
 
@@ -47,7 +46,7 @@ public class RouteController {
     @RequestMapping(value = "/new_code", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> generateNewCode (@RequestParam int id) {
 
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
 
     }
 
@@ -59,7 +58,7 @@ public class RouteController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> delete(@RequestParam int id) {
 
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
 
     }
 
@@ -73,7 +72,7 @@ public class RouteController {
     @RequestMapping(value = "/upload_location_data", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> uploadLocationData(@RequestParam String data, @RequestParam int location_id, @RequestParam int route_id) {
 
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
 
     }
 
@@ -86,7 +85,7 @@ public class RouteController {
     @RequestMapping(value = "/fetch_location", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> fetchLocation(@RequestParam int location_id, @RequestParam int route_id) {
 
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
 
     }
 
@@ -99,7 +98,7 @@ public class RouteController {
     @RequestMapping(value = "/fetch_location_data", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> fetchLocationData(@RequestParam int location_id, @RequestParam int route_id) {
 
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
 
     }
 
@@ -112,7 +111,7 @@ public class RouteController {
     @RequestMapping(value = "/fetch_location_content", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> fetchLocationContent(@RequestParam int location_id, @RequestParam int route_id) {
 
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
 
     }
 }
