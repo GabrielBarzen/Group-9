@@ -17,17 +17,17 @@ public class testMain {
         //VideoManager vm = new VideoManager();
         //vm.convertToWebm();
 
-        File input = new File("src/main/resources/Example.json");
+        File input = new File("src/main/resources/ExampleUploadRouteToDatabase.json");
         JsonElement fileElement = JsonParser.parseReader(new FileReader(input));
         JsonObject fileObject = fileElement.getAsJsonObject();
 
         //Extract general data
         System.out.println(fileObject);
-        System.out.println(fileObject.get("quizname").getAsString());
-        System.out.println(fileObject.get("quizdescription").getAsString());
+        System.out.println(fileObject.get("title").getAsString());
+        System.out.println(fileObject.get("description").getAsString());
 
         //Extract data in the array inside the json object.
-        JsonArray jsonArray = fileObject.getAsJsonArray("questions");
+        JsonArray jsonArray = fileObject.getAsJsonArray("content");
         for(int i = 0; i < jsonArray.size(); i++){
             String value = jsonArray.get(i).getAsJsonObject().get("question").getAsString();
             System.out.println(value);

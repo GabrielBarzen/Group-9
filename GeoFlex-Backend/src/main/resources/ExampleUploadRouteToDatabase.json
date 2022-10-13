@@ -1,0 +1,33 @@
+{
+    "title":"Test Quiz",
+    "description":"This quiz is for testing purposes.",
+    "type": "QUIZ",
+    "content":
+    [{
+        "question":"Which answer below is a vehicle?",
+        "answers": [
+            {"answer" : "bwm", "correct":  true},
+            {"answer" : "bird", "correct":  false},
+            {"answer" : "human", "correct":  false}
+        ],
+        "data":"image here"
+    },
+    {
+        "question":"Which of the following is a planet?",
+        "answers": [
+            {"answer" : "Jupiter", "correct":  true},
+            {"answer" : "Spacecraft", "correct":  false},
+            {"answer" : "Tree", "correct":  false}
+        ],
+        "data":"image here"
+    },
+    {
+        "question":"Which of the following is a runescape item?",
+        "answers": [
+            {"answer" : "Rune 2H", "correct":  true},
+            {"answer" : "Human", "correct":  false},
+            {"answer" : "Goblin", "correct":  false}
+        ],
+        "data":"image here"
+    }]
+}
