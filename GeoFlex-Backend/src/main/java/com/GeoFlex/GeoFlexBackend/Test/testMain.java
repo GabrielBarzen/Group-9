@@ -22,7 +22,7 @@ public class testMain {
         //vm.convertToWebm();
 
         JsonManager jm = new JsonManager();
-        File input = new File("src/main/resources/ExampleInfo.json");
+        File input = new File("src/main/resources/ExampleRoute.json");
         jm.identifyThenCreateRoute(input);
     }
 }

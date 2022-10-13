@@ -48,17 +48,17 @@ public class Procedures {
     public int createRoute(String title, String description, String type){
         try {
             CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialiseRoute(?, ?, ?, ?, ?)}");
-            cs.setString(3, title);
-            cs.setString(4, description);
-            cs.setString(5, type); //QUIZ or INFO
+            cs.setString(1, title);
+            cs.setString(2, description);
+            cs.setString(3, type); //QUIZ or INFO
 
             //Register the out param from the proecure.
-            cs.registerOutParameter(1, Types.INTEGER);
-            cs.registerOutParameter(2, Types.INTEGER);
+            cs.registerOutParameter(4, Types.INTEGER);
+            cs.registerOutParameter(5, Types.INTEGER);
             cs.executeQuery();
 
-            //Print the out param from the procedure.
-            int outParam = cs.getInt(1);
+            //Return the out param from the procedure.
+            int outParam = cs.getInt(4);
             return outParam;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -83,7 +83,7 @@ public class Procedures {
             cs.registerOutParameter(4, Types.INTEGER);
             cs.executeQuery();
 
-            //Print the out param from the procedure.
+            //Return the out param from the procedure.
             int outParam;
             outParam = cs.getInt(4);
             return outParam;
