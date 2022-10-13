@@ -1,4 +1,4 @@
-package com.GeoFlex.GeoFlexBackend.Process;
+package com.GeoFlex.GeoFlexBackend.Process.Videos;
 
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
@@ -7,16 +7,33 @@ import net.bramp.ffmpeg.builder.FFmpegBuilder;
 
 import java.io.IOException;
 
+
+/**
+ * This class manages video formats and scaling.
+ */
 public class VideoManager {
+
+    /**
+     * Declare variables.
+     */
 
     //Read the instructions in src/main/resources/FFMPEG/HowToUse.txt.
     FFmpeg ffmpeg;
     FFprobe ffprobe;
 
+    /**
+     * Constructs the class and intializes the variables.
+     * @throws IOException
+     */
     public VideoManager() throws IOException {
         ffmpeg = new FFmpeg("src/main/resources/FFMPEG/ffmpeg.exe");
         ffprobe = new FFprobe("src/main/resources/FFMPEG/ffprobe.exe");
     }
+
+    /**
+     * Method to convert videos to the webm format.
+     * @throws IOException
+     */
     public void convertToWebm() throws IOException {
         String input = "src/main/java/com/GeoFlex/GeoFlexBackend/Process/Videos/mp4.mp4";
         String output = "src/main/java/com/GeoFlex/GeoFlexBackend/Process/Converted/mp4.webm";
