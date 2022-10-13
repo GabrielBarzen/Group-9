@@ -13,9 +13,16 @@ import java.io.FileReader;
  */
 public class JsonManager {
 
+    /**
+     * Declare variables
+     */
+
     private DatabaseConnection dc;
     private Procedures p;
 
+    /**
+     * Constructs the class then initializes the DatabaseConnection and Procedures objects.
+     */
     public JsonManager(){
         //Create a DatabaseConnection.
         dc = new DatabaseConnection();

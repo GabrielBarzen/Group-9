@@ -8,7 +8,7 @@ import java.sql.*;
 public class Procedures {
 
     /**
-     * Initialize variables.
+     * Declare variables.
      */
     private DatabaseConnection dc;
 

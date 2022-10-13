@@ -7,6 +7,10 @@ import java.sql.*;
  */
 public class DatabaseConnection {
 
+    /**
+     * Declare variables.
+     */
+    
     private String username = "root";
     private String password = "RLMK5xFqRb5i2QsJyDyo39xxr9JPxJpnZj";
     private Connection conn;
