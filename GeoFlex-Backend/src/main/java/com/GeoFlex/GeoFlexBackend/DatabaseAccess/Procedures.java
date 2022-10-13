@@ -43,13 +43,14 @@ public class Procedures {
      */
     public void createRoute(String title, String description, String type){
         try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialiseRoute(?, ?, ?, ?)}");
-            cs.setString(2, title);
-            cs.setString(3, description);
-            cs.setString(4, type); //QUIZ or INFO
+            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialiseRoute(?, ?, ?, ?, ?)}");
+            cs.setString(3, title);
+            cs.setString(4, description);
+            cs.setString(5, type); //QUIZ or INFO
 
             //Register the out param from the proecure.
             cs.registerOutParameter(1, Types.INTEGER);
+            cs.registerOutParameter(2, Types.INTEGER);
             cs.executeQuery();
 
             //Print the out param from the procedure.

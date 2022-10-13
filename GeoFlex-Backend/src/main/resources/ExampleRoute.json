@@ -1,0 +1,43 @@
+{"route":
+{
+  "title":"Test Quiz",
+  "description":"This quiz is for testing purposes.",
+  "type": "QUIZ",
+  "id": "1",
+  "code": "000001",
+  "location":
+  [{
+    "name": "Test",
+    "text_info":"Which answer below is a vehicle?",
+    "id": "1",
+    "content": [
+      {"answer" : "Ford", "correct":  true, "id": "1"},
+      {"answer" : "Human", "correct":  false, "id": "1"},
+      {"answer" : "Goblin", "correct":  false, "id": "1"}
+    ],
+    "data":"image here"
+  },
+    {
+      "name": "Test",
+      "text_info":"Which of the following is a planet?",
+      "id": "2",
+      "content": [
+        {"answer" : "Jupiter", "correct":  true, "id": "2"},
+        {"answer" : "Human", "correct":  false, "id": "2"},
+        {"answer" : "Goblin", "correct":  false, "id": "2"}
+      ],
+      "data":"image here"
+    },
+    {
+      "name": "Test",
+      "text_info":"Which of the following is a runescape item?",
+      "id": "3",
+      "content": [
+        {"answer" : "Rune 2H", "correct":  true, "id": "3"},
+        {"answer" : "Human", "correct":  false, "id": "3"},
+        {"answer" : "Goblin", "correct":  false, "id": "3"}
+      ],
+      "data":"image here"
+    }]
+}
+}

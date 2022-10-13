@@ -1,11 +1,13 @@
+{"route":
 {
     "title":"Test Quiz",
     "description":"This quiz is for testing purposes.",
     "type": "QUIZ",
-    "content":
+    "location":
     [{
-        "question":"Which answer below is a vehicle?",
-        "answers": [
+        "name": "Test",
+        "text_info":"Which answer below is a vehicle?",
+        "content": [
             {"answer" : "bwm", "correct":  true},
             {"answer" : "bird", "correct":  false},
             {"answer" : "human", "correct":  false}
@@ -13,8 +15,9 @@
         "data":"image here"
     },
     {
-        "question":"Which of the following is a planet?",
-        "answers": [
+        "name": "Test",
+        "text_info":"Which of the following is a planet?",
+        "content": [
             {"answer" : "Jupiter", "correct":  true},
             {"answer" : "Spacecraft", "correct":  false},
             {"answer" : "Tree", "correct":  false}
@@ -22,12 +25,14 @@
         "data":"image here"
     },
     {
-        "question":"Which of the following is a runescape item?",
-        "answers": [
+        "name": "Test",
+        "text_info":"Which of the following is a runescape item?",
+        "content": [
             {"answer" : "Rune 2H", "correct":  true},
             {"answer" : "Human", "correct":  false},
             {"answer" : "Goblin", "correct":  false}
         ],
         "data":"image here"
     }]
+}
 }
