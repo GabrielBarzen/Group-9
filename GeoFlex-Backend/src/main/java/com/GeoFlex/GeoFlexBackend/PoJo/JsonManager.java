@@ -101,9 +101,9 @@ public class JsonManager {
     }
 
     /**
-     * Function to return a route from the database as a json object.
-     * @param code
-     * @return
+     * Function to return a route from the database as a Json object.
+     * @param code The route code.
+     * @return A string array containing a returnMessage and data if it exists.
      */
     public String[] getRouteFromDatabaseAsJson(int code){
         String[] returnArray = new String[2];
