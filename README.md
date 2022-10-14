@@ -1,4 +1,5 @@
 # Group-9 - GeoFlex
+Student project for a location based application!
 
 ## Rules & process
 ### Main
