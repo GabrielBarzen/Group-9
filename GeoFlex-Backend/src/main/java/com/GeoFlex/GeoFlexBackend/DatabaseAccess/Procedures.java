@@ -142,8 +142,8 @@ public class Procedures {
                     r.route.id = res.getString(1);
                     r.route.title = res.getString(2);
                     r.route.description = res.getString(3);
-                    r.route.code = res.getString(4);
-                    r.route.type = res.getString(5);
+                    r.route.type = res.getString(4);
+                    r.route.code = res.getString(5);
                     r.route.location = new ArrayList<>();
                 }
                 if (!currentLocationId.equals(res.getString(7))) {
