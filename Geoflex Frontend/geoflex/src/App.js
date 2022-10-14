@@ -1,26 +1,33 @@
-import React from "react";
-import { useState } from "react";
+import { React, useState } from "react";
 import Admin from "./admin/Admin";
 import Header from "./components/Header"
 import Login from "./components/Login";
 
 function App() {
-    const [status, setStatus] = useState(true);
+    //status och setStatus är här enbart för att vi kunna låtsas att vi är inloggade eller inte
+    const [status, setStatus] = useState("mod");
 
-    if (!status) {
+    if (status === "login") {
         return (
             <div>
-                <Header/>
-                <Login/>                
+                <Header />
+                <Login />
             </div>
         )
-    } else if (status) {
-        return (<div>
-            <Header/>
-            <Admin/>
-        </div>)
+    } else if (status === "admin") {
+        return (
+            <div>
+                <Header />
+                <Admin />
+            </div>)
+    } else if (status === "mod") {
+        return (
+            <div>
+                <Header />
+                <p>lägg till moderatorvy</p>
+            </div>)
     }
-    
+
 }
 
 export default App;
