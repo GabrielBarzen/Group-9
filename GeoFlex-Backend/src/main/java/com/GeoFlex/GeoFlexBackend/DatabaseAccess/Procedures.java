@@ -118,11 +118,13 @@ public class Procedures {
         }
     }
 
-    public static void main(String[] args) {
-        Procedures proc = new Procedures(new DatabaseConnection());
-        proc.getRouteFromDatabase(2,0);
-    }
-    public void getRouteFromDatabase(int routeId, int routeCode){
+    /**
+     * Returns a full quiz or info route from the database.
+     * @param routeId The id of the route.
+     * @param routeCode The code of the route.
+     * @return Json object with route information.
+     */
+    public String getRouteFromDatabase(int routeId, int routeCode){
         try {
             CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo(?, ?)}");
             cs.setInt(1, routeId);
@@ -145,8 +147,6 @@ public class Procedures {
                     r.route.location = new ArrayList<>();
                 }
                 if (!currentLocationId.equals(res.getString(7))) {
-                    System.out.println("current id : " + currentLocationId);
-                    System.out.println("Current res id : " + res.getString(7));
                     if (!first) {
                         r.route.location.add(currentLocation);
                     } else {
@@ -169,9 +169,10 @@ public class Procedures {
             }
             r.route.location.add(currentLocation);
             Gson gson = new Gson();
-            System.out.println(gson.toJson(r));
+            return gson.toJson(r);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return "Failed to get data.";
     }
 }

@@ -42,13 +42,12 @@ public class JsonManager {
         r = gson.fromJson(new FileReader(input), Root.class);
 
         if(r.route.type.equals("QUIZ")){
-            //jsonToDatabaseCreateQuiz(input);
-            p.getRouteFromDatabase(0, 572748);
+            jsonToDatabaseCreateQuiz(input);
             return true;
         }
         else if(r.route.type.equals("INFO"))
         {
-            //jsonToDatabaseCreateInfo(input);
+            jsonToDatabaseCreateInfo(input);
             return true;
         }
         else {
