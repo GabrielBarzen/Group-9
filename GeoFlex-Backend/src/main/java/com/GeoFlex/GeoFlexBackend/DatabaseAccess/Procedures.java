@@ -120,7 +120,7 @@ public class Procedures {
 
     public static void main(String[] args) {
         Procedures proc = new Procedures(new DatabaseConnection());
-        proc.getRouteFromDatabase(1,0);
+        proc.getRouteFromDatabase(2,0);
     }
     public void getRouteFromDatabase(int routeId, int routeCode){
         try {
@@ -159,11 +159,13 @@ public class Procedures {
                     currentLocation.name = res.getString(8);
                     currentLocation.text_info = res.getString(9);
                 }
-                Content content = new Content();
-                content.id = res.getString(10);
-                content.answer = res.getString(11);
-                content.correct = res.getBoolean(12);
-                currentLocation.content.add(content);
+                if (r.route.type.equals("QUIZ")) {
+                    Content content = new Content();
+                    content.id = res.getString(10);
+                    content.answer = res.getString(11);
+                    content.correct = res.getBoolean(12);
+                    currentLocation.content.add(content);
+                }
             }
             r.route.location.add(currentLocation);
             Gson gson = new Gson();
