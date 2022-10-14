@@ -1,6 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.Controllers;
 
-import org.springframework.beans.factory.annotation.Required;
+import com.GeoFlex.GeoFlexBackend.PoJo.JsonManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,18 @@ public class RouteController {
      */
     @RequestMapping(value = "/fetch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> fetch(@RequestParam int code) {
-
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
+        JsonManager jm = new JsonManager();
+        String[] responseArray = jm.getRouteFromDatabaseAsJson(code);
+        jm.disconnectFromDatabase();
+        if(responseArray[0].equals("200")){
+            return new ResponseEntity<>(responseArray[1], HttpStatus.OK);
+        }
+        else if(responseArray[0].equals("204")){
+            return new ResponseEntity<>("{\"error\":\"No Content\"}", HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
+        }
     }
 
     /**
