@@ -1,5 +1,8 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
+import com.GeoFlex.GeoFlexBackend.PoJo.Root;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route;
+
 import java.sql.*;
 
 /**
@@ -107,6 +110,17 @@ public class Procedures {
             cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void getRouteFromDatabase(int routeId, int routeCode){
+        try {
+            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo(?, ?)}");
+            cs.setInt(1, routeId);
+            cs.setInt(2, routeCode);
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
         }
     }
 }
