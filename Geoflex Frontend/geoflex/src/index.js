@@ -5,6 +5,9 @@ import Static from './static/Static';
 import Admin from './pages/Admin';
 import Start from './pages/Start';
 import Mod from './pages/Mod';
+import AdminOverview from './admin/AdminOverview';
+import AdminAddNew from './admin/AdminAddNew';
+import AdminEdit from './admin/AdminEdit';
 
 
 
@@ -15,6 +18,9 @@ export default function App() {
             <Route path='/' element={<Static />} >
                 <Route index element={<Start />} />
                 <Route path='/admin' element={<Admin />} />
+                <Route path='/admin/overview' element={<AdminOverview />} />
+                <Route path='/admin/new/' element={<AdminAddNew />} />
+                <Route path='/admin/edit/:id' element={<AdminEdit />} />
                 <Route path='/mod' element={<Mod />} />
             </Route>
         </Routes>
