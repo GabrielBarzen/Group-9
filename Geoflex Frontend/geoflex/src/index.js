@@ -8,24 +8,38 @@ import Mod from './pages/Mod';
 import AdminOverview from './admin/AdminOverview';
 import AdminAddNew from './admin/AdminAddNew';
 import AdminEdit from './admin/AdminEdit';
+import ModOverview from './mod/ModOverview';
+import ModGamePlaces from './mod/ModGamePlaces';
+import ModGameSetup from './mod/ModGameSetup';
+import ModGameEditPlace from './mod/ModGameEditPlace';
+import GameWelcome from './game/GameWelcome';
+import GameNavigation from './game/GameNavigation';
+import GameItem from './game/GameItem';
+import GameFinish from './game/GameFinish';
 
-
-
-export default function App() {    
-  return (
-    <BrowserRouter>
-        <Routes>
-            <Route path='/' element={<Static />} >
-                <Route index element={<Start />} />
-                <Route path='/admin' element={<Admin />} />
-                <Route path='/admin/overview' element={<AdminOverview />} />
-                <Route path='/admin/new/' element={<AdminAddNew />} />
-                <Route path='/admin/edit/:id' element={<AdminEdit />} />
-                <Route path='/mod' element={<Mod />} />
-            </Route>
-        </Routes>
-    </BrowserRouter>
-  )
+export default function App() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Static />} >
+                    <Route index element={<Start />} />
+                    <Route path='/admin' element={<Admin />} />
+                    <Route path='/admin/overview' element={<AdminOverview />} />
+                    <Route path='/admin/new/' element={<AdminAddNew />} />
+                    <Route path='/admin/edit/:id' element={<AdminEdit />} />
+                    <Route path='/mod' element={<Mod />} />
+                    <Route path='/mod/overview' element={<ModOverview />} />
+                    <Route path='mod/edit/:id' element={<ModGameSetup />} />
+                    <Route path='mod/edit/:id/places/' element={<ModGamePlaces />} />
+                    <Route path='mod/edit/:id/edit_place' element={<ModGameEditPlace />} />
+                    <Route path='game/:id/welcome' element={<GameWelcome />} />
+                    <Route path='game/:id/navigation' element={<GameNavigation />} />
+                    <Route path='game/:id/item' element={<GameItem />} />
+                    <Route path='game/:id/finish' element={<GameFinish />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

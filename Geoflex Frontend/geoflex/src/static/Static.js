@@ -1,5 +1,6 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom'
+
 
 export default function Static() {
     return (
@@ -7,7 +8,12 @@ export default function Static() {
             <nav>
                 <h1>GeoFlex</h1>
             </nav>
-            <Outlet />
+            <ul>
+                <li><Link to="/">Start</Link></li>
+                <li><Link to="/mod">Mod</Link></li>
+                <li><Link to="/admin">Admin</Link></li>
+            </ul>
+            <Outlet />            
         </>
     )
 }

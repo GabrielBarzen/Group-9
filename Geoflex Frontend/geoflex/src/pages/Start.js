@@ -1,15 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import QRImg from '../media/images/scan.png';
 
 export default function Start() {
     return (
         <div>
             <p>Start</p>
-            <ul>
-                <li><Link to="/">Start</Link></li>
-                <li><Link to="/mod">Mod</Link></li>
-                <li><Link to="/admin">Admin</Link></li>
-            </ul>
+            <form method="POST">
+                <label>Ange kod</label>
+                <input type="numbers" pattern="[0-9]*"/>
+                <button>OK</button>
+            </form>
+            <img src={QRImg} alt='scan QR code'/>
         </div>
     )
 }
