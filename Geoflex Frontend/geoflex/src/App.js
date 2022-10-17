@@ -1,7 +1,7 @@
 import { React, useState } from "react";
-import Admin from "./admin/Admin";
-import Header from "./components/Header"
-import Login from "./components/Login";
+import Admin from "./pages/Admin";
+import Header from "./shared/Header"
+import Login from "./shared/Login";
 
 function App() {
     //status och setStatus är här enbart för att vi kunna låtsas att vi är inloggade eller inte
