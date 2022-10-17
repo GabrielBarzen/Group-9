@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import AdminAddNew from './AdminAddNew';
 
 export default function AdminOverview() {
-    const quiz = (()=>{
-        axios
-    });
     return (
         <section>
             <h2>Översikt</h2>
