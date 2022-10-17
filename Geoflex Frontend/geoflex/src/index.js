@@ -23,17 +23,15 @@ export default function App() {
             <Routes>
                 <Route path='/' element={<Static />} >
                     <Route index element={<Start />} />
-                    <Route path='/admin' element={<Admin />} >
-                        <Route path='/overview' element={<AdminOverview />} />
-                        <Route path='/new/' element={<AdminAddNew />} />
-                        <Route path='/edit/:id' element={<AdminEdit />} />
-                    </Route>
-                    <Route path='/mod' element={<Mod />} >
-                        <Route path='/mod/overview' element={<ModOverview />} />
-                        <Route path='mod/edit/:id' element={<ModGameSetup />} />
-                        <Route path='mod/edit/:id/places/' element={<ModGamePlaces />} />
-                        <Route path='mod/edit/:id/edit_place/' element={<ModGameEditPlace />} />
-                    </Route>
+                    <Route path='/admin' element={<Admin />} />
+                    <Route path='/admin/overview' element={<AdminOverview />} />
+                    <Route path='/admin/new/' element={<AdminAddNew />} />
+                    <Route path='/admin/edit/:id' element={<AdminEdit />} />
+                    <Route path='/mod' element={<Mod />} />
+                    <Route path='/mod/overview' element={<ModOverview />} />
+                    <Route path='mod/edit/:id' element={<ModGameSetup />} />
+                    <Route path='mod/edit/:id/places/' element={<ModGamePlaces />} />
+                    <Route path='mod/edit/:id/edit_place' element={<ModGameEditPlace />} />
                     <Route path='game/:id/welcome' element={<GameWelcome />} />
                     <Route path='game/:id/navigation' element={<GameNavigation />} />
                     <Route path='game/:id/item' element={<GameItem />} />
