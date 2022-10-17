@@ -16,6 +16,7 @@ import GameWelcome from './game/GameWelcome';
 import GameNavigation from './game/GameNavigation';
 import GameItem from './game/GameItem';
 import GameFinish from './game/GameFinish';
+import TestComponents from './shared/test/TestComponents';
 
 export default function App() {
     return (
@@ -36,6 +37,7 @@ export default function App() {
                     <Route path='game/:id/navigation' element={<GameNavigation />} />
                     <Route path='game/:id/item' element={<GameItem />} />
                     <Route path='game/:id/finish' element={<GameFinish />} />
+                    <Route path='/test' element={<TestComponents />} />
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -8,7 +8,7 @@ export default function Start() {
             <form method="POST">
                 <label>Ange kod</label>
                 <input type="numbers" pattern="[0-9]*"/>
-                <button>OK</button>
+                <input type="submit" value="OK"/>
             </form>
             <img src={QRImg} alt='scan QR code'/>
         </div>
