@@ -124,7 +124,8 @@ public class Procedures {
      * @param routeCode The code of the route.
      * @return Json object with route information.
      */
-    public String getRouteFromDatabase(int routeId, int routeCode){
+    public Root getRouteFromDatabase(int routeId, int routeCode){
+        Root r = new Root();
         try {
             CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo(?, ?)}");
             cs.setInt(1, routeId);
@@ -132,7 +133,6 @@ public class Procedures {
             cs.executeQuery();
             ResultSet res = cs.getResultSet();
 
-            Root r = new Root();
             boolean first = true;
             String currentLocationId = "0";
             Location currentLocation = new Location();
@@ -142,8 +142,8 @@ public class Procedures {
                     r.route.id = res.getString(1);
                     r.route.title = res.getString(2);
                     r.route.description = res.getString(3);
-                    r.route.code = res.getString(4);
-                    r.route.type = res.getString(5);
+                    r.route.type = res.getString(4);
+                    r.route.code = res.getString(5);
                     r.route.location = new ArrayList<>();
                 }
                 if (!currentLocationId.equals(res.getString(7))) {
@@ -168,11 +168,13 @@ public class Procedures {
                 }
             }
             r.route.location.add(currentLocation);
-            Gson gson = new Gson();
-            return gson.toJson(r);
+            return r;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "Failed to get data.";
+        catch(NullPointerException e){
+            return r;
+        }
+        return r;
     }
 }

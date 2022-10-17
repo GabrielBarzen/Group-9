@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.sql.SQLException;
 
 /**
  * This class handles Json objects and inserts data to the database.
@@ -98,4 +99,41 @@ public class JsonManager {
             p.createLocation(outParamRoute, r.route.location.get(i).name, r.route.location.get(i).text_info);
         }
     }
+
+    /**
+     * Function to return a route from the database as a Json object.
+     * @param code The route code.
+     * @return A string array containing a returnMessage and data if it exists.
+     */
+    public String[] getRouteFromDatabaseAsJson(int code){
+        String[] returnArray = new String[2];
+        String returnMessage = "";
+
+        Root r = p.getRouteFromDatabase(0, code);
+        if(r.route == null){
+            returnMessage = "204";
+            returnArray[0] = returnMessage;
+            returnArray[1] = ""; //no content returned
+        }
+        else {
+            Gson gson = new Gson();
+            returnMessage = "200";
+            returnArray[0] = returnMessage;
+            returnArray[1] = gson.toJson(r);
+        }
+        return returnArray;
+    }
+
+    /**
+     * Method to disconnect the database connection when its no longer needed.
+     */
+    public void disconnectFromDatabase(){
+        try {
+            dc.getConnection().close();
+            //System.out.println("Disconnected from database.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
