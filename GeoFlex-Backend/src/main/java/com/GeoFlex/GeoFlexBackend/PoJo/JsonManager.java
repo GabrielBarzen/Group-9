@@ -105,23 +105,16 @@ public class JsonManager {
      * @param code The route code.
      * @return A string array containing a returnMessage and data if it exists.
      */
-    public String[] getRouteFromDatabaseAsJson(int code){
-        String[] returnArray = new String[2];
-        String returnMessage = "";
+    public String getRouteFromDatabaseAsJson(int code){
 
         Root r = p.getRouteFromDatabase(0, code);
-        if(r.route == null){
-            returnMessage = "204";
-            returnArray[0] = returnMessage;
-            returnArray[1] = ""; //no content returned
-        }
-        else {
+        if(r.route != null){
             Gson gson = new Gson();
-            returnMessage = "200";
-            returnArray[0] = returnMessage;
-            returnArray[1] = gson.toJson(r);
+            return gson.toJson(r);
         }
-        return returnArray;
+        else{
+            return null;
+        }
     }
 
     /**

@@ -21,16 +21,13 @@ public class RouteController {
     @RequestMapping(value = "/fetch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> fetch(@RequestParam int code) {
         JsonManager jm = new JsonManager();
-        String[] responseArray = jm.getRouteFromDatabaseAsJson(code);
+        String response = jm.getRouteFromDatabaseAsJson(code);
         jm.disconnectFromDatabase();
-        if(responseArray[0].equals("200")){
-            return new ResponseEntity<>(responseArray[1], HttpStatus.OK);
-        }
-        else if(responseArray[0].equals("204")){
-            return new ResponseEntity<>("{\"error\":\"No Content\"}", HttpStatus.NO_CONTENT);
+        if(response != null){
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
+            return new ResponseEntity<>("{\"error\":\"INTERNAL SERVER ERROR\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
