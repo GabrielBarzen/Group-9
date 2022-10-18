@@ -17,6 +17,7 @@ import GameNavigation from './game/GameNavigation';
 import GameItem from './game/GameItem';
 import GameFinish from './game/GameFinish';
 import TestComponents from './shared/test/TestComponents';
+import 'materialize-css/dist/css/materialize.min.css';
 
 export default function App() {
     return (

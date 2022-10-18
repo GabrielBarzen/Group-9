@@ -1,7 +1,10 @@
 import React from 'react'
+import Button from './Button'
 
 export default function TestComponents() {
   return (
-    <div>TestComponents</div>
+    <div>TestComponents
+      <Button />
+    </div>
   )
 }
