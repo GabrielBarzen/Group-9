@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
  * Controller class to recieve requests from the front-end.
  */
 
-@RestController(value = "/route/")
+@RestController
+@RequestMapping("/route/")
 public class RouteController {
 
     /**

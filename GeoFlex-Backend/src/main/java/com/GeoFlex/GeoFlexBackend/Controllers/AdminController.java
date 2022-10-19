@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller class to recieve requests from the front-end.
  */
 
-@RestController(value = "/admin/")
+@RestController
+@RequestMapping("/admin/")
 public class AdminController {
 
     /**
