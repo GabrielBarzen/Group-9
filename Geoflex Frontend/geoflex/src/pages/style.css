@@ -1,0 +1,14 @@
+.startPage{
+    background-color: antiquewhite;
+  
+   
+}
+.btn-menu{
+    margin: auto;
+}
+.menu-btn{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}

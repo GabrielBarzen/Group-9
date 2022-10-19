@@ -1,5 +1,6 @@
 import React from 'react';
 import QRImg from '../media/images/scan.png';
+import "./style.css";
 
 export default function Start() {
     return (
@@ -10,7 +11,7 @@ export default function Start() {
                 <li class="menu-btn"><a class="waves-effect waves-light btn" href="/">Registrera</a></li>
                 <li class="menu-btn"><a class="waves-effect waves-light btn" href="/">Spela utan konto</a></li>
             </ul>
-            
+
             <p>Start</p>
             <form method="POST">
                 <label>Ange kod</label>
