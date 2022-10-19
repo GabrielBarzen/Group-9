@@ -1,7 +1,6 @@
-.startPage{
-    background-color: antiquewhite;
-  
-   
+.welch3{
+    display: flex;
+    justify-content: center;
 }
 .btn-menu{
     margin: auto;
@@ -11,4 +10,5 @@
     margin-bottom: 12px;
     display: flex;
     justify-content: center;
+    
 }
