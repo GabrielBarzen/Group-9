@@ -1,12 +1,7 @@
-class Text extends Component {
-
-    render() { 
-        return (
-            <div>
-                <span>{props.text}</span>
-            </div>
-        );
-    }
-}
- 
-export default Text;
+export default function Text() {
+    return (
+        <div>
+            <span>Textfield</span>
+        </div>
+    )
+  } 
