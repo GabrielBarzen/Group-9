@@ -37,7 +37,7 @@
           }
         },
         "parameters": [{
-          "name": "Route_ID",
+          "name": "route-id",
           "in": "query",
           "description": "Id for the route to fetch from the database",
           "required": true,
@@ -138,14 +138,22 @@
       "delete": {
         "responses": {
           "200": {
-            "description": "Gets all routes in system",
+            "description": "Deletes a route from the system",
             "content": {
               "application/json" : {
 
               }
             }
           }
-        }
+        },
+        "parameters": [{
+          "name": "route-id",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }]
       }
     }
   }
