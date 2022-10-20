@@ -23,6 +23,9 @@ public class testMain {
 
         JsonManager jm = new JsonManager();
         File input = new File("src/main/resources/ExampleRoute.json");
-        jm.identifyThenCreateRoute(input);
+        //jm.identifyThenCreateRoute(input);
+        System.out.println(jm.getRouteFromDatabaseAsJson(572748));
+        //Procedures p = new Procedures(new DatabaseConnection());
+        //System.out.println(p.getRouteFromDatabase(3, 0)[0]);
     }
 }
