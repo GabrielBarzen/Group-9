@@ -1,0 +1,6 @@
+{
+  "timestamp": "2022-10-13T08:42:20.047+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "path": "/fetch_route"
+}

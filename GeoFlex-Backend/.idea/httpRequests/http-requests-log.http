@@ -1,0 +1,24 @@
+GET http://localhost:8080/fetch_route?code=696969
+
+<> 2022-10-13T104339.418.json
+
+###
+
+GET http://localhost:8080/fetch_route?code=696969
+
+<> 2022-10-13T104329.418.json
+
+###
+
+GET http://localhost:8080/fetch_route?code=696969
+
+<> 2022-10-13T104242.418.json
+
+###
+
+GET http://localhost:8080/fetch_route?id=696969
+
+<> 2022-10-13T104220.400.json
+
+###
+

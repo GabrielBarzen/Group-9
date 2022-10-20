@@ -1,7 +1,9 @@
 {
   "openapi": "3.0.2",
+
   "info": {
-    "title": "API Title",
+    "title": "GeoFlex route admin api",
+    "description": "The api endpoints that can be called when logged in as admin",
     "version": "1.0"
   },
   "servers": [
@@ -9,6 +11,7 @@
         "url": "https://195.67.188.49/"
     }
   ],
+
   "paths": {
     "/routes" : {
       "get" : {
@@ -31,7 +34,9 @@
             "description": "Gets text data for a specific route, for purpose of editing",
             "content": {
               "application/json" : {
-
+                "schema": {
+                  "type": "object"
+                }
               }
             }
           }
