@@ -34,9 +34,7 @@
             "description": "Gets text data for a specific route, for purpose of editing",
             "content": {
               "application/json" : {
-                "schema": {
-                  "type": "object"
-                }
+
               }
             }
           }
