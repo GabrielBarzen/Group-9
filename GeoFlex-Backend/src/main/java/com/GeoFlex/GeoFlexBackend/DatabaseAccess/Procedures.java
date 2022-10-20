@@ -120,7 +120,7 @@ public class Procedures {
 
     public static void main(String[] args) {
         Procedures proc = new Procedures(new DatabaseConnection());
-        proc.getRouteFromDatabase(2,0);
+        proc.getRouteFromDatabase(1,0);
     }
     public void getRouteFromDatabase(int routeId, int routeCode){
         try {
@@ -138,13 +138,13 @@ public class Procedures {
                 if (first) {
                     r.route = new Route();
                     r.route.id = res.getString(1);
-                    r.route.title = res.getString(2);
-                    r.route.description = res.getString(3);
-                    r.route.code = res.getString(4);
+                    r.route.code = res.getString(2);
+                    r.route.title = res.getString(3);
+                    r.route.description = res.getString(4);
                     r.route.type = res.getString(5);
                     r.route.location = new ArrayList<>();
                 }
-                if (!currentLocationId.equals(res.getString(7))) {
+                if (!currentLocationId.equals(res.getString(6))) {
                     System.out.println("current id : " + currentLocationId);
                     System.out.println("Current res id : " + res.getString(7));
                     if (!first) {
@@ -152,24 +152,24 @@ public class Procedures {
                     } else {
                         first = false;
                     }
-                    currentLocationId = res.getString(7);
+                    currentLocationId = res.getString(6);
                     currentLocation = new Location();
                     currentLocation.content = new ArrayList<>();
                     currentLocation.id = currentLocationId;
-                    currentLocation.name = res.getString(8);
-                    currentLocation.text_info = res.getString(9);
+                    currentLocation.name = res.getString(7);
+                    currentLocation.text_info = res.getString(8);
                 }
                 if (r.route.type.equals("QUIZ")) {
                     Content content = new Content();
-                    content.id = res.getString(10);
-                    content.answer = res.getString(11);
-                    content.correct = res.getBoolean(12);
+                    content.id = res.getString(9);
+                    content.answer = res.getString(10);
+                    content.correct = res.getBoolean(11);
                     currentLocation.content.add(content);
                 }
             }
             r.route.location.add(currentLocation);
             Gson gson = new Gson();
-            System.out.println(gson.toJson(r));
+            System.out.println(gson.toJson(r.route));
         } catch (SQLException e) {
             e.printStackTrace();
         }
