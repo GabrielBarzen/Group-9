@@ -54,8 +54,8 @@ public class Procedures {
      * @return Returns an int holding the route id.
      */
     public int createRoute(String title, String description, String type, int numLocations){
-        try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialiseRoute(?, ?, ?, ?, ?, ?)}");
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialize_route(?, ?, ?, ?, ?, ?)}")){
+
             cs.setString(1, title);
             cs.setString(2, description);
             cs.setString(3, type); //QUIZ or INFO
@@ -67,8 +67,7 @@ public class Procedures {
             cs.executeQuery();
 
             //Return the out param from the procedure.
-            int outParam = cs.getInt(5);
-            return outParam;
+            return cs.getInt(5);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -82,8 +81,7 @@ public class Procedures {
      * @return Returns the location ID.
      */
     public int createLocation(int routeId, String name, String textInfo){
-        try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_location(?, ?, ?, ?)}");
+        try(CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_location(?, ?, ?, ?)}")) {
             cs.setInt(1, routeId);
             cs.setString(2, name);
             cs.setString(3, textInfo);
@@ -108,8 +106,7 @@ public class Procedures {
      * @param correct Boolean that says if answer is correct or not.
      */
     public void createContent(int locationId, String answer, boolean correct){
-        try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?)}");
+        try(CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?)}")) {
             cs.setInt(1, locationId);
             cs.setString(2, answer);
             cs.setBoolean(3, correct);
@@ -124,8 +121,7 @@ public class Procedures {
         proc.getRouteFromDatabase(1,0);
     }
     public void getRouteFromDatabase(int routeId, int routeCode){
-        try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo(?, ?)}");
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo(?, ?)}")){
             cs.setInt(1, routeId);
             cs.setInt(2, routeCode);
             cs.executeQuery();
