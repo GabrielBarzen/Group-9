@@ -1,0 +1,153 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "API Title",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+        "url": "https://195.67.188.49/"
+    }
+  ],
+  "paths": {
+    "/routes" : {
+      "get" : {
+        "responses": {
+          "200": {
+            "description": "Gets all routes in system",
+            "content": {
+              "application/json" : {
+
+              }
+            }
+          }
+        }
+      }
+    },
+    "/route" : {
+      "get" : {
+        "responses": {
+          "200": {
+            "description": "Gets text data for a specific route, for purpose of editing",
+            "content": {
+              "application/json" : {
+
+              }
+            }
+          }
+        },
+        "parameters": [{
+          "name": "Route_ID",
+          "in": "query",
+          "description": "Id for the route to fetch from the database",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Creates a new route",
+            "content": {
+              "application/json" : {
+
+              }
+            }
+          }
+        },
+        "parameters": [{
+          "name": "route-json",
+          "in": "header",
+          "description": "Gets text data for a specific route, for purpose of editing",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "Name of the route to create",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the route",
+                "type": "string"
+              },
+              "type" : {
+                "description": "Type of route to create, can be either INFO or QUIZ",
+                "type": "string"
+              },
+              "num-locations" : {
+                "description": "Type of route to create, can be either INFO or QUIZ",
+                "type": "integer"
+              }
+            }
+          }
+        }]
+      },
+      "patch" : {
+        "responses": {
+          "200": {
+            "description": "Updates a route",
+            "content": {
+              "application/json" : {
+
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "route-id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "The id of the quiz to edit"
+            }
+          },
+          {
+            "name": "route-json",
+            "in": "header",
+            "required": true,
+            "description": "Must contain atleast one of properties of the json object",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "Optional name to change to",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "Optional description of route to change to",
+                  "type": "string"
+                },
+                "type" : {
+                  "description": "Optional type to change to",
+                  "type": "string"
+                },
+                "num-locations" : {
+                  "description": "Optional Amount of locations to change to",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Gets all routes in system",
+            "content": {
+              "application/json" : {
+
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
