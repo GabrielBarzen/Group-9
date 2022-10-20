@@ -1,7 +1,7 @@
 export default function Title() {
     return (
         <div>
-            <h1>Title</h1>
+            <h1 class="center-align">Title</h1>
         </div>
     )
   } 
