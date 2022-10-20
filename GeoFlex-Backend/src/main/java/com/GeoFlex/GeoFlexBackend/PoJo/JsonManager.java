@@ -62,14 +62,14 @@ public class JsonManager {
      * @param input A Json object.
      * @throws FileNotFoundException
      */
-    public void jsonToDatabaseCreateQuiz(File input) throws FileNotFoundException {
+    public void jsonToDatabaseCreateQuiz(File input,int numLocations) throws FileNotFoundException {
         Gson gson = new Gson();
         Root r;
         r = gson.fromJson(new FileReader(input), Root.class);
 
         //int variable to hold the out parameter returned from the createRoute method.
         int outParamRoute;
-        outParamRoute = p.createRoute(r.route.title, r.route.description, r.route.type);
+        outParamRoute = p.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
         //int variable to hold the out parameter returned from the createLocation method.
         int outParamLocation;
 
@@ -86,14 +86,14 @@ public class JsonManager {
      * @param input A Json object.
      * @throws FileNotFoundException
      */
-    public void jsonToDatabaseCreateInfo(File input) throws FileNotFoundException {
+    public void jsonToDatabaseCreateInfo(File input, int numLocations) throws FileNotFoundException {
         Gson gson = new Gson();
         Root r;
         r = gson.fromJson(new FileReader(input), Root.class);
 
         //int Array to hold the out parameters returned from the createRoute method.
         int outParamRoute;
-        outParamRoute = p.createRoute(r.route.title, r.route.description, r.route.type);
+        outParamRoute = p.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
 
         for (int i = 0; i < r.route.location.size(); i++) {
             p.createLocation(outParamRoute, r.route.location.get(i).name, r.route.location.get(i).text_info);
