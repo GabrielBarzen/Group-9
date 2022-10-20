@@ -53,20 +53,21 @@ public class Procedures {
      * @param type Type of the round, QUIZ or INFO.
      * @return Returns an int holding the route id.
      */
-    public int createRoute(String title, String description, String type){
+    public int createRoute(String title, String description, String type, int numLocations){
         try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialiseRoute(?, ?, ?, ?, ?)}");
+            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialiseRoute(?, ?, ?, ?, ?, ?)}");
             cs.setString(1, title);
             cs.setString(2, description);
             cs.setString(3, type); //QUIZ or INFO
+            cs.setInt(4, numLocations);
 
             //Register the out param from the proecure.
-            cs.registerOutParameter(4, Types.INTEGER);
             cs.registerOutParameter(5, Types.INTEGER);
+            cs.registerOutParameter(6, Types.INTEGER);
             cs.executeQuery();
 
             //Return the out param from the procedure.
-            int outParam = cs.getInt(4);
+            int outParam = cs.getInt(5);
             return outParam;
         } catch (SQLException e) {
             throw new RuntimeException(e);
