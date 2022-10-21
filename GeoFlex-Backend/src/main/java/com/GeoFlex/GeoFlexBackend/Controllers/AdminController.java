@@ -2,7 +2,6 @@ package com.GeoFlex.GeoFlexBackend.Controllers;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,29 +21,32 @@ public class AdminController {
      */
     @RequestMapping(value = "/routes", method = RequestMethod.GET)
     public ResponseEntity<String> routesGet() {
-        return new ResponseEntity<>("{\"error\":\"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        Admin admin = new Admin();
+        return admin.routesGet();
     }
-
 
     @RequestMapping(value = "/route", method = RequestMethod.GET)
     public ResponseEntity<String> routeGet(@RequestParam("route-id") String routeID) {
-        return new ResponseEntity<>("{\"error\" : \"not implemented\" , \"input\" : \""+ routeID +" \" }", HttpStatus.NOT_IMPLEMENTED);
+        Admin admin = new Admin();
+        return admin.routeGet(routeID);
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.POST)
     public ResponseEntity<String> routePost(@RequestHeader Map<String, String> headers) {
-        System.out.println(headers.get("route-json"));
-        return new ResponseEntity<>("{\"error\":\"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        Admin admin = new Admin();
+        return admin.routePost(headers);
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.PATCH)
     public ResponseEntity<String> routePatch(@RequestHeader Map<String, String> headers) {
-        System.out.println(headers.get("route-json"));
-        return new ResponseEntity<>("{\"error\":\"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        Admin admin = new Admin();
+        return admin.routePatch(headers);
+
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.DELETE)
     public ResponseEntity<String> routeDelete(@RequestParam("route-id") String routeID) {
-        return new ResponseEntity<>("{\"error\":\"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        Admin admin = new Admin();
+        return admin.routeDelete(routeID);
     }
 }
