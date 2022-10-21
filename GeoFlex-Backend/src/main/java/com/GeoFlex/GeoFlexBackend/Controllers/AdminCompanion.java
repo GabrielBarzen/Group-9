@@ -2,8 +2,10 @@ package com.GeoFlex.GeoFlexBackend.Controllers;
 
 import com.GeoFlex.GeoFlexBackend.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
+import com.GeoFlex.GeoFlexBackend.PoJo.JsonManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
@@ -51,9 +53,16 @@ public class AdminCompanion {
      * @param headers get route-json from headers and post to database, specification in api documentation.
      * @return OK response or error.
      */
-    public ResponseEntity<String> routePost(Map<String, String> headers) {
+    public ResponseEntity<String> routePost(String body) {
         ResponseEntity<String> response;
-        response = new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        if(body.isEmpty() || body == null){
+            response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else {
+            response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
+            JsonManager jm = new JsonManager();
+            jm.jsonToDatabaseCreateRouteAndLocations(body);
+        }
         return response;
     }
 

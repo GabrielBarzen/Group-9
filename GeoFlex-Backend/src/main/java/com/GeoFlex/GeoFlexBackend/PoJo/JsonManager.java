@@ -1,5 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.PoJo;
 
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.DatabaseConnection;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.Procedures;
 import com.google.gson.Gson;
@@ -21,6 +22,8 @@ public class JsonManager {
     private DatabaseConnection dc;
     private Procedures p;
 
+    private AdminProcedures ap;
+
     /**
      * Constructs the class then initializes the DatabaseConnection and Procedures objects.
      */
@@ -29,6 +32,8 @@ public class JsonManager {
         dc = new DatabaseConnection();
         //Pass the DatabaseConnection object to the Procedures constructor.
         p = new Procedures(dc);
+        //Create AdminProcedures object.
+        ap = new AdminProcedures();
     }
 
     /**
@@ -55,6 +60,18 @@ public class JsonManager {
             System.out.println("Route has invalid TYPE.");
             return false;
         }
+    }
+
+    /**
+     * This method creates a route and locations in the database.
+     * @param jsonBody Json body through a post request.
+     */
+    public void jsonToDatabaseCreateRouteAndLocations(String jsonBody){
+        Gson gson = new Gson();
+        Root r;
+        r = gson.fromJson(jsonBody, Root.class);
+        int numLocations = r.route.locations;
+        ap.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
     }
 
     /**
