@@ -6,6 +6,11 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
+**/Clients_generated/**
+**/.idea/httpRequests/**
+**/.idea/dataSources/**
+**/.idea/dataSources.local.xml/** 
+.idea/dataSources.local.xml
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
