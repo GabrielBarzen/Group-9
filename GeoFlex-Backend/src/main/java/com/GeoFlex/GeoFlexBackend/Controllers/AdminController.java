@@ -9,16 +9,13 @@ import java.util.Map;
 
 /**
  * Controller class to recieve requests from the front-end.
+ * @see com.GeoFlex.GeoFlexBackend.Controllers.Admin for further details
  */
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
-    /**
-     * Method for getting enumerated list of routes along with thir respective number of locations
-     * @return Json containing all routes
-     */
     @RequestMapping(value = "/routes", method = RequestMethod.GET)
     public ResponseEntity<String> routesGet() {
         Admin admin = new Admin();

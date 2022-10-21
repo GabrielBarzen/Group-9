@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Admin {
     /**
-     * Returns all routes in the system as user is admin.
+     * Returns all routes in the system as user is admin. (/admin/routes) GET
      * @return Response entity containing json of all routes.
      */
     public ResponseEntity<String> routesGet() {
@@ -17,7 +17,7 @@ public class Admin {
     }
 
     /**
-     * Get one specific route for editing, this includes locations.
+     * Get one specific route for editing, this includes locations. (/admin/route) GET
      * @param routeID The id of route to be edited.
      * @return Json of the route to be edited or Error json if not found.
      */
@@ -28,7 +28,7 @@ public class Admin {
     }
 
     /**
-     * Post for creating new routes.
+     * Post for creating new routes. (/admin/route) POST
      * @param headers get route-json from headers and post to database, specification in api documentation.
      * @return OK response or error.
      */
@@ -39,7 +39,7 @@ public class Admin {
     }
 
     /**
-     * Patch to route, include the parts that should be updated.
+     * Patch to route, include the parts that should be updated. (/admin/route) PATCH
      * @param headers For getting Json string containing the id and requested changes to the route.
      * @return OK message body if sucessfull, error with details if not.
      */
@@ -50,7 +50,7 @@ public class Admin {
     }
 
     /**
-     * Delete route if exists.
+     * Delete route if exists. (/admin/route) DELETE
      * @param routeID ID for route to be deleted.
      * @return OK if deleted, Error if not found.
      */
