@@ -38,12 +38,6 @@ public class AdminProcedures {
                 route.code = res.getString("code");
                 route.locations = res.getInt("locations");
                 routes.add(route);
-                System.out.println("id = " + res.getString("id"));
-                System.out.println("title = " + res.getString("title"));
-                System.out.println("description = " + res.getString("description"));
-                System.out.println("type = " + res.getString("type"));
-                System.out.println("code = " + res.getString("code"));
-                System.out.println("locations = " + res.getString("locations"));
             }
             Gson gson = new Gson();
             response = gson.toJson(routes);
