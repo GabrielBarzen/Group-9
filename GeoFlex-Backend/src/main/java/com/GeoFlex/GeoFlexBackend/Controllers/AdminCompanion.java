@@ -1,18 +1,37 @@
 package com.GeoFlex.GeoFlexBackend.Controllers;
 
+import com.GeoFlex.GeoFlexBackend.Authentication.Authenticator;
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
-public class Admin {
+public class AdminCompanion {
+
+    String userID = "";
+    public AdminCompanion(String userID) {
+        this.userID = userID;
+    }
+
     /**
      * Returns all routes in the system as user is admin. (/admin/routes) GET
      * @return Response entity containing json of all routes.
      */
     public ResponseEntity<String> routesGet() {
         ResponseEntity<String> response;
-        response = new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        HttpStatus responseStatus = HttpStatus.OK;
+        String json = AdminProcedures.getRoutes(userID);
+        if (json == null) {
+            json = "{\"error\" : \"Internal server error, contact administrator\"}";
+            responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        } else if (json.equals("{}")) {
+            json = "{\"no routes\" : \"No routes in system\"}";
+            responseStatus = HttpStatus.NO_CONTENT;
+        }
+
+
+        response = new ResponseEntity<>(json, responseStatus);
         return response;
     }
 
