@@ -27,7 +27,6 @@ public class AdminProcedures {
             System.out.println("executed" );
             ResultSet res = cs.getResultSet();
             while (res.next()) {
-                //id, title, description, type, code,  locations
                 Route route = new Route();
                 route.id = res.getString("id");
                 route.title = res.getString("title");
@@ -36,12 +35,7 @@ public class AdminProcedures {
                 route.code = res.getString("code");
                 route.locations = res.getInt("locations");
                 routes.add(route);
-                System.out.println("id = " + res.getString("id"));
-                System.out.println("title = " + res.getString("title"));
-                System.out.println("description = " + res.getString("description"));
-                System.out.println("type = " + res.getString("type"));
-                System.out.println("code = " + res.getString("code"));
-                System.out.println("locations = " + res.getString("locations"));
+
             }
             Gson gson = new Gson();
             response = gson.toJson(routes);
