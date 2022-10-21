@@ -4,29 +4,47 @@ package com.GeoFlex.GeoFlexBackend.Controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * Controller class to recieve requests from the front-end.
  */
 
 @RestController
-@RequestMapping("/admin/")
+@RequestMapping("/admin")
 public class AdminController {
 
     /**
-     * Create an empty route from the admin panel.
-     * @param body Json object
-     * @return
+     * Method for getting enumerated list of routes along with thir respective number of locations
+     * @return Json containing all routes
      */
-    @RequestMapping(value = "/create_route_admin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> create (@RequestBody String body) {
+    @RequestMapping(value = "/routes", method = RequestMethod.GET)
+    public ResponseEntity<String> routesGet() {
+        return new ResponseEntity<>("{\"error\":\"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+    }
 
-        System.out.println(body);
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
 
+    @RequestMapping(value = "/route", method = RequestMethod.GET)
+    public ResponseEntity<String> routeGet(@RequestParam("route-id") String routeID) {
+        return new ResponseEntity<>("{\"error\" : \"not implemented\" , \"input\" : \""+ routeID +" \" }", HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    @RequestMapping(value = "/route", method = RequestMethod.POST)
+    public ResponseEntity<String> routePost(@RequestHeader Map<String, String> headers) {
+        System.out.println(headers.get("route-json"));
+        return new ResponseEntity<>("{\"error\":\"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    @RequestMapping(value = "/route", method = RequestMethod.PATCH)
+    public ResponseEntity<String> routePatch(@RequestHeader Map<String, String> headers) {
+        System.out.println(headers.get("route-json"));
+        return new ResponseEntity<>("{\"error\":\"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    @RequestMapping(value = "/route", method = RequestMethod.DELETE)
+    public ResponseEntity<String> routeDelete(@RequestParam("route-id") String routeID) {
+        return new ResponseEntity<>("{\"error\":\"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
     }
 }
