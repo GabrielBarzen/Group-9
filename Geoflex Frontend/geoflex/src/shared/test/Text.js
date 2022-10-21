@@ -1,7 +1,7 @@
-export default function Text() {
+export default function Text(props) {
     return (
         <div>
-            <span>Textfield</span>
+            <span>{props.text}</span>
         </div>
     )
   } 

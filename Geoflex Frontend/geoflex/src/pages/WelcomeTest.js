@@ -2,22 +2,23 @@ import Button from "../shared/test/Button"
 import Header from "../shared/test/Header"
 import Title from "../shared/test/Title"
 
+
 export default function WelcomeTest() {
     return (
-        <div class="teal lighten-2">
+        <div class="container-wrapper">
             <Header />
-            <div class="container teal lighten-5">
+            <div class="col s12" id="container">
                 <div class="row">
-                    <Title />
+                    <Title text="Välkommen till Geoflex"/>
                 </div>
-                <div class="row">
-                    <Button />
+                <div class="center-align">
+                    <Button text="Registrera"/>
                 </div>
-                <div class="row">
-                    <Button />
+                <div class="center-align">
+                    <Button text="Logga in"/>
                 </div>
-                <div class="row">
-                    <Button />
+                <div class="center-align">
+                    <Button text="Starta utan att logga in"/>
                 </div>
                 
                 

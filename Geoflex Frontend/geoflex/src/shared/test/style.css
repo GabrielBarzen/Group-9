@@ -1,0 +1,36 @@
+.header-wrapper { 
+    background-color: #694F5D;
+    box-shadow: 50px;
+  } 
+.header-title {
+    color: white;
+}
+
+.container-wrapper {
+    background-color: #68A691;
+    height: 100%; margin: 0px; padding: 0px;
+}
+
+.btn-css {
+    background-color: #BFD3C1 !important;
+    border-radius: 25px !important;
+    width: 70vw;
+    margin: 1rem;
+}
+
+.title-css {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#container {
+    border-radius: 25px;
+    background-color: #FFE5D4;
+    padding: 5px; 
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+#root {
+    height: 100vh;
+  }
+
+
+    

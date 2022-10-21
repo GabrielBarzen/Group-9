@@ -1,8 +1,8 @@
 export default function Header() {
     return (
-        <nav className='header'>
-                <h1>Geoflex Logo</h1>
-            </nav>
+        <div className='header-wrapper center-align'>
+            <h2 class="header-title">Geoflex Logo</h2>
+        </div>
     )
   } 
 

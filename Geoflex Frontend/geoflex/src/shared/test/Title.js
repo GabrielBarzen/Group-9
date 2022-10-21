@@ -1,7 +1,7 @@
-export default function Title() {
+export default function Title(props) {
     return (
         <div>
-            <h1 class="center-align">Title</h1>
+            <h2 class="center-align title-css">{props.text}</h2>
         </div>
     )
   } 
