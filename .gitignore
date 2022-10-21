@@ -9,6 +9,7 @@
 **/Clients_generated/**
 **/.idea/httpRequests/**
 **/.idea/dataSources/**
+**/.idea/dataSources.local.xml/** 
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
