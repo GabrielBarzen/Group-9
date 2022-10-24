@@ -5,20 +5,20 @@ import Title from "../shared/test/Title"
 
 export default function WelcomeTest() {
     return (
-        <div class="container-wrapper">
+        <div className="container-wrapper">
             <Header />
-            <div class="col s12" id="container">
+            <div className="col s8 container z-depth-2">
                 <div class="row">
                     <Title text="Välkommen till Geoflex"/>
                 </div>
-                <div class="center-align">
-                    <Button text="Registrera"/>
+                <div className="center-align">
+                    <Button text="Registrera" icon={<i className="large material-icons right">group_add</i>}/>
                 </div>
-                <div class="center-align">
-                    <Button text="Logga in"/>
+                <div className="center-align">
+                    <Button text="Logga in" icon={<i className="large material-icons right">person</i>}/>
                 </div>
-                <div class="center-align">
-                    <Button text="Starta utan att logga in"/>
+                <div className="center-align">
+                    <Button text="Starta direkt" icon={<i className="large material-icons right">arrow_forward</i>}/>
                 </div>
                 
                 
