@@ -1,5 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
+import com.GeoFlex.GeoFlexBackend.PoJo.Content;
 import com.GeoFlex.GeoFlexBackend.PoJo.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route;
@@ -14,6 +15,7 @@ public class AdminProcedures {
 
     /**
      * Method to get all the routes from the database.
+     *
      * @param userID The user id.
      * @return The routes as a string.
      */
@@ -26,7 +28,7 @@ public class AdminProcedures {
             cs.setInt("in_user_id", Integer.parseInt(userID));
             System.out.println("executing");
             cs.executeQuery();
-            System.out.println("executed" );
+            System.out.println("executed");
             ResultSet res = cs.getResultSet();
             while (res.next()) {
                 //id, title, description, type, code,  locations
@@ -41,8 +43,7 @@ public class AdminProcedures {
             }
             Gson gson = new Gson();
             response = gson.toJson(routes);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             response = null;
         } catch (NumberFormatException e) {
             response = null;
@@ -53,15 +54,16 @@ public class AdminProcedures {
 
     /**
      * Creats a route in the database and a specified amount of locations.
-     * @param title Title of the route.
-     * @param description Description of the route.
-     * @param type Type of the route IE. QUIZ or INFO
+     *
+     * @param title        Title of the route.
+     * @param description  Description of the route.
+     * @param type         Type of the route IE. QUIZ or INFO
      * @param numLocations Amount of locations to create.
      * @return The route ID as an output parameter.
      */
-    public int createRoute(String title, String description, String type, int numLocations){
+    public static void createRoute(String title, String description, String type, int numLocations) {
         DatabaseConnection dbc = new DatabaseConnection();
-        try (CallableStatement cs = dbc.getConnection().prepareCall("{CALL sp_initialize_route(?, ?, ?, ?, ?, ?)}")){
+        try (CallableStatement cs = dbc.getConnection().prepareCall("{CALL sp_initialize_route(?, ?, ?, ?, ?, ?)}")) {
 
             cs.setString(1, title);
             cs.setString(2, description);
@@ -74,7 +76,50 @@ public class AdminProcedures {
             cs.executeQuery();
 
             //Return the out param from the procedure.
-            return cs.getInt(5);
+            //return cs.getInt(5);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Returns a full quiz or info route from the database.
+     *
+     * @param routeId The id of the route.
+     * @return Json object with route information.
+     */
+    public static String getRoute(String routeId, String userId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        Root r = new Root();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo_with_id(?, ?, ?)}")) {
+            cs.setString(1, routeId);
+            cs.setInt(2, 0);
+            cs.setString(3, String.valueOf(Integer.parseInt(userId)));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            String test = "";
+            while (res.next()) {
+                //id, title, description, type, code,  locations
+                System.out.println(res.getString(1));
+                test = res.getString(1);
+                System.out.println(test);
+            }
+            return test;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Deletes a route and all related location/content from the database.
+     * @param routeId The ID of the route to be deleted.
+     */
+    public static void deleteRoute(String routeId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_route_with_id(?)}")) {
+            cs.setInt(1, Integer.parseInt(routeId));
+            cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
