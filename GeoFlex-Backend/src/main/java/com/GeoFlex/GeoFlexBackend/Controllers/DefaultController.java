@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class DefaultController {
     @GetMapping("/")
     public String index(){
-        System.out.println("attempt get index.html");
         return "index.html";
     }
 }

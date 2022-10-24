@@ -10,6 +10,10 @@
 **/.idea/httpRequests/**
 **/.idea/dataSources/**
 **/.idea/dataSources.local.xml/** 
+**/frontend/geoflex/build/**
+**/frontend/geoflex/package-lock.json
+**/resources/static/**
+
 .idea/dataSources.local.xml
 .idea/**/workspace.xml
 .idea/**/tasks.xml
