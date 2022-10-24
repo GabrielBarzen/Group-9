@@ -41,14 +41,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.POST)
-    public ResponseEntity<String> routePost(@RequestHeader Map<String, String> headers,
+    public ResponseEntity<String> routePost(/*@RequestHeader Map<String, String> headers,
                                             @CookieValue(name = "authentication-token") String token,
-                                            @CookieValue(name = "user-id") String userID) {
-        AdminCompanion adminCompanion = getAdminCompanion(token,userID);
+                                            @CookieValue(name = "user-id") String userID*/@RequestBody String body) {
+        AdminCompanion adminCompanion = getAdminCompanion("", "1");
         if (adminCompanion == null) {
             return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
         }
-        return adminCompanion.routePost(headers);
+        return adminCompanion.routePost(body);
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.PATCH)
