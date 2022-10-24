@@ -30,8 +30,6 @@ public class AdminCompanion {
             json = "{\"no routes\" : \"No routes in system\"}";
             responseStatus = HttpStatus.NO_CONTENT;
         }
-
-
         response = new ResponseEntity<>(json, responseStatus);
         return response;
     }
@@ -52,8 +50,6 @@ public class AdminCompanion {
             json = "{\"no routes\" : \"Route could not be found\"}";
             responseStatus = HttpStatus.NO_CONTENT;
         }
-
-
         response = new ResponseEntity<>(json, responseStatus);
         return response;
     }

@@ -115,8 +115,8 @@ public class AdminProcedures {
                     r.route.location = new ArrayList<>();
                 }
                 if (!currentLocationId.equals(res.getString("location_id"))) {
-                    System.out.println("current id : " + currentLocationId);
-                    System.out.println("Current res id : " + res.getString(7));
+                    //System.out.println("current id : " + currentLocationId);
+                    //System.out.println("Current res id : " + res.getString(7));
 
                     if (!first) {
                         r.route.location.add(currentLocation);
@@ -140,7 +140,7 @@ public class AdminProcedures {
             }
             r.route.location.add(currentLocation);
             Gson gson = new Gson();
-            System.out.println(gson.toJson(r));
+            return gson.toJson(r);
 
         } catch (SQLException e) {
             e.printStackTrace();
