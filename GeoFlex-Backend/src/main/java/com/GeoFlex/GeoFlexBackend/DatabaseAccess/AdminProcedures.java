@@ -92,19 +92,52 @@ public class AdminProcedures {
         DatabaseConnection dc = new DatabaseConnection();
         Root r = new Root();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo_with_id(?, ?, ?)}")) {
-            cs.setString(1, routeId);
-            cs.setInt(2, 0);
-            cs.setString(3, String.valueOf(Integer.parseInt(userId)));
+            cs.setInt("in_route_id", Integer.parseInt(routeId));
+            cs.setInt("in_route_code", 0);
+            cs.setInt("in_user_id", Integer.parseInt(userId));
             cs.executeQuery();
             ResultSet res = cs.getResultSet();
-            String test = "";
-            while (res.next()) {
-                //id, title, description, type, code,  locations
-                System.out.println(res.getString(1));
-                test = res.getString(1);
-                System.out.println(test);
+            boolean first = true;
+            String currentLocationId = "0";
+            Location currentLocation = new Location();
+            while(res.next()){
+                if (first) {
+                    r.route = new Route();
+                    r.route.id = res.getString("id");
+                    r.route.title = res.getString("title");
+                    r.route.description = res.getString("description");
+                    r.route.type = res.getString("type");
+                    r.route.code = res.getString("code");
+                    r.route.location = new ArrayList<>();
+                }
+                if (!currentLocationId.equals(res.getString("route"))) {
+                    System.out.println("current id : " + currentLocationId);
+                    System.out.println("Current res id : " + res.getString(7));
+
+                    if (!first) {
+                        r.route.location.add(currentLocation);
+                    } else {
+                        first = false;
+                    }
+                    currentLocationId = res.getString("route");
+                    currentLocation = new Location();
+                    currentLocation.content = new ArrayList<>();
+                    currentLocation.id = currentLocationId;
+                    currentLocation.name = res.getString("name");
+                    currentLocation.text_info = res.getString("text_info");
+                }
+                if (r.route.type.equals("QUIZ")) {
+                    Content content = new Content();
+                    content.id = res.getString("id");
+                    content.answer = res.getString("answer");
+                    content.correct = res.getBoolean("correct");
+                    currentLocation.content.add(content);
+                }
             }
-            return test;
+            r.route.location.add(currentLocation);
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(r));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
