@@ -7,10 +7,7 @@ export default function WelcomeTest() {
     return (
         <div className="container-wrapper">
             <Header />
-            <div className="col s8 container z-depth-2">
-                <div class="row">
-                    <Title text="Välkommen till Geoflex"/>
-                </div>
+            <div className="col s8 container">   
                 <div className="center-align">
                     <Button text="Registrera" icon={<i className="large material-icons right">group_add</i>}/>
                 </div>
