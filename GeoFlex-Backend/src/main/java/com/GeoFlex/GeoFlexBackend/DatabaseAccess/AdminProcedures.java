@@ -82,6 +82,10 @@ public class AdminProcedures {
         }
     }
 
+
+    public static void main(String[] args) {
+        getRoute("1","1");
+    }
     /**
      * Returns a full quiz or info route from the database.
      *
@@ -110,7 +114,7 @@ public class AdminProcedures {
                     r.route.code = res.getString("code");
                     r.route.location = new ArrayList<>();
                 }
-                if (!currentLocationId.equals(res.getString("route"))) {
+                if (!currentLocationId.equals(res.getString("location_id"))) {
                     System.out.println("current id : " + currentLocationId);
                     System.out.println("Current res id : " + res.getString(7));
 
@@ -119,7 +123,7 @@ public class AdminProcedures {
                     } else {
                         first = false;
                     }
-                    currentLocationId = res.getString("route");
+                    currentLocationId = res.getString("location_id");
                     currentLocation = new Location();
                     currentLocation.content = new ArrayList<>();
                     currentLocation.id = currentLocationId;
