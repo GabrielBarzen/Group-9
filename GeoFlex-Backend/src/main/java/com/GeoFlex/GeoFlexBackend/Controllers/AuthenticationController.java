@@ -23,7 +23,7 @@ public class AuthenticationController {
         token.setPath("/");
         response.addCookie(token);
         response.addCookie(userId);
-        return new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>("{\"OK\" : \"Sucessfully authenticated\"}", HttpStatus.OK);
     }
     @RequestMapping(value = "/register")
     public ResponseEntity<String> register() {
