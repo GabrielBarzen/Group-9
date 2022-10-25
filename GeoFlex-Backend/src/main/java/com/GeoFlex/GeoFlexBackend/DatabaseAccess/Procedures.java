@@ -53,21 +53,21 @@ public class Procedures {
      * @param type Type of the round, QUIZ or INFO.
      * @return Returns an int holding the route id.
      */
-    public int createRoute(String title, String description, String type){
-        try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialiseRoute(?, ?, ?, ?, ?)}");
+    public int createRoute(String title, String description, String type, int numLocations){
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_initialize_route(?, ?, ?, ?, ?, ?)}")){
+
             cs.setString(1, title);
             cs.setString(2, description);
             cs.setString(3, type); //QUIZ or INFO
+            cs.setInt(4, numLocations);
 
             //Register the out param from the proecure.
-            cs.registerOutParameter(4, Types.INTEGER);
             cs.registerOutParameter(5, Types.INTEGER);
+            cs.registerOutParameter(6, Types.INTEGER);
             cs.executeQuery();
 
             //Return the out param from the procedure.
-            int outParam = cs.getInt(4);
-            return outParam;
+            return cs.getInt(5);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -81,8 +81,7 @@ public class Procedures {
      * @return Returns the location ID.
      */
     public int createLocation(int routeId, String name, String textInfo){
-        try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_location(?, ?, ?, ?)}");
+        try(CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_location(?, ?, ?, ?)}")) {
             cs.setInt(1, routeId);
             cs.setString(2, name);
             cs.setString(3, textInfo);
@@ -107,8 +106,7 @@ public class Procedures {
      * @param correct Boolean that says if answer is correct or not.
      */
     public void createContent(int locationId, String answer, boolean correct){
-        try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?)}");
+        try(CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?)}")) {
             cs.setInt(1, locationId);
             cs.setString(2, answer);
             cs.setBoolean(3, correct);
@@ -118,21 +116,20 @@ public class Procedures {
         }
     }
 
+
     /**
      * Returns a full quiz or info route from the database.
      * @param routeId The id of the route.
      * @param routeCode The code of the route.
      * @return Json object with route information.
      */
-    public String getRouteFromDatabase(int routeId, int routeCode){
-        try {
-            CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo(?, ?)}");
+    public Route getRouteFromDatabase(int routeId, int routeCode){
+        Root r = new Root();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo(?, ?)}")){
             cs.setInt(1, routeId);
             cs.setInt(2, routeCode);
             cs.executeQuery();
             ResultSet res = cs.getResultSet();
-
-            Root r = new Root();
             boolean first = true;
             String currentLocationId = "0";
             Location currentLocation = new Location();
@@ -140,39 +137,43 @@ public class Procedures {
                 if (first) {
                     r.route = new Route();
                     r.route.id = res.getString(1);
-                    r.route.title = res.getString(2);
-                    r.route.description = res.getString(3);
-                    r.route.code = res.getString(4);
+                    r.route.code = res.getString(2);
+                    r.route.title = res.getString(3);
+                    r.route.description = res.getString(4);
                     r.route.type = res.getString(5);
                     r.route.location = new ArrayList<>();
                 }
-                if (!currentLocationId.equals(res.getString(7))) {
+                if (!currentLocationId.equals(res.getString(6))) {
+                    System.out.println("current id : " + currentLocationId);
+                    System.out.println("Current res id : " + res.getString(7));
+
                     if (!first) {
                         r.route.location.add(currentLocation);
                     } else {
                         first = false;
                     }
-                    currentLocationId = res.getString(7);
+                    currentLocationId = res.getString(6);
                     currentLocation = new Location();
                     currentLocation.content = new ArrayList<>();
                     currentLocation.id = currentLocationId;
-                    currentLocation.name = res.getString(8);
-                    currentLocation.text_info = res.getString(9);
+                    currentLocation.name = res.getString(7);
+                    currentLocation.text_info = res.getString(8);
                 }
                 if (r.route.type.equals("QUIZ")) {
                     Content content = new Content();
-                    content.id = res.getString(10);
-                    content.answer = res.getString(11);
-                    content.correct = res.getBoolean(12);
+                    content.id = res.getString(9);
+                    content.answer = res.getString(10);
+                    content.correct = res.getBoolean(11);
                     currentLocation.content.add(content);
                 }
             }
             r.route.location.add(currentLocation);
+
             Gson gson = new Gson();
-            return gson.toJson(r);
+            System.out.println(gson.toJson(r.route));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "Failed to get data.";
+        return r.route;
     }
 }

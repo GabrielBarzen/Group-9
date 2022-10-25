@@ -12,4 +12,5 @@ public class Route{
     public String id;
     public String code;
     public ArrayList<Location> location;
+    public int locations;
 }

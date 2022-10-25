@@ -1,6 +1,5 @@
 package com.GeoFlex.GeoFlexBackend.Controllers;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
  * Controller class to recieve requests from the front-end.
  */
 
-@RestController(value = "/route/")
+@RestController
+@RequestMapping("/route/")
 public class RouteController {
 
     /**
@@ -20,8 +20,16 @@ public class RouteController {
      */
     @RequestMapping(value = "/fetch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> fetch(@RequestParam int code) {
-
-        return new ResponseEntity<>("{\"error\":\"Not implemented\"}", HttpStatus.I_AM_A_TEAPOT); //TODO plan & implement
+        /*JsonManager jm = new JsonManager();
+        String response = jm.getRouteFromDatabaseAsJson(code);
+        jm.disconnectFromDatabase();
+        if(response != null){
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("{\"error\":\"INTERNAL SERVER ERROR\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }*/
+        return new ResponseEntity<>("{\"error\":\"NOT IMPLEMENTED\"}", HttpStatus.I_AM_A_TEAPOT);
     }
 
     /**
