@@ -1,0 +1,28 @@
+{"route":
+{
+  "title":"Test Info",
+  "description":"This info for testing purposes.",
+  "type": "INFO",
+  "id": "1",
+  "code": "000001",
+  "location":
+  [{
+    "name": "Vehicles",
+    "text_info":"Did you know that BMW is a car manifacturer?",
+    "id": "1",
+    "data":"image here"
+  },
+    {
+      "name": "Space",
+      "text_info":"Did you know that mars is a planet?",
+      "id": "2",
+      "data":"image here"
+    },
+    {
+      "name": "Runescape",
+      "text_info":"Did you know that Rune 2H is a two handed weapon?",
+      "id": "3",
+      "data":"image here"
+    }]
+}
+}

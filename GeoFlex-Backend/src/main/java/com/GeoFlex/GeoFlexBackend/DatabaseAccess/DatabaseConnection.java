@@ -22,7 +22,7 @@ public class DatabaseConnection {
         try {
             //Connect to database.
             conn = DriverManager.getConnection("jdbc:mariadb://195.67.188.49:33306/GeoFlex?user="+username+"&password="+password);
-            System.out.println("Connected to database.");
+            //System.out.println("Connected to database.");
         } catch (SQLException e) {
             System.out.println("Failed to connect to database.");
             throw new RuntimeException(e);

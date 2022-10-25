@@ -1,6 +1,5 @@
 package com.GeoFlex.GeoFlexBackend.Controllers;
 
-import com.GeoFlex.GeoFlexBackend.PoJo.JsonManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class RouteController {
      */
     @RequestMapping(value = "/fetch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> fetch(@RequestParam int code) {
-        JsonManager jm = new JsonManager();
+        /*JsonManager jm = new JsonManager();
         String response = jm.getRouteFromDatabaseAsJson(code);
         jm.disconnectFromDatabase();
         if(response != null){
@@ -29,7 +28,8 @@ public class RouteController {
         }
         else {
             return new ResponseEntity<>("{\"error\":\"INTERNAL SERVER ERROR\"}", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        }*/
+        return new ResponseEntity<>("{\"error\":\"NOT IMPLEMENTED\"}", HttpStatus.I_AM_A_TEAPOT);
     }
 
     /**

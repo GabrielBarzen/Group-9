@@ -1,7 +1,8 @@
 package com.GeoFlex.GeoFlexBackend.Controllers;
 
-import com.GeoFlex.GeoFlexBackend.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
+import com.GeoFlex.GeoFlexBackend.PoJo.Root;
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -29,8 +30,6 @@ public class AdminCompanion {
             json = "{\"no routes\" : \"No routes in system\"}";
             responseStatus = HttpStatus.NO_CONTENT;
         }
-
-
         response = new ResponseEntity<>(json, responseStatus);
         return response;
     }
@@ -42,7 +41,16 @@ public class AdminCompanion {
      */
     public ResponseEntity<String> routeGet(String routeID) {
         ResponseEntity<String> response;
-        response = new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        HttpStatus responseStatus = HttpStatus.OK;
+        String json = AdminProcedures.getRoute(routeID, userID);
+        if (json == null) {
+            json = "{\"error\" : \"Internal server error, contact administrator\"}";
+            responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        } else if (json.equals("{}")) {
+            json = "{\"no routes\" : \"Route could not be found\"}";
+            responseStatus = HttpStatus.NO_CONTENT;
+        }
+        response = new ResponseEntity<>(json, responseStatus);
         return response;
     }
 
@@ -51,9 +59,19 @@ public class AdminCompanion {
      * @param headers get route-json from headers and post to database, specification in api documentation.
      * @return OK response or error.
      */
-    public ResponseEntity<String> routePost(Map<String, String> headers) {
+    public ResponseEntity<String> routePost(String body) {
         ResponseEntity<String> response;
-        response = new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        if(body.isEmpty() || body == null){
+            response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else {
+            response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
+            Gson gson = new Gson();
+            Root r;
+            r = gson.fromJson(body, Root.class);
+            int numLocations = r.route.locations;
+            AdminProcedures.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
+        }
         return response;
     }
 
@@ -75,7 +93,13 @@ public class AdminCompanion {
      */
     public ResponseEntity<String> routeDelete(String routeID) {
         ResponseEntity<String> response;
-        response = new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        if(routeID.isEmpty() || routeID == null){
+            response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else {
+            response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
+            AdminProcedures.deleteRoute(routeID);
+        }
         return response;
     }
 }
