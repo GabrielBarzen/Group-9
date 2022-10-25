@@ -3,7 +3,7 @@ import { Outlet, Link } from 'react-router-dom';
 import axios from 'axios';
 
 
-const loginURL = 'http://127.0.0.1:8080/authenticator/login'
+const loginURL = '/authenticator/login'
 
 export default function Static() {
 
@@ -16,12 +16,13 @@ export default function Static() {
         <>
             <nav>
                 <h1>GeoFlex</h1>
-                <h2 onClick={login}>logga in</h2>
+                <button onClick={login}>logga in</button>
             </nav>
                 <ul>
                     <li><Link to="/">Start</Link></li>
                     <li><Link to="/mod">Mod</Link></li>
                     <li><Link to="/admin">Admin</Link></li>
+                    <li><Link to="/admin/overview">Admin Översikt </Link></li>
                 </ul>
             <Outlet />
         </>

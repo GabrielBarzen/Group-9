@@ -13,7 +13,7 @@ export default function AdminOverview() {
     useEffect (() => {
         var config = {
             method: 'get',
-            url: 'http://127.0.0.1:8080/admin/routes',
+            url: '/admin/routes',
             headers: { 
             }
           };
