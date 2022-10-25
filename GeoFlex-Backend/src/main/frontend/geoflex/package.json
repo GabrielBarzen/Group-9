@@ -17,7 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-linux" : "react-scripts build && cp -r build/* ../../resources/static",
-    "build-windows" : "react-scripts build && xcopy  build\\* ..\\..\\resources\\static /S",
+    "build-windows" : "react-scripts build && xcopy  build\\* ..\\..\\resources\\static\\ /S",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
