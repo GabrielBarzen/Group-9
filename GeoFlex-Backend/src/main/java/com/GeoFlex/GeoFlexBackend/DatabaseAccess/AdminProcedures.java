@@ -31,7 +31,6 @@ public class AdminProcedures {
             System.out.println("executed");
             ResultSet res = cs.getResultSet();
             while (res.next()) {
-                //id, title, description, type, code,  locations
                 Route route = new Route();
                 route.id = res.getString("id");
                 route.title = res.getString("title");
