@@ -12,26 +12,32 @@ export default function AdminAddNew() {
     const typeRef = useRef();
     */
     const locationsRef = 5;
-    const typeRef = "QUIZ"
+    const typeRef = "INFO"
     const navigate = useNavigate();
 
-    function handleAddNew(data) {
+    function handleAddNew(content) {
+        var data2 = '{"route":{"type": "QUIZ","locations": 5,"title":"Den här fungerar ju","description":"This quiz is for testing purposes."}}';
+        var data = content;
+        console.log(data);
+        console.log(JSON.stringify(content));
+        console.log(data2)
+
         var config = {
-            method: 'post',
-            url: '/admin/route/',
-            headers: {
-                'Content-Type': 'text/plain'                
-            },
-            data: data
+          method: 'post',
+          url: '/admin/route/',
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          data : data
         };
 
         axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+        });
     }
 
     const handleSave = (event) => {
@@ -66,13 +72,17 @@ export default function AdminAddNew() {
         }
 
         if (validation) {
-            let data = {"route": {
-                "title": titleRef.current.value,
-                "description": descriptionRef.current.value,
-                "location": locationsRef,
-                "type": typeRef
-            }}
-            handleAddNew(data);
+            let content = JSON.stringify({
+                "route": {
+                    "title": titleRef.current.value,
+                    "description": descriptionRef.current.value,
+                    "location": locationsRef,
+                    "type": typeRef
+                }
+            });
+            console.log(content)
+
+            handleAddNew(content);
             navigate('/admin', { replace: true });
         } else {
             alert("Du är inte klar");
