@@ -30,10 +30,12 @@ export default function AdminOverview() {
     return (
         <section>
             <h2>Översikt</h2>
+            <ul>
             {[...tours].map(tour => <Tour key={tour.id} data={tour} />)}            
             <Link to='/admin/new/'>
                 <button id="add-new">Lägg till</button>
             </Link>
+            </ul>
         </section>
     )
 }
