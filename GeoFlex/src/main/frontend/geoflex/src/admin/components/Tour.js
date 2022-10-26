@@ -13,7 +13,7 @@ export default function Tour(props) {
     <li>
     <Link to={url} state={{data: props.data}}>
     {props.data.title}</Link>
-        <button id={props.data.id} onClick={() => {props.handleDelete(props.data.id)}}>Ta bort</button>
+        <button id={props.data.id} onClick={() => {props.deleteItem(props.data.id)}}>Ta bort</button>
         <button>Redigera</button>
     </li>
     </>
