@@ -15,29 +15,34 @@ export default function AdminAddNew() {
     const typeRef = "INFO"
     const navigate = useNavigate();
 
-    function handleAddNew(content) {
-        var data2 = '{"route":{"type": "QUIZ","locations": 5,"title":"Den här fungerar ju","description":"This quiz is for testing purposes."}}';
-        var data = content;
-        console.log(data);
-        console.log(JSON.stringify(content));
-        console.log(data2)
+    function handleAddNew() {
+       var data = JSON.stringify({
+                   "route": {
+                     "title": titleRef.current.value,
+                     "description": descriptionRef.current.value,
+                     "type": "QUIZ",
+                     "locations": 5
+                   }
+                 });
 
-        var config = {
-          method: 'post',
-          url: '/admin/route/',
-          headers: {
-            'Content-Type': 'text/plain'
-          },
-          data : data
-        };
+               console.log(data)
 
-        axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error.response.data);
-        });
+               var config = {
+                 method: 'post',
+                 url: '/admin/route/',
+                 headers: {
+                   'Content-Type': 'application/json'
+                 },
+                 data : data
+               };
+
+               axios(config)
+               .then(function (response) {
+                 console.log(JSON.stringify(response.data));
+               })
+               .catch(function (error) {
+                 console.log(error.response.data);
+               });
     }
 
     const handleSave = (event) => {
@@ -82,7 +87,7 @@ export default function AdminAddNew() {
             });
             console.log(content)
 
-            handleAddNew(content);
+            handleAddNew();
             navigate('/admin', { replace: true });
         } else {
             alert("Du är inte klar");
