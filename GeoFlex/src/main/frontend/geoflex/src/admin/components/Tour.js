@@ -10,9 +10,11 @@ export default function Tour(props) {
     };*/
   return (
     <>
+    <li>
     <Link to={url} state={{data: props.data}}>
         <button id={props.data.id}>{props.data.title}</button>
     </Link>
+    </li>
     </>
   )
 }
