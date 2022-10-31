@@ -3,6 +3,11 @@
     color: black !important;
 }
 
+.logo {
+    width: 50%;
+    margin-top: 5rem;
+}
+
 .codebox {
     border-radius: 5px;
     padding: 20px; 
@@ -11,18 +16,6 @@
     margin: 0.5rem;
 }
 
-.header-wrapper { 
-    overflow: hidden; 
-    background: url("./header_background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 25vh;
-    position: relative;
-    
-  } 
-.header-title {
-    color: white;
-}
 
 .container-wrapper {
     background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
@@ -50,5 +43,4 @@
 .icon-css {
     vertical-align: middle;
 }
-
 
