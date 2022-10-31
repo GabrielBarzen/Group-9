@@ -1,6 +1,6 @@
-import Button from "../shared/test/Button"
-import Header from "../shared/test/Header"
-import Title from "../shared/test/Title"
+import Button from "../shared/Button"
+import Header from "../shared/Header"
+import Title from "../shared/Title"
 
 
 export default function WelcomeTest() {
