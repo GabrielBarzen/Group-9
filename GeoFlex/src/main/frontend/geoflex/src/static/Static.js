@@ -14,7 +14,14 @@ export default function Static() {
     })
     return (
         <>
-            <nav>
+            <Outlet />
+        </>
+    )
+}
+
+/*
+
+<nav>
                 <h1>GeoFlex</h1>
                 <button onClick={login}>logga in</button>
             </nav>
@@ -25,7 +32,5 @@ export default function Static() {
                     <li><Link to="/admin/overview">Admin Översikt </Link></li>
                     <li><Link to="/admin/new/">Admin lägg till </Link></li>                    
                 </ul>
-            <Outlet />
-        </>
-    )
-}
+
+*/
