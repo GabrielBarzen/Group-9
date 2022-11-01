@@ -159,7 +159,6 @@ public class AdminProcedures {
         }
     }
 
-
     public static void routeSwapLocation(int locationIdFrom, int locationIdTo) {
         System.out.println("from id : " + locationIdFrom);
         System.out.println("to id : " + locationIdTo);
@@ -173,11 +172,16 @@ public class AdminProcedures {
         }
     }
 
+    public static void main(String[] args) {
+        routeDeleteLocation(42,173);
+    }
+
     public static void routeDeleteLocation(int routeId, int locationIdDelete) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_location(?,?)}")) {
             cs.setInt("in_route_id", routeId);
             cs.setInt("in_location_id", locationIdDelete);
+            cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
