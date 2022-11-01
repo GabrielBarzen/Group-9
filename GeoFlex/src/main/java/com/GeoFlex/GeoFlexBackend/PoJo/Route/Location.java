@@ -10,4 +10,6 @@ public class Location{
     public String id;
     public ArrayList<Content> content;
     public String data;
+    public String location_index;
+    public String last_location;
 }

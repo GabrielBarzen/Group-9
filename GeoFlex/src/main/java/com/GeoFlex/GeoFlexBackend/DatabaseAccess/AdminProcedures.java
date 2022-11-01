@@ -220,4 +220,39 @@ public class AdminProcedures {
             throw new RuntimeException(e);
         }
     }
+
+    public static String getRouteLocations(String routeID) {
+        DatabaseConnection dc = new DatabaseConnection();
+        Root r = new Root();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_locations_for_route(?)}")) {
+            cs.setInt("in_route_id", Integer.parseInt(routeID));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            boolean first = true;
+            Location currentLocation = new Location();
+            while(res.next()){
+                if(first){
+                    r.route = new Route();
+                    r.route.location = new ArrayList<>();
+                }
+                if (!first) {
+                    r.route.location.add(currentLocation);
+                } else {
+                    first = false;
+                }
+                currentLocation = new Location();
+                currentLocation.name = res.getString("name");
+                currentLocation.text_info = res.getString("text_info");
+                currentLocation.id = res.getString("id");
+                currentLocation.location_index = res.getString("location_index");
+                currentLocation.last_location = String.valueOf(res.getBoolean("last_location"));
+            }
+            r.route.location.add(currentLocation);
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(r));
+            return gson.toJson(r);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -74,6 +74,17 @@ public class AdminController {
         return adminCompanion.routeDelete(routeID);
     }
 
+    @RequestMapping(value = "/routeLocations", method = RequestMethod.GET)
+    public ResponseEntity<String> routeGetLocations(@RequestParam("route-id") String routeID,
+                                              @CookieValue(name = "authentication-token") String token,
+                                              @CookieValue(name = "user-id") String userID) {
+        AdminCompanion adminCompanion = getAdminCompanion(token,userID);
+        if (adminCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
+        }
+        return adminCompanion.routeGetLocations(routeID);
+    }
+
     private AdminCompanion getAdminCompanion(String token, String userID) {
         System.out.println("Admin Auth Token : " + token);
         System.out.println("Admin Auth UserId : " + userID);

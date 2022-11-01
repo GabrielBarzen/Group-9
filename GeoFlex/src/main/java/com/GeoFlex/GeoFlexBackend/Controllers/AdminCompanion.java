@@ -140,4 +140,21 @@ public class AdminCompanion {
         }
         return response;
     }
+
+    /**
+     * Gets all locations related to a route by its ID.
+     * @param routeID The id of the route.
+     * @return Json object containing all locations of a route.
+     */
+    public ResponseEntity<String> routeGetLocations(String routeID) {
+        ResponseEntity<String> response;
+        if(routeID.isEmpty() || routeID == null){
+            response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else {
+            String json = AdminProcedures.getRouteLocations(routeID);
+            response = new ResponseEntity<>(json, HttpStatus.OK);
+        }
+        return response;
+    }
 }
