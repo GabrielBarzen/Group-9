@@ -85,13 +85,13 @@ public class AdminCompanion {
         Gson gson = new Gson();
         RootUpdate ru = gson.fromJson(body, RootUpdate.class);
         if(ru.routeUpdate.title != null){
-            System.out.println(ru.routeUpdate.title);
+            AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
         }
         if(ru.routeUpdate.description != null){
-            System.out.println(ru.routeUpdate.description);
+            AdminProcedures.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
         }
         if(ru.routeUpdate.type != null){
-            System.out.println(ru.routeUpdate.type);
+            AdminProcedures.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
         }
         if(ru.routeUpdate.image != null){
             System.out.println(ru.routeUpdate.image);
