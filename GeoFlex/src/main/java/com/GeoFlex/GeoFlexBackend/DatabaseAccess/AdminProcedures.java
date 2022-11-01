@@ -82,9 +82,7 @@ public class AdminProcedures {
     }
 
 
-    public static void main(String[] args) {
-        getRoute("1","1");
-    }
+
     /**
      * Returns a full quiz or info route from the database.
      *
@@ -155,6 +153,32 @@ public class AdminProcedures {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_route_with_id(?)}")) {
             cs.setInt(1, Integer.parseInt(routeId));
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    public static void routeSwapLocation(int locationIdFrom, int locationIdTo) {
+        System.out.println("from id : " + locationIdFrom);
+        System.out.println("to id : " + locationIdTo);
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_swap_location(?,?)}")) {
+            cs.setInt(1, locationIdFrom);
+            cs.setInt(2, locationIdTo);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeDeleteLocation(int routeId, int locationIdDelete) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_location(?,?)}")) {
+            cs.setInt("in_route_id",routeId);
+            cs.setInt("in_location_id", locationIdDelete);
             cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
