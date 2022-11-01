@@ -160,7 +160,6 @@ public class AdminProcedures {
     }
 
 
-
     public static void routeSwapLocation(int locationIdFrom, int locationIdTo) {
         System.out.println("from id : " + locationIdFrom);
         System.out.println("to id : " + locationIdTo);
@@ -177,8 +176,41 @@ public class AdminProcedures {
     public static void routeDeleteLocation(int routeId, int locationIdDelete) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_location(?,?)}")) {
-            cs.setInt("in_route_id",routeId);
+            cs.setInt("in_route_id", routeId);
             cs.setInt("in_location_id", locationIdDelete);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeUpdateTitle(String routeID, String title){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_title(?, ?)}")) {
+            cs.setString("in_route_id", String.valueOf(routeID));
+            cs.setString("in_title", title);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeUpdateDescription(String routeID, String description){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_description(?, ?)}")) {
+            cs.setString("in_route_id", String.valueOf(routeID));
+            cs.setString("in_description", description);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeUpdateType(String routeID, String type){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_type(?, ?)}")) {
+            cs.setString("in_route_id", String.valueOf(routeID));
+            cs.setString("in_type", type);
+
             cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
