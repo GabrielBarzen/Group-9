@@ -2,6 +2,7 @@ package com.GeoFlex.GeoFlexBackend.Controllers;
 
 
 import com.GeoFlex.GeoFlexBackend.Authentication.Authenticator;
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,15 +53,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.PATCH)
-    public ResponseEntity<String> routePatch(@RequestHeader Map<String, String> headers,
+    public ResponseEntity<String> routePatch(@RequestBody String body ,
                                              @CookieValue(name = "authentication-token") String token,
                                              @CookieValue(name = "user-id") String userID) {
         AdminCompanion adminCompanion = getAdminCompanion(token,userID);
         if (adminCompanion == null) {
             return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
         }
-        return adminCompanion.routePatch(headers);
-
+        return adminCompanion.routePatch(body);
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.DELETE)

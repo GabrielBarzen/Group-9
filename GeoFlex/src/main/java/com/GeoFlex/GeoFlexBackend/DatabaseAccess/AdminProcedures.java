@@ -1,9 +1,9 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
-import com.GeoFlex.GeoFlexBackend.PoJo.Content;
-import com.GeoFlex.GeoFlexBackend.PoJo.Location;
-import com.GeoFlex.GeoFlexBackend.PoJo.Root;
-import com.GeoFlex.GeoFlexBackend.PoJo.Route;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Route;
 import com.google.gson.Gson;
 
 import java.sql.*;

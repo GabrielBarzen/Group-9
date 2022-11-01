@@ -1,12 +1,11 @@
 package com.GeoFlex.GeoFlexBackend.Controllers;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
-import com.GeoFlex.GeoFlexBackend.PoJo.Root;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
+import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.util.Map;
 
 public class AdminCompanion {
 
@@ -80,9 +79,34 @@ public class AdminCompanion {
      * @param headers For getting Json string containing the id and requested changes to the route.
      * @return OK message body if sucessfull, error with details if not.
      */
-    public ResponseEntity<String> routePatch(Map<String, String> headers) {
+    public ResponseEntity<String> routePatch(String body) {
         ResponseEntity<String> response;
         response = new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        Gson gson = new Gson();
+        RootUpdate ru = gson.fromJson(body, RootUpdate.class);
+        if(ru.routeUpdate.title != null){
+            System.out.println(ru.routeUpdate.title);
+        }
+        if(ru.routeUpdate.description != null){
+            System.out.println(ru.routeUpdate.description);
+        }
+        if(ru.routeUpdate.type != null){
+            System.out.println(ru.routeUpdate.type);
+        }
+        if(ru.routeUpdate.image != null){
+            System.out.println(ru.routeUpdate.image);
+        }
+        if(ru.routeUpdate.location != null){
+            for (int i = 0; i < ru.routeUpdate.location.size(); i++) {
+                if(ru.routeUpdate.location.get(i).to != null){
+                    System.out.println(ru.routeUpdate.location.get(i).from);
+                    System.out.println(ru.routeUpdate.location.get(i).to);
+                }
+                else {
+                    System.out.println(ru.routeUpdate.location.get(i).delete);
+                }
+            }
+        }
         return response;
     }
 
