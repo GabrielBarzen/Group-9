@@ -1,4 +1,4 @@
-package com.GeoFlex.GeoFlexBackend.Controllers;
+package com.GeoFlex.GeoFlexBackend.Controllers.Default;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

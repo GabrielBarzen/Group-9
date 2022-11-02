@@ -1,4 +1,4 @@
-package com.GeoFlex.GeoFlexBackend.Authentication;
+package com.GeoFlex.GeoFlexBackend.Controllers.Authentication;
 
 public class Authenticator {
 
