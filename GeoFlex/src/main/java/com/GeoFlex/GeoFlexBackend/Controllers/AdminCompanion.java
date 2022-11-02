@@ -108,6 +108,15 @@ public class AdminCompanion {
                         System.out.println("excepting swap");
                         response = new ResponseEntity<>("{\"error\" : \"malformatted input\"}", HttpStatus.BAD_REQUEST);
                     }
+                } else if (ru.routeUpdate.location.get(i).newLocation != null) {
+                    try {
+                        System.out.println("addning: " + Integer.parseInt(ru.routeUpdate.location.get(i).newLocation));
+                        AdminProcedures.routeNewLocations(Integer.parseInt(ru.routeUpdate.location.get(i).newLocation), Integer.parseInt(ru.routeUpdate.routeId));
+                        response = new ResponseEntity<>("", HttpStatus.OK);
+                    } catch (NumberFormatException e) {
+                        System.out.println("excepting delete");
+                        response = new ResponseEntity<>("{\"error\" : \"malformatted input\"}", HttpStatus.BAD_REQUEST);
+                    }
                 }
                 else {
                     try {
