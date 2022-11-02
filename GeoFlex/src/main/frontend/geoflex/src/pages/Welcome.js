@@ -4,11 +4,11 @@ import "./style.css";
 
 export default function Welcome() {
     return (
-        <div class="welcomeBody">
-            <ul class="btn-menu">    
-                <li class="menu-btn"><a class="customBtn" href="/">Logga in</a></li>
-                <li class="menu-btn"><a class="customBtn" href="/">Registrera</a></li>
-                <li class="menu-btn"><a class="customBtn" href="/">Spela utan konto</a></li>
+        <div className="welcomeBody">
+            <ul className="btn-menu">    
+                <li className="menu-btn"><a className="customBtn" href="/">Logga in</a></li>
+                <li className="menu-btn"><a className="customBtn" href="/">Registrera</a></li>
+                <li className="menu-btn"><a className="customBtn" href="/">Spela utan konto</a></li>
             </ul>
         </div>
 

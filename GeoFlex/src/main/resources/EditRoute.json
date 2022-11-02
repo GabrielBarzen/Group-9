@@ -1,0 +1,16 @@
+{"route-update":{
+  "route-id" : "1",
+  "title": "example",
+  "description": "description",
+  "image" : "image",
+  "type": "QUIZ/INFO",
+  "location" : [
+    {
+      "from" : "23",
+      "to"  : "22"
+    },
+    {
+      "delete"  : "24"
+    }
+  ]
+}}

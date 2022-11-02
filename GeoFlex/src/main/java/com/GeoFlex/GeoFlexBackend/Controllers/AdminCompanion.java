@@ -1,12 +1,12 @@
 package com.GeoFlex.GeoFlexBackend.Controllers;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
-import com.GeoFlex.GeoFlexBackend.PoJo.Root;
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.DatabaseConnection;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
+import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.util.Map;
 
 public class AdminCompanion {
 
@@ -56,7 +56,7 @@ public class AdminCompanion {
 
     /**
      * Post for creating new routes. (/admin/route) POST
-     * @param headers get route-json from headers and post to database, specification in api documentation.
+     * @param body get route-json from headers and post to database, specification in api documentation.
      * @return OK response or error.
      */
     public ResponseEntity<String> routePost(String body) {
@@ -77,12 +77,59 @@ public class AdminCompanion {
 
     /**
      * Patch to route, include the parts that should be updated. (/admin/route) PATCH
-     * @param headers For getting Json string containing the id and requested changes to the route.
+     * @param body For getting Json string containing the id and requested changes to the route.
      * @return OK message body if sucessfull, error with details if not.
      */
-    public ResponseEntity<String> routePatch(Map<String, String> headers) {
+    public ResponseEntity<String> routePatch(String body) {
         ResponseEntity<String> response;
         response = new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        Gson gson = new Gson();
+        RootUpdate ru = gson.fromJson(body, RootUpdate.class);
+        if(ru.routeUpdate.title != null){
+            AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
+        }
+        if(ru.routeUpdate.description != null){
+            AdminProcedures.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
+        }
+        if(ru.routeUpdate.type != null){
+            AdminProcedures.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
+        }
+        if(ru.routeUpdate.image != null){
+            System.out.println(ru.routeUpdate.image);
+        }
+        if(ru.routeUpdate.location != null){
+            for (int i = 0; i < ru.routeUpdate.location.size(); i++) {
+                if(ru.routeUpdate.location.get(i).to != null){
+                    try {
+                        System.out.println("swapping from: " + Integer.parseInt(ru.routeUpdate.location.get(i).from) + ", to :" +  Integer.parseInt(ru.routeUpdate.location.get(i).to));
+                        AdminProcedures.routeSwapLocation(Integer.parseInt(ru.routeUpdate.location.get(i).from), Integer.parseInt(ru.routeUpdate.location.get(i).to));
+                        response = new ResponseEntity<>("", HttpStatus.OK);
+                    } catch (NumberFormatException e) {
+                        System.out.println("excepting swap");
+                        response = new ResponseEntity<>("{\"error\" : \"malformatted input\"}", HttpStatus.BAD_REQUEST);
+                    }
+                } else if (ru.routeUpdate.location.get(i).newLocation != null) {
+                    try {
+                        System.out.println("addning: " + Integer.parseInt(ru.routeUpdate.location.get(i).newLocation));
+                        AdminProcedures.routeNewLocations(Integer.parseInt(ru.routeUpdate.location.get(i).newLocation), Integer.parseInt(ru.routeUpdate.routeId));
+                        response = new ResponseEntity<>("", HttpStatus.OK);
+                    } catch (NumberFormatException e) {
+                        System.out.println("excepting delete");
+                        response = new ResponseEntity<>("{\"error\" : \"malformatted input\"}", HttpStatus.BAD_REQUEST);
+                    }
+                }
+                else {
+                    try {
+                        System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        AdminProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        response = new ResponseEntity<>("", HttpStatus.OK);
+                    } catch (NumberFormatException e) {
+                        System.out.println("excepting delete");
+                        response = new ResponseEntity<>("{\"error\" : \"malformatted input\"}", HttpStatus.BAD_REQUEST);
+                    }
+                }
+            }
+        }
         return response;
     }
 
@@ -99,6 +146,23 @@ public class AdminCompanion {
         else {
             response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
             AdminProcedures.deleteRoute(routeID);
+        }
+        return response;
+    }
+
+    /**
+     * Gets all locations related to a route by its ID.
+     * @param routeID The id of the route.
+     * @return Json object containing all locations of a route.
+     */
+    public ResponseEntity<String> routeGetLocations(String routeID) {
+        ResponseEntity<String> response;
+        if(routeID.isEmpty() || routeID == null){
+            response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else {
+            String json = AdminProcedures.getRouteLocations(routeID);
+            response = new ResponseEntity<>(json, HttpStatus.OK);
         }
         return response;
     }

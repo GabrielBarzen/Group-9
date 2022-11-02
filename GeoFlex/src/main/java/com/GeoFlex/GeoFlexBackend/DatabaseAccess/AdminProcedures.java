@@ -1,9 +1,9 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
-import com.GeoFlex.GeoFlexBackend.PoJo.Content;
-import com.GeoFlex.GeoFlexBackend.PoJo.Location;
-import com.GeoFlex.GeoFlexBackend.PoJo.Root;
-import com.GeoFlex.GeoFlexBackend.PoJo.Route;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.Route;
 import com.google.gson.Gson;
 
 import java.sql.*;
@@ -82,9 +82,7 @@ public class AdminProcedures {
     }
 
 
-    public static void main(String[] args) {
-        getRoute("1","1");
-    }
+
     /**
      * Returns a full quiz or info route from the database.
      *
@@ -156,6 +154,115 @@ public class AdminProcedures {
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_route_with_id(?)}")) {
             cs.setInt(1, Integer.parseInt(routeId));
             cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeSwapLocation(int locationIdFrom, int locationIdTo) {
+        System.out.println("from id : " + locationIdFrom);
+        System.out.println("to id : " + locationIdTo);
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_swap_location(?,?)}")) {
+            cs.setInt(1, locationIdFrom);
+            cs.setInt(2, locationIdTo);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        routeDeleteLocation(42,173);
+    }
+
+    public static void routeDeleteLocation(int routeId, int locationIdDelete) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_location(?,?)}")) {
+            cs.setInt("in_route_id", routeId);
+            cs.setInt("in_location_id", locationIdDelete);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeUpdateTitle(String routeID, String title){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_title(?, ?)}")) {
+            cs.setString("in_route_id", String.valueOf(routeID));
+            cs.setString("in_title", title);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeUpdateDescription(String routeID, String description){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_description(?, ?)}")) {
+            cs.setString("in_route_id", String.valueOf(routeID));
+            cs.setString("in_description", description);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeUpdateType(String routeID, String type){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_type(?, ?)}")) {
+            cs.setString("in_route_id", String.valueOf(routeID));
+            cs.setString("in_type", type);
+
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getRouteLocations(String routeID) {
+        DatabaseConnection dc = new DatabaseConnection();
+        Root r = new Root();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_locations_for_route(?)}")) {
+            cs.setInt("in_route_id", Integer.parseInt(routeID));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            boolean first = true;
+            Location currentLocation = new Location();
+            while(res.next()){
+                if(first){
+                    r.route = new Route();
+                    r.route.location = new ArrayList<>();
+                }
+                if (!first) {
+                    r.route.location.add(currentLocation);
+                } else {
+                    first = false;
+                }
+                currentLocation = new Location();
+                currentLocation.name = res.getString("name");
+                currentLocation.text_info = res.getString("text_info");
+                currentLocation.id = res.getString("id");
+                currentLocation.location_index = res.getString("location_index");
+                currentLocation.last_location = String.valueOf(res.getBoolean("last_location"));
+            }
+            r.route.location.add(currentLocation);
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(r));
+            return gson.toJson(r);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void routeNewLocations(int numLocations, int routeId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_route_add_location(?, ?)}")) {
+            cs.setInt("in_num_locations", numLocations);
+            cs.setInt("in_route_id", routeId);
+
+            cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
