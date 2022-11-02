@@ -255,4 +255,16 @@ public class AdminProcedures {
             throw new RuntimeException(e);
         }
     }
+
+    public static void routeNewLocations(int numLocations, int routeId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_route_add_location(?, ?)}")) {
+            cs.setInt("in_num_locations", numLocations);
+            cs.setInt("in_route_id", routeId);
+
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

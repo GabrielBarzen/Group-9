@@ -11,11 +11,15 @@ public class LocationUpdate {
     @SerializedName("from")
     @Expose
     public String from;
+    @SerializedName("new")
+    @Expose
+    public String newLocation;
     @SerializedName("to")
     @Expose
     public String to;
     @SerializedName("delete")
     @Expose
     public String delete;
+
 
 }
