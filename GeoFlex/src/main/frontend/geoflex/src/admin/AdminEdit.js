@@ -11,7 +11,7 @@ export default function AdminEdit() {
     const [updateTour, setUpdateTour] = useState();
     let titleRef = useRef();
     let descriptionRef = useRef();
-    let locationsRef = useRef();
+    const [updatedLocationsData, setLocationsData] = useState()
     let typeRef = useRef();
     let testRef2 = useRef();
     const [testRef, setTestRef] = useState("");
@@ -20,20 +20,7 @@ export default function AdminEdit() {
     const handleSave = (event) => {
         console.log(event)
         console.log("Hejsan")
-        let validation = true;
-
-        if (titleRef.current.value === "") {
-            validation = false;
-        }
-        if (descriptionRef.current.value === "") {
-            validation = false;
-        }
-        if (locationsRef.current.value === "0") {
-            validation = false;
-        }
-        if (typeRef.current.value === "") {
-            validation = false;
-        }
+        let validation = true;        
 
         if (validation) {
             let toUpdate = {
@@ -43,15 +30,9 @@ export default function AdminEdit() {
                     "type": typeRef.current.value,
                     "id": data.id,
                     "code": data.code,
-                    "locations": parseInt(locationsRef.current.value)
+                    "locations": updatedLocationsData
                 }
-            }
-            console.log(toUpdate.title)
-            console.log(toUpdate.description)
-            console.log(toUpdate.type)
-            console.log(toUpdate.id)
-            console.log(toUpdate.code)
-            console.log(toUpdate.locations)
+            }            
         }
     };
     useEffect(() => {
