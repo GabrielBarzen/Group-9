@@ -1,43 +1,51 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Location from './components/Location';
+import M from 'materialize-css';
 
 export default function AdminEdit() {
     const location = useLocation();
     const data = location.state.data
-    
+    const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
+
     const [updateTour, setUpdateTour] = useState();
     let titleRef = useRef();
     let descriptionRef = useRef();
     let locationsRef = useRef();
     let typeRef = useRef();
-    
-    const handleSave = (event) =>{
+    let testRef2 = useRef();
+    const [testRef, setTestRef] = useState("");
+
+
+    const handleSave = (event) => {
         console.log(event)
         console.log("Hejsan")
         let validation = true;
 
-        if(titleRef.current.value===""){
+        if (titleRef.current.value === "") {
             validation = false;
         }
-        if(descriptionRef.current.value===""){
+        if (descriptionRef.current.value === "") {
             validation = false;
         }
-        if(locationsRef.current.value=== "0"){
+        if (locationsRef.current.value === "0") {
             validation = false;
         }
-        if(typeRef.current.value===""){
+        if (typeRef.current.value === "") {
             validation = false;
         }
 
-        if(validation){
-            let toUpdate = { "route":{
-            "title": titleRef.current.value,
-            "description": descriptionRef.current.value,
-            "type": typeRef.current.value,
-            "id": data.id,
-            "code": data.code,
-            "locations": parseInt(locationsRef.current.value)
-            }}
+        if (validation) {
+            let toUpdate = {
+                "route": {
+                    "title": titleRef.current.value,
+                    "description": descriptionRef.current.value,
+                    "type": typeRef.current.value,
+                    "id": data.id,
+                    "code": data.code,
+                    "locations": parseInt(locationsRef.current.value)
+                }
+            }
             console.log(toUpdate.title)
             console.log(toUpdate.description)
             console.log(toUpdate.type)
@@ -46,46 +54,41 @@ export default function AdminEdit() {
             console.log(toUpdate.locations)
         }
     };
+    useEffect(() => {
+        M.AutoInit();
+    }, []);
+
+    function handleTest(){
+        if(testRef2.current.value.length != 0){
+            setTestRef(testRef2.current.value)
+        }
+    }
 
     return (<>
-        <div>
+        <fieldset>
+            <div>
+            <p>HÄR</p>
+            <p>{testRef}</p>
+            <label>test</label>
+            <input type="text" onKeyUp={handleTest} ref={testRef2} />
+            </div>
             <label>Titel</label>
             <input type="text" defaultValue={data.title} ref={titleRef} />
             <label>Beskrivning</label>
             <textarea type="text" defaultValue={data.description} ref={descriptionRef} />
-            <label>Antal platser</label>
-            <select defaultValue={data.locations.toString()} ref={locationsRef}>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-            </select>
             <label>Typ</label>
             <select defaultValue={data.type} ref={typeRef}>
                 <option value=""></option>
                 <option value="QUIZ">Quiz</option>
                 <option value="INFO">Inforunda</option>
             </select>
+            <ul className="collapsible">
+                {[...data2.route.location].map(location => <Location key={location.id} data={location} />)}
+
+            </ul>
             <button onClick={event => handleSave(event)}>Spara</button>
-        </div>
-        
+        </fieldset>
+
     </>
 
     )
