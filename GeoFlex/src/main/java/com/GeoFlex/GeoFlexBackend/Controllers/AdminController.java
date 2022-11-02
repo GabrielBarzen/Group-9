@@ -74,7 +74,7 @@ public class AdminController {
         return adminCompanion.routeDelete(routeID);
     }
 
-    @RequestMapping(value = "/routeLocations", method = RequestMethod.GET)
+    @RequestMapping(value = "/route/locations", method = RequestMethod.GET)
     public ResponseEntity<String> routeGetLocations(@RequestParam("route-id") String routeID,
                                               @CookieValue(name = "authentication-token") String token,
                                               @CookieValue(name = "user-id") String userID) {
