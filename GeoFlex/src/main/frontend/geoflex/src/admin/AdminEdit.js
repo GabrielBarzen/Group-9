@@ -8,14 +8,14 @@ export default function AdminEdit() {
     const location = useLocation();
     const data = location.state.data
 
-    const [routeLocationsData, setEditLocations] = useState([])
+    const [routeLocationsData, setRouteLocationsData] = useState([])
     //const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
 
 
     const [updateTour, setUpdateTour] = useState();
     let titleRef = useRef();
     let descriptionRef = useRef();
-    const [updatedLocationsData, setLocationsData] = useState()
+    const [updatedLocationsData, setUpdatedLocationsData] = useState()
     let typeRef = useRef();
 
     useEffect(() => {
@@ -30,13 +30,14 @@ export default function AdminEdit() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                setEditLocations(response.data)
+                setRouteLocationsData(response.data);
+                console.log(routeLocationsData);
             })
             .catch(function (error) {
-                console.log(error.response.data);
+                console.log(error);
                 //setEditLocations(data2)
             });
-    })
+    },[]);
 
     const handleSave = (event) => {
         console.log(event)
