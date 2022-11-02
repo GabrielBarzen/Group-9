@@ -74,7 +74,8 @@ export default function AdminEdit() {
             <input type="text" onKeyUp={handleTest} ref={testRef2} />
         </div>
     */
-    return (<>
+    if(routeLocationsData.length != 0) {
+        return (<>
         <fieldset>
 
             <label>Titel</label>
@@ -97,4 +98,10 @@ export default function AdminEdit() {
     </>
 
     )
+} else {
+    return (<>
+    <p>Laddar</p>
+    </>)
+}
+
 }
