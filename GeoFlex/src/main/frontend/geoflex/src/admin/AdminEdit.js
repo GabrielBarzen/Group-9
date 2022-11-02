@@ -2,12 +2,30 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Location from './components/Location';
 import M from 'materialize-css';
+import axios from 'axios';
 
 export default function AdminEdit() {
     const location = useLocation();
     const data = location.state.data
     const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
 
+    useEffect(()=>{
+        var config = {
+            method: 'get',
+            url: '/admin/routeLocations?route-id='+data.id,
+            headers: { 
+              
+            }
+          };
+          
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    })
     const [updateTour, setUpdateTour] = useState();
     let titleRef = useRef();
     let descriptionRef = useRef();
