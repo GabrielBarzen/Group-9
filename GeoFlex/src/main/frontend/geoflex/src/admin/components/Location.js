@@ -10,7 +10,7 @@ export default function Location(props) {
                 <span className='col s9'>
                     {props.data.name}
                 </span>
-                <button onClick={() => {}}>
+                <button onClick={() => {props.deleteLocation(props.data.id)}}>
                     Ta bort
                 </button>
             </li>
