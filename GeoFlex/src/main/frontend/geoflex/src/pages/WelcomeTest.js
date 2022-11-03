@@ -19,19 +19,13 @@ export default function WelcomeTest() {
             <div className="row">
                 <div className="col s10 container"> 
                     <div className="row">
-                        <div className="btn-container">
-                            <Button text="Registrera" icon={<i className="small material-icons right">group_add</i>}/>
-                        </div>
+                        <Button text="Registrera" css="col s10" icon={<i className="small material-icons right">group_add</i>}/>
                     </div>
                     <div className="row">
-                        <div className="btn-container">
-                            <Button text="Logga in" icon={<i className="small material-icons right">person</i>}/>
-                        </div>
+                            <Button text="Logga in" css="col s10" icon={<i className="small material-icons right">person</i>}/>
                     </div>
                     <div className="row">
-                        <div className="btn-container">
-                            <Button text="Starta direkt" icon={<i className="small material-icons right">arrow_forward</i>}/>
-                        </div>
+                            <Button text="Starta direkt" css="col s10" icon={<i className="small material-icons right">arrow_forward</i>}/>
                 </div>    
             </div>
             </div>
