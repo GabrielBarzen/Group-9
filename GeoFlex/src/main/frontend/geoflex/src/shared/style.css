@@ -9,6 +9,7 @@
     position: relative;
     
   } 
+
 .header-title {
     color: white;
 }
@@ -24,9 +25,21 @@
 .btn-css {
     background-color: #735e6f !important;
     border-radius: 15px !important;
+    /*
     width: 70vw;
     margin: 1rem;
     max-width: 20rem;
+    */
+}
+
+.btn-edit {
+    background-color: #735e6f !important;
+    border-radius: 15px 0 0 15px !important; 
+    
+}
+
+.btn-delete {    
+    border-radius: 0 15px 15px 0 !important;
 }
 
 .title-css {
