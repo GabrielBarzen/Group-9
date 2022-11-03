@@ -61,29 +61,15 @@ export default function AdminEdit() {
     useEffect(() => {
         M.AutoInit();
     }, []);
-    /*
-        function handleTest(){
-            if(testRef2.current.value.length != 0){
-                setTestRef(testRef2.current.value)
-            }
-        }
-    
-        <div>
-            <p>HÄR</p>
-            <p>{testRef}</p>
-            <label>test</label>
-            <input type="text" onKeyUp={handleTest} ref={testRef2} />
-        </div>
-    */
+
     function deleteLocation(id) {
-        console.log("HÄR ÄR ROUTE ID" + routeData.id)
-        console.log("HÄR ÄR ID: " + id)
+
         var data = JSON.stringify({
             "route-update": {
                 "route-id": routeData.id,
                 "location": [
                     {
-                        "delete": id 
+                        "delete": id
                     }
                 ]
             }
@@ -103,13 +89,59 @@ export default function AdminEdit() {
                 console.log(JSON.stringify(response.data));
                 if (!status) {
                     setStatus(true);
-                  } else if (status) {
+                } else if (status) {
                     setStatus(false);
-                  }
+                }
             })
             .catch(function (error) {
                 console.log(error);
-                //setEditLocations(data2)
+
+            });
+
+    }
+    function getNewID(){
+        let currentIDs = [];
+        [...routeLocationsData.route.location].map(item => currentIDs.push(item.location.id));
+        let sortedIDs = currentIDs.sort((a, b) => b - a);
+        let newID = parseInt(sortedIDs[0]) + 1;
+        return newID.toString();        
+    }
+
+    function addLocation() {
+        let id = getNewID();
+
+        var data = JSON.stringify({
+            "route-update": {
+                "route-id": routeData.id,
+                "location": [
+                    {
+                        "new": id
+                    }
+                ]
+            }
+        });
+
+        var config = {
+            method: 'patch',
+            url: '/admin/route/',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                if (!status) {
+                    setStatus(true);
+                } else if (status) {
+                    setStatus(false);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+
             });
 
     }
@@ -129,8 +161,8 @@ export default function AdminEdit() {
                 </select>
                 <ul className="">
                     {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} />)}
-
                 </ul>
+                <i className="material-icons col s1" onClick={addLocation()}>add_location</i>
                 <button onClick={event => handleSave(event)}>Spara</button>
             </fieldset>
 
