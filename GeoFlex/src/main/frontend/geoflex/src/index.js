@@ -16,7 +16,7 @@ import GameWelcome from './game/GameWelcome';
 import GameNavigation from './game/GameNavigation';
 import GameItem from './game/GameItem';
 import GameFinish from './game/GameFinish';
-import TestComponents from './shared/test/TestComponents';
+import TestComponents from './shared/TestComponents';
 import Welcome from './pages/Welcome';
 import 'materialize-css/dist/css/materialize.min.css';
 import WelcomeTest from './pages/WelcomeTest';
