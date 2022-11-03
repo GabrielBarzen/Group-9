@@ -11,15 +11,16 @@ export default function WelcomeTest() {
                 <Logo />
             </div>
             <div className="row">
-                <Codebox />
+                <div className="col s10 offset-s2 button-container"> 
+                    <div className="row">
+                        <Codebox />
+                    </div>
+                    <div className="row">
+                        <QRscanner />
+                </div>    
             </div>
-            <div className="row">
-                <QRscanner />
-            </div>
-
-            
-             
+            </div>  
         </div>
-            
+       
     )
 }
