@@ -4,7 +4,7 @@ html {
 
 body {
     width: 100%;
-    background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+    background-image: linear-gradient(-225deg, #FF057C 0%, #7C64D5 48%, #4CC3FF 100%);
     background-attachment: fixed;
     font-family: 'Roboto';
     -webkit-font-smoothing: antialiased;
@@ -18,15 +18,25 @@ body {
 
 .logo {
     width: 50%;
-    margin-top: 5rem;
+    margin-top: 7rem;
+}
+
+.button-container {
+    margin-top: 7rem;
 }
 
 .codebox {
     border-radius: 5px;
-    border: 2px solid rgb(255, 255, 255);
-    height: 2rem;
+    opacity:0.9;
+    height: 3rem;
+    background-color: white;
+    box-shadow: inset 0px 0px 2px rgba(0,0,0,0.9);
 }
 
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
 
 
 /*

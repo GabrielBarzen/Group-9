@@ -19,7 +19,8 @@ import GameFinish from './game/GameFinish';
 import TestComponents from './shared/TestComponents';
 import Welcome from './pages/Welcome';
 import 'materialize-css/dist/css/materialize.min.css';
-import WelcomeTest from './pages/WelcomeTest';
+import FirstpageTest from './pages/Firstpage_test'
+import StartpageTest from './pages/Startpage_test'
 
 
 export default function App() {
@@ -43,7 +44,8 @@ export default function App() {
                     <Route path='game/:id/finish' element={<GameFinish />} />
                     <Route path='/test' element={<TestComponents />} />
                     <Route path='/welcome' element={<Welcome />} />
-                    <Route path='/welcomeTest' element={<WelcomeTest />} />
+                    <Route path='/Firstpagetest' element={<FirstpageTest />} />
+                    <Route path='/Startpagetest' element={<StartpageTest />} />
                 </Route>
             </Routes>
         </BrowserRouter>
