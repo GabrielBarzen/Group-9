@@ -1,4 +1,3 @@
-import Button from "../shared/Button"
 import Codebox from "../shared/Codebox"
 import Logo from "../shared/Logo"
 import QRscanner from "../shared/QR"
