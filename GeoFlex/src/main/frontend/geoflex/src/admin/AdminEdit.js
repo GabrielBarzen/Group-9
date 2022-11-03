@@ -74,6 +74,9 @@ export default function AdminEdit() {
             <input type="text" onKeyUp={handleTest} ref={testRef2} />
         </div>
     */
+   function deleteLocation(){
+
+   }
     if(routeLocationsData.length != 0) {
         return (<>
         <fieldset>
@@ -89,7 +92,7 @@ export default function AdminEdit() {
                 <option value="INFO">Inforunda</option>
             </select>
             <ul className="">
-                {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} />)}
+                {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation}/>)}
 
             </ul>
             <button onClick={event => handleSave(event)}>Spara</button>
