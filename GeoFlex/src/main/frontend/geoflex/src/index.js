@@ -27,20 +27,21 @@ export default function App() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Static />} >
-                    <Route index element={<Start />} />
+                    <Route index element={<WelcomeTest />} />
                     <Route path='/admin' element={<Admin />} />
                     <Route path='/admin/overview' element={<AdminOverview />} />
                     <Route path='/admin/new/' element={<AdminAddNew />} />
                     <Route path='/admin/edit/:id' element={<AdminEdit />} />
                     <Route path='/mod' element={<Mod />} />
                     <Route path='/mod/overview' element={<ModOverview />} />
-                    <Route path='mod/edit/:id' element={<ModGameSetup />} />
-                    <Route path='mod/edit/:id/places/' element={<ModGamePlaces />} />
-                    <Route path='mod/edit/:id/edit_place' element={<ModGameEditPlace />} />
-                    <Route path='game/:id/welcome' element={<GameWelcome />} />
-                    <Route path='game/:id/navigation' element={<GameNavigation />} />
-                    <Route path='game/:id/item' element={<GameItem />} />
-                    <Route path='game/:id/finish' element={<GameFinish />} />
+                    <Route path='/mod/edit/:id' element={<ModGameSetup />} />
+                    <Route path='/mod/edit/:id/places/' element={<ModGamePlaces />} />
+                    <Route path='/mod/edit/:id/edit_place' element={<ModGameEditPlace />} />
+                    <Route path='/game/start' element={<Start />} />
+                    <Route path='/game/:id/welcome' element={<GameWelcome />} />
+                    <Route path='/game/:id/navigation' element={<GameNavigation />} />
+                    <Route path='/game/:id/item' element={<GameItem />} />
+                    <Route path='/game/:id/finish' element={<GameFinish />} />
                     <Route path='/test' element={<TestComponents />} />
                     <Route path='/Firstpagetest' element={<FirstpageTest />} />
                     <Route path='/Startpagetest' element={<StartpageTest />} />

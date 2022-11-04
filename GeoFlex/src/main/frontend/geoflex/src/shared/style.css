@@ -44,8 +44,16 @@ p {
 }
 
 
+.btn-edit {
+    background-color: #735e6f !important;
+    border-radius: 15px 0 0 15px !important; 
+    
+}
 
-/*
+.btn-delete {    
+    border-radius: 0 15px 15px 0 !important;
+}
+
 .container {
     padding: 5px; 
     padding-top: 1rem;
@@ -54,30 +62,6 @@ p {
     justify-content: end;
 }
 
-#root {
-    height: 100vh;
-  }
-
-
 .icon-css {
     vertical-align: middle;
 }
-
-.row .col.s1 {
-    margin: 1rem;
-}
-.colCustom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container-wrapper {
-    height: 100%; margin: 0px; padding: 0px;
-
-}
-
-
-
-*/
-
