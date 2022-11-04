@@ -99,23 +99,16 @@ export default function AdminEdit() {
             });
 
     }
-    function getNewID(){
-        let currentIDs = [];
-        [...routeLocationsData.route.location].map(item => currentIDs.push(item.location.id));
-        let sortedIDs = currentIDs.sort((a, b) => b - a);
-        let newID = parseInt(sortedIDs[0]) + 1;
-        return newID.toString();        
-    }
-
+    
     function addLocation() {
-        let id = getNewID();
+        
 
         var data = JSON.stringify({
             "route-update": {
                 "route-id": routeData.id,
                 "location": [
                     {
-                        "new": id
+                        "new": 1
                     }
                 ]
             }
