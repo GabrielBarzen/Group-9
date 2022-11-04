@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../shared/test/Button'
+
 
 export default function Location(props) {
     return (

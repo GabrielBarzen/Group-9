@@ -9,7 +9,9 @@ export default function AdminEdit() {
     const routeData = location.state.data;
 
     const [routeLocationsData, setRouteLocationsData] = useState([]);
-    //const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
+
+    //data2 är placeholderdata och ska tas bort innan leverans
+    const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
 
 
     const [updateTour, setUpdateTour] = useState();

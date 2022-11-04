@@ -3,7 +3,7 @@ import Logo from "../shared/Logo"
 
 
 
-export default function WelcomeTest() {
+export default function Firstpage() {
     return (
         <div className="container">
             <div className="row">

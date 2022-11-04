@@ -18,7 +18,7 @@ import GameItem from './game/GameItem';
 import GameFinish from './game/GameFinish';
 import TestComponents from './shared/TestComponents';
 import 'materialize-css/dist/css/materialize.min.css';
-import FirstpageTest from './pages/Firstpage_test'
+import FirstpageTest from './pages/Firstpage'
 import StartpageTest from './pages/Startpage_test'
 
 
@@ -27,7 +27,7 @@ export default function App() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Static />} >
-                    <Route index element={<WelcomeTest />} />
+                    <Route index element={<FirstpageTest />} />
                     <Route path='/admin' element={<Admin />} />
                     <Route path='/admin/overview' element={<AdminOverview />} />
                     <Route path='/admin/new/' element={<AdminAddNew />} />
