@@ -10,7 +10,7 @@ export default function Firstpage() {
                 <Logo />
             </div>
             <div className="row">
-                <div className="col s10 offset-s2 button-container"> 
+                <div className="col s10 offset-s2"> 
                     <div className="row">
                         <Button text="Registrera" css="col s10" icon={<i className="small material-icons right">group_add</i>}/>
                     </div>

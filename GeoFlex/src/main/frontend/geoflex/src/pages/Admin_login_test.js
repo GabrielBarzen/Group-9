@@ -1,25 +1,23 @@
-import Codebox from "../shared/Codebox"
+import Button from "../shared/Button"
 import Logo from "../shared/Logo"
-import QRscanner from "../shared/QR"
+import Login from "../shared/Login"
 
 
 
-export default function WelcomeTest() {
+export default function AdminLogin() {
     return (
         <div className="container">
             <div className="row">
                 <Logo />
             </div>
             <div className="row">
-                <div className="col s10 offset-s2"> 
+                <div className="white z-depth-2 container-css col s10"> 
                     <div className="row">
-                        <Codebox />
+                        <Login />
                     </div>
-                    <div className="row">
-                        <QRscanner />
-                </div>    
             </div>
             </div> 
         </div>
+
     )
 }
