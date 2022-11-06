@@ -1,4 +1,4 @@
-package com.GeoFlex.GeoFlexBackend.Controllers;
+package com.GeoFlex.GeoFlexBackend.Controllers.Authentication;
 
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.GeoFlex.GeoFlexBackend.Controllers;
+package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.DatabaseConnection;
