@@ -61,11 +61,17 @@ public class UserProcedures {
                 }
             }
             r.route.location.add(currentLocation);
-
             Gson gson = new Gson();
             return gson.toJson(r);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         return null;
     }

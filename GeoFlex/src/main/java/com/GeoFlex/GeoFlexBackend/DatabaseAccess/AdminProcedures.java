@@ -42,10 +42,18 @@ public class AdminProcedures {
             }
             Gson gson = new Gson();
             response = gson.toJson(routes);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             response = null;
         } catch (NumberFormatException e) {
             response = null;
+        }
+        finally {
+            try {
+                dbc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println(response);
         return response;
@@ -78,6 +86,13 @@ public class AdminProcedures {
             //return cs.getInt(5);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dbc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -142,6 +157,13 @@ public class AdminProcedures {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return null;
     }
 
@@ -157,6 +179,13 @@ public class AdminProcedures {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public static void routeSwapLocation(int locationIdFrom, int locationIdTo) {
@@ -169,6 +198,13 @@ public class AdminProcedures {
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -185,6 +221,13 @@ public class AdminProcedures {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public static void routeUpdateTitle(String routeID, String title){
@@ -195,6 +238,13 @@ public class AdminProcedures {
             cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -207,6 +257,13 @@ public class AdminProcedures {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public static void routeUpdateType(String routeID, String type){
@@ -218,6 +275,13 @@ public class AdminProcedures {
             cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -254,6 +318,13 @@ public class AdminProcedures {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public static void routeNewLocations(int numLocations, int routeId) {
@@ -265,6 +336,13 @@ public class AdminProcedures {
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
