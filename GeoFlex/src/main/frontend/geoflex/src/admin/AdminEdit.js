@@ -106,7 +106,7 @@ export default function AdminEdit() {
     
     function addLocation() {
         
-    /*
+    
         var data = JSON.stringify({
             "route-update": {
                 "route-id": routeData.id,
@@ -130,13 +130,17 @@ export default function AdminEdit() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                
+                if (!status) {
+                    setStatus(true);
+                } else if (status) {
+                    setStatus(false);
+                }
             })
             .catch(function (error) {
                 console.log(error);
 
             });
-            */
+            
         console.log("KOLLA HÄR DETTA ÄR ADD LOCATION");
     }
     if (routeLocationsData.length != 0) {
