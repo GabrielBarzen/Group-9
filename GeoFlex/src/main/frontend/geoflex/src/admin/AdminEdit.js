@@ -5,21 +5,20 @@ import M from 'materialize-css';
 import axios from 'axios';
 
 export default function AdminEdit() {
+    //location tar emot data från föregående sida
     const location = useLocation();
     const routeData = location.state.data;
 
     const [routeLocationsData, setRouteLocationsData] = useState([]);
+    const [status, setStatus] = useState(false);
 
     //data2 är placeholderdata och ska tas bort innan leverans
     //const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
 
-
-
     let titleRef = useRef();
     let descriptionRef = useRef();
-
     let typeRef = useRef();
-    const [status, setStatus] = useState(false);
+    
 
     useEffect(() => {
         console.log(status);
@@ -35,9 +34,9 @@ export default function AdminEdit() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                //Moves the last_location: true-value to the end of the array.               
-                response.data.route.location.push(response.data.route.location.shift());
 
+                //Moves the last_location: true-object to the end of the array.               
+                response.data.route.location.push(response.data.route.location.shift());
                 setRouteLocationsData(response.data);
 
             })
@@ -51,8 +50,6 @@ export default function AdminEdit() {
     const handleSave = (event) => {
         console.log(event)
         console.log("Hejsan")
-
-
 
         var data = {
             "route-update": {
@@ -83,9 +80,8 @@ export default function AdminEdit() {
                 console.log(error);
 
             });
-
-
     };
+
     useEffect(() => {
         M.AutoInit();
     }, []);
@@ -123,14 +119,10 @@ export default function AdminEdit() {
             })
             .catch(function (error) {
                 console.log(error);
-
             });
-
     }
 
     function addLocation() {
-
-
         var data = JSON.stringify({
             "route-update": {
                 "route-id": routeData.id,
