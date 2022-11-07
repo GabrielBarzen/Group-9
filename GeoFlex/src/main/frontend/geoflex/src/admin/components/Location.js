@@ -2,6 +2,16 @@ import React from 'react'
 
 
 export default function Location(props) {
+
+    const [stateObject, setObjectState] = useState({
+        firstKey: '',
+        secondKey: '',
+      });
+      
+      setObjectState((prevState) => ({
+        ...prevState,
+        secondKey: 'value',
+      }));
     return (
         <>
             <li className='row card-panel'>

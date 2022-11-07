@@ -22,8 +22,8 @@ export default function AdminEdit() {
     const [status, setStatus] = useState(false);
 
     useEffect(() => {
-    console.log(status);
-    console.log("STATUS");
+        console.log(status);
+        console.log("STATUS");
         var config = {
             method: 'get',
             url: '/admin/route/locations?route-id=' + routeData.id,
@@ -49,18 +49,38 @@ export default function AdminEdit() {
         console.log("Hejsan")
         let validation = true;
 
-        if (validation) {
-            let toUpdate = {
-                "route": {
-                    "title": titleRef.current.value,
-                    "description": descriptionRef.current.value,
-                    "type": typeRef.current.value,
-                    "id": routeData.id,
-                    "code": routeData.code,
-                    "locations": updatedLocationsData
-                }
+
+        var data = {
+            "route-update": {
+                "route-id": routeData.id,
+                "title": titleRef.current.value,
+                "description": descriptionRef.current.value,
+                "image": "",
+                "type": "INFO",
+                "location": [
+                ]
             }
         }
+        var config = {
+            method: 'patch',
+            url: '/admin/route/',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+
+            });
+
+
     };
     useEffect(() => {
         M.AutoInit();
@@ -103,10 +123,10 @@ export default function AdminEdit() {
             });
 
     }
-    
+
     function addLocation() {
-        
-    
+
+
         var data = JSON.stringify({
             "route-update": {
                 "route-id": routeData.id,
@@ -140,11 +160,11 @@ export default function AdminEdit() {
                 console.log(error);
 
             });
-            
+
         console.log("KOLLA HÄR DETTA ÄR ADD LOCATION");
     }
 
-    function swapLocationsUp(event, idFrom){
+    function swapLocationsUp(event, idFrom) {
         //var idFrom = event.target.getAttribute('id');
         console.log('IDFROM: ' + idFrom)
 
@@ -200,7 +220,7 @@ export default function AdminEdit() {
                     <option value="INFO">Inforunda</option>
                 </select>
                 <ul className="">
-                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp}/>)}
+                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp} />)}
                 </ul>
                 <i className="material-icons col s1" onClick={addLocation} >add_location</i>
                 <button onClick={event => handleSave(event)}>Spara</button>
