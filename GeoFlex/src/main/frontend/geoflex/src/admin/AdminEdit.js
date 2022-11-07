@@ -140,7 +140,7 @@ export default function AdminEdit() {
                 console.log(error);
 
             });
-
+        console.log("KOLLA HÄR DETTA ÄR ADD LOCATION");
     }
     if (routeLocationsData.length != 0) {
         return (<>
@@ -159,7 +159,7 @@ export default function AdminEdit() {
                 <ul className="">
                     {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} />)}
                 </ul>
-                <i className="material-icons col s1" onClick={addLocation()}>add_location</i>
+                <i className="material-icons col s1" onClick{addLocation()} >add_location</i>
                 <button onClick={event => handleSave(event)}>Spara</button>
             </fieldset>
 
