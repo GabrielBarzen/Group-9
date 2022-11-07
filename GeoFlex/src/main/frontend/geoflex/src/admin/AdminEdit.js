@@ -130,11 +130,7 @@ export default function AdminEdit() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                if (!status) {
-                    setStatus(true);
-                } else if (status) {
-                    setStatus(false);
-                }
+                
             })
             .catch(function (error) {
                 console.log(error);
@@ -160,7 +156,7 @@ export default function AdminEdit() {
                 <ul className="">
                     {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} />)}
                 </ul>
-                <i className="material-icons col s1" onClick={addLocation()} >add_location</i>
+                <i className="material-icons col s1" onClick={addLocation} >add_location</i>
                 <button onClick={event => handleSave(event)}>Spara</button>
             </fieldset>
 
