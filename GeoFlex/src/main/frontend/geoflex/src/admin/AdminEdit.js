@@ -143,6 +143,48 @@ export default function AdminEdit() {
             
         console.log("KOLLA HÄR DETTA ÄR ADD LOCATION");
     }
+
+    function swapLocationsUp(event){
+        var idFrom = event.target.getAttribute('id');
+        console.log('IDFROM: ' + idFrom)
+
+        var idTo = idFrom.parentElement.previousSiblingElement.child.getAttribute('id');
+        console.log('IDTO: ' + idTo)
+        /*
+        var data = {"route-update":{
+            "route-id" : routeData,
+            "location" : [
+              {
+                "from" : "Location ID",
+                "to"  : "Location ID"
+              }
+            ]
+          }}
+
+          var config = {
+            method: 'patch',
+            url: '/admin/route/',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                if (!status) {
+                    setStatus(true);
+                } else if (status) {
+                    setStatus(false);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+
+            });
+            */
+    }
     if (routeLocationsData.length != 0) {
         return (<>
             <fieldset>
@@ -158,7 +200,7 @@ export default function AdminEdit() {
                     <option value="INFO">Inforunda</option>
                 </select>
                 <ul className="">
-                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} />)}
+                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp}/>)}
                 </ul>
                 <i className="material-icons col s1" onClick={addLocation} >add_location</i>
                 <button onClick={event => handleSave(event)}>Spara</button>
