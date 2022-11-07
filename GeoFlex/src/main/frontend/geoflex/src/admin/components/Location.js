@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
 export default function Location(props) {
@@ -6,10 +6,10 @@ export default function Location(props) {
     const [stateObject, setObjectState] = useState({
         firstKey: '',
         secondKey: '',
-    });
+    });    
 
     setObjectState((prevState) => ({
-        ...prevState,
+        ...prevState, 
         secondKey: 'value',
     }));
     return (
