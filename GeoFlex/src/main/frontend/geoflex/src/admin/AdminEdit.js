@@ -187,15 +187,21 @@ export default function AdminEdit() {
         var idToIndex = "";
         var idTo = "";
         routeLocationsData.route.location.forEach(element => {
+            console.log("ELEMENT 1 " + element.id)
             if(element.id === idFrom){
                 temp = parseInt(element.location_index);
+                console.log("TEMP " + temp);
                 idToIndex = temp - 1;
+                console.log("idToIndex: " + idToIndex);
+
             }
         });
-        parseString(idToIndex);
-        routeLocationsData.route.location.forEach(element => {
-            if(element.location_index === idToIndex){
-                idTo = element.id;
+
+        routeLocationsData.route.location.forEach(item => {
+        console.log("ELEMENT 2 " + item.location_index)
+            if(item.location_index === idToIndex.toString()){
+                console.log("ELEMENT2 ID: " + item.id)
+                idTo = item.id;
             }
         });
         console.log('IDTO: ' + idTo);
@@ -208,7 +214,7 @@ export default function AdminEdit() {
 
         var data = {
             "route-update": {
-                "route-id": routeData,
+                "route-id": routeData.id,
                 "location": [
                     {
                         "from": idFrom,
