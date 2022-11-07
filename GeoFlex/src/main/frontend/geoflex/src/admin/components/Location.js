@@ -1,11 +1,18 @@
 import React from 'react'
 
+
 export default function Location(props) {
     return (
         <>
-            <li className='row'>
-                <div className="card-panel"><i className="material-icons">place</i>{props.data.name}</div>
-                <div className=""></div>
+            <li className='row card-panel'>
+
+                <i className="material-icons col s1">place</i>
+                <span className='col s9'>
+                    {props.data.name}
+                </span>
+                <button onClick={() => {props.deleteLocation(props.data.id)}}>
+                    Ta bort
+                </button>
             </li>
         </>
     )

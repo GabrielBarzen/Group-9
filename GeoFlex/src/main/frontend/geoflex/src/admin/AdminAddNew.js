@@ -21,7 +21,7 @@ export default function AdminAddNew() {
                      "title": titleRef.current.value,
                      "description": descriptionRef.current.value,
                      "type": "QUIZ",
-                     "locations": 5
+                     "locations": 10
                    }
                  });
 
@@ -45,7 +45,7 @@ export default function AdminAddNew() {
                });
     }
 
-    const handleSave = (event) => {
+    const handleSave = () => {
         /*
         console.log(titleRef.current.value);
         console.log(descriptionRef.current.value);
@@ -114,7 +114,7 @@ export default function AdminAddNew() {
                 <option value="quiz">Quiz</option>
                 <option value="infotour">Inforunda</option>
             </select>
-            <h1 onClick={event => handleSave(event)}>Spara</h1>
+            <h1 onClick={() => handleSave()}>Spara</h1>
         </form>
     )
 }

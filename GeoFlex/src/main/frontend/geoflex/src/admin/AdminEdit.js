@@ -6,22 +6,27 @@ import axios from 'axios';
 
 export default function AdminEdit() {
     const location = useLocation();
-    const data = location.state.data
+    const routeData = location.state.data;
 
-    const [routeLocationsData, setRouteLocationsData] = useState([])
-    //const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
+    const [routeLocationsData, setRouteLocationsData] = useState([]);
+
+    //data2 är placeholderdata och ska tas bort innan leverans
+    const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
 
 
     const [updateTour, setUpdateTour] = useState();
     let titleRef = useRef();
     let descriptionRef = useRef();
-    const [updatedLocationsData, setUpdatedLocationsData] = useState()
+    const [updatedLocationsData, setUpdatedLocationsData] = useState();
     let typeRef = useRef();
+    const [status, setStatus] = useState(false);
 
     useEffect(() => {
+    console.log(status);
+    console.log("STATUS");
         var config = {
             method: 'get',
-            url: '/admin/route/locations?route-id=' + data.id,
+            url: '/admin/route/locations?route-id=' + routeData.id,
             headers: {
 
             }
@@ -35,9 +40,9 @@ export default function AdminEdit() {
             })
             .catch(function (error) {
                 console.log(error);
-                //setEditLocations(data2)
+                setRouteLocationsData(data2)
             });
-    },[]);
+    }, [status]);
 
     const handleSave = (event) => {
         console.log(event)
@@ -50,8 +55,8 @@ export default function AdminEdit() {
                     "title": titleRef.current.value,
                     "description": descriptionRef.current.value,
                     "type": typeRef.current.value,
-                    "id": data.id,
-                    "code": data.code,
+                    "id": routeData.id,
+                    "code": routeData.code,
                     "locations": updatedLocationsData
                 }
             }
@@ -60,48 +65,111 @@ export default function AdminEdit() {
     useEffect(() => {
         M.AutoInit();
     }, []);
-    /*
-        function handleTest(){
-            if(testRef2.current.value.length != 0){
-                setTestRef(testRef2.current.value)
+
+    function deleteLocation(id) {
+
+        var data = JSON.stringify({
+            "route-update": {
+                "route-id": routeData.id,
+                "location": [
+                    {
+                        "delete": id
+                    }
+                ]
             }
-        }
+        });
+
+        var config = {
+            method: 'patch',
+            url: '/admin/route/',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                if (!status) {
+                    setStatus(true);
+                } else if (status) {
+                    setStatus(false);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+
+            });
+
+    }
     
-        <div>
-            <p>HÄR</p>
-            <p>{testRef}</p>
-            <label>test</label>
-            <input type="text" onKeyUp={handleTest} ref={testRef2} />
-        </div>
-    */
-    if(routeLocationsData.length != 0) {
+    function addLocation() {
+        
+
+        var data = JSON.stringify({
+            "route-update": {
+                "route-id": routeData.id,
+                "location": [
+                    {
+                        "new": 1
+                    }
+                ]
+            }
+        });
+
+        var config = {
+            method: 'patch',
+            url: '/admin/route/',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                if (!status) {
+                    setStatus(true);
+                } else if (status) {
+                    setStatus(false);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+
+            });
+
+    }
+    if (routeLocationsData.length != 0) {
         return (<>
-        <fieldset>
+            <fieldset>
 
-            <label>Titel</label>
-            <input type="text" defaultValue={data.title} ref={titleRef} />
-            <label>Beskrivning</label>
-            <textarea type="text" defaultValue={data.description} ref={descriptionRef} />
-            <label>Typ</label>
-            <select defaultValue={data.type} ref={typeRef}>
-                <option value=""></option>
-                <option value="QUIZ">Quiz</option>
-                <option value="INFO">Inforunda</option>
-            </select>
-            <ul className="">
-                {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} />)}
+                <label>Titel</label>
+                <input type="text" defaultValue={routeData.title} ref={titleRef} />
+                <label>Beskrivning</label>
+                <textarea type="text" defaultValue={routeData.description} ref={descriptionRef} />
+                <label>Typ</label>
+                <select defaultValue={routeData.type} ref={typeRef}>
+                    <option value=""></option>
+                    <option value="QUIZ">Quiz</option>
+                    <option value="INFO">Inforunda</option>
+                </select>
+                <ul className="">
+                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} />)}
+                </ul>
+                <i className="material-icons col s1" onClick={addLocation()}>add_location</i>
+                <button onClick={event => handleSave(event)}>Spara</button>
+            </fieldset>
 
-            </ul>
-            <button onClick={event => handleSave(event)}>Spara</button>
-        </fieldset>
+        </>
 
-    </>
-
-    )
-} else {
-    return (<>
-    <p>Laddar</p>
-    </>)
-}
+        )
+    } else {
+        return (<>
+            <p>Laddar</p>
+        </>)
+    }
 
 }
