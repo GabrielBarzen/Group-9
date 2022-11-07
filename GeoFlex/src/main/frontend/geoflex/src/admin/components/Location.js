@@ -28,8 +28,8 @@ export default function Location(props) {
                 <button onClick={() => { props.swapLocationsUp(props.data.id) }}>
                     Flytta upp
                 </button>
-                <button onClick={() => { props.swapLocationsUp(props.data.id) }}>
-                    Flytta upp
+                <button onClick={() => { props.swapLocationsDown(props.data.id) }}>
+                    Flytta ner
                 </button>
             </li>
         </>
