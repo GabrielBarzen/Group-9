@@ -25,10 +25,10 @@ export default function Location(props) {
                 <button onClick={() => { props.deleteLocation(props.data.id) }}>
                     Ta bort
                 </button>
-                <button
-                    id={props.data.id}
-                    data_location_index={props.data.location_index}
-                    onClick={event => { props.swapLocationsUp(event, props.data.id) }}>
+                <button onClick={() => { props.swapLocationsUp(props.data.id) }}>
+                    Flytta upp
+                </button>
+                <button onClick={() => { props.swapLocationsUp(props.data.id) }}>
                     Flytta upp
                 </button>
             </li>

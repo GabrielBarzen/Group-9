@@ -168,47 +168,48 @@ export default function AdminEdit() {
         console.log("KOLLA HÄR DETTA ÄR ADD LOCATION");
     }
 
-    function swapLocationsUp(event, idFrom) {
-        /*const data2 = { "route": 
-        { "location": [
-            { "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, 
-            { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, 
-            { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, 
-            { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, 
-            { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, 
-            { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }
-        ], "locations": 0 } };
-        */
-        //var idFrom = event.target.getAttribute('id');
-        console.log('IDFROM: ' + idFrom)
-
-        //const result = words.filter(word => word.length > 6);
+    function swapLocationsUp(idFrom) {        
+       
         var temp = ""
         var idToIndex = "";
         var idTo = "";
         routeLocationsData.route.location.forEach(element => {
-            console.log("ELEMENT 1 " + element.id)
+            
             if(element.id === idFrom){
                 temp = parseInt(element.location_index);
-                console.log("TEMP " + temp);
                 idToIndex = temp - 1;
-                console.log("idToIndex: " + idToIndex);
-
             }
         });
 
         routeLocationsData.route.location.forEach(item => {
-        console.log("ELEMENT 2 " + item.location_index)
             if(item.location_index === idToIndex.toString()){
-                console.log("ELEMENT2 ID: " + item.id)
                 idTo = item.id;
             }
         });
-        console.log('IDTO: ' + idTo);
         updateLocation(idFrom, idTo);
+    };
 
+    function swapLocationsDown(idFrom) {        
+       
+        var temp = ""
+        var idToIndex = "";
+        var idTo = "";
+        routeLocationsData.route.location.forEach(element => {
+            
+            if(element.id === idFrom){
+                temp = parseInt(element.location_index);
+                idToIndex = temp + 1;
+            }
+        });
 
+        routeLocationsData.route.location.forEach(item => {
+            if(item.location_index === idToIndex.toString()){
+                idTo = item.id;
+            }
+        });
+        updateLocation(idFrom, idTo);
     }
+
 
     function updateLocation(idFrom, idTo) {
 
@@ -263,7 +264,7 @@ export default function AdminEdit() {
                     <option value="INFO">Inforunda</option>
                 </select>
                 <ul className="">
-                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp} />)}
+                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp} swapLocationsDown={swapLocationsDown}/>)}
                 </ul>
                 <i className="material-icons col s1" onClick={addLocation} >add_location</i>
                 <button onClick={event => handleSave(event)}>Spara</button>
