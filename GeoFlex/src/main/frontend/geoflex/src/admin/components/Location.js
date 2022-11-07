@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 
 export default function Location(props) {
-
+/*
     const [stateObject, setObjectState] = useState({
         firstKey: '',
         secondKey: '',
@@ -12,7 +12,7 @@ export default function Location(props) {
         ...prevState, 
         secondKey: 'value',
     }));
-
+*/
 
     return (
         <>

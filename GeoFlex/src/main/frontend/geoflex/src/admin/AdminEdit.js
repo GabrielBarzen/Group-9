@@ -11,13 +11,13 @@ export default function AdminEdit() {
     const [routeLocationsData, setRouteLocationsData] = useState([]);
 
     //data2 är placeholderdata och ska tas bort innan leverans
-    const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
+    //const data2 = { "route": { "location": [{ "name": "1", "text_info": "Replace me", "id": "179", "location_index": "1", "last_location": "false" }, { "name": "2", "text_info": "Replace me", "id": "180", "location_index": "2", "last_location": "false" }, { "name": "3", "text_info": "Replace me", "id": "181", "location_index": "3", "last_location": "false" }, { "name": "4", "text_info": "Replace me", "id": "182", "location_index": "4", "last_location": "false" }, { "name": "5", "text_info": "Replace me", "id": "183", "location_index": "5", "last_location": "false" }, { "name": "6", "text_info": "Replace me", "id": "184", "last_location": "true" }], "locations": 0 } };
 
 
-    const [updateTour, setUpdateTour] = useState();
+    //const [updateTour, setUpdateTour] = useState();
     let titleRef = useRef();
     let descriptionRef = useRef();
-    const [updatedLocationsData, setUpdatedLocationsData] = useState();
+    //const [updatedLocationsData, setUpdatedLocationsData] = useState();
     let typeRef = useRef();
     const [status, setStatus] = useState(false);
 
@@ -39,18 +39,18 @@ export default function AdminEdit() {
                 response.data.route.location.push(response.data.route.location.shift());
                 console.log("Efter shift: " + response.data.route.location)
                 setRouteLocationsData(response.data);
-                console.log(routeLocationsData);
+                
             })
             .catch(function (error) {
                 console.log(error);
-                setRouteLocationsData(data2)
+                //setRouteLocationsData(data2)
             });
-    }, [status]);
+    }, [status, routeData.id]);
 
     const handleSave = (event) => {
         console.log(event)
         console.log("Hejsan")
-        let validation = true;
+        
 
 
         var data = {
@@ -208,7 +208,7 @@ export default function AdminEdit() {
             });
             */
     }
-    if (routeLocationsData.length != 0) {
+    if (routeLocationsData.length !== 0) {
         return (<>
             <fieldset>
 
