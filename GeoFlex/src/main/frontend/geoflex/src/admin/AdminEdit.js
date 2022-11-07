@@ -22,6 +22,8 @@ export default function AdminEdit() {
     const [status, setStatus] = useState(false);
 
     useEffect(() => {
+    console.log(status);
+    console.log("STATUS");
         var config = {
             method: 'get',
             url: '/admin/route/locations?route-id=' + routeData.id,
