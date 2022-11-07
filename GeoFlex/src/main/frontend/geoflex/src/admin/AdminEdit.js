@@ -35,6 +35,9 @@ export default function AdminEdit() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                console.log("Före shift: " + response.data.route.location)
+                response.data.route.location.push(response.data.route.location.shift());
+                console.log("Efter shift: " + response.data.route.location)
                 setRouteLocationsData(response.data);
                 console.log(routeLocationsData);
             })

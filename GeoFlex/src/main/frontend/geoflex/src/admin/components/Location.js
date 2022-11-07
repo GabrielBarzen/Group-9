@@ -12,8 +12,10 @@ export default function Location(props) {
         ...prevState, 
         secondKey: 'value',
     }));
+
+
     return (
-        <>{!props.data.last_location ? (
+        <>
             <li className='row card-panel'>
 
                 <i className="material-icons col s1">place</i>
@@ -30,13 +32,6 @@ export default function Location(props) {
                     Flytta upp
                 </button>
             </li>
-        ) : (
-            <li className='row green lighten-2 card-panel'>
-                <i className="material-icons col s1">cake</i>
-                <span className='col s9'>
-                    {props.data.name}
-                </span>
-            </li>)}
         </>
     )
 }
