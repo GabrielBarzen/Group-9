@@ -144,11 +144,11 @@ export default function AdminEdit() {
         console.log("KOLLA HÄR DETTA ÄR ADD LOCATION");
     }
 
-    function swapLocationsUp(event){
-        var idFrom = event.target.getAttribute('id');
+    function swapLocationsUp(event, idFrom){
+        //var idFrom = event.target.getAttribute('id');
         console.log('IDFROM: ' + idFrom)
 
-        var idTo = idFrom.parentElement.previousSiblingElement.child.getAttribute('id');
+        var idTo = event.parentElement.previousSiblingElement.child.getAttribute('id');
         console.log('IDTO: ' + idTo)
         /*
         var data = {"route-update":{

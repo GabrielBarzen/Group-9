@@ -13,7 +13,7 @@ export default function Location(props) {
                 <button onClick={() => { props.deleteLocation(props.data.id) }}>
                     Ta bort
                 </button>
-                <button id={props.data.id} data_location_index={props.data.location_index} onClick={() => { props.swapLocationsUp(this) }}>Flytta upp</button>
+                <button id={props.data.id} data_location_index={props.data.location_index} onClick={event => { props.swapLocationsUp(event, props.data.id) }}>Flytta upp</button>
             </li>
         </>
     )
