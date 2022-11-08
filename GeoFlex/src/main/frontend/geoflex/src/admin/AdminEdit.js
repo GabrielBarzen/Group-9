@@ -242,28 +242,48 @@ export default function AdminEdit() {
             });
     }
     if (routeLocationsData.length !== 0) {
-        return (<>
-            <fieldset>
-
-                <label>Titel</label>
-                <input type="text" defaultValue={routeData.title} ref={titleRef} />
-                <label>Beskrivning</label>
-                <textarea type="text" defaultValue={routeData.description} ref={descriptionRef} />
-                <label>Typ</label>
-                <select defaultValue={routeData.type} ref={typeRef}>
-                    <option value=""></option>
-                    <option value="QUIZ">Quiz</option>
-                    <option value="INFO">Inforunda</option>
-                </select>
-                <ul className="">
-                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp} swapLocationsDown={swapLocationsDown}/>)}
-                </ul>
-                <i className="material-icons col s1" onClick={addLocation} >add_location</i>
-                <button onClick={event => handleSave(event)}>Spara</button>
-            </fieldset>
-
-        </>
-
+        return (
+            <div className="container white container-css">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                            <i class="material-icons prefix">label</i>
+                                <input id="title" type="text" defaultValue={routeData.title} ref={titleRef}/>
+                                <label for="title">Titel</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea type="text" className='materialize-textarea' id="description" defaultValue={routeData.description} ref={descriptionRef}/>
+                                <label for="description">Beskrivning</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                            <i class="material-icons prefix">map</i>
+                                <select defaultValue={routeData.type} ref={typeRef}>
+                                    <option value="" disabled selected>Välj ett alternativ</option>
+                                    <option value="QUIZ">Quiz</option>
+                                    <option value="Info">Inforunda</option>
+                                </select>
+                                <label>Välj typ</label>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div>
+                                <ul className="">
+                                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp} swapLocationsDown={swapLocationsDown}/>)}
+                                </ul>
+                                <i className="material-icons col s1" onClick={addLocation} >add_location</i>
+                                <button onClick={event => handleSave(event)}>Spara</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
         )
     } else {
         return (<>
@@ -272,3 +292,26 @@ export default function AdminEdit() {
     }
 
 }
+
+/*
+
+<fieldset>
+
+<label>Titel</label>
+<input type="text" defaultValue={routeData.title} ref={titleRef} />
+<label>Beskrivning</label>
+<textarea type="text" defaultValue={routeData.description} ref={descriptionRef} />
+<label>Typ</label>
+<select defaultValue={routeData.type} ref={typeRef}>
+    <option value=""></option>
+    <option value="QUIZ">Quiz</option>
+    <option value="INFO">Inforunda</option>
+</select>
+<ul className="">
+    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp} swapLocationsDown={swapLocationsDown}/>)}
+</ul>
+<i className="material-icons col s1" onClick={addLocation} >add_location</i>
+<button onClick={event => handleSave(event)}>Spara</button>
+</fieldset>
+
+*/

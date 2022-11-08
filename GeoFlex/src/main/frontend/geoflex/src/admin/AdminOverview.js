@@ -62,11 +62,11 @@ export default function AdminOverview() {
     return (
       <div className="container white container-css">
         <h2>Översikt</h2>
-        <ul class="">
+        <ul className="collection">
           {[...tours].map(tour => <Tour key={tour.id} data={tour} deleteItem={deleteItem} />)}
         </ul>
         <Link to='/admin/new/'>
-              <Button text={"Lägg till"} icon={<i className="material-icons">add_circle_outline</i>} />
+              <Button text={"Lägg till"} icon={<i className="material-icons icon-css">add_circle_outline</i>} />
         </Link>
       </div>
     )

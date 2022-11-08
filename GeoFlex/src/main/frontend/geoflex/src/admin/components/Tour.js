@@ -11,14 +11,14 @@ export default function Tour(props) {
     };*/
   return (
     <>
-    <li>
-      <div class="collection">
-        <i class="material-icons">filter_drama</i>
-          <Link style={{cursor: 'pointer', 'font-size': '2rem'}} to={url} state={{ data: props.data }}>
+    <li className='collection-item'>
+      
+        <i class="material-icons icon-css">location_on</i>
+          <Link style={{cursor: 'pointer', 'font-size': '1rem', 'color': 'black'}} to={url} state={{ data: props.data }}>
             {props.data.title}
           </Link>
-          <span style={{cursor: 'pointer', 'font-size': '2rem'}}><i className='material-icons' id={props.data.id} onClick={() => { props.deleteItem(props.data.id) }}>delete_forever</i></span>
-        </div>
+          <span style={{cursor: 'pointer', 'font-size': '2rem'}}><i className='material-icons right black-text' id={props.data.id} onClick={() => { props.deleteItem(props.data.id) }}>delete_forever</i></span>
+        
     </li>
     </>
   )
