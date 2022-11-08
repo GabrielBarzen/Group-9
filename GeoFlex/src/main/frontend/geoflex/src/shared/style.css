@@ -29,6 +29,7 @@ body {
 .container-css {
     border-radius: 5px; 
     padding: 0.75rem;
+    opacity: 1;
 }
 .container {
     margin-top: 1rem !important;
