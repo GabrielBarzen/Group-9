@@ -3,8 +3,11 @@ import { useLocation } from "react-router-dom";
 import Location from "./components/Location";
 import M from "materialize-css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminEdit() {
+  const navigate = useNavigate();
+
   //location tar emot data från föregående sida
   const location = useLocation();
   const routeData = location.state.data;
@@ -44,13 +47,14 @@ export default function AdminEdit() {
     var data = {
       "route-update": {
         "route-id": routeData.id,
-        'title': titleRef.current.value,
-        'description': descriptionRef.current.value,
-        'image': "",
-        'type': "QUIZ",
-        'location': [],
+        "title": titleRef.current.value,
+        "description": descriptionRef.current.value,
+        "image": "",
+        "type": "QUIZ",
+        "location": [],
       },
-    };
+    };    
+
     var config = {
       method: "patch",
       url: "/admin/route/",
@@ -63,6 +67,7 @@ export default function AdminEdit() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        navigate("/admin", { replace: true });
       })
       .catch(function (error) {
         console.log(error);
