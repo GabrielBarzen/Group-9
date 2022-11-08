@@ -272,7 +272,7 @@ export default function AdminEdit() {
                 <i className="material-icons col s1" onClick={addLocation}>
                   add_location
                 </i>
-                <button onClick={(event) => handleSave(event)}>Spara</button>
+                <button onClick={handleSave}>Spara</button>
               </div>
             </div>
           </div>
