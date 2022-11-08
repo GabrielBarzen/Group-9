@@ -18,7 +18,7 @@ export default function AdminEdit() {
     let titleRef = useRef();
     let descriptionRef = useRef();
     let typeRef = useRef();
-    
+
 
     useEffect(() => {
         console.log(status);
@@ -160,42 +160,42 @@ export default function AdminEdit() {
         console.log("KOLLA HÄR DETTA ÄR ADD LOCATION");
     }
 
-    function swapLocationsUp(idFrom) {        
-       
-        var temp = ""
+    function swapLocationsUp(idFrom) {
+
+        var temp = "";
         var idToIndex = "";
         var idTo = "";
         routeLocationsData.route.location.forEach(element => {
-            
-            if(element.id === idFrom){
+
+            if (element.id === idFrom) {
                 temp = parseInt(element.location_index);
                 idToIndex = temp - 1;
             }
         });
 
         routeLocationsData.route.location.forEach(item => {
-            if(item.location_index === idToIndex.toString()){
+            if (item.location_index === idToIndex.toString()) {
                 idTo = item.id;
             }
         });
         updateLocation(idFrom, idTo);
     };
 
-    function swapLocationsDown(idFrom) {        
-       
+    function swapLocationsDown(idFrom) {
+
         var temp = ""
         var idToIndex = "";
         var idTo = "";
         routeLocationsData.route.location.forEach(element => {
-            
-            if(element.id === idFrom){
+
+            if (element.id === idFrom) {
                 temp = parseInt(element.location_index);
                 idToIndex = temp + 1;
             }
         });
 
         routeLocationsData.route.location.forEach(item => {
-            if(item.location_index === idToIndex.toString()){
+            if (item.location_index === idToIndex.toString()) {
                 idTo = item.id;
             }
         });
@@ -256,7 +256,12 @@ export default function AdminEdit() {
                     <option value="INFO">Inforunda</option>
                 </select>
                 <ul className="">
-                    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp} swapLocationsDown={swapLocationsDown}/>)}
+                    {[...routeLocationsData.route.location].map(location => <Location
+                        key={location.id} data={location}
+                        deleteLocation={deleteLocation}
+                        swapLocationsUp={swapLocationsUp}
+                        swapLocationsDown={swapLocationsDown}
+                    />)}
                 </ul>
                 <i className="material-icons col s1" onClick={addLocation} >add_location</i>
                 <button onClick={event => handleSave(event)}>Spara</button>
