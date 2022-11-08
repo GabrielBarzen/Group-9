@@ -82,20 +82,24 @@ public class AdminCompanion {
      */
     public ResponseEntity<String> routePatch(String body) {
         ResponseEntity<String> response;
-        response = new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         Gson gson = new Gson();
         RootUpdate ru = gson.fromJson(body, RootUpdate.class);
         if(ru.routeUpdate.title != null){
             AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
+            response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.description != null){
             AdminProcedures.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
+            response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.type != null){
             AdminProcedures.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
+            response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.image != null){
             System.out.println(ru.routeUpdate.image);
+            response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.location != null){
             for (int i = 0; i < ru.routeUpdate.location.size(); i++) {
