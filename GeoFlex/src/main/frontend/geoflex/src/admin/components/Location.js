@@ -14,6 +14,7 @@ export default function Location(props) {
         }));
     */
     const renderLocation = () => {
+        console.log("SORTERAR ELEMENTEN: ")
         props.data.forEach(element => {
             if (element.location_index === "1") {
                 return (
@@ -31,7 +32,7 @@ export default function Location(props) {
                         </button>
                     </li>
                 )
-            } else if (element.location_index !== element.location_index.length - 2) {
+            } else if (element.location_index !== (element.location_index.length - 2).toString()) {
                 return (
                     <li className='row card-panel'>
 
@@ -50,7 +51,7 @@ export default function Location(props) {
                         </button>
                     </li>
                 )
-            } else if (element.location_index === element.location_index.length - 1) {
+            } else if (element.location_index === (element.location_index.length - 1).toString()) {
                 return (
                     <li className='row card-panel'>
 
