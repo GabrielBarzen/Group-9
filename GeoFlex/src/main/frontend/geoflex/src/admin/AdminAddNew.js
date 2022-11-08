@@ -99,7 +99,6 @@ export default function AdminAddNew() {
         M.AutoInit();
     }, []);
 
-
     return (
         <div className="container white container-css">
             <h2 className="center-align">Skapa nytt</h2>
@@ -125,12 +124,12 @@ export default function AdminAddNew() {
                         </div>
                     </div>
                     <div className="row">
-                        <form action="#">
+                        
                             <p className="range-field">
                                 <p>Antal platser</p>
                                 <input type="range" id="test5" min="0" max="20" ref={rangeRef}/>
                             </p>
-                        </form>
+                        
                     </div>
                     <div className="row">
                         <h1 className="center-align" onClick={handleAddNew}>

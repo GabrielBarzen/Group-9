@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Tour(props) {
-  console.log(props);
+export default function Tour(props) {  
 
   const url = "/admin/edit/" + props.data.id;
   /*const editTo = {
