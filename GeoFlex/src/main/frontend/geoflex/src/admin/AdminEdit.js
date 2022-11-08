@@ -17,7 +17,7 @@ export default function AdminEdit() {
 
   let titleRef = useRef();
   let descriptionRef = useRef();
- 
+
 
   useEffect(() => {
     console.log(status);
@@ -39,40 +39,6 @@ export default function AdminEdit() {
         console.log(error);
       });
   }, [status, routeData.id]);
-
-  const handleSave = (event) => {
-    console.log(event);
-    console.log("Hejsan");
-
-    var data = {
-      "route-update": {
-        "route-id": routeData.id,
-        "title": titleRef.current.value,
-        "description": descriptionRef.current.value,
-        "image": "",
-        "type": "QUIZ",
-        "location": [],
-      },
-    };    
-
-    var config = {
-      method: "patch",
-      url: "/admin/route/",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        navigate("/admin", { replace: true });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   useEffect(() => {
     M.AutoInit();
@@ -210,7 +176,7 @@ export default function AdminEdit() {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));        
+        console.log(JSON.stringify(response.data));
         if (!status) {
           setStatus(true);
         } else if (status) {
@@ -221,6 +187,45 @@ export default function AdminEdit() {
         console.log(error);
       });
   }
+
+  const handleSave = () => {
+    console.log("Hejsan");
+    console.log(routeData.id);
+    console.log(titleRef.current.value);
+    console.log(descriptionRef.current.value);
+
+    var data = {
+      "route-update": {
+        "route-id": routeData.id,
+        "title": titleRef.current.value,
+        "description": descriptionRef.current.value,
+        "image": "",
+        "type": "INFO",
+        "location": [
+        ]
+      }
+    }
+    var config = {
+      method: 'patch',
+      url: '/admin/route/',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        navigate('/admin', { replace: true });
+
+      })
+      .catch(function (error) {
+        console.log(error.response.data);
+
+      });
+  };
+
   if (routeLocationsData.length !== 0) {
     return (
       <div className="container white container-css">
@@ -250,7 +255,7 @@ export default function AdminEdit() {
                   ref={descriptionRef}
                 />
               </div>
-            </div>            
+            </div>
             <div className="row">
               <div>
                 <ul className="">
