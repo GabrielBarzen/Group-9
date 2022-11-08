@@ -214,10 +214,10 @@ export default function AdminOverview() {
           <div className="center-align">
             <Link to="/admin/new/">
               <Button
-                css="center-align"
-                text={"Lägg till"}
+                css=" s12 green lighten-4"
+                
                 icon={
-                  <i className="material-icons icon-css green-text">
+                  <i className="material-icons green-text">
                     add_circle_outline
                   </i>
                 }

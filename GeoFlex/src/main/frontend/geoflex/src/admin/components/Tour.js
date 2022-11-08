@@ -11,27 +11,15 @@ export default function Tour(props) {
     };*/
   return (
     <>
-      <li className="collection-item">
-        <i class="material-icons icon-css">location_on</i>
-        <Link
-          style={{ cursor: "pointer", "font-size": "1rem", color: "black" }}
-          to={url}
-          state={{ data: props.data }}
-        >
-          {props.data.title}
-        </Link>
-        <span style={{ cursor: "pointer", "font-size": "2rem" }}>
-          <i
-            className="material-icons right black-text"
-            id={props.data.id}
-            onClick={() => {
-              props.deleteItem(props.data.id);
-            }}
-          >
-            delete_forever
-          </i>
-        </span>
-      </li>
+    <li className='collection-item row'>
+      
+        <i className="material-icons col s1">location_on</i>
+          <Link className="col s9 offset-s1" style={{cursor: 'pointer', 'font-size': '1rem', 'color': 'black'}} to={url} state={{ data: props.data }}>
+            {props.data.title}
+          </Link>
+          <span className='col s1 right' style={{cursor: 'pointer', 'font-size': '2rem'}}><i className='material-icons right black-text' id={props.data.id} onClick={() => { props.deleteItem(props.data.id) }}>delete_forever</i></span>
+        
+    </li>
     </>
   );
 }
