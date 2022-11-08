@@ -14,7 +14,7 @@ export default function AdminEdit() {
 
   let titleRef = useRef();
   let descriptionRef = useRef();
-  let typeRef = useRef();
+ 
 
   useEffect(() => {
     console.log(status);
@@ -245,20 +245,7 @@ export default function AdminEdit() {
                   ref={descriptionRef}
                 />
               </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <i className="material-icons prefix">map</i>
-                <select id="type" defaultValue={routeData.type} ref={typeRef}>
-                  <option value="">
-                    Välj ett alternativ
-                  </option>
-                  <option value="QUIZ">Quiz</option>
-                  <option value="INFO">Inforunda</option>
-                </select>
-                <label htmlFor="type">Välj typ</label>
-              </div>
-            </div>
+            </div>            
             <div className="row">
               <div>
                 <ul className="">
