@@ -6,21 +6,22 @@ import M from 'materialize-css';
 export default function AdminAddNew() {
     const titleRef = useRef();
     const descriptionRef = useRef();
+    const rangeRef = useRef();
     /*
       const locationsRef = useRef();
       const typeRef = useRef();
       */
-    const locationsRef = 5;
-    const typeRef = "INFO";
+    //const locationsRef = 5;
+    //const typeRef = "INFO";
     const navigate = useNavigate();
 
     function handleAddNew() {
         var data = JSON.stringify({
-            route: {
-                title: titleRef.current.value,
-                description: descriptionRef.current.value,
-                type: "QUIZ",
-                locations: 10,
+            'route': {
+                'title': titleRef.current.value,
+                'description': descriptionRef.current.value,
+                'type': "QUIZ",
+                'locations': rangeRef.current.value,
             },
         });
 
@@ -38,14 +39,15 @@ export default function AdminAddNew() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                navigate("/admin", { replace: true });
             })
             .catch(function (error) {
                 console.log(error.response.data);
             });
     }
-
+/*
     const handleSave = () => {
-        /*
+        
             console.log(titleRef.current.value);
             console.log(descriptionRef.current.value);
             console.log(locationsRef.current.value);
@@ -65,7 +67,7 @@ export default function AdminAddNew() {
             if (typeRef.current.value === "") {
                 validation = false
             }
-            */
+            
         let validation = true;
 
         if (titleRef.current.value === "") {
@@ -77,11 +79,11 @@ export default function AdminAddNew() {
 
         if (validation) {
             let content = JSON.stringify({
-                route: {
-                    title: titleRef.current.value,
-                    description: descriptionRef.current.value,
-                    location: locationsRef,
-                    type: typeRef,
+                'route': {
+                    'title': titleRef.current.value,
+                    'description': descriptionRef.current.value,
+                    'location': locationsRef.current.value,
+                    'type': typeRef,
                 },
             });
             console.log(content);
@@ -92,7 +94,7 @@ export default function AdminAddNew() {
             alert("Du är inte klar");
         }
     };
-
+*/
     useEffect(() => {
         M.AutoInit();
     }, []);
@@ -126,12 +128,12 @@ export default function AdminAddNew() {
                         <form action="#">
                             <p className="range-field">
                                 <p>Antal platser</p>
-                                <input type="range" id="test5" min="0" max="20" />
+                                <input type="range" id="test5" min="0" max="20" ref={rangeRef}/>
                             </p>
                         </form>
                     </div>
                     <div className="row">
-                        <h1 className="center-align" onClick={() => handleSave()}>
+                        <h1 className="center-align" onClick={handleAddNew}>
                             Spara
                         </h1>
                     </div>

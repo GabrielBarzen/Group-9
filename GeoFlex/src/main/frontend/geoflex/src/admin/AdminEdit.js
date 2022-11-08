@@ -98,11 +98,11 @@ export default function AdminEdit() {
     var data = {
       "route-update": {
         "route-id": routeData.id,
-        title: titleRef.current.value,
-        description: descriptionRef.current.value,
-        image: "",
-        type: "INFO",
-        location: [],
+        'title': titleRef.current.value,
+        'description': descriptionRef.current.value,
+        'image': "",
+        'type': "QUIZ",
+        'location': [],
       },
     };
     var config = {
@@ -195,8 +195,6 @@ export default function AdminEdit() {
       .catch(function (error) {
         console.log(error);
       });
-
-    console.log("KOLLA HÄR DETTA ÄR ADD LOCATION");
   }
 
   function swapLocationsUp(idFrom) {
@@ -241,10 +239,10 @@ export default function AdminEdit() {
     var data = {
       "route-update": {
         "route-id": routeData.id,
-        location: [
+        'location': [
           {
-            from: idFrom,
-            to: idTo,
+            'from': idFrom,
+            'to': idTo,
           },
         ],
       },
@@ -261,8 +259,7 @@ export default function AdminEdit() {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        console.log("SWAP UP COMPLETE");
+        console.log(JSON.stringify(response.data));        
         if (!status) {
           setStatus(true);
         } else if (status) {
