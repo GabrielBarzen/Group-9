@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AdminAddNew from "./AdminAddNew";
 import Tour from "./components/Tour";
 import Button from "../shared/Button";
 import axios from "axios";

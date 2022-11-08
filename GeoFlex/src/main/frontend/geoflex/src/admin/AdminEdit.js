@@ -13,7 +13,7 @@ export default function AdminEdit() {
   const [status, setStatus] = useState(false);
 
   //data2 är placeholderdata och ska tas bort innan leverans
-  const data2 = {
+  /*const data2 = {
     route: {
       location: [
         {
@@ -61,6 +61,7 @@ export default function AdminEdit() {
       locations: 0,
     },
   };
+  */
 
   let titleRef = useRef();
   let descriptionRef = useRef();
@@ -86,7 +87,7 @@ export default function AdminEdit() {
       .catch(function (error) {
         console.log(error);
         //sätter placeholderdata för att kunna fixa design smidigt
-        setRouteLocationsData(data2);
+        //setRouteLocationsData(data2);
       });
   }, [status, routeData.id]);
 
