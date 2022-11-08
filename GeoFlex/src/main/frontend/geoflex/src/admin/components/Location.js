@@ -13,7 +13,7 @@ export default function Location(props) {
             secondKey: 'value',
         }));
     */
-    const renderLocation = () => {
+    function renderLocation() {
         console.log("SORTERAR ELEMENTEN: ")
         props.data.forEach(element => {
             if (element.location_index === "1") {
