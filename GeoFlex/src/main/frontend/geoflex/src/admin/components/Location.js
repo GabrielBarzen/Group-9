@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-
 export default function Location(props) {
     /*
         const [stateObject, setObjectState] = useState({
@@ -13,6 +12,7 @@ export default function Location(props) {
             secondKey: 'value',
         }));
     */
+   /*
     function renderLocation() {
         console.log("SORTERAR ELEMENTEN: ")
         props.data.forEach(element => {
@@ -78,12 +78,27 @@ export default function Location(props) {
                     </li>
                 )
             }
-        });
+        });        
     }
-
+    */
     return (
         <>
-            {renderLocation}
+            <li className='row card-panel'>
+
+                <i className="material-icons col s1">place</i>
+                <span className='col s9'>
+                    {props.data.name}
+                </span>
+                <button onClick={() => { props.deleteLocation(props.data.id) }}>
+                    Ta bort
+                </button>
+                <button onClick={() => { props.swapLocationsUp(props.data.id) }}>
+                    Flytta upp
+                </button>
+                <button onClick={() => { props.swapLocationsDown(props.data.id) }}>
+                    Flytta ner
+                </button>
+            </li>
         </>
     )
 }
