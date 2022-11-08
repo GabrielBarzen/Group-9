@@ -3,8 +3,11 @@ import { useLocation } from 'react-router-dom';
 import Location from './components/Location';
 import M from 'materialize-css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminEdit() {
+    //useNavigate för att kunna dirigera till annan url
+    const navigate = useNavigate();
     //location tar emot data från föregående sida
     const location = useLocation();
     const routeData = location.state.data;
@@ -18,7 +21,6 @@ export default function AdminEdit() {
     let titleRef = useRef();
     let descriptionRef = useRef();
     let typeRef = useRef();
-
 
     useEffect(() => {
         console.log(status);
@@ -46,41 +48,6 @@ export default function AdminEdit() {
                 //setRouteLocationsData(data2)
             });
     }, [status, routeData.id]);
-
-    const handleSave = (event) => {
-        console.log(event)
-        console.log("Hejsan")
-
-        var data = {
-            "route-update": {
-                "route-id": routeData.id,
-                "title": titleRef.current.value,
-                "description": descriptionRef.current.value,
-                "image": "",
-                "type": "INFO",
-                "location": [
-                ]
-            }
-        }
-        var config = {
-            method: 'patch',
-            url: '/admin/route/',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
-
-        axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-
-            })
-            .catch(function (error) {
-                console.log(error);
-
-            });
-    };
 
     useEffect(() => {
         M.AutoInit();
@@ -241,6 +208,46 @@ export default function AdminEdit() {
 
             });
     }
+
+    const handleSave = () => {        
+        console.log("Hejsan");
+        console.log(routeData.id);
+        console.log(titleRef.current.value);
+        console.log(descriptionRef.current.value);
+
+        var data = {
+            "route-update": {
+                "route-id": routeData.id,
+                "title": titleRef.current.value,
+                "description": descriptionRef.current.value,
+                "image": "",
+                "type": "INFO",
+                "location": [
+                ]
+            }
+        }
+        var config = {
+            method: 'patch',
+            url: '/admin/route/',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                navigate('/admin/overview', { replace: true });
+
+            })
+            .catch(function (error) {
+                console.log(error);
+
+            });
+    };
+
+
     if (routeLocationsData.length !== 0) {
         return (<>
             <fieldset>
@@ -264,7 +271,7 @@ export default function AdminEdit() {
                     />)}
                 </ul>
                 <i className="material-icons col s1" onClick={addLocation} >add_location</i>
-                <button onClick={event => handleSave(event)}>Spara</button>
+                <button onClick={() => handleSave()}>Spara</button>
             </fieldset>
 
         </>
