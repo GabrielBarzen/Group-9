@@ -13,7 +13,7 @@ export default function Location(props) {
             secondKey: 'value',
         }));
     */
-    function renderLocation() {
+    const renderLocation = () => {
         props.data.forEach(element => {
             if (element.location_index === "1") {
                 return (
@@ -82,7 +82,7 @@ export default function Location(props) {
 
     return (
         <>
-            {displayLocation()}
+            {displayLocation}
         </>
     )
 }
