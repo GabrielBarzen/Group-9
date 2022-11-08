@@ -1,120 +1,143 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
+import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import M from 'materialize-css';
 
 export default function AdminAddNew() {
-
     const titleRef = useRef();
     const descriptionRef = useRef();
+    const rangeRef = useRef();
     /*
-    const locationsRef = useRef();
-    const typeRef = useRef();
-    */
-    const locationsRef = 5;
-    const typeRef = "INFO"
+      const locationsRef = useRef();
+      const typeRef = useRef();
+      */
+    //const locationsRef = 5;
+    //const typeRef = "INFO";
     const navigate = useNavigate();
 
     function handleAddNew() {
-       var data = JSON.stringify({
-                   "route": {
-                     "title": titleRef.current.value,
-                     "description": descriptionRef.current.value,
-                     "type": "QUIZ",
-                     "locations": 10
-                   }
-                 });
+        var data = JSON.stringify({
+            'route': {
+                'title': titleRef.current.value,
+                'description': descriptionRef.current.value,
+                'type': "QUIZ",
+                'locations': rangeRef.current.value,
+            },
+        });
 
-               console.log(data)
+        console.log(data);
 
-               var config = {
-                 method: 'post',
-                 url: '/admin/route/',
-                 headers: {
-                   'Content-Type': 'application/json'
-                 },
-                 data : data
-               };
+        var config = {
+            method: "post",
+            url: "/admin/route/",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: data,
+        };
 
-               axios(config)
-               .then(function (response) {
-                 console.log(JSON.stringify(response.data));
-               })
-               .catch(function (error) {
-                 console.log(error.response.data);
-               });
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                navigate("/admin", { replace: true });
+            })
+            .catch(function (error) {
+                console.log(error.response.data);
+            });
     }
-
+/*
     const handleSave = () => {
-        /*
-        console.log(titleRef.current.value);
-        console.log(descriptionRef.current.value);
-        console.log(locationsRef.current.value);
-        console.log(typeRef.current.value);
-       
-
+        
+            console.log(titleRef.current.value);
+            console.log(descriptionRef.current.value);
+            console.log(locationsRef.current.value);
+            console.log(typeRef.current.value);
+           
+    
+            let validation = true;
+            if (titleRef.current.value === "") {
+                validation = false;
+            }
+            if (descriptionRef.current.value === "") {
+                validation = false
+            }
+            if (locationsRef.current.value === "0") {
+                validation = false
+            }
+            if (typeRef.current.value === "") {
+                validation = false
+            }
+            
         let validation = true;
+
         if (titleRef.current.value === "") {
             validation = false;
         }
         if (descriptionRef.current.value === "") {
-            validation = false
-        }
-        if (locationsRef.current.value === "0") {
-            validation = false
-        }
-        if (typeRef.current.value === "") {
-            validation = false
-        }
-        */
-        let validation = true;
-
-        if (titleRef.current.value === "") {
             validation = false;
-        }
-        if (descriptionRef.current.value === "") {
-            validation = false
         }
 
         if (validation) {
             let content = JSON.stringify({
-                "route": {
-                    "title": titleRef.current.value,
-                    "description": descriptionRef.current.value,
-                    "location": locationsRef,
-                    "type": typeRef
-                }
+                'route': {
+                    'title': titleRef.current.value,
+                    'description': descriptionRef.current.value,
+                    'location': locationsRef.current.value,
+                    'type': typeRef,
+                },
             });
-            console.log(content)
+            console.log(content);
 
             handleAddNew();
-            navigate('/admin', { replace: true });
+            navigate("/admin", { replace: true });
         } else {
             alert("Du är inte klar");
         }
-    }
+    };
+*/
+    useEffect(() => {
+        M.AutoInit();
+    }, []);
 
     return (
-        <form >
-            <label>Titel</label>
-            <input type="text" ref={titleRef}></input>
-            <label>Beskrivning</label>
-            <textarea ref={descriptionRef} />
-            <label>Antal platser</label>
-            <select >
-                <option value="0">0</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-            <label>Typ</label>
-            <select >
-                <option value="">-</option>
-                <option value="quiz">Quiz</option>
-                <option value="infotour">Inforunda</option>
-            </select>
-            <h1 onClick={() => handleSave()}>Spara</h1>
-        </form>
-    )
+        <div className="container white container-css">
+            <h2 className="center-align">Skapa nytt</h2>
+            <div className="row">
+                <form className="col s12">
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <i className="material-icons prefix">label</i>
+                            <input id="title" type="text" ref={titleRef} />
+                            <label htmlfor="title">Titel</label>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <i className="material-icons prefix">mode_edit</i>
+                            <textarea
+                                type="text"
+                                className="materialize-textarea"
+                                id="description"
+                                ref={descriptionRef}
+                            />
+                            <label htmlfor="description">Beskrivning</label>
+                        </div>
+                    </div>
+                    <div className="row">
+                        
+                            <p className="range-field">
+                                <p>Antal platser</p>
+                                <input type="range" id="test5" min="0" max="20" ref={rangeRef}/>
+                            </p>
+                        
+                    </div>
+                    <div className="row">
+                        <h1 className="center-align" onClick={handleAddNew}>
+                            Spara
+                        </h1>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
 }
