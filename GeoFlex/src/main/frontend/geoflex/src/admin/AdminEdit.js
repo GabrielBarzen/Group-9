@@ -185,10 +185,10 @@ export default function AdminEdit() {
     var data = {
       "route-update": {
         "route-id": routeData.id,
-        'location': [
+        "location": [
           {
-            'from': idFrom,
-            'to': idTo,
+            "from": idFrom,
+            "to": idTo,
           },
         ],
       },
@@ -220,9 +220,9 @@ export default function AdminEdit() {
     return (
       <div className="container white container-css">
         <div className="row">
-          <form className="col s12">
+          <div className="col s12">
             <div className="row">
-              <div clclassNameass="input-field col s12">
+              <div className="input-field col s12">
                 <i className="material-icons prefix">label</i>
                 <label htmlFor="title">Titel</label>
                 <input
@@ -250,7 +250,7 @@ export default function AdminEdit() {
               <div className="input-field col s12">
                 <i className="material-icons prefix">map</i>
                 <select id="type" defaultValue={routeData.type} ref={typeRef}>
-                  <option value="" disabled selected>
+                  <option value="">
                     Välj ett alternativ
                   </option>
                   <option value="QUIZ">Quiz</option>
@@ -278,7 +278,7 @@ export default function AdminEdit() {
                 <button onClick={(event) => handleSave(event)}>Spara</button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     );
