@@ -82,7 +82,7 @@ export default function Location(props) {
 
     return (
         <>
-            {displayLocation}
+            {renderLocation}
         </>
     )
 }
