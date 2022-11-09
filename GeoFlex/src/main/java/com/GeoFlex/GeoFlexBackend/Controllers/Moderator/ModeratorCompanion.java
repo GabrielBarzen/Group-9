@@ -2,9 +2,12 @@ package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
+import com.GeoFlex.GeoFlexBackend.Process.Videos.FileHandler;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+
 
 public class ModeratorCompanion {
 
@@ -131,4 +134,60 @@ public class ModeratorCompanion {
         return response;
     }
 
+    /**
+     * Function to upload a file to the server and save the path to a route in the database.
+     * @param routeId The id of the route.
+     * @param file The file to be saved.
+     * @return
+     */
+    public ResponseEntity<String> uploadRouteFile(int routeId, MultipartFile file){
+        ResponseEntity<String> response = new ResponseEntity<>("Interal server error, contact admin.", HttpStatus.INTERNAL_SERVER_ERROR);
+        //FileHandler to directories and write file to folder.
+        FileHandler fh = new FileHandler();
+
+        //Upload image path to database.
+        String fileType = file.getContentType();
+        String path = "files/"+routeId+"/"+file.getOriginalFilename();
+        System.out.println(fileType);
+        switch(fileType){
+            case "image/jpeg":
+            case "image/png":
+            case "video/mp4":
+            case "video/quicktime":
+                fh.createDirectoriesAndSave(routeId, file);
+                ModeratorProcedures.routeUploadFile(routeId, path);
+                response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
+            case "image/heic":
+                //TODO: Convert HEIC to PNG or JPG before saving and uploading path to database.
+                //fh.createDirectories(routeId, file);
+                System.out.println("HEIC");
+                //response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
+            default:
+                response = new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+                break;
+        }
+
+        return response;
+    }
+
+    /**
+     * Function to get filepath for a route from the database.
+     * @param routeId
+     * @return
+     */
+    public ResponseEntity<String> getRouteFile(int routeId) {
+        ResponseEntity<String> response;
+        String filepath = ModeratorProcedures.routeGetFile(routeId);
+        System.out.println(filepath);
+        if(filepath.isEmpty() || filepath.equals("")){
+            response = new ResponseEntity<>("{\"error\" : \"Wrong request params.\"}", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            response = new ResponseEntity<>(filepath, HttpStatus.OK);
+        }
+        //return ResponseEntity.ok().contentType(MediaType.parseMediaType("video/mp4")).body(file);
+        return response;
+    }
 }

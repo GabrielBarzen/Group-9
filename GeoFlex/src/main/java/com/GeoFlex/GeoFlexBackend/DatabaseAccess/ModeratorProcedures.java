@@ -129,6 +129,11 @@ public class ModeratorProcedures {
         return null;
     }
 
+    /**
+     * Delets a location in a route.
+     * @param routeId The route id.
+     * @param locationIdDelete The location id to delete.
+     */
     public static void routeDeleteLocation(int routeId, int locationIdDelete) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_location(?,?)}")) {
@@ -147,6 +152,11 @@ public class ModeratorProcedures {
         }
     }
 
+    /**
+     * Swaps two locations indexes with each other.
+     * @param locationIdFrom The id from where to swap.
+     * @param locationIdTo The id to swap with.
+     */
     public static void routeSwapLocation(int locationIdFrom, int locationIdTo) {
         System.out.println("from id : " + locationIdFrom);
         System.out.println("to id : " + locationIdTo);
@@ -167,6 +177,11 @@ public class ModeratorProcedures {
         }
     }
 
+    /**
+     * Updates a route title.
+     * @param routeID The id of the route.
+     * @param title The new title of the route.
+     */
     public static void routeUpdateTitle(String routeID, String title){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_title(?, ?)}")) {
@@ -185,6 +200,11 @@ public class ModeratorProcedures {
         }
     }
 
+    /**
+     * Updates description of a route.
+     * @param routeID The id of the route.
+     * @param description The new description of the route.
+     */
     public static void routeUpdateDescription(String routeID, String description){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_description(?, ?)}")) {
@@ -203,6 +223,11 @@ public class ModeratorProcedures {
         }
     }
 
+    /**
+     * Updates the route type.
+     * @param routeID The id of the route.
+     * @param type The description of the route.
+     */
     public static void routeUpdateType(String routeID, String type){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_type(?, ?)}")) {
@@ -222,6 +247,11 @@ public class ModeratorProcedures {
         }
     }
 
+    /**
+     * Gets all locations of a route from the database.
+     * @param routeID The id of the route.
+     * @return Json containing all locations of a specific route.
+     */
     public static String getRouteLocations(String routeID) {
         DatabaseConnection dc = new DatabaseConnection();
         Root r = new Root();
@@ -264,6 +294,11 @@ public class ModeratorProcedures {
         }
     }
 
+    /**
+     * Adds new locations to a route in the database.
+     * @param numLocations Amount of locations to add.
+     * @param routeId The id of the route.
+     */
     public static void routeNewLocations(int numLocations, int routeId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_route_add_location(?, ?)}")) {
@@ -275,6 +310,56 @@ public class ModeratorProcedures {
             throw new RuntimeException(e);
         }
         finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Uploads a file path to the database.
+     * @param routeId The id of the route.
+     * @param filePath The path to save in the database.
+     */
+    public static void routeUploadFile(int routeId, String filePath) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_image(?, ?)}")) {
+            cs.setInt("in_route_id", routeId);
+            cs.setString("in_image", filePath);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Retrivies a filepath from the database.
+     * @param routeId The id of the route to retrieve from.
+     * @return Filepath of a video or image saved on the server.
+     */
+    public static String routeGetFile(int routeId){
+        DatabaseConnection dc = new DatabaseConnection();
+        String filepath = "";
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_route_imgvid(?)}")) {
+            cs.setInt("in_route_id", routeId);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
+                 filepath = res.getString("image");
+            }
+            Gson gson = new Gson();
+            return gson.toJson(filepath);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {
