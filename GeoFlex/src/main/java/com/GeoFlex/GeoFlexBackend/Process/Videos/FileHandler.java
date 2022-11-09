@@ -17,7 +17,7 @@ public class FileHandler {
      * @param routeId The id of the route. Used as the folders name.
      * @param file The file to save to the server.
      */
-    public void createDirectoriesAndSave(int routeId, MultipartFile file){
+    public void createDirectoriesAndSaveFile(int routeId, MultipartFile file){
         //Create file directory.
         File dir = new File("src/main/resources/static/files");
         if (!dir.exists()){
@@ -29,6 +29,8 @@ public class FileHandler {
         if (!routeDir.exists()){
             routeDir.mkdirs();
         }
+
+        //Clear all files in directory if it exists.
         try {
             FileUtils.cleanDirectory(routeDir);
         } catch (IOException e) {
@@ -39,6 +41,19 @@ public class FileHandler {
         Path filepath = Paths.get(String.valueOf(routeDir), file.getOriginalFilename());
         try (OutputStream os = Files.newOutputStream(filepath)) {
             os.write(file.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Function to delete a directory holding files for a route. To be called when a route is deleted.
+     * @param routeId The id of the deleted route. Used to delete the appropriate folder.
+     */
+    public void deleteFileDirectory(int routeId){
+        File dirToDelete = new File("src/main/resources/static/files/" + routeId);
+        try {
+            FileUtils.deleteDirectory(dirToDelete);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

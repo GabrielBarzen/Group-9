@@ -154,7 +154,7 @@ public class ModeratorCompanion {
             case "image/png":
             case "video/mp4":
             case "video/quicktime":
-                fh.createDirectoriesAndSave(routeId, file);
+                fh.createDirectoriesAndSaveFile(routeId, file);
                 ModeratorProcedures.routeUploadFile(routeId, path);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
