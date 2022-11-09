@@ -19,13 +19,13 @@ public class FileHandler {
      */
     public void createDirectoriesAndSaveFile(int routeId, MultipartFile file){
         //Create file directory.
-        File dir = new File("src/main/resources/static/files");
+        File dir = new File("src/main/resources/static/files/routes");
         if (!dir.exists()){
             dir.mkdirs();
         }
 
         //Create a directory for a route.
-        File routeDir = new File("src/main/resources/static/files/" + routeId);
+        File routeDir = new File("src/main/resources/static/files/routes/" + routeId);
         if (!routeDir.exists()){
             routeDir.mkdirs();
         }
@@ -50,8 +50,8 @@ public class FileHandler {
      * Function to delete a directory holding files for a route. To be called when a route is deleted.
      * @param routeId The id of the deleted route. Used to delete the appropriate folder.
      */
-    public void deleteFileDirectory(int routeId){
-        File dirToDelete = new File("src/main/resources/static/files/" + routeId);
+    public void deleteRouteFileDirectory(int routeId){
+        File dirToDelete = new File("src/main/resources/static/files/routes/" + routeId);
         try {
             FileUtils.deleteDirectory(dirToDelete);
         } catch (IOException e) {

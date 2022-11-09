@@ -152,7 +152,7 @@ public class AdminCompanion {
             response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
             AdminProcedures.deleteRoute(routeID);
             FileHandler fh = new FileHandler();
-            fh.deleteFileDirectory(Integer.parseInt(routeID));
+            fh.deleteRouteFileDirectory(Integer.parseInt(routeID));
         }
         return response;
     }

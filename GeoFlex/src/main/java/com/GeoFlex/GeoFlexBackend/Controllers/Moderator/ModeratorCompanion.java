@@ -147,7 +147,7 @@ public class ModeratorCompanion {
 
         //Upload image path to database.
         String fileType = file.getContentType();
-        String path = "files/"+routeId+"/"+file.getOriginalFilename();
+        String path = "files/routes/"+routeId+"/"+file.getOriginalFilename();
         System.out.println(fileType);
         switch(fileType){
             case "image/jpeg":
