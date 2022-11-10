@@ -94,7 +94,7 @@ export default function AdminEditForms(props) {
             </div>
             <div className="row">
               <div>
-                <ul className="collapsible">
+                <ul className="">
                   {[...props.locationsData.route.location].map((location) => (
                     <Location
                       key={location.id}

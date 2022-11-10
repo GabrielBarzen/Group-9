@@ -91,7 +91,7 @@ export default function Location(props) {
     return (
         <>
             <li className='row card-panel'>
-                <section className='collapsible-header'>
+                <section className=''>
                 <i className="material-icons col s1">place</i>
                 <span className='col s9'>
                     {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
@@ -106,7 +106,7 @@ export default function Location(props) {
                     Flytta ner
                 </button>
                 </section>
-                <section className='collapsible-body'>
+                <section className=''>
                     <LocationForm />
                 </section>
             </li>
