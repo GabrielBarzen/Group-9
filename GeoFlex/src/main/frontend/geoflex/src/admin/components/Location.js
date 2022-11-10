@@ -1,6 +1,14 @@
 import React from 'react';
 
 export default function Location(props) {
+
+    /*
+    Location.js renders each single location-object received
+    all properties and functions is mapped through props.
+
+    TO DO: make sure the diffent buttons is placed right.
+    */
+
     /*
         const [stateObject, setObjectState] = useState({
             firstKey: '',
