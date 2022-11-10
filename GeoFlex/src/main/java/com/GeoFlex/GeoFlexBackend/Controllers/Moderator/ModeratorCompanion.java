@@ -159,10 +159,10 @@ public class ModeratorCompanion {
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             case "image/heic":
-                //TODO: Convert HEIC to PNG or JPG before saving and uploading path to database.
-                //fh.createDirectories(routeId, file);
-                System.out.println("HEIC");
-                //response = new ResponseEntity<>("", HttpStatus.OK);
+                fh.createDirectoriesAndSaveFile(routeId, file);
+                fh.heicToPng(routeId, file);
+                ModeratorProcedures.routeUploadFile(routeId, path);
+                response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             default:
                 response = new ResponseEntity<>("", HttpStatus.BAD_REQUEST);

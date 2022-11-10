@@ -3,12 +3,11 @@ package com.GeoFlex.GeoFlexBackend.Process;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class FileHandler {
 
@@ -56,6 +55,33 @@ public class FileHandler {
             FileUtils.deleteDirectory(dirToDelete);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Function to convert images from the HEIC format to PNG.
+     * @param routeId The id of the route. Used to locate the folder the file is in.
+     * @param file The image that is going to be converted.
+     */
+    public void heicToPng(int routeId, MultipartFile file){
+        String filePath = "src/main/resources/static/files/routes/"+routeId+"/"+file.getOriginalFilename();
+        String filePathNewFormat = "src/main/resources/static/files/routes/"+routeId+"/"+file.getOriginalFilename().replace("heic", "png");
+        String [] cmd = new String[3];
+        cmd[0] = "src/main/java/com/GeoFlex/GeoFlexBackend/Process/ImageMagick/convert.exe";
+        cmd[1] = filePath;
+        cmd[2] = filePathNewFormat;
+        try {
+            Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
+            if (p.exitValue() != 0) System.out.println("ERROR with Image Magic Command exit value:" + p.exitValue()+  " " + Arrays.toString(cmd));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            File f = new File(filePath);
+            f.delete();
         }
     }
 }
