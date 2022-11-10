@@ -58,8 +58,4 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
     }
-
-    public void test(){
-
-    }
 }
