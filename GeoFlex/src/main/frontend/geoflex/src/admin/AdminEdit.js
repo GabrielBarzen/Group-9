@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Location from "./components/Location";
-import M from "materialize-css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -37,12 +36,10 @@ export default function AdminEdit() {
       })
       .catch(function (error) {
         console.log(error);
+        //dev placeholder data
+        setRouteLocationsData({"route":{"location":[{"name":"1","text_info":"Replace me","id":"988","location_index":"1","last_location":"false"},{"name":"2","text_info":"Replace me","id":"989","location_index":"2","last_location":"false"},{"name":"3","text_info":"Replace me","id":"990","location_index":"3","last_location":"false"},{"name":"4","text_info":"Replace me","id":"991","location_index":"4","last_location":"false"},{"name":"5","text_info":"Replace me","id":"992","location_index":"5","last_location":"false"},{"name":"6","text_info":"Replace me","id":"993","location_index":"6","last_location":"false"},{"name":"7","text_info":"Replace me","id":"994","location_index":"7","last_location":"false"},{"name":"8","text_info":"Replace me","id":"995","location_index":"8","last_location":"false"},{"name":"9","text_info":"Replace me","id":"996","location_index":"9","last_location":"false"},{"name":"10","text_info":"Replace me","id":"997","location_index":"10","last_location":"false"},{"name":"Last location","text_info":"Replace me","id":"998","last_location":"true"}],"locations":0}})
       });
   }, [status, routeData.id]);
-
-  useEffect(() => {
-    M.AutoInit();
-  }, []);
 
   function deleteLocation(id) {
     var data = JSON.stringify({
@@ -258,7 +255,7 @@ export default function AdminEdit() {
             </div>
             <div className="row">
               <div>
-                <ul className="">
+                <ul className="collapsible">
                   {[...routeLocationsData.route.location].map((location) => (
                     <Location
                       key={location.id}
