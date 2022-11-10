@@ -2,11 +2,15 @@ import React, { useRef } from 'react';
 import Location from './Location';
 
 export default function AdminEditForms(props) {
+    console.log(props.locationsData);
+    console.log(props.mainData);
+    
     let titleRef = useRef();
     let descriptionRef = useRef();
     
 
     function swapLocationsUp(idFrom) {
+        let routeID = props.mainData.id;
         var temp = "";
         var idToIndex = "";
         var idTo = "";
@@ -22,10 +26,11 @@ export default function AdminEditForms(props) {
             idTo = item.id;
           }
         });
-        props.callMoveLocation(idFrom, idTo);
+        props.callMoveLocation(routeID, idFrom, idTo);
       }
     
       function swapLocationsDown(idFrom) {
+        let routeID = props.mainData.id;
         var temp = "";
         var idToIndex = "";
         var idTo = "";
@@ -41,7 +46,7 @@ export default function AdminEditForms(props) {
             idTo = item.id;
           }
         });
-        props.callMoveLocation(idFrom, idTo);
+        props.callMoveLocation(routeID, idFrom, idTo);
       }
 
       const handleDelete = ((id)=>{
@@ -55,10 +60,10 @@ export default function AdminEditForms(props) {
       })
 
       const handleSave = (() => {
-        let id = props.mainData.id;
+        let routeID = props.mainData.id;
         let title = titleRef.current.value;
         let description = descriptionRef.current.value;
-        props.callSaveRoute(id, title, description);
+        props.callSaveRoute(routeID, title, description);
 
       })
 
