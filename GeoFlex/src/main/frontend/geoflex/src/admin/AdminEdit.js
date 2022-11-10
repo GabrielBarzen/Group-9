@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Location from "./components/Location";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AdminEditForms from "./components/AdminEditForms";
 
 export default function AdminEdit() {
   const navigate = useNavigate();
@@ -13,10 +13,6 @@ export default function AdminEdit() {
 
   const [routeLocationsData, setRouteLocationsData] = useState([]);
   const [status, setStatus] = useState(false);
-
-  let titleRef = useRef();
-  let descriptionRef = useRef();
-
 
   useEffect(() => {
     console.log(status);
@@ -76,10 +72,10 @@ export default function AdminEdit() {
       });
   }
 
-  function addLocation() {
+  function addLocation(id) {
     var data = JSON.stringify({
       "route-update": {
-        "route-id": routeData.id,
+        "route-id": id,
         'location': [
           {
             new: 1,
@@ -111,48 +107,10 @@ export default function AdminEdit() {
       });
   }
 
-  function swapLocationsUp(idFrom) {
-    var temp = "";
-    var idToIndex = "";
-    var idTo = "";
-    routeLocationsData.route.location.forEach((element) => {
-      if (element.id === idFrom) {
-        temp = parseInt(element.location_index);
-        idToIndex = temp - 1;
-      }
-    });
-
-    routeLocationsData.route.location.forEach((item) => {
-      if (item.location_index === idToIndex.toString()) {
-        idTo = item.id;
-      }
-    });
-    updateLocation(idFrom, idTo);
-  }
-
-  function swapLocationsDown(idFrom) {
-    var temp = "";
-    var idToIndex = "";
-    var idTo = "";
-    routeLocationsData.route.location.forEach((element) => {
-      if (element.id === idFrom) {
-        temp = parseInt(element.location_index);
-        idToIndex = temp + 1;
-      }
-    });
-
-    routeLocationsData.route.location.forEach((item) => {
-      if (item.location_index === idToIndex.toString()) {
-        idTo = item.id;
-      }
-    });
-    updateLocation(idFrom, idTo);
-  }
-
-  function updateLocation(idFrom, idTo) {
+  function updateLocation(routeID, idFrom, idTo) {
     var data = {
       "route-update": {
-        "route-id": routeData.id,
+        "route-id": routeID,
         "location": [
           {
             "from": idFrom,
@@ -185,23 +143,20 @@ export default function AdminEdit() {
       });
   }
 
-  const handleSave = () => {
-    console.log("Hejsan");
-    console.log(routeData.id);
-    console.log(titleRef.current.value);
-    console.log(descriptionRef.current.value);
+  const handleSave = (id, title, description) => {
 
     var data = {
       "route-update": {
-        "route-id": routeData.id,
-        "title": titleRef.current.value,
-        "description": descriptionRef.current.value,
+        "route-id": id,
+        "title": title,
+        "description": description,
         "image": "",
         "type": "INFO",
         "location": [
         ]
       }
     }
+    
     var config = {
       method: 'patch',
       url: '/admin/route/',
@@ -215,65 +170,24 @@ export default function AdminEdit() {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         navigate('/admin', { replace: true });
-
       })
       .catch(function (error) {
         console.log(error.response.data);
-
       });
   };
 
   if (routeLocationsData.length !== 0) {
     return (
       <div className="container white container-css">
-        <div className="row">
-          <div className="col s12">
-            <div className="row">
-              <div className="input-field col s12">
-                <i className="material-icons prefix">label</i>
-                <label htmlFor="title">Titel</label>
-                <input
-                  id="title"
-                  type="text"
-                  defaultValue={routeData.title}
-                  ref={titleRef}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <i className="material-icons prefix">mode_edit</i>
-                <label htmlFor="description">Beskrivning</label>
-                <textarea
-                  type="text"
-                  className="materialize-textarea"
-                  id="description"
-                  defaultValue={routeData.description}
-                  ref={descriptionRef}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div>
-                <ul className="collapsible">
-                  {[...routeLocationsData.route.location].map((location) => (
-                    <Location
-                      key={location.id}
-                      data={location}
-                      deleteLocation={deleteLocation}
-                      swapLocationsUp={swapLocationsUp}
-                      swapLocationsDown={swapLocationsDown}
-                    />
-                  ))}
-                </ul>
-                <i className="material-icons col s1" onClick={addLocation}>
-                  add_location
-                </i>
-                <button onClick={handleSave}>Spara</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <AdminEditForms 
+          mainData={routeData}
+          locationsData={routeLocationsData} 
+          callSaveRoute={handleSave} 
+          callMoveLocation={updateLocation}
+          callNewLocation={addLocation}
+          callDeleteLocation={deleteLocation}
+          />
+        
       </div>
     );
   } else {
@@ -284,26 +198,3 @@ export default function AdminEdit() {
     );
   }
 }
-
-/*
-
-<fieldset>
-
-<label>Titel</label>
-<input type="text" defaultValue={routeData.title} ref={titleRef} />
-<label>Beskrivning</label>
-<textarea type="text" defaultValue={routeData.description} ref={descriptionRef} />
-<label>Typ</label>
-<select defaultValue={routeData.type} ref={typeRef}>
-    <option value=""></option>
-    <option value="QUIZ">Quiz</option>
-    <option value="INFO">Inforunda</option>
-</select>
-<ul className="">
-    {[...routeLocationsData.route.location].map(location => <Location key={location.id} data={location} deleteLocation={deleteLocation} swapLocationsUp={swapLocationsUp} swapLocationsDown={swapLocationsDown}/>)}
-</ul>
-<i className="material-icons col s1" onClick={addLocation} >add_location</i>
-<button onClick={event => handleSave(event)}>Spara</button>
-</fieldset>
-
-*/
