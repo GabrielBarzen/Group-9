@@ -1,7 +1,9 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 
+import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
+import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.LoginType;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
-import com.GeoFlex.GeoFlexBackend.DatabaseAccess.DatabaseConnection;
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.google.gson.Gson;
@@ -10,10 +12,29 @@ import org.springframework.http.ResponseEntity;
 
 public class AdminCompanion {
 
-    String userID = "";
+    final String userID;
+
+    public String getUserID() {
+        return userID;
+    }
+
     public AdminCompanion(String userID) {
         this.userID = userID;
     }
+
+    public static AdminCompanion GetLoginCompanion(String identification, String password, LoginType type) {
+        //Take username or email
+        //try auth with pasword hashed with string via
+        String salt = AuthenticationProcedures.getSalt(identification, type);
+        String userid = AuthenticationProcedures.getID(identification,type);
+        String hash = Authenticator.getHash(password,salt);
+        if (hash == AuthenticationProcedures.getHashedPassword(userid)) {
+            return new AdminCompanion(userid);
+        } else {
+            return null;
+        }
+    }
+
 
     /**
      * Returns all routes in the system as user is admin. (/admin/routes) GET
