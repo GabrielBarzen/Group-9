@@ -1,4 +1,4 @@
-package com.GeoFlex.GeoFlexBackend.Process.Videos;
+package com.GeoFlex.GeoFlexBackend.Process;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,5 +57,9 @@ public class FileHandler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void test(){
+
     }
 }

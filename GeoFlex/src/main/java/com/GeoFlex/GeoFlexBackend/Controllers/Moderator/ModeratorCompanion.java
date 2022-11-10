@@ -2,7 +2,7 @@ package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
-import com.GeoFlex.GeoFlexBackend.Process.Videos.FileHandler;
+import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
