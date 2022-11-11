@@ -1,5 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
+import com.GeoFlex.GeoFlexBackend.PoJo.LocationUpdate.LocationEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
@@ -360,6 +361,121 @@ public class ModeratorProcedures {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a locations name in the database.
+     * @param locationId The id of the location.
+     * @param name The name of the location.
+     */
+    public static void locationUpdateName(String locationId, String name) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_name(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_name", name);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a locations text info in the database.
+     * @param locationId The id of the location.
+     * @param textInfo The text info of the location.
+     */
+    public static void locationUpdateTextInfo(String locationId, String textInfo) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_text_info(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_text_info", textInfo);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a location positions x coordinate in the database.
+     * @param locationId The id of the location.
+     * @param xCoords The locations x coordinate.
+     */
+    public static void locationPositionUpdateXcoords(String locationId, String xCoords) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_x_coordinate(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_x_coordinate", xCoords);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a location positions y coordinate in the database.
+     * @param locationId The id of the location.
+     * @param yCoords The locations y coordinate.
+     */
+     public static void locationPositionUpdateYcoords(String locationId, String yCoords) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_y_coordinate(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_y_coordinate", yCoords);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a location positions directions in the database.
+     * @param locationId The id of the location.
+     * @param directions The locations directions.
+     */
+    public static void locationPositionUpdateDirections(String locationId, String directions) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_directions(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_directions", directions);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {

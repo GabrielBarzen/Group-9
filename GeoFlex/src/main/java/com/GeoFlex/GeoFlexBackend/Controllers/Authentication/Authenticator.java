@@ -12,7 +12,7 @@ public class Authenticator {
 
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
-    private static HashMap<Integer, >
+    //private static HashMap<Integer, >
 
     public Authenticator(String token, String userID, int access_level) {
         this.token = token;

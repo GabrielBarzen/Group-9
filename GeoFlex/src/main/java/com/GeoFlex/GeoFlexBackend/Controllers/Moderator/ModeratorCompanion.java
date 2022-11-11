@@ -1,9 +1,11 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
+import com.GeoFlex.GeoFlexBackend.PoJo.LocationUpdate.RootLocationEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
 import com.google.gson.Gson;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -199,9 +201,47 @@ public class ModeratorCompanion {
         ResponseEntity<String> response;
         response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         Gson gson = new Gson();
-        System.out.println(body);
-        //TODO: Plan location patch json and create POJO.
+        RootLocationEdit rle = gson.fromJson(body, RootLocationEdit.class);
+        if(rle.locationEdit.locationId == null){
+            return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        }
+        if(rle.locationEdit.name != null){
+            ModeratorProcedures.locationUpdateName(rle.locationEdit.locationId, rle.locationEdit.name);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.textInfo != null){
+            ModeratorProcedures.locationUpdateTextInfo(rle.locationEdit.locationId, rle.locationEdit.textInfo);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.qr != null){
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.xCoords != null){
+            ModeratorProcedures.locationPositionUpdateXcoords(rle.locationEdit.locationId, rle.locationEdit.xCoords);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.yCoords != null){
+            ModeratorProcedures.locationPositionUpdateYcoords(rle.locationEdit.locationId, rle.locationEdit.yCoords);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.directions != null){
+            ModeratorProcedures.locationPositionUpdateDirections(rle.locationEdit.locationId, rle.locationEdit.directions);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.content != null){
+            for (int i = 0; i < rle.locationEdit.content.size(); i++) {
+                if(rle.locationEdit.content.get(i)._new != null){
+                    response = new ResponseEntity<>("", HttpStatus.OK);
+                }
+                else if(rle.locationEdit.content.get(i).delete != null){
+                    response = new ResponseEntity<>("", HttpStatus.OK);
+                }
+                else {
+                    response = new ResponseEntity<>("", HttpStatus.OK);
+                }
+            }
+        }
 
-        return new ResponseEntity<>("Not implemented", HttpStatus.NOT_IMPLEMENTED);
+        return response;
     }
 }
