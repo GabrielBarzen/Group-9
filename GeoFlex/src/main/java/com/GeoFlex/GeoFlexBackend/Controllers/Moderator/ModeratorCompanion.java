@@ -1,50 +1,29 @@
-package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
+package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
-import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
-import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.LoginType;
-import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
-import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
-import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.GeoFlex.GeoFlexBackend.Process.Videos.FileHandler;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
-public class AdminCompanion {
 
-    final String userID;
+public class ModeratorCompanion {
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public AdminCompanion(String userID) {
+    private String userID = "";
+    public ModeratorCompanion(String userID) {
         this.userID = userID;
     }
 
-    public static AdminCompanion GetLoginCompanion(String identification, String password, LoginType type) {
-        //Take username or email
-        //try auth with pasword hashed with string via
-        String salt = AuthenticationProcedures.getSalt(identification, type);
-        String userid = AuthenticationProcedures.getID(identification,type);
-        String hash = Authenticator.getHash(password,salt);
-        if (hash == AuthenticationProcedures.getHashedPassword(userid)) {
-            return new AdminCompanion(userid);
-        } else {
-            return null;
-        }
-    }
-
-
     /**
-     * Returns all routes in the system as user is admin. (/admin/routes) GET
+     * Returns all routes in the system as user is admin. (/moderator/routes) GET
      * @return Response entity containing json of all routes.
      */
     public ResponseEntity<String> routesGet() {
         ResponseEntity<String> response;
         HttpStatus responseStatus = HttpStatus.OK;
-        String json = AdminProcedures.getRoutes(userID);
+        String json = ModeratorProcedures.getRoutes(userID);
         if (json == null) {
             json = "{\"error\" : \"Internal server error, contact administrator\"}";
             responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -57,14 +36,14 @@ public class AdminCompanion {
     }
 
     /**
-     * Get one specific route for editing, this includes locations. (/admin/route) GET
+     * Get one specific route for editing, this includes locations. (/moderator/route) GET
      * @param routeID The id of route to be edited.
      * @return Json of the route to be edited or Error json if not found.
      */
     public ResponseEntity<String> routeGet(String routeID) {
         ResponseEntity<String> response;
         HttpStatus responseStatus = HttpStatus.OK;
-        String json = AdminProcedures.getRoute(routeID, userID);
+        String json = ModeratorProcedures.getRoute(routeID, userID);
         if (json == null) {
             json = "{\"error\" : \"Internal server error, contact administrator\"}";
             responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -77,28 +56,7 @@ public class AdminCompanion {
     }
 
     /**
-     * Post for creating new routes. (/admin/route) POST
-     * @param body get route-json from headers and post to database, specification in api documentation.
-     * @return OK response or error.
-     */
-    public ResponseEntity<String> routePost(String body) {
-        ResponseEntity<String> response;
-        if(body.isEmpty() || body == null){
-            response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        else {
-            response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
-            Gson gson = new Gson();
-            Root r;
-            r = gson.fromJson(body, Root.class);
-            int numLocations = r.route.locations;
-            AdminProcedures.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
-        }
-        return response;
-    }
-
-    /**
-     * Patch to route, include the parts that should be updated. (/admin/route) PATCH
+     * Patch to route, include the parts that should be updated. (/moderator/route) PATCH
      * @param body For getting Json string containing the id and requested changes to the route.
      * @return OK message body if sucessfull, error with details if not.
      */
@@ -108,15 +66,15 @@ public class AdminCompanion {
         Gson gson = new Gson();
         RootUpdate ru = gson.fromJson(body, RootUpdate.class);
         if(ru.routeUpdate.title != null){
-            AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
+            ModeratorProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.description != null){
-            AdminProcedures.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
+            ModeratorProcedures.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.type != null){
-            AdminProcedures.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
+            ModeratorProcedures.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.image != null){
@@ -128,7 +86,7 @@ public class AdminCompanion {
                 if(ru.routeUpdate.location.get(i).to != null){
                     try {
                         System.out.println("swapping from: " + Integer.parseInt(ru.routeUpdate.location.get(i).from) + ", to :" +  Integer.parseInt(ru.routeUpdate.location.get(i).to));
-                        AdminProcedures.routeSwapLocation(Integer.parseInt(ru.routeUpdate.location.get(i).from), Integer.parseInt(ru.routeUpdate.location.get(i).to));
+                        ModeratorProcedures.routeSwapLocation(Integer.parseInt(ru.routeUpdate.location.get(i).from), Integer.parseInt(ru.routeUpdate.location.get(i).to));
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting swap");
@@ -137,7 +95,7 @@ public class AdminCompanion {
                 } else if (ru.routeUpdate.location.get(i).newLocation != null) {
                     try {
                         System.out.println("addning: " + Integer.parseInt(ru.routeUpdate.location.get(i).newLocation));
-                        AdminProcedures.routeNewLocations(Integer.parseInt(ru.routeUpdate.location.get(i).newLocation), Integer.parseInt(ru.routeUpdate.routeId));
+                        ModeratorProcedures.routeNewLocations(Integer.parseInt(ru.routeUpdate.location.get(i).newLocation), Integer.parseInt(ru.routeUpdate.routeId));
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting delete");
@@ -147,7 +105,7 @@ public class AdminCompanion {
                 else {
                     try {
                         System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
-                        AdminProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        ModeratorProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting delete");
@@ -155,25 +113,6 @@ public class AdminCompanion {
                     }
                 }
             }
-        }
-        return response;
-    }
-
-    /**
-     * Delete route if exists. (/admin/route) DELETE
-     * @param routeID ID for route to be deleted.
-     * @return OK if deleted, Error if not found.
-     */
-    public ResponseEntity<String> routeDelete(String routeID) {
-        ResponseEntity<String> response;
-        if(routeID.isEmpty() || routeID == null){
-            response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        else {
-            response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
-            AdminProcedures.deleteRoute(routeID);
-            FileHandler fh = new FileHandler();
-            fh.deleteRouteFileDirectory(Integer.parseInt(routeID));
         }
         return response;
     }
@@ -189,9 +128,66 @@ public class AdminCompanion {
             response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         else {
-            String json = AdminProcedures.getRouteLocations(routeID);
+            String json = ModeratorProcedures.getRouteLocations(routeID);
             response = new ResponseEntity<>(json, HttpStatus.OK);
         }
+        return response;
+    }
+
+    /**
+     * Function to upload a file to the server and save the path to a route in the database.
+     * @param routeId The id of the route.
+     * @param file The file to be saved.
+     * @return
+     */
+    public ResponseEntity<String> uploadRouteFile(int routeId, MultipartFile file){
+        ResponseEntity<String> response = new ResponseEntity<>("Interal server error, contact admin.", HttpStatus.INTERNAL_SERVER_ERROR);
+        //FileHandler to directories and write file to folder.
+        FileHandler fh = new FileHandler();
+
+        //Upload image path to database.
+        String fileType = file.getContentType();
+        String path = "files/routes/"+routeId+"/"+file.getOriginalFilename();
+        System.out.println(fileType);
+        switch(fileType){
+            case "image/jpeg":
+            case "image/png":
+            case "video/mp4":
+            case "video/quicktime":
+                fh.createDirectoriesAndSaveFile(routeId, file);
+                ModeratorProcedures.routeUploadFile(routeId, path);
+                response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
+            case "image/heic":
+                //TODO: Convert HEIC to PNG or JPG before saving and uploading path to database.
+                //fh.createDirectories(routeId, file);
+                System.out.println("HEIC");
+                //response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
+            default:
+                response = new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+                break;
+        }
+
+        return response;
+    }
+
+    /**
+     * Function to get filepath for a route from the database.
+     * @param routeId
+     * @return
+     */
+    public ResponseEntity<String> getRouteFile(int routeId) {
+        ResponseEntity<String> response;
+        String filepath = ModeratorProcedures.routeGetFile(routeId);
+        System.out.println(filepath);
+        if(filepath.isEmpty() || filepath.equals("")){
+            response = new ResponseEntity<>("{\"error\" : \"Wrong request params.\"}", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            response = new ResponseEntity<>(filepath, HttpStatus.OK);
+        }
+        //return ResponseEntity.ok().contentType(MediaType.parseMediaType("video/mp4")).body(file);
         return response;
     }
 }

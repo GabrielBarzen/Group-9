@@ -1,7 +1,10 @@
 import React from 'react';
+import M from 'materialize-css'
+import { useEffect } from 'react';
+import LocationForm from './LocationForm';
+
 
 export default function Location(props) {
-
     /*
     Location.js renders each single location-object received
     all properties and functions is mapped through props.
@@ -9,6 +12,9 @@ export default function Location(props) {
     TO DO: make sure the diffent buttons is placed right.
     */
 
+    useEffect(() => {
+        M.AutoInit();
+      }, []);
     /*
         const [stateObject, setObjectState] = useState({
             firstKey: '',
@@ -92,10 +98,10 @@ export default function Location(props) {
     return (
         <>
             <li className='row card-panel'>
-
+                <section className=''>
                 <i className="material-icons col s1">place</i>
                 <span className='col s9'>
-                    {props.data.name}
+                    {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
                 </span>
                 <button onClick={() => { props.deleteLocation(props.data.id) }}>
                     Ta bort
@@ -106,6 +112,10 @@ export default function Location(props) {
                 <button onClick={() => { props.swapLocationsDown(props.data.id) }}>
                     Flytta ner
                 </button>
+                </section>
+                <section className=''>
+                    <LocationForm />
+                </section>
             </li>
         </>
     )
