@@ -5,11 +5,10 @@ import { useNavigate } from "react-router-dom";
 import AdminEditForms from "./components/AdminEditForms";
 
 export default function AdminEdit() {
-  /* 
-  AdminEdit.js allows the administrator to edit a single route.
-  navigate is part of react-router-dom and lets you redirect to a specific URL when called like this: " navigate("/admin", { replace: true }); "
-  location is part of react-router-dom and allows you to recieve any data sent from previous location/URL from a Link
-
+  /** 
+  *AdminEdit.js allows the administrator to edit a single route.
+  *navigate is part of react-router-dom and lets you redirect to a specific URL when called like this: " navigate("/admin", { replace: true }); "
+  *location is part of react-router-dom and allows you to recieve any data sent from previous location/URL from a Link
   */
   const navigate = useNavigate();
 
@@ -21,9 +20,9 @@ export default function AdminEdit() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    /*
-    useEffect renders every first load of the page and then every time the state of "status" changes. routeData.id is also included at the en as a dependency
-    API call GET to receive all locations bound to a specific tour ID
+    /**
+    *useEffect renders every first load of the page and then every time the state of "status" changes. routeData.id is also included at the en as a dependency
+    *API call GET to receive all locations bound to a specific tour ID
     */
     console.log(status);
     console.log("EDIT USEEFFECT");
@@ -54,10 +53,10 @@ export default function AdminEdit() {
   }, []);
 
   function deleteLocation(routeID, id) {    
-    /*
-    API call DELETE and passes an ID to delete a specific location inside a tour.
-    routeData.id specifies the tour and id specifies the location id.
-    if response is OK 200 status changes state to trigger useEffect
+    /**
+    *API call DELETE and passes an ID to delete a specific location inside a tour.
+    *routeData.id specifies the tour and id specifies the location id.
+    *if response is OK 200 status changes state to trigger useEffect
     */
     console.log("DELETELOCATION: ID:" + id);
     var data = JSON.stringify({
@@ -95,9 +94,9 @@ export default function AdminEdit() {
   }
 
 function addLocation(id) {  
-    /*
-    API call to PATCH to add a new location with default values
-    if response is OK 200 status changes state to trigger useEffect
+    /**
+    *API call to PATCH to add a new location with default values
+    *if response is OK 200 status changes state to trigger useEffect
     */
     console.log("ADDLOCATION: ID:" + id);
     var data = JSON.stringify({
@@ -135,9 +134,9 @@ function addLocation(id) {
   }
 
   function updateLocation(routeID, idFrom, idTo) {
-    /*
-    API call PATCH to swap location_index on two location objects based on their ID
-    if response is OK 200 status changes state to trigger useEffect
+    /**
+    *API call PATCH to swap location_index on two location objects based on their ID
+    *if response is OK 200 status changes state to trigger useEffect
     */
     console.log("Update: routeID: " + routeID + "IDTO: " + idTo + "IDFROM: " + idFrom)
     var data = {
@@ -176,9 +175,9 @@ function addLocation(id) {
   }
 
 const handleSave = (id, title, description) => {
-    /*
-    API call PATCH to save and update all form-data to database
-    if OK 200 redirect user by replacing URL through navigate
+    /**
+    *API call PATCH to save and update all form-data to database
+    *if OK 200 redirect user by replacing URL through navigate
     */
     console.log("SAVE: ID" + id + "TITLE: " + title + "DESCRIPTION: " + description)
 
