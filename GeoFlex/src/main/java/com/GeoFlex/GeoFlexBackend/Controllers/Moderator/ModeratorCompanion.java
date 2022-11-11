@@ -2,7 +2,7 @@ package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
-import com.GeoFlex.GeoFlexBackend.Process.Videos.FileHandler;
+import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -138,7 +138,7 @@ public class ModeratorCompanion {
      * Function to upload a file to the server and save the path to a route in the database.
      * @param routeId The id of the route.
      * @param file The file to be saved.
-     * @return
+     * @return OK message body if sucessfull, error with details if not.
      */
     public ResponseEntity<String> uploadRouteFile(int routeId, MultipartFile file){
         ResponseEntity<String> response = new ResponseEntity<>("Interal server error, contact admin.", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -154,15 +154,15 @@ public class ModeratorCompanion {
             case "image/png":
             case "video/mp4":
             case "video/quicktime":
-                fh.createDirectoriesAndSaveFile(routeId, file);
+                fh.createDirectoriesAndSaveFile(routeId, file, "routes");
                 ModeratorProcedures.routeUploadFile(routeId, path);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             case "image/heic":
-                //TODO: Convert HEIC to PNG or JPG before saving and uploading path to database.
-                //fh.createDirectories(routeId, file);
-                System.out.println("HEIC");
-                //response = new ResponseEntity<>("", HttpStatus.OK);
+                fh.createDirectoriesAndSaveFile(routeId, file, "routes");
+                fh.heicToPng(routeId, file, "routes");
+                ModeratorProcedures.routeUploadFile(routeId, path.replace("heic", "png"));
+                response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             default:
                 response = new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
@@ -175,7 +175,7 @@ public class ModeratorCompanion {
     /**
      * Function to get filepath for a route from the database.
      * @param routeId
-     * @return
+     * @return OK message if sucessfull, error with details if not.
      */
     public ResponseEntity<String> getRouteFile(int routeId) {
         ResponseEntity<String> response;
@@ -187,7 +187,21 @@ public class ModeratorCompanion {
         else {
             response = new ResponseEntity<>(filepath, HttpStatus.OK);
         }
-        //return ResponseEntity.ok().contentType(MediaType.parseMediaType("video/mp4")).body(file);
         return response;
+    }
+
+    /**
+     * Patch to location, include the parts that should be updated. (/moderator/location) PATCH
+     * @param body For getting Json string containing the id and requested changes to the route.
+     * @return OK message if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> locationPatch(String body) {
+        ResponseEntity<String> response;
+        response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        Gson gson = new Gson();
+        System.out.println(body);
+        //TODO: Plan location patch json and create POJO.
+
+        return new ResponseEntity<>("Not implemented", HttpStatus.NOT_IMPLEMENTED);
     }
 }

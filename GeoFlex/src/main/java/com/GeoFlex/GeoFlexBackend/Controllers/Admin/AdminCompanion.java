@@ -6,7 +6,7 @@ import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
-import com.GeoFlex.GeoFlexBackend.Process.Videos.FileHandler;
+import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -173,7 +173,7 @@ public class AdminCompanion {
             response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
             AdminProcedures.deleteRoute(routeID);
             FileHandler fh = new FileHandler();
-            fh.deleteRouteFileDirectory(Integer.parseInt(routeID));
+            fh.deleteRouteFileDirectory(Integer.parseInt(routeID), "routes");
         }
         return response;
     }

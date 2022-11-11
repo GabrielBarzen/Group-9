@@ -17,7 +17,7 @@ public class ModeratorController {
      * Returns a list of all the routes from the database.
      * @param token The user token sent as a cookie.
      * @param userID The uer id sent as a cookie.
-     * @return
+     * @return Response determined in the ModeratorCompanion.
      */
     @RequestMapping(value = "/routes", method = RequestMethod.GET)
     public ResponseEntity<String> routesGet(@CookieValue(name = "authentication-token") String token,
@@ -34,7 +34,7 @@ public class ModeratorController {
      * @param routeID The id of the route.
      * @param token The user token sent as a cookie.
      * @param userID The user id sent as a cookie.
-     * @return
+     * @return Response determined in the ModeratorCompanion.
      */
     @RequestMapping(value = "/route", method = RequestMethod.GET)
     public ResponseEntity<String> routeGet(@RequestParam("route-id") String routeID,
@@ -52,7 +52,7 @@ public class ModeratorController {
      * @param body Json body containing the changes.
      * @param token The token  sent as a cookie.
      * @param userID The user id sent as a cookie.
-     * @return
+     * @return Response determined in the ModeratorCompanion.
      */
     @RequestMapping(value = "/route", method = RequestMethod.PATCH)
     public ResponseEntity<String> routePatch(@RequestBody String body ,
@@ -70,7 +70,7 @@ public class ModeratorController {
      * @param routeID The id of the route.
      * @param token The token sent as a cookie.
      * @param userID The user id sent as a cookie.
-     * @return
+     * @return Response determined in the ModeratorCompanion.
      */
     @RequestMapping(value = "/route/locations", method = RequestMethod.GET)
     public ResponseEntity<String> routeGetLocations(@RequestParam("route-id") String routeID,
@@ -89,7 +89,7 @@ public class ModeratorController {
      * @param routeId The id of the route.
      * @param token The token sent as a cookie.
      * @param userID The user id sent as a cookie.
-     * @return
+     * @return Response determined in the ModeratorCompanion.
      */
     @RequestMapping(value = "route/file/upload", method = RequestMethod.POST)
     public ResponseEntity<String> routeUploadFile(@RequestParam("file") MultipartFile file, @RequestParam("routeId") String routeId,
@@ -107,7 +107,7 @@ public class ModeratorController {
      * @param routeId The id of the route.
      * @param token The token sent as a cookie.
      * @param userID The user id sent as a cookie.
-     * @return
+     * @return Response determined in the ModeratorCompanion.
      */
     @RequestMapping(value = "route/file/retrieve", method = RequestMethod.GET)
     public ResponseEntity<String> routeGetFile(@RequestParam("routeId") String routeId,
@@ -120,6 +120,32 @@ public class ModeratorController {
         return moderatorCompanion.getRouteFile(Integer.parseInt(routeId));
     }
 
+    /**
+     * Allows editing of a route by sending a Json object in the body. Check API documentation on how to use.
+     * @param body Json body containing the changes.
+     * @param token The token  sent as a cookie.
+     * @param userID The user id sent as a cookie.
+     * @return Response determined in the ModeratorCompanion.
+     */
+    @RequestMapping(value = "location", method = RequestMethod.PATCH)
+    public ResponseEntity<String> locationPatch(@RequestBody String body,
+                                                @CookieValue(name = "authentication-token") String token,
+                                                @CookieValue(name = "user-id") String userID){
+
+        ModeratorCompanion moderatorCompanion = getModeratorCompanion(token, userID);
+        if (moderatorCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
+        }
+
+        return moderatorCompanion.locationPatch(body);
+    }
+
+    /**
+     * Function to authenticate the moderator.
+     * @param token The token  sent as a cookie.
+     * @param userID The user id sent as a cookie.
+     * @return Authentication.
+     */
     private ModeratorCompanion getModeratorCompanion(String token, String userID) {
         System.out.println("Admin Auth Token : " + token);
         System.out.println("Admin Auth UserId : " + userID);
