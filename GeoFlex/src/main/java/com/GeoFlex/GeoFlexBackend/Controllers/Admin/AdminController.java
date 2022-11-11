@@ -2,9 +2,15 @@ package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 
 
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
+import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.LoginType;
+import com.GeoFlex.GeoFlexBackend.PoJo.Authentication.AdminLogin;
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Controller class to recieve requests from the front-end.
@@ -16,6 +22,30 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     private final int ADMIN_ACCESS_LEVEL = 2;
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ResponseEntity<String> login(@RequestBody String body, HttpServletResponse response) {
+        Gson gson = new Gson();
+        AdminLogin login = gson.fromJson(body,AdminLogin.class);
+        AdminCompanion adminCompanion;
+        if (login.login.email != null ) {
+            adminCompanion = AdminCompanion.GetLoginCompanion(login.login.email, login.login.password, LoginType.EMAIL);
+        } else if (login.login.userName != null){
+            adminCompanion = AdminCompanion.GetLoginCompanion(login.login.userName, login.login.password, LoginType.USERNAME);
+        } else {
+            adminCompanion = null;
+        }
+        if (adminCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
+        } else {
+            String token = Authenticator.CreateToken(adminCompanion.getUserID());
+            Cookie tokenCookie = new Cookie("authentication-token", token);
+            Cookie idCookie = new Cookie("user-id", token);
+            response.addCookie(tokenCookie);
+            response.addCookie(idCookie);
+            return adminCompanion.routesGet();
+        }
+    }
 
     @RequestMapping(value = "/routes", method = RequestMethod.GET)
     public ResponseEntity<String> routesGet(@CookieValue(name = "authentication-token") String token,
