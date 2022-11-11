@@ -1,39 +1,64 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Authentication;
 
-import java.security.SecureRandom;
-import java.util.Base64;
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
+import com.GeoFlex.GeoFlexBackend.Model.Token;
+
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Authenticator {
 
-    String token;
-    String userID;
-    int access_level;
+    HashMap<Integer,Token> userIdTokenMap = new HashMap<>();
+    AuthenticationProcedures ap = new AuthenticationProcedures();
 
-    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
-    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
-    private static HashMap<Integer, >
-
-    public Authenticator(String token, String userID, int access_level) {
-        this.token = token;
-        this.userID = userID;
-        this.access_level = access_level;
+    public Authenticator() {
     }
 
     public static String getHash(String password, String salt) {
-        return null; //TODO returned hashed password
+        try {
+            byte[] hashedArr = getSHA((password + salt));
+            return toHexString(hashedArr);
+        } catch ( Exception e) {
+            return null;
+        }
     }
 
 
+    public static byte[] getSHA(String input) throws NoSuchAlgorithmException, NoSuchAlgorithmException {
+        // Static getInstance method is called with hashing SHA
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
 
-    public static String CreateToken(String userId) {
-        byte[] randomBytes = new byte[24];
-        secureRandom.nextBytes(randomBytes);
-        String token = base64Encoder.encodeToString(randomBytes);
-        return token;
+        // digest() method called
+        // to calculate message digest of an input
+        // and return array of byte
+        return md.digest(input.getBytes(StandardCharsets.UTF_8));
+    }
+    public static String toHexString(byte[] hash) {
+
+        BigInteger number = new BigInteger(1, hash);
+
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        while (hexString.length() < 64)
+        {
+            hexString.insert(0, '0');
+        }
+
+        return hexString.toString();
     }
 
-    public boolean auth() { //todo implement
-        return true;
+    public boolean auth(String userId, Token authToken, int accessLevel) { //todo implement
+        Token storedToken = userIdTokenMap.get(Integer.parseInt(userId));
+        LocalDate ld = LocalDate.now();
+        // Return false if user is logged out or session expired.
+        return ld.isBefore(authToken.getExpiery()) && authToken.getToken().equals(storedToken.getToken()) && ap.getAccesLevel(userId) == accessLevel; // Return true if user is logged in and session has not expired.
+    }
+    public void putToken(int id, Token token){
+        userIdTokenMap.put(id,token);
+
     }
 }

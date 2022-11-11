@@ -14,5 +14,8 @@ public class Login {
     @SerializedName("password")
     @Expose
     public String password;
+    @SerializedName("expiery")
+    @Expose
+    public String expiery;
 
 }

@@ -24,20 +24,6 @@ public class AdminCompanion {
         this.userID = userID;
     }
 
-    public static AdminCompanion GetLoginCompanion(String identification, String password) {
-        //Take username or email
-        //try auth with pasword hashed with string via
-        String salt = AuthenticationProcedures.getSalt(identification);
-        String userid = AuthenticationProcedures.getID(identification);
-        String hash = Authenticator.getHash(password,salt);
-        if (Objects.equals(hash, AuthenticationProcedures.getHashedPassword(userid))) {
-            return new AdminCompanion(userid);
-        } else {
-            return null;
-        }
-    }
-
-
     /**
      * Returns all routes in the system as user is admin. (/admin/routes) GET
      * @return Response entity containing json of all routes.
