@@ -49,10 +49,10 @@ export default function AdminEditForms(props) {
         props.callMoveLocation(routeID, idFrom, idTo);
       }
 
-      const handleDelete = ((id)=>{
+      function handleDelete(id){
         let routeID = props.mainData.id;
         props.callDeleteLocation(routeID, id);
-      })
+      }
 
       const handleNewLocation = (() =>{
         let id = props.mainData.id;
