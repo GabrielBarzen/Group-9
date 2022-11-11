@@ -16,6 +16,7 @@ export default function AdminAddNew() {
     const navigate = useNavigate();
 
     function handleAddNew() {
+        console.log("ADD NEW ROUTE")
         /*
         API call POST to send the new route-object to DB 
         */
