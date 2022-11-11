@@ -4,19 +4,22 @@ import axios from "axios";
 import M from 'materialize-css';
 
 export default function AdminAddNew() {
+    /*
+    AdminAddNew adds a single new tour 
+    React useRef listen on input and stores the information to its assigned variable
+    navigate is part of react-router-dom and lets you redirect to a specific URL when called like this: " navigate("/admin", { replace: true }); "
+    */
     const titleRef = useRef();
     const descriptionRef = useRef();
     const rangeRef = useRef();
-    /*
-      const locationsRef = useRef();
-      const typeRef = useRef();
-      */
-    //const locationsRef = 5;
-    //const typeRef = "INFO";
+
     const navigate = useNavigate();
 
     function handleAddNew() {
         console.log("ADD NEW ROUTE")
+        /*
+        API call POST to send the new route-object to DB 
+        */
         var data = JSON.stringify({
             'route': {
                 'title': titleRef.current.value,
@@ -46,57 +49,9 @@ export default function AdminAddNew() {
                 console.log(error.response.data);
             });
     }
-/*
-    const handleSave = () => {
-        
-            console.log(titleRef.current.value);
-            console.log(descriptionRef.current.value);
-            console.log(locationsRef.current.value);
-            console.log(typeRef.current.value);
-           
-    
-            let validation = true;
-            if (titleRef.current.value === "") {
-                validation = false;
-            }
-            if (descriptionRef.current.value === "") {
-                validation = false
-            }
-            if (locationsRef.current.value === "0") {
-                validation = false
-            }
-            if (typeRef.current.value === "") {
-                validation = false
-            }
-            
-        let validation = true;
 
-        if (titleRef.current.value === "") {
-            validation = false;
-        }
-        if (descriptionRef.current.value === "") {
-            validation = false;
-        }
-
-        if (validation) {
-            let content = JSON.stringify({
-                'route': {
-                    'title': titleRef.current.value,
-                    'description': descriptionRef.current.value,
-                    'location': locationsRef.current.value,
-                    'type': typeRef,
-                },
-            });
-            console.log(content);
-
-            handleAddNew();
-            navigate("/admin", { replace: true });
-        } else {
-            alert("Du är inte klar");
-        }
-    };
-*/
     useEffect(() => {
+        //useEffect to initialize M from material css framework every time the page load
         M.AutoInit();
     }, []);
 
