@@ -1,7 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
-import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.LoginType;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
@@ -25,11 +24,11 @@ public class AdminCompanion {
         this.userID = userID;
     }
 
-    public static AdminCompanion GetLoginCompanion(String identification, String password, LoginType type) {
+    public static AdminCompanion GetLoginCompanion(String identification, String password) {
         //Take username or email
         //try auth with pasword hashed with string via
-        String salt = AuthenticationProcedures.getSalt(identification, type);
-        String userid = AuthenticationProcedures.getID(identification,type);
+        String salt = AuthenticationProcedures.getSalt(identification);
+        String userid = AuthenticationProcedures.getID(identification);
         String hash = Authenticator.getHash(password,salt);
         if (Objects.equals(hash, AuthenticationProcedures.getHashedPassword(userid))) {
             return new AdminCompanion(userid);

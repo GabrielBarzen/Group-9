@@ -7,9 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 @Generated("jsonschema2pojo")
 public class Login {
-    @SerializedName("email")
-    @Expose
-    public String email;
+
     @SerializedName("user-name")
     @Expose
     public String userName;
