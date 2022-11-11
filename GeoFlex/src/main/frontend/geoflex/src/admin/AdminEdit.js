@@ -16,7 +16,7 @@ export default function AdminEdit() {
 
   useEffect(() => {
     console.log(status);
-    console.log("STATUS");
+    console.log("EDIT USEEFFECT");
     var config = {
       method: "get",
       url: "/admin/route/locations?route-id=" + routeData.id,

@@ -13,6 +13,7 @@ export default function AdminOverview() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
+    console.log("OVERVIEW USEEFFECT");
     var config = {
       method: "get",
       url: "/admin/routes",
@@ -32,6 +33,7 @@ export default function AdminOverview() {
   }, [status]);
 
   function deleteItem(id) {
+    console.log("OVERVIEW DELETE")
     var config = {
       method: "delete",
       url: "/admin/route?route-id=" + id,

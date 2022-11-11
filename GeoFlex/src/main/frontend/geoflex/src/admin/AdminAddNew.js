@@ -16,6 +16,7 @@ export default function AdminAddNew() {
     const navigate = useNavigate();
 
     function handleAddNew() {
+        console.log("ADD NEW ROUTE")
         var data = JSON.stringify({
             'route': {
                 'title': titleRef.current.value,
