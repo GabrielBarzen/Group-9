@@ -10,6 +10,12 @@ export default function AdminEditForms(props) {
     
 
     function swapLocationsUp(idFrom) {
+        /*
+        onClick function to move a location-object up
+        receives the ID from a specific location
+        using forEach to sort out the ID of the location rendered below and sends "idFrom, idTo" to updateLocation()
+        location_index will always be ordered ascending, making it possible to find the right object    
+        */
         let routeID = props.mainData.id;
         var temp = "";
         var idToIndex = "";
@@ -30,6 +36,12 @@ export default function AdminEditForms(props) {
       }
     
       function swapLocationsDown(idFrom) {
+        /*
+        onClick function to move a location-object down
+        receives the ID from a specific location
+        using forEach to sort out the ID of the location rendered above and sends "idFrom, idTo" to updateLocation()
+        location_index will always be ordered ascending, making it possible to find the right object    
+        */
         let routeID = props.mainData.id;
         var temp = "";
         var idToIndex = "";
