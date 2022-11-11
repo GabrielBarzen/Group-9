@@ -154,13 +154,13 @@ public class ModeratorCompanion {
             case "image/png":
             case "video/mp4":
             case "video/quicktime":
-                fh.createDirectoriesAndSaveFile(routeId, file);
+                fh.createDirectoriesAndSaveFile(routeId, file, "routes");
                 ModeratorProcedures.routeUploadFile(routeId, path);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             case "image/heic":
-                fh.createDirectoriesAndSaveFile(routeId, file);
-                fh.heicToPng(routeId, file);
+                fh.createDirectoriesAndSaveFile(routeId, file, "routes");
+                fh.heicToPng(routeId, file, "routes");
                 ModeratorProcedures.routeUploadFile(routeId, path.replace("heic", "png"));
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;

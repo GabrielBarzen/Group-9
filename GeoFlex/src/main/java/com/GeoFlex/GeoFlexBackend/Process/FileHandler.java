@@ -13,18 +13,19 @@ public class FileHandler {
 
     /**
      * Function to create directories to store uploaded files to the server.
-     * @param routeId The id of the route. Used as the folders name.
+     * @param id The id of the route or location. Used as the folders name.
      * @param file The file to save to the server.
+     * @param dirName The directory name where the file is going to be saved. Should be routes or locations.
      */
-    public void createDirectoriesAndSaveFile(int routeId, MultipartFile file){
+    public void createDirectoriesAndSaveFile(int id, MultipartFile file, String dirName){
         //Create file directory.
-        File dir = new File("src/main/resources/static/files/routes");
+        File dir = new File("src/main/resources/static/files/"+dirName);
         if (!dir.exists()){
             dir.mkdirs();
         }
 
-        //Create a directory for a route.
-        File routeDir = new File("src/main/resources/static/files/routes/" + routeId);
+        //Create a directory for a route or location.
+        File routeDir = new File("src/main/resources/static/files/"+dirName+"/" + id);
         if (!routeDir.exists()){
             routeDir.mkdirs();
         }
@@ -47,10 +48,11 @@ public class FileHandler {
 
     /**
      * Function to delete a directory holding files for a route. To be called when a route is deleted.
-     * @param routeId The id of the deleted route. Used to delete the appropriate folder.
+     * @param id The id of the route or location. Used as the folders name.
+     * @param dirName The directory name where the file is going to be saved. Should be routes or locations.
      */
-    public void deleteRouteFileDirectory(int routeId){
-        File dirToDelete = new File("src/main/resources/static/files/routes/" + routeId);
+    public void deleteRouteFileDirectory(int id, String dirName){
+        File dirToDelete = new File("src/main/resources/static/files/"+dirName+"/" + id);
         try {
             FileUtils.deleteDirectory(dirToDelete);
         } catch (IOException e) {
@@ -60,12 +62,13 @@ public class FileHandler {
 
     /**
      * Function to convert images from the HEIC format to PNG.
-     * @param routeId The id of the route. Used to locate the folder the file is in.
+     * @param id The id of the route or location. Used as the folders name.
      * @param file The image that is going to be converted.
+     * @param dirName The directory name where the file is going to be saved. Should be routes or locations.
      */
-    public void heicToPng(int routeId, MultipartFile file){
-        String filePath = "src/main/resources/static/files/routes/"+routeId+"/"+file.getOriginalFilename();
-        String filePathNewFormat = "src/main/resources/static/files/routes/"+routeId+"/"+file.getOriginalFilename().replace("heic", "png");
+    public void heicToPng(int id, MultipartFile file, String dirName){
+        String filePath = "src/main/resources/static/files/"+dirName+"/"+id+"/"+file.getOriginalFilename();
+        String filePathNewFormat = "src/main/resources/static/files/"+dirName+"/"+id+"/"+file.getOriginalFilename().replace("heic", "png");
         String [] cmd = new String[3];
         cmd[0] = "src/main/java/com/GeoFlex/GeoFlexBackend/Process/ImageMagick/convert.exe";
         cmd[1] = filePath;
