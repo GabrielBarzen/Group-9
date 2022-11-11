@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Objects;
+
 public class AdminCompanion {
 
     final String userID;
@@ -29,7 +31,7 @@ public class AdminCompanion {
         String salt = AuthenticationProcedures.getSalt(identification, type);
         String userid = AuthenticationProcedures.getID(identification,type);
         String hash = Authenticator.getHash(password,salt);
-        if (hash == AuthenticationProcedures.getHashedPassword(userid)) {
+        if (Objects.equals(hash, AuthenticationProcedures.getHashedPassword(userid))) {
             return new AdminCompanion(userid);
         } else {
             return null;
