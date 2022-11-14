@@ -51,7 +51,7 @@ public class FileHandler {
      * @param id The id of the route or location. Used as the folders name.
      * @param dirName The directory name where the file is going to be saved. Should be routes or locations.
      */
-    public void deleteRouteFileDirectory(int id, String dirName){
+    public void deleteFileDirectory(int id, String dirName){
         File dirToDelete = new File("src/main/resources/static/files/"+dirName+"/" + id);
         try {
             FileUtils.deleteDirectory(dirToDelete);

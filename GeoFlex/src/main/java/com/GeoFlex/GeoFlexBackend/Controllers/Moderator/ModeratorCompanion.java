@@ -108,6 +108,8 @@ public class ModeratorCompanion {
                     try {
                         System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
                         ModeratorProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        FileHandler fh = new FileHandler();
+                        fh.deleteFileDirectory(Integer.parseInt(ru.routeUpdate.location.get(i).delete), "locations");
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting delete");
