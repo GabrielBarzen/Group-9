@@ -1,5 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
+import com.GeoFlex.GeoFlexBackend.PoJo.LocationUpdate.LocationEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
@@ -354,6 +355,217 @@ public class ModeratorProcedures {
             ResultSet res = cs.getResultSet();
             while(res.next()){
                  filepath = res.getString("image");
+            }
+            Gson gson = new Gson();
+            return gson.toJson(filepath);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a locations name in the database.
+     * @param locationId The id of the location.
+     * @param name The name of the location.
+     */
+    public static void locationUpdateName(String locationId, String name) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_name(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_name", name);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a locations text info in the database.
+     * @param locationId The id of the location.
+     * @param textInfo The text info of the location.
+     */
+    public static void locationUpdateTextInfo(String locationId, String textInfo) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_text_info(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_text_info", textInfo);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a location positions x coordinate in the database.
+     * @param locationId The id of the location.
+     * @param xCoords The locations x coordinate.
+     */
+    public static void locationPositionUpdateXcoords(String locationId, String xCoords) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_x_coordinate(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_x_coordinate", xCoords);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a location positions y coordinate in the database.
+     * @param locationId The id of the location.
+     * @param yCoords The locations y coordinate.
+     */
+     public static void locationPositionUpdateYcoords(String locationId, String yCoords) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_y_coordinate(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_y_coordinate", yCoords);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to update a location positions directions in the database.
+     * @param locationId The id of the location.
+     * @param directions The locations directions.
+     */
+    public static void locationPositionUpdateDirections(String locationId, String directions) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_directions(?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_directions", directions);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to add content to an existing location in the database.
+     * @param locationId The id of the location.
+     * @param answer The answer to add, will be placeholder until changed.
+     * @param correct Wether the answer is correct or not, default value is false.
+     */
+    public static void createContent(String locationId, String answer, boolean correct) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_answer", answer);
+            cs.setBoolean("in_correct", correct);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to delete content from the database.
+     * @param contentId The id of the content to delete.
+     */
+    public static void deleteContent(String contentId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_content(?)}")) {
+            cs.setString("in_content_id", String.valueOf(contentId));
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Uploads a file path to the database.
+     * @param locationId The id of the route.
+     * @param filePath The path to save in the database.
+     */
+    public static void locationUploadFile(int locationId, String filePath) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?)}")) {
+            cs.setInt("in_location_id", locationId);
+            cs.setString("in_data", filePath);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Retrivies a filepath from the database.
+     * @param locationId The id of the route to retrieve from.
+     * @return Filepath of a video or image saved on the server.
+     */
+    public static String locationGetFile(int locationId){
+        DatabaseConnection dc = new DatabaseConnection();
+        String filepath = "";
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_location_get_imgvid(?)}")) {
+            cs.setInt("in_location_id", locationId);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
+                filepath = res.getString("data");
             }
             Gson gson = new Gson();
             return gson.toJson(filepath);

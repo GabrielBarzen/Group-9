@@ -1,9 +1,11 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
+import com.GeoFlex.GeoFlexBackend.PoJo.LocationUpdate.RootLocationEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
 import com.google.gson.Gson;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -141,7 +143,7 @@ public class ModeratorCompanion {
      * @return OK message body if sucessfull, error with details if not.
      */
     public ResponseEntity<String> uploadRouteFile(int routeId, MultipartFile file){
-        ResponseEntity<String> response = new ResponseEntity<>("Interal server error, contact admin.", HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity<String> response;
         //FileHandler to directories and write file to folder.
         FileHandler fh = new FileHandler();
 
@@ -199,9 +201,102 @@ public class ModeratorCompanion {
         ResponseEntity<String> response;
         response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         Gson gson = new Gson();
-        System.out.println(body);
-        //TODO: Plan location patch json and create POJO.
+        RootLocationEdit rle = gson.fromJson(body, RootLocationEdit.class);
+        if(rle.locationEdit.locationId == null){
+            return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        }
+        if(rle.locationEdit.name != null){
+            ModeratorProcedures.locationUpdateName(rle.locationEdit.locationId, rle.locationEdit.name);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.textInfo != null){
+            ModeratorProcedures.locationUpdateTextInfo(rle.locationEdit.locationId, rle.locationEdit.textInfo);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.qr != null){
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.xCoords != null){
+            ModeratorProcedures.locationPositionUpdateXcoords(rle.locationEdit.locationId, rle.locationEdit.xCoords);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.yCoords != null){
+            ModeratorProcedures.locationPositionUpdateYcoords(rle.locationEdit.locationId, rle.locationEdit.yCoords);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.directions != null){
+            ModeratorProcedures.locationPositionUpdateDirections(rle.locationEdit.locationId, rle.locationEdit.directions);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        if(rle.locationEdit.content != null){
+            for (int i = 0; i < rle.locationEdit.content.size(); i++) {
+                if(rle.locationEdit.content.get(i)._new != null){
+                    ModeratorProcedures.createContent(rle.locationEdit.locationId, "Replace me with answer.", false);
+                    response = new ResponseEntity<>("", HttpStatus.OK);
+                }
+                else if(rle.locationEdit.content.get(i).delete != null){
+                    ModeratorProcedures.deleteContent(rle.locationEdit.content.get(i).delete);
+                    response = new ResponseEntity<>("", HttpStatus.OK);
+                }
+            }
+        }
 
-        return new ResponseEntity<>("Not implemented", HttpStatus.NOT_IMPLEMENTED);
+        return response;
+    }
+
+    /**
+     * Function to upload a file to the server and save the path to a location in the database.
+     * @param locationId The id of the route.
+     * @param file The file to be saved.
+     * @return OK message body if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> uploadLocationFile(int locationId, MultipartFile file){
+        ResponseEntity<String> response;
+        //FileHandler to directories and write file to folder.
+        FileHandler fh = new FileHandler();
+
+        //Upload image path to database.
+        String fileType = file.getContentType();
+        String path = "files/locations/"+locationId+"/"+file.getOriginalFilename();
+        System.out.println(fileType);
+        switch(fileType){
+            case "image/jpeg":
+            case "image/png":
+            case "video/mp4":
+            case "video/quicktime":
+                fh.createDirectoriesAndSaveFile(locationId, file, "locations");
+                ModeratorProcedures.locationUploadFile(locationId, path);
+                response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
+            case "image/heic":
+                fh.createDirectoriesAndSaveFile(locationId, file, "locations");
+                fh.heicToPng(locationId, file, "locations");
+                ModeratorProcedures.locationUploadFile(locationId, path.replace("heic", "png"));
+                response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
+            default:
+                response = new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+                break;
+        }
+
+        return response;
+    }
+
+    /**
+     * Function to get filepath for a location from the database.
+     * @param locationId
+     * @return OK message if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> getLocationFile(int locationId) {
+        ResponseEntity<String> response;
+        String filepath = ModeratorProcedures.locationGetFile(locationId);
+        System.out.println(filepath);
+        if(filepath.isEmpty() || filepath.equals("")){
+            response = new ResponseEntity<>("{\"error\" : \"Wrong request params.\"}", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            response = new ResponseEntity<>(filepath, HttpStatus.OK);
+        }
+        return response;
     }
 }

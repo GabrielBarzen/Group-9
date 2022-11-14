@@ -108,6 +108,9 @@ public class AdminCompanion {
         response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         Gson gson = new Gson();
         RootUpdate ru = gson.fromJson(body, RootUpdate.class);
+        if(ru.routeUpdate.routeId == null){
+            return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        }
         if(ru.routeUpdate.title != null){
             AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
             response = new ResponseEntity<>("", HttpStatus.OK);
