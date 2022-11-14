@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import M from 'materialize-css';
 import LocationForm from './LocationForm';
+import ModEditLocation from '../ModEditLocation';
 
 export default function Location(props) {
     /**
@@ -35,7 +36,7 @@ export default function Location(props) {
                         <button className='col s1 collapsible-header'>Redigera</button>
                     </section>
                     <section className='collapsible-body'>
-                        <LocationForm data={currentValue} />
+                        <ModEditLocation data={currentValue} />
                     </section>
                 </li>
             </>
@@ -66,7 +67,7 @@ export default function Location(props) {
                         <button className='col s1 collapsible-header'>Redigera</button>
                     </section>
                     <section className='collapsible-body'>
-                        <LocationForm data={currentValue} />
+                        <ModEditLocation data={currentValue} />
                     </section>
                 </li>
             </>
@@ -95,7 +96,7 @@ export default function Location(props) {
                         <button className='col s1 collapsible-header'>Redigera</button>
                     </section>
                     <section className='collapsible-body'>
-                        <LocationForm data={currentValue} />
+                        <ModEditLocation data={currentValue} />
                     </section>
                 </li>
             </>
@@ -116,7 +117,7 @@ export default function Location(props) {
                     <button className='col s1 collapsible-header'>Redigera</button>
                 </section>
                 <section className='collapsible-body'>
-                    <LocationForm data={currentValue} />
+                    <ModEditLocation data={currentValue} />
                 </section>
             </li>
         </>)

@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 export default class LocationForm extends Component {
     constructor(props) {
         super(props);
-        console.log(props.data)
+        console.log(props.currentData)
 
         //Här definierar vi alla förifyllda värden baserat på props
 
         this.state = {
-            locationName: props.data.name,
-            locationInfo: props.data.text_info,
+            locationName: props.currentData.name,
+            locationInfo: props.currentData.text_info,
             locationImage: 'BILD URL HÄR',
             locationVideo: 'Video URL HÄR',
             locationLongitude: 'Longitud här',

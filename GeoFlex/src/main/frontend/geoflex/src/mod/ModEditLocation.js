@@ -1,40 +1,42 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import LocationForm from './components/LocationForm';
+import axios from 'axios';
 
 export default function ModEditLocation(props) {
-  const navigate = useNavigate();
+  /**
+   * ModEditLocation handles all API-calls needed to edit a location
+   *  
+   */
+  
+    function updateLocation(data){      
+      /**
+      *API call PATCH to update a location in the moderator edit view
+      */
+      var config = {
+        method: "patch",
+        url: "/moderator/location",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
 
-  //location recieves data from Link
-  const location = useLocation();
-  const routeData = location.state.route;
-  const defaultValues = location.state.data;
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
-
-    console.log("MOD EDIT LOCATION. routeID; " + routeData + " defaultValues: " + defaultValues)
-    for (const [key, value] of Object.entries(defaultValues)) {
-      console.log(`${key}: ${value}`);
-    }
-
-    function handleImage(){
-        const imgUpload = {
-
-        }
-    }
-
-    function handleVideo(){
-      const imgUpload = {
-
-      }
-  }
-    
+    }    
 
   return (
-    <div className='container white'>
-      <LocationForm 
-        defaultValues={defaultValues} 
-        handleImage={handleImage} 
-        handleVideo={handleVideo}/>
-    </div>
+    <>
+    <LocationForm 
+      currentData={props.data}
+      callUpdateLocation={updateLocation}/>
+    </>
   )
 }
