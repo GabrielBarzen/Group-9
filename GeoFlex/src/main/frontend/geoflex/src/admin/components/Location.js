@@ -3,12 +3,12 @@ import M from 'materialize-css'
 
 export default function Location(props) {
 
-    const dataLength = props.dataLength
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
+
     const firstLocation = () => {
         /**
-         * 
+         * renders html for the first location.
          */
         return (
             <>
@@ -31,7 +31,7 @@ export default function Location(props) {
     }
     const endLocation = () => {
         /**
-         * 
+         * renders hmtl for the end location
          */
         return (
             <>
@@ -55,7 +55,7 @@ export default function Location(props) {
 
     const lastLocation = () => {
         /**
-         * 
+         * returns html for the last location         * 
          */
         return (<>
             <li className='row card-panel'>
@@ -71,7 +71,7 @@ export default function Location(props) {
 
     const middleLocations = () => {
         /**
-         * 
+         * returns html for all locations between the "first location" and the "end location"
          */
         return (
             <>
@@ -96,8 +96,6 @@ export default function Location(props) {
 
         )
     }
-
-    console.log(dataLength - 2);
 
     useEffect(() => {
         M.AutoInit();
