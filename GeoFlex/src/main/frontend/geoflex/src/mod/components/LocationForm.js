@@ -42,6 +42,8 @@ export default class LocationForm extends Component {
         alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude);
     }
 
+    
+
     render() {
         return (
             <div className='container'>
@@ -71,6 +73,7 @@ export default class LocationForm extends Component {
                             name="locationImage" type="text"
                             value={this.state.locationImage}
                             onChange={this.handleInputChange} />
+                            <button onClick={ () => props.handleImage(this.state.locationImage)}>Lägg till bild</button>
                     </label>
 
                     <label>
@@ -80,6 +83,7 @@ export default class LocationForm extends Component {
                             name="locationVideo" type="text"
                             value={this.state.locationVideo}
                             onChange={this.handleInputChange} />
+                            <button onClick={ () => props.handleVideo(this.state.locationVideo)}>Lägg till video</button>
                     </label>
                     <label>
                         Longitud

@@ -15,11 +15,26 @@ export default function ModEditLocation(props) {
     for (const [key, value] of Object.entries(defaultValues)) {
       console.log(`${key}: ${value}`);
     }
+
+    function handleImage(){
+        const imgUpload = {
+
+        }
+    }
+
+    function handleVideo(){
+      const imgUpload = {
+
+      }
+  }
     
 
   return (
     <div className='container white'>
-      <LocationForm defaultValues={defaultValues} />
+      <LocationForm 
+        defaultValues={defaultValues} 
+        handleImage={handleImage} 
+        handleVideo={handleVideo}/>
     </div>
   )
 }
