@@ -1,14 +1,21 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Button from '../../shared/Button';
 import Location from './Location';
+import M from 'materialize-css'
 
 export default function ModEditForms(props) {
     console.log(props.locationsData);
     console.log(props.mainData);
+
+    
     
     let titleRef = useRef();
     let descriptionRef = useRef();
-    
+
+    useEffect(() => {
+      M.AutoInit();
+
+  }, []);
 
     function swapLocationsUp(idFrom) {
         /*
@@ -112,7 +119,7 @@ export default function ModEditForms(props) {
             </div>
             <div className="row">
               <div>
-                <ul className="">
+                <ul className="collapsible">
                   {[...props.locationsData.route.location].map((location) => (
                     <Location
                       key={location.id}

@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 export default class LocationForm extends Component {
     constructor(props) {
         super(props);
-        console.log(props.defaultValues.text_info)
+        console.log(props.data)
+
         //Här definierar vi alla förifyllda värden baserat på props
 
         this.state = {
-            locationName: props.defaultValues.name,
-            locationInfo: props.defaultValues.text_info,
+            locationName: props.data.name,
+            locationInfo: props.data.text_info,
             locationImage: 'BILD URL HÄR',
             locationVideo: 'Video URL HÄR',
             locationLongitude: 'Longitud här',
@@ -73,7 +74,7 @@ export default class LocationForm extends Component {
                             name="locationImage" type="text"
                             value={this.state.locationImage}
                             onChange={this.handleInputChange} />
-                            <button onClick={ () => props.handleImage(this.state.locationImage)}>Lägg till bild</button>
+                            
                     </label>
 
                     <label>
@@ -83,7 +84,7 @@ export default class LocationForm extends Component {
                             name="locationVideo" type="text"
                             value={this.state.locationVideo}
                             onChange={this.handleInputChange} />
-                            <button onClick={ () => props.handleVideo(this.state.locationVideo)}>Lägg till video</button>
+                            
                     </label>
                     <label>
                         Longitud
