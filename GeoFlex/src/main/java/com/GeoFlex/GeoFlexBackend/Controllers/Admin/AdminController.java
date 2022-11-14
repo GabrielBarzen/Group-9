@@ -2,7 +2,6 @@ package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 
 
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
-import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.LoginType;
 import com.GeoFlex.GeoFlexBackend.PoJo.Authentication.AdminLogin;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
@@ -28,10 +27,8 @@ public class AdminController {
         Gson gson = new Gson();
         AdminLogin login = gson.fromJson(body,AdminLogin.class);
         AdminCompanion adminCompanion;
-        if (login.login.email != null ) {
-            adminCompanion = AdminCompanion.GetLoginCompanion(login.login.email, login.login.password, LoginType.EMAIL);
-        } else if (login.login.userName != null){
-            adminCompanion = AdminCompanion.GetLoginCompanion(login.login.userName, login.login.password, LoginType.USERNAME);
+        if (login.login.userName != null){
+            adminCompanion = AdminCompanion.GetLoginCompanion(login.login.userName, login.login.password);
         } else {
             adminCompanion = null;
         }

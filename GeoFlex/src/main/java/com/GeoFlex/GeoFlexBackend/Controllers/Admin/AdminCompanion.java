@@ -1,7 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
-import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.LoginType;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
@@ -10,6 +9,8 @@ import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.Objects;
 
 public class AdminCompanion {
 
@@ -23,13 +24,13 @@ public class AdminCompanion {
         this.userID = userID;
     }
 
-    public static AdminCompanion GetLoginCompanion(String identification, String password, LoginType type) {
+    public static AdminCompanion GetLoginCompanion(String identification, String password) {
         //Take username or email
         //try auth with pasword hashed with string via
-        String salt = AuthenticationProcedures.getSalt(identification, type);
-        String userid = AuthenticationProcedures.getID(identification,type);
+        String salt = AuthenticationProcedures.getSalt(identification);
+        String userid = AuthenticationProcedures.getID(identification);
         String hash = Authenticator.getHash(password,salt);
-        if (hash == AuthenticationProcedures.getHashedPassword(userid)) {
+        if (Objects.equals(hash, AuthenticationProcedures.getHashedPassword(userid))) {
             return new AdminCompanion(userid);
         } else {
             return null;
@@ -107,6 +108,9 @@ public class AdminCompanion {
         response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         Gson gson = new Gson();
         RootUpdate ru = gson.fromJson(body, RootUpdate.class);
+        if(ru.routeUpdate.routeId == null){
+            return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        }
         if(ru.routeUpdate.title != null){
             AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
             response = new ResponseEntity<>("", HttpStatus.OK);
@@ -148,6 +152,8 @@ public class AdminCompanion {
                     try {
                         System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
                         AdminProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        FileHandler fh = new FileHandler();
+                        fh.deleteFileDirectory(Integer.parseInt(ru.routeUpdate.location.get(i).delete), "locations");
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting delete");
@@ -173,7 +179,7 @@ public class AdminCompanion {
             response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
             AdminProcedures.deleteRoute(routeID);
             FileHandler fh = new FileHandler();
-            fh.deleteRouteFileDirectory(Integer.parseInt(routeID), "routes");
+            fh.deleteFileDirectory(Integer.parseInt(routeID), "routes");
         }
         return response;
     }

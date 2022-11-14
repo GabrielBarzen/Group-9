@@ -1,13 +1,11 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
-import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.LoginType;
-
 public class AuthenticationProcedures {
-    public static String getSalt(String identification, LoginType type) {
+    public static String getSalt(String identification) {
         return null; //TODO Get salt from db
     }
 
-    public static String getID(String identification, LoginType type) {
+    public static String getID(String identification) {
         return null; //TODO get id from db
     }
 
