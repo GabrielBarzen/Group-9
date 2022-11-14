@@ -18,6 +18,11 @@ export default class LocationForm extends Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleGeoLocation = this.handleGeoLocation.bind(this);
+    }
+
+    handleGeoLocation() {
+        alert("Denna knapp ska trigga hämtning av geodata");
     }
 
     handleInputChange(event) {
@@ -43,12 +48,10 @@ export default class LocationForm extends Component {
         alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude);
     }
 
-    
-
     render() {
         return (
             <div className='container'>
-                <h3>Fråga 1</h3>
+                <h3>Plats 1</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Titel
@@ -60,7 +63,7 @@ export default class LocationForm extends Component {
                     </label>
 
                     <label>
-                        Fråga
+                        Innehåll
                         <input
                             className='blue lighten-4'
                             name="locationInfo" type="text"
@@ -86,6 +89,7 @@ export default class LocationForm extends Component {
                             onChange={this.handleInputChange} />
                             
                     </label>
+                    <fieldset>
                     <label>
                         Longitud
                         <input
@@ -102,6 +106,8 @@ export default class LocationForm extends Component {
                             value={this.state.locationLatitude}
                             onChange={this.handleInputChange} />
                     </label>
+                    <span className="button" onClick={this.handleGeoLocation}>Hämta koordinater</span>
+                    </fieldset>
                     <input type="submit" value="Submit" />
                 </form>
             </div>
