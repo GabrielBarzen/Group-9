@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import M from 'materialize-css'
 
 export default function Location(props) {
+    /**
+     * renders html for the locations based on their order
+     */
 
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
