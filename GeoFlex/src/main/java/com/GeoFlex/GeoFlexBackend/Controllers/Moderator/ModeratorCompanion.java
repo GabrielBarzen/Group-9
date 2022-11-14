@@ -143,7 +143,7 @@ public class ModeratorCompanion {
      * @return OK message body if sucessfull, error with details if not.
      */
     public ResponseEntity<String> uploadRouteFile(int routeId, MultipartFile file){
-        ResponseEntity<String> response = new ResponseEntity<>("Interal server error, contact admin.", HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity<String> response;
         //FileHandler to directories and write file to folder.
         FileHandler fh = new FileHandler();
 
@@ -231,17 +231,72 @@ public class ModeratorCompanion {
         if(rle.locationEdit.content != null){
             for (int i = 0; i < rle.locationEdit.content.size(); i++) {
                 if(rle.locationEdit.content.get(i)._new != null){
+                    ModeratorProcedures.createContent(rle.locationEdit.locationId, "Replace me with answer.", false);
                     response = new ResponseEntity<>("", HttpStatus.OK);
                 }
                 else if(rle.locationEdit.content.get(i).delete != null){
-                    response = new ResponseEntity<>("", HttpStatus.OK);
-                }
-                else {
+                    ModeratorProcedures.deleteContent(rle.locationEdit.content.get(i).delete);
                     response = new ResponseEntity<>("", HttpStatus.OK);
                 }
             }
         }
 
+        return response;
+    }
+
+    /**
+     * Function to upload a file to the server and save the path to a location in the database.
+     * @param locationId The id of the route.
+     * @param file The file to be saved.
+     * @return OK message body if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> uploadLocationFile(int locationId, MultipartFile file){
+        ResponseEntity<String> response;
+        //FileHandler to directories and write file to folder.
+        FileHandler fh = new FileHandler();
+
+        //Upload image path to database.
+        String fileType = file.getContentType();
+        String path = "files/locations/"+locationId+"/"+file.getOriginalFilename();
+        System.out.println(fileType);
+        switch(fileType){
+            case "image/jpeg":
+            case "image/png":
+            case "video/mp4":
+            case "video/quicktime":
+                fh.createDirectoriesAndSaveFile(locationId, file, "locations");
+                ModeratorProcedures.locationUploadFile(locationId, path);
+                response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
+            case "image/heic":
+                fh.createDirectoriesAndSaveFile(locationId, file, "locations");
+                fh.heicToPng(locationId, file, "locations");
+                ModeratorProcedures.locationUploadFile(locationId, path.replace("heic", "png"));
+                response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
+            default:
+                response = new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+                break;
+        }
+
+        return response;
+    }
+
+    /**
+     * Function to get filepath for a location from the database.
+     * @param locationId
+     * @return OK message if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> getLocationFile(int locationId) {
+        ResponseEntity<String> response;
+        String filepath = ModeratorProcedures.locationGetFile(locationId);
+        System.out.println(filepath);
+        if(filepath.isEmpty() || filepath.equals("")){
+            response = new ResponseEntity<>("{\"error\" : \"Wrong request params.\"}", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            response = new ResponseEntity<>(filepath, HttpStatus.OK);
+        }
         return response;
     }
 }

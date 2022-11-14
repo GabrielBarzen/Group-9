@@ -483,4 +483,100 @@ public class ModeratorProcedures {
             }
         }
     }
+
+    /**
+     * Function to add content to an existing location in the database.
+     * @param locationId The id of the location.
+     * @param answer The answer to add, will be placeholder until changed.
+     * @param correct Wether the answer is correct or not, default value is false.
+     */
+    public static void createContent(String locationId, String answer, boolean correct) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?)}")) {
+            cs.setString("in_location_id", String.valueOf(locationId));
+            cs.setString("in_answer", answer);
+            cs.setBoolean("in_correct", correct);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Function to delete content from the database.
+     * @param contentId The id of the content to delete.
+     */
+    public static void deleteContent(String contentId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_content(?)}")) {
+            cs.setString("in_content_id", String.valueOf(contentId));
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Uploads a file path to the database.
+     * @param locationId The id of the route.
+     * @param filePath The path to save in the database.
+     */
+    public static void locationUploadFile(int locationId, String filePath) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?)}")) {
+            cs.setInt("in_location_id", locationId);
+            cs.setString("in_data", filePath);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Retrivies a filepath from the database.
+     * @param locationId The id of the route to retrieve from.
+     * @return Filepath of a video or image saved on the server.
+     */
+    public static String locationGetFile(int locationId){
+        DatabaseConnection dc = new DatabaseConnection();
+        String filepath = "";
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_location_get_imgvid(?)}")) {
+            cs.setInt("in_location_id", locationId);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
+                filepath = res.getString("data");
+            }
+            Gson gson = new Gson();
+            return gson.toJson(filepath);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
