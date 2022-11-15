@@ -12,6 +12,7 @@ export default class LocationForm extends Component {
             locationInfo: props.currentData.text_info,
             locationImage: 'BILD URL HÄR',
             locationVideo: 'Video URL HÄR',
+            locationDirections: 'Go left then turn back',
             locationLongitude: 'Longitud här',
             locationLatitude: 'Latitud här'
         };
@@ -23,9 +24,16 @@ export default class LocationForm extends Component {
     }
 
     handleNewQuestion() {
+        /**
+         * Add a new question
+         */
 
     }
+
     handleGeoLocation() {
+        /**
+         * fetches geolocation data Longitude and Latitude and adds the coords to the current state-object
+         */
         alert("Denna knapp ska trigga hämtning av geodata");
     }
 
@@ -56,7 +64,7 @@ export default class LocationForm extends Component {
                 "qr": "",
                 "x_coords": this.state.locationLongitude,
                 "y_coords": this.state.locationLatitude,
-                "directions": "Go left then turn back.",
+                "directions": this.state.locationDirections,
                 "content": [
                 ]
             }
@@ -106,6 +114,15 @@ export default class LocationForm extends Component {
                             className='blue lighten-4'
                             name="locationVideo" type="text"
                             value={this.state.locationVideo}
+                            onChange={this.handleInputChange} />
+
+                    </label>
+                    <label>
+                        Vägbeskrivning
+                        <input
+                            className='blue lighten-4'
+                            name="locationVideo" type="text"
+                            value={this.state.locationDirections}
                             onChange={this.handleInputChange} />
 
                     </label>
