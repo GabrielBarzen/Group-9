@@ -301,4 +301,21 @@ public class ModeratorCompanion {
         }
         return response;
     }
+
+    /**
+     * Function to get content for a location from the database.
+     * @param locationId
+     * @return OK message if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> locationGetContent(String locationId) {
+        ResponseEntity<String> response;
+        String json = ModeratorProcedures.locationGetContent(Integer.parseInt(locationId));
+        if(json.isEmpty()){
+            response = new ResponseEntity<>("{\"error\" : \"Wrong request params.\"}", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            response = new ResponseEntity<>(json, HttpStatus.OK);
+        }
+        return response;
+    }
 }
