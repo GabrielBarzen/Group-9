@@ -121,8 +121,9 @@ export default function ModEditForms(props) {
               </div>
             </div>
             <div className="row">
+            
               <div>
-                <ul className="collapsible">
+                <ul className="collapsible z-depth-0" style={{'border': '0'}}>
                   {[...props.locationsData.route.location].map((location) => (
                     <Location
                       key={location.id}
