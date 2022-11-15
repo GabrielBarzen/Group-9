@@ -32,9 +32,9 @@ export default function ModEditLocation(props) {
 
   }
 
-  function addQuestion(id) {
+  function addAnswer(id) {
     /**
-     * API-call to add 1 question 
+     * API-call to add 1 answer 
      */
     var data = JSON.stringify(
       {
@@ -79,7 +79,7 @@ export default function ModEditLocation(props) {
       <LocationForm
         currentData={props.data}
         callUpdateLocation={updateLocation}
-        callAddQuestion={addQuestion} />
+        callAddQuestion={addAnswer} />
     </>
   )
 }
