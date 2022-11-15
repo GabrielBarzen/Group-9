@@ -1,10 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Location from './Location';
+import M from 'materialize-css'
 
 export default function AdminEditForms(props) {
 
   let titleRef = useRef();
   let descriptionRef = useRef();
+
+  useEffect(() => {
+    M.AutoInit();
+    M.updateTextFields();
+    
+  }, []);
+
   const dataLength = props.locationsData.route.location.length;
 
 
