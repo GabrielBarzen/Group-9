@@ -14,7 +14,8 @@ export default function ModEditForms(props) {
 
     useEffect(() => {
       M.AutoInit();
-
+      M.updateTextFields();
+      
   }, []);
 
     function swapLocationsUp(idFrom) {
@@ -88,6 +89,7 @@ export default function ModEditForms(props) {
       })
 
 
+
   return (
     <>
 <div className="row">
@@ -95,10 +97,11 @@ export default function ModEditForms(props) {
             <div className="row">
               <div className="input-field col s12">
                 <i className="material-icons prefix">label</i>
-                <label htmlFor="title">Titel</label>
+                <label>Titel</label>
                 <input
+                  placeholder='tjo'
                   id="title"
-                  type="text"
+                  type="text"                  
                   defaultValue={props.mainData.title}
                   ref={titleRef}
                 />
