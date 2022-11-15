@@ -6,12 +6,18 @@ import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Route;
 import com.google.gson.Gson;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ModeratorProcedures {
 
@@ -569,6 +575,49 @@ public class ModeratorProcedures {
             }
             Gson gson = new Gson();
             return gson.toJson(filepath);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Retrieves the content for a specific location by its ID.
+     * @param locationId The ID of the location.
+     * @return Json object containing the content.
+     */
+    public static String locationGetContent(int locationId){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_content_for_location(?)}")) {
+            cs.setInt("in_location_id", locationId);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray array = new JSONArray();
+            while(res.next()){
+                JSONObject row = new JSONObject();
+                try {
+                    row.put("answer", res.getString("answer"));
+                    row.put("correct", res.getBoolean("correct"));
+                    row.put("content-id", res.getInt("id"));
+                    array.put(row);
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            try {
+                jsonObject.put("content", array);
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+            return jsonObject.toString();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
