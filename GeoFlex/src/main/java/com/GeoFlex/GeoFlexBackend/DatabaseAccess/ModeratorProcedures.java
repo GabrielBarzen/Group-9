@@ -628,8 +628,4 @@ public class ModeratorProcedures {
             }
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println(locationGetContent(3861));
-    }
 }
