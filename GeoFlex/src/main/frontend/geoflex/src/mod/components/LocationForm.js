@@ -16,11 +16,15 @@ export default class LocationForm extends Component {
             locationLatitude: 'Latitud här'
         };
 
+        this.handleNewQuestion = this.handleNewQuestion.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGeoLocation = this.handleGeoLocation.bind(this);
     }
 
+    handleNewQuestion() {
+
+    }
     handleGeoLocation() {
         alert("Denna knapp ska trigga hämtning av geodata");
     }
@@ -44,9 +48,25 @@ export default class LocationForm extends Component {
         och anropar sedan funktionen där API-anropet ligger och skickar med objektet
         just nu får man bara en alert med de värden man fyllt i
         */
+        let data = {
+            "location-update": {
+                "location-id": this.props.currentData.id,
+                "name": this.state.locationName,
+                "text_info": this.state.locationInfo,
+                "qr": "",
+                "x_coords": this.state.locationLongitude,
+                "y_coords": this.state.locationLatitude,
+                "directions": "Go left then turn back.",
+                "content": [
+                ]
+            }
+        }
+        this.props.callUpdateLocation(data);
 
         alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude);
     }
+
+
 
     render() {
         return (
@@ -77,7 +97,7 @@ export default class LocationForm extends Component {
                             name="locationImage" type="text"
                             value={this.state.locationImage}
                             onChange={this.handleInputChange} />
-                            
+
                     </label>
 
                     <label>
@@ -87,26 +107,31 @@ export default class LocationForm extends Component {
                             name="locationVideo" type="text"
                             value={this.state.locationVideo}
                             onChange={this.handleInputChange} />
-                            
+
                     </label>
                     <fieldset>
-                    <label>
-                        Longitud
-                        <input
-                            className='blue lighten-4'
-                            name="locationLongitude" type="text"
-                            value={this.state.locationLongitude}
-                            onChange={this.handleInputChange} />
-                    </label>
-                    <label>
-                        Latitud
-                        <input
-                            className='blue lighten-4'
-                            name="locationLatitude" type="text"
-                            value={this.state.locationLatitude}
-                            onChange={this.handleInputChange} />
-                    </label>
-                    <span className="button" onClick={this.handleGeoLocation}>Hämta koordinater</span>
+                        <label>
+                            Longitud
+                            <input
+                                className='blue lighten-4'
+                                name="locationLongitude" type="text"
+                                value={this.state.locationLongitude}
+                                onChange={this.handleInputChange} />
+                        </label>
+                        <label>
+                            Latitud
+                            <input
+                                className='blue lighten-4'
+                                name="locationLatitude" type="text"
+                                value={this.state.locationLatitude}
+                                onChange={this.handleInputChange} />
+                        </label>
+                        <span className="button" onClick={this.handleGeoLocation}>Hämta koordinater</span>
+                    </fieldset>
+                    <fieldset>
+                        <span onClick={this.handleNewQuestion}>
+                            Add question
+                        </span>
                     </fieldset>
                     <input type="submit" value="Submit" />
                 </form>
