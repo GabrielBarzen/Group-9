@@ -74,12 +74,58 @@ export default function ModEditLocation(props) {
       });
   }
 
+  function removeAnswer(id) {
+    /**
+     * API-call to remove 1 answer 
+     */
+    var data = JSON.stringify(
+      {"location-update":{
+        "location-id": "3983",
+        "name": "Test Name.",
+        "text_info": "Test Info.",
+        "qr" : "",
+        "x_coords": "55",
+        "y_coords": "310",
+        "directions": "Go left then turn back.",
+        "content" : [
+          {
+            "delete" : "content id"
+          }
+        ]
+      }},
+    );
+
+    var config = {
+      method: "patch",
+      url: "/moderator/location",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+                
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  
+
   return (
     <>
       <LocationForm
         currentData={props.data}
         callUpdateLocation={updateLocation}
-        callAddQuestion={addAnswer} />
+        callAddAnswer={addAnswer} 
+        callRemoveAnswer={removeAnswer}
+        />
     </>
   )
 }
+
+

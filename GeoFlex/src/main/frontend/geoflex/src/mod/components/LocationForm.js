@@ -17,13 +17,13 @@ export default class LocationForm extends Component {
             locationLatitude: 'Latitud här'
         };
 
-        this.handleNewQuestion = this.handleNewQuestion.bind(this);
+        this.handleAddAnswer = this.handleAddAnswer.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGeoLocation = this.handleGeoLocation.bind(this);
     }
 
-    handleNewQuestion() {
+    handleAddAnswer() {
         /**
          * Add a new question
          */
@@ -146,7 +146,7 @@ export default class LocationForm extends Component {
                         <span className="button" onClick={this.handleGeoLocation}>Hämta koordinater</span>
                     </fieldset>
                     <fieldset>
-                        <span onClick={this.handleNewQuestion}>
+                        <span onClick={this.handleAddAnswer}>
                             Add question
                         </span>
                     </fieldset>
