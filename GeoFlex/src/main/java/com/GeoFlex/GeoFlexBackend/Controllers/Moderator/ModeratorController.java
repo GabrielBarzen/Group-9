@@ -184,7 +184,7 @@ public class ModeratorController {
      * @param userID The user id sent as a cookie.
      * @return Response determined in the ModeratorCompanion.
      */
-    @RequestMapping(value = "location/content", method = RequestMethod.GET)
+    @RequestMapping(value = "location/content/get", method = RequestMethod.GET)
     public ResponseEntity<String> locationGetContent(@RequestParam("locationId") String locationId,
                                            @CookieValue(name = "authentication-token") String token,
                                            @CookieValue(name = "user-id") String userID) {
@@ -193,24 +193,6 @@ public class ModeratorController {
             return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
         }
         return moderatorCompanion.locationGetContent(locationId);
-    }
-
-    /**
-     * Returns the position for a location from the database.
-     * @param locationId The id of the location to get the content for.
-     * @param token The user token sent as a cookie.
-     * @param userID The user id sent as a cookie.
-     * @return Response determined in the ModeratorCompanion.
-     */
-    @RequestMapping(value = "location/position", method = RequestMethod.GET)
-    public ResponseEntity<String> locationGetPosition(@RequestParam("locationId") String locationId,
-                                                     @CookieValue(name = "authentication-token") String token,
-                                                     @CookieValue(name = "user-id") String userID) {
-        ModeratorCompanion moderatorCompanion = getModeratorCompanion(token,userID);
-        if (moderatorCompanion == null) {
-            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
-        }
-        return moderatorCompanion.locationGetPosition(locationId);
     }
 
     /**
