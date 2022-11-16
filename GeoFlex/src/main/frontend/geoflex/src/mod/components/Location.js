@@ -21,23 +21,31 @@ export default function Location(props) {
          */
         return (
             <>
-                <li className='row card-panel'>
-                    <section >
-                        <i className="material-icons col s1">place</i>
-                        <span className='col s8'>
-                            {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
-                        </span>
-                        <button className='col s1' onClick={() => { props.deleteLocation(props.data.id) }}>
-                            Ta bort
-                        </button>
-                        <button className='col s1' onClick={() => { props.swapLocationsDown(props.data.id) }}>
-                            Flytta ner
-                        </button>
-                        <button className='col s1 collapsible-header'>Redigera</button>
-                    </section>
-                    <section className='collapsible-body'>
-                        <ModEditLocation data={currentValue} />
-                    </section>
+                <li className='row'>
+                        <div className='col s2'>
+                            <i className="material-icons col s1">place</i>
+                        </div>
+                        <div className='col s8'>
+                            <span className=''>
+                                {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                            </span> 
+                        </div>  
+                        <div className='col s2'>
+                                
+                        </div>
+                        <div className='col s1 offset-s2'>
+                            <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '1.5'}} className='material-icons black-text col s1' onClick={() => { props.deleteLocation(props.data.id) }}>delete_forever</i>
+                        </div>
+                        <div className='col s7 offset-s1'>
+                            <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} className='material-icons black-text collapsible-header col s1'>edit</i>
+                        </div>
+                        <div className='col s1'>
+                            <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '2'}} className='material-icons right black-text large' onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
+                        </div>
+                        <div className='collapsible-body col s10'>
+                            <ModEditLocation data={currentValue} />
+                        </div>
+                        <div className="divider col s10 offset-s1"></div>    
                 </li>
             </>
         )
@@ -49,26 +57,31 @@ export default function Location(props) {
          */
         return (
             <>
-                <li className='row card-panel'>
-                    <section className=''>
+                <li className='row'>
+                    <div className='col s2'>
                         <i className="material-icons col s1">place</i>
-                        <span className='col s7'>
+                    </div>
+                    <div className='col s8'>
+                        <span className=''>
                             {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
-                        </span>
-                        <button className='col s1' onClick={() => { props.deleteLocation(props.data.id) }}>
-                            Ta bort
-                        </button>
-                        <button className='col s1' onClick={() => { props.swapLocationsUp(props.data.id) }}>
-                            Flytta upp
-                        </button>
-                        <button className='col s1' onClick={() => { props.swapLocationsDown(props.data.id) }}>
-                            Flytta ner
-                        </button>
-                        <button className='col s1 collapsible-header'>Redigera</button>
-                    </section>
-                    <section className='collapsible-body'>
+                        </span> 
+                    </div>  
+                    <div className='col s2'>
+                        <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '1.5'}} className='material-icons right black-text large' onClick={() => { props.swapLocationsUp(props.data.id) }}>keyboard_arrow_up</i>
+                    </div>
+                    <div className='col s1 offset-s2'>
+                        <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '1.5'}} className='material-icons black-text col s1' onClick={() => { props.deleteLocation(props.data.id) }}>delete_forever</i>
+                    </div>
+                    <div className='col s7 offset-s1'>
+                        <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} className='material-icons black-text collapsible-header col s1'>edit</i>
+                    </div>
+                    <div className='col s1'>
+                        <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '2'}} className='material-icons right black-text large' onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
+                    </div>
+                    <div className='collapsible-body col s12'>
                         <ModEditLocation data={currentValue} />
-                    </section>
+                    </div>
+                    <div className="divider col s10 offset-s1"></div>
                 </li>
             </>
 
@@ -81,21 +94,23 @@ export default function Location(props) {
          */
         return (
             <>
-                <li className='row card-panel'>
+                <li className='row'>
                     <section className=''>
                         <i className="material-icons col s1">place</i>
                         <span className='col s8'>
                             {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
                         </span>
-                        <button className='col s1' onClick={() => { props.deleteLocation(props.data.id) }}>
-                            Ta bort
-                        </button>
-                        <button className='col s1' onClick={() => { props.swapLocationsUp(props.data.id) }}>
-                            Flytta upp
-                        </button>
-                        <button className='col s1 collapsible-header'>Redigera</button>
+                        <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}>
+                            <i className='material-icons right black-text' onClick={() => { props.deleteLocation(props.data.id) }}>delete_forever</i>
+                        </span>
+                        <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}>
+                            <i className='material-icons right black-text' onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
+                        </span>
+                        <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}>
+                            <i className='material-icons collapsible-header'>edit</i>
+                        </span>
                     </section>
-                    <section className='collapsible-body'>
+                    <section className='collapsible-body col s12'>
                         <ModEditLocation data={currentValue} />
                     </section>
                 </li>
@@ -108,17 +123,31 @@ export default function Location(props) {
          * returns html for the last location
          */
         return (<>
-            <li className='row card-panel'>
-                <section className=''>
+             <li className='row'>
+                <div className='col s2'>
                     <i className="material-icons col s1">place</i>
-                    <span className='col s10'>
+                </div>
+                <div className='col s8'>
+                    <span className=''>
                         {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
-                    </span>
-                    <button className='col s1 collapsible-header'>Redigera</button>
-                </section>
-                <section className='collapsible-body'>
+                    </span> 
+                </div>  
+                <div className='col s2'>
+                    <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '1.5'}} className='material-icons right black-text large' onClick={() => { props.swapLocationsUp(props.data.id) }}>keyboard_arrow_up</i>
+                </div>
+                <div className='col s1 offset-s2'>
+                    <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '1.5'}} className='material-icons black-text col s1' onClick={() => { props.deleteLocation(props.data.id) }}>delete_forever</i>
+                </div>
+                <div className='col s7 offset-s1'>
+                    <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} className='material-icons black-text collapsible-header col s1'>edit</i>
+                </div>
+                <div className='col s1'>
+
+                </div>
+                <div className='collapsible-body col s12'>
                     <ModEditLocation data={currentValue} />
-                </section>
+                </div>
+                <div className="divider col s10 offset-s1"></div>    
             </li>
         </>)
     }

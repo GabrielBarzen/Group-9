@@ -83,7 +83,7 @@ export default class LocationForm extends Component {
 
     render() {
         return (
-            <div className='container'>
+            <div className='container col s12'>
                 <h3>Plats 1</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label>
