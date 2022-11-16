@@ -184,7 +184,7 @@ public class ModeratorController {
      * @param userID The user id sent as a cookie.
      * @return Response determined in the ModeratorCompanion.
      */
-    @RequestMapping(value = "location/content/get", method = RequestMethod.GET)
+    @RequestMapping(value = "location/content", method = RequestMethod.GET)
     public ResponseEntity<String> locationGetContent(@RequestParam("locationId") String locationId,
                                            @CookieValue(name = "authentication-token") String token,
                                            @CookieValue(name = "user-id") String userID) {
