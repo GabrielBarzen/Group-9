@@ -14,5 +14,11 @@ public class ContentUpdate {
     @SerializedName("delete")
     @Expose
     public String delete;
+    @SerializedName("answer")
+    @Expose
+    public String answer;
+    @SerializedName("correct")
+    @Expose
+    public Boolean correct;
 
 }

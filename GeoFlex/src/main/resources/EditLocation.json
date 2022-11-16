@@ -1,17 +1,23 @@
 {"location-update":{
-  "location-id": "",
-  "name": "",
-  "text_info": "",
+  "location-id": "116453",
+  "name": "Spongebob.",
+  "text_info": "Bikini Bottom.",
   "qr" : "",
-  "x_coords": "",
-  "y_coords": "",
-  "directions": "",
+  "x_coords": "5255.05",
+  "y_coords": "3110.22",
+  "directions": "Keep going straight.",
   "content" : [
     {
-      "new" : "1"
+      "answer" : "Gary",
+      "correct" : true
     },
     {
-      "delete"  : "id"
+      "answer" : "Random Fish",
+      "correct" : false
+    },
+    {
+      "answer" : "Sandy",
+      "correct" : false
     }
   ]
 }}
