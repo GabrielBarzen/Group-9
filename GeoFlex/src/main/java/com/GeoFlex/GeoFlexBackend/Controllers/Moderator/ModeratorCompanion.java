@@ -232,8 +232,9 @@ public class ModeratorCompanion {
         }
         if(rle.locationEdit.content != null){
             for (int i = 0; i < rle.locationEdit.content.size(); i++) {
-                if(rle.locationEdit.content.get(i)._new != null){
-                    ModeratorProcedures.createContent(rle.locationEdit.locationId, "Replace me with answer.", false);
+                if(rle.locationEdit.content.get(i).answer != null && rle.locationEdit.content.get(i).correct != null){
+                    ModeratorProcedures.createContent(rle.locationEdit.locationId, rle.locationEdit.content.get(i).answer,
+                            rle.locationEdit.content.get(i).correct, rle.locationEdit.content.get(i).contentId);
                     response = new ResponseEntity<>("", HttpStatus.OK);
                 }
                 else if(rle.locationEdit.content.get(i).delete != null){
@@ -310,6 +311,23 @@ public class ModeratorCompanion {
     public ResponseEntity<String> locationGetContent(String locationId) {
         ResponseEntity<String> response;
         String json = ModeratorProcedures.locationGetContent(Integer.parseInt(locationId));
+        if(json.isEmpty()){
+            response = new ResponseEntity<>("{\"error\" : \"Wrong request params.\"}", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            response = new ResponseEntity<>(json, HttpStatus.OK);
+        }
+        return response;
+    }
+
+    /**
+     * Function to get the position for a location from the database.
+     * @param locationId
+     * @return OK message if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> locationGetPosition(String locationId) {
+        ResponseEntity<String> response;
+        String json = ModeratorProcedures.locationGetPosition(Integer.parseInt(locationId));
         if(json.isEmpty()){
             response = new ResponseEntity<>("{\"error\" : \"Wrong request params.\"}", HttpStatus.BAD_REQUEST);
         }

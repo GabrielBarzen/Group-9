@@ -496,12 +496,13 @@ public class ModeratorProcedures {
      * @param answer The answer to add, will be placeholder until changed.
      * @param correct Wether the answer is correct or not, default value is false.
      */
-    public static void createContent(String locationId, String answer, boolean correct) {
+    public static void createContent(String locationId, String answer, boolean correct, String contentId) {
         DatabaseConnection dc = new DatabaseConnection();
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?)}")) {
-            cs.setString("in_location_id", String.valueOf(locationId));
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?, ?)}")) {
+            cs.setString("in_location_id", locationId);
             cs.setString("in_answer", answer);
             cs.setBoolean("in_correct", correct);
+            cs.setString("in_content_id", contentId);
             cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -613,6 +614,51 @@ public class ModeratorProcedures {
             }
             try {
                 jsonObject.put("content", array);
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+            return jsonObject.toString();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Retrieves the position for a specific location by its ID.
+     * @param locationId The ID of the location.
+     * @return Json object containing the content.
+     */
+    public static String locationGetPosition(int locationId){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_location_position_by_id(?)}")) {
+            cs.setInt("in_location_id", locationId);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray array = new JSONArray();
+            while(res.next()){
+                JSONObject row = new JSONObject();
+                try {
+                    row.put("location-id", res.getInt("location_id"));
+                    row.put("long", res.getFloat("x_coordinate"));
+                    row.put("lat", res.getFloat("y_coordinate"));
+                    row.put("directions", res.getString("directions"));
+                    //row.put("qr", res.getBlob("qr"));
+                    array.put(row);
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            try {
+                jsonObject.put("location-position", array);
             }
             catch (JSONException e){
                 e.printStackTrace();

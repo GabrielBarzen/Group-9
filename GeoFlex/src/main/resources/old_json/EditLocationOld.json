@@ -1,0 +1,17 @@
+{"location-update":{
+  "location-id": "",
+  "name": "",
+  "text_info": "",
+  "qr" : "",
+  "x_coords": "",
+  "y_coords": "",
+  "directions": "",
+  "content" : [
+    {
+      "new" : "1"
+    },
+    {
+      "delete"  : "id"
+    }
+  ]
+}}
