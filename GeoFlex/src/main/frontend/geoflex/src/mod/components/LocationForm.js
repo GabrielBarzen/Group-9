@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ModGeolocate from './ModGeolocate';
 
 export default class LocationForm extends Component {
     constructor(props) {
@@ -6,7 +7,7 @@ export default class LocationForm extends Component {
         console.log(props.currentData)
 
         //Här definierar vi alla förifyllda värden baserat på props
-
+        
         this.state = {
             locationName: props.currentData.name,
             locationInfo: props.currentData.text_info,
@@ -30,11 +31,15 @@ export default class LocationForm extends Component {
 
     }
 
-    handleGeoLocation() {
+    handleGeoLocation(long, lat) {
         /**
          * fetches geolocation data Longitude and Latitude and adds the coords to the current state-object
          */
-        alert("Denna knapp ska trigga hämtning av geodata");
+        this.setState({
+            locationLongitude: long,
+            locationLatitude: lat
+        });
+        console.log("Denna knapp ska trigga hämtning av geodata");
     }
 
     handleInputChange(event) {
@@ -143,7 +148,8 @@ export default class LocationForm extends Component {
                                 value={this.state.locationLatitude}
                                 onChange={this.handleInputChange} />
                         </label>
-                        <span className="button" onClick={this.handleGeoLocation}>Hämta koordinater</span>
+                        <ModGeolocate handleGeoLocation={this.handleGeoLocation} />
+                        
                     </fieldset>
                     <fieldset>
                         <span onClick={this.handleAddAnswer}>
