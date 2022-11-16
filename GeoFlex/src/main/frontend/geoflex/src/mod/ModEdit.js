@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import AdminEditForms from "./components/AdminEditForms";
+import ModEditForms from "./components/ModEditForms";
+//import AdminEditForms from "./components/AdminEditForms";
 
-export default function AdminEdit() {
+export default function ModEdit() {
   /** 
-  *AdminEdit.js allows the administrator to edit a single route.
+  *ModEdit.js allows the moderator to edit a single route.
   *navigate is part of react-router-dom and lets you redirect to a specific URL when called like this: " navigate("/admin", { replace: true }); "
   *location is part of react-router-dom and allows you to recieve any data sent from previous location/URL from a Link
   */
@@ -28,7 +29,7 @@ export default function AdminEdit() {
     console.log("EDIT USEEFFECT");
     var config = {
       method: "get",
-      url: "/admin/route/locations?route-id=" + routeData.id,
+      url: "/moderator/route/locations?route-id=" + routeData.id,
       headers: {},
     };
 
@@ -67,7 +68,7 @@ export default function AdminEdit() {
 
     var config = {
       method: "patch",
-      url: "/admin/route/",
+      url: "/moderator/route/",
       headers: {
         "Content-Type": "application/json",
       },
@@ -107,7 +108,7 @@ function addLocation(id) {
 
     var config = {
       method: "patch",
-      url: "/admin/route/",
+      url: "/moderator/route/",
       headers: {
         "Content-Type": "application/json",
       },
@@ -148,7 +149,7 @@ function addLocation(id) {
 
     var config = {
       method: "patch",
-      url: "/admin/route/",
+      url: "/moderator/route/",
       headers: {
         "Content-Type": "application/json",
       },
@@ -190,7 +191,7 @@ const handleSave = (id, title, description) => {
 
     var config = {
       method: 'patch',
-      url: '/admin/route/',
+      url: '/moderator/route/',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -214,7 +215,7 @@ const handleSave = (id, title, description) => {
     */
     return (
       <div className="container white container-css">
-        <AdminEditForms 
+        <ModEditForms 
           mainData={routeData}
           locationsData={routeLocationsData} 
           callSaveRoute={handleSave} 
