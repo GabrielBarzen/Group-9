@@ -12,4 +12,7 @@ public class Location{
     public String data;
     public String location_index;
     public String last_location;
+    public float x_coodinate;
+    public float y_coodinate;
+    public String directions;
 }
