@@ -233,7 +233,8 @@ public class ModeratorCompanion {
         if(rle.locationEdit.content != null){
             for (int i = 0; i < rle.locationEdit.content.size(); i++) {
                 if(rle.locationEdit.content.get(i).answer != null && rle.locationEdit.content.get(i).correct != null){
-                    ModeratorProcedures.createContent(rle.locationEdit.locationId, rle.locationEdit.content.get(i).answer, rle.locationEdit.content.get(i).correct);
+                    ModeratorProcedures.createContent(rle.locationEdit.locationId, rle.locationEdit.content.get(i).answer,
+                            rle.locationEdit.content.get(i).correct, rle.locationEdit.content.get(i).contentId);
                     response = new ResponseEntity<>("", HttpStatus.OK);
                 }
                 else if(rle.locationEdit.content.get(i).delete != null){

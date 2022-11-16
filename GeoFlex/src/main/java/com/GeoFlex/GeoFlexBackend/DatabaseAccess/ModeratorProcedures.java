@@ -496,12 +496,13 @@ public class ModeratorProcedures {
      * @param answer The answer to add, will be placeholder until changed.
      * @param correct Wether the answer is correct or not, default value is false.
      */
-    public static void createContent(String locationId, String answer, boolean correct) {
+    public static void createContent(String locationId, String answer, boolean correct, String contentId) {
         DatabaseConnection dc = new DatabaseConnection();
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?)}")) {
-            cs.setString("in_location_id", String.valueOf(locationId));
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?, ?)}")) {
+            cs.setString("in_location_id", locationId);
             cs.setString("in_answer", answer);
             cs.setBoolean("in_correct", correct);
+            cs.setString("in_content_id", contentId);
             cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);

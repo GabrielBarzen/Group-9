@@ -20,5 +20,7 @@ public class ContentUpdate {
     @SerializedName("correct")
     @Expose
     public Boolean correct;
-
+    @SerializedName("content-id")
+    @Expose
+    public String contentId;
 }
