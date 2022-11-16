@@ -134,12 +134,12 @@ export default function AdminEditForms(props) {
                 ))}
               </ul>
               <div className='col s12 yellow lighten-3 center-align btn-css icon-css z-depth-2' onClick={handleNewLocation} style={{'margin-bottom': '1rem'}}>
-                  <i className="material-icons black-text" style={{'padding': '1rem'}} onClick={handleNewLocation}>
+                  <i className="material-icons black-text" style={{'padding': '1rem'}} >
                       add_circle_outline
                   </i>
               </div>
               <div className='col s12 green lighten-1 center-align btn-css icon-css z-depth-2' onClick={handleSave}>
-                  <i className="material-icons white-text" style={{'padding': '1rem'}} onClick={handleSave}>
+                  <i className="material-icons white-text" style={{'padding': '1rem'}} >
                       save
                   </i>
               </div>
