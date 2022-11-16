@@ -284,9 +284,6 @@ public class ModeratorProcedures {
                 currentLocation.id = res.getString("id");
                 currentLocation.location_index = res.getString("location_index");
                 currentLocation.last_location = String.valueOf(res.getBoolean("last_location"));
-                currentLocation.x_coodinate = res.getFloat("x_coordinate");
-                currentLocation.y_coodinate = res.getFloat("y_coordinate");
-                currentLocation.directions = res.getString("directions");
             }
             r.route.location.add(currentLocation);
             Gson gson = new Gson();
