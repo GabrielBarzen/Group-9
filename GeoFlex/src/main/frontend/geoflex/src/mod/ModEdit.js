@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ModEditForms from "./components/ModEditForms";
 //import AdminEditForms from "./components/AdminEditForms";
 
-export default function modEdit() {
+export default function ModEdit() {
   /** 
   *ModEdit.js allows the moderator to edit a single route.
   *navigate is part of react-router-dom and lets you redirect to a specific URL when called like this: " navigate("/admin", { replace: true }); "
