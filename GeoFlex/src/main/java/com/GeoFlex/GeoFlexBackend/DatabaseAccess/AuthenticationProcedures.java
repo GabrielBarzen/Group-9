@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AuthenticationProcedures {
-    public  String getSalt(String userId) {
+    public String getSalt(String userId) {
         DatabaseConnection dc = new DatabaseConnection();
         String salt = "-1";
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_salt_for_user(?)}")) {
@@ -28,18 +28,18 @@ public class AuthenticationProcedures {
         return salt;
     }
 
-    public  String getID(String identification) {
+    public boolean deleteUser(String userId) {
         DatabaseConnection dc = new DatabaseConnection();
-        String userid = "-1";
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_user_id(?)}")) {
-            cs.setInt("in_user_name", Integer.parseInt(userid));
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_user(?)}")) {
+            cs.setInt("in_user_id", Integer.parseInt(userId));
             cs.executeQuery();
             ResultSet res = cs.getResultSet();
             while(res.next()){
-                userid = res.getString("user_id");
+                success = res.getBoolean("success");
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            success = false;
         }
         finally {
             try {
@@ -48,30 +48,7 @@ public class AuthenticationProcedures {
                 throw new RuntimeException(e);
             }
         }
-        return userid;
-    }
-
-    public  String getHashedPassword(String userid) {
-        DatabaseConnection dc = new DatabaseConnection();
-        String userid = "-1";
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_user_id(?)}")) {
-            cs.setInt("in_user_name", Integer.parseInt(userid));
-            cs.executeQuery();
-            ResultSet res = cs.getResultSet();
-            while(res.next()){
-                userid = res.getString("user_id");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        finally {
-            try {
-                dc.getConnection().close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return userid;
+        return success;
     }
 
     public int getAccesLevel(String userid) {
@@ -99,13 +76,14 @@ public class AuthenticationProcedures {
 
     public String getUserId(String userName) {
         DatabaseConnection dc = new DatabaseConnection();
-        String userid = "-1";
+        String userid = "-2";
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_user_id(?)}")) {
-            cs.setInt("in_user_name", Integer.parseInt(userid));
+            cs.setString("in_user_name", userName);
             cs.executeQuery();
             ResultSet res = cs.getResultSet();
             while(res.next()){
-                userid = res.getString("user_id");
+                userid = res.getString("id");
+                System.out.println("gotten user id " + userid);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -121,6 +99,100 @@ public class AuthenticationProcedures {
     }
 
     public boolean login(String id, String passwordhash) {
-        return null; //TODO;
+        DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_login_user(?,?)}")) {
+            cs.setInt("in_user_id", Integer.parseInt(id));
+            cs.setString("in_password_hash", passwordhash);
+
+            ResultSet res = cs.executeQuery();
+            while (res.next()) {
+                success = res.getBoolean("success");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return success;
+    }
+
+    public String createUser(String username, String email, String salt, String hashedPassword) {
+        DatabaseConnection dc = new DatabaseConnection();
+        String userid= "-1";
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_user(?,?,?,?)}")) {
+            cs.setString("in_user_name", username);
+            cs.setString("in_user_email", email);
+            cs.setString("in_salt", salt);
+            cs.setString("in_user_hashed_password", hashedPassword);
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
+                userid = res.getString("id");
+            }
+        } catch (SQLException e) {
+            return "-1";
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return userid;
+    }
+
+    public boolean setAccessLevelForUser(String id, int accessLevel) {
+        DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_access(?,?)}")) {
+            cs.setString("in_user_id", id);
+            cs.setInt("in_access_level", accessLevel);
+
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
+                success = res.getBoolean("success");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return success;
+    }
+    public int getAccessLevelForUser(String id) {
+        DatabaseConnection dc = new DatabaseConnection();
+        int role = -1;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_access(?)}")) {
+            cs.setInt("in_user_id", Integer.parseInt(id));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
+                role = res.getInt("role");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return role;
     }
 }

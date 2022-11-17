@@ -59,7 +59,4 @@ public class AuthenticationController {
     public ResponseEntity<String> register() {
         return new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
     }
-
-
-
 }

@@ -2,6 +2,7 @@ package com.GeoFlex.GeoFlexBackend.Controllers.Authentication;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 import com.GeoFlex.GeoFlexBackend.Model.Token;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -51,7 +52,11 @@ public class Authenticator {
         return hexString.toString();
     }
 
-    public boolean auth(String userId, Token authToken, int accessLevel) { //todo implement
+    public static String generateSalt(){
+        return RandomStringUtils.random(32, true, true);
+    }
+
+    public boolean auth(String userId, Token authToken, int accessLevel) {
         Token storedToken = userIdTokenMap.get(Integer.parseInt(userId));
         LocalDate ld = LocalDate.now();
         // Return false if user is logged out or session expired.
