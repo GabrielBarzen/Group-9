@@ -18,10 +18,11 @@ import TestComponents from './shared/TestComponents';
 import 'materialize-css/dist/css/materialize.min.css';
 import FirstpageTest from './pages/Firstpage'
 import StartpageTest from './pages/Startpage_test'
-import AdminLogin from './pages/Admin_login_test'
+import AdminLogin from './pages/Loginpage'
 import ModEdit from './mod/ModEdit';
 import Register from './pages/Register'
 import TempUser from './pages/tempUser'
+import Loginpage from './pages/Loginpage';
 
 
 export default function App() {
@@ -52,7 +53,7 @@ export default function App() {
                     <Route path='/test' element={<TestComponents />} />
                     <Route path='/Firstpagetest' element={<FirstpageTest />} />
                     <Route path='/Startpagetest' element={<StartpageTest />} />
-                    <Route path='/Adminlogintest' element={<AdminLogin />} />
+                    <Route path='/Loginpage' element={<Loginpage />} />
                     <Route path='/Register' element={<Register />} />
                     <Route path='/TempUser' element={<TempUser />} />
                 </Route>
