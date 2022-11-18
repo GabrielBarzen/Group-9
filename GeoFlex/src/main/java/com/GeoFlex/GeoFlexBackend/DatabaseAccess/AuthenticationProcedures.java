@@ -149,8 +149,9 @@ public class AuthenticationProcedures {
         return userid;
     }
 
-    public boolean setAccessLevelForUser(String id, int accessLevel) {
+    public boolean setAccessLevelForUser(String id, String accessLevelInput) {
         DatabaseConnection dc = new DatabaseConnection();
+        int accessLevel = Integer.parseInt(accessLevelInput);
         boolean success = false;
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_access(?,?)}")) {
             cs.setString("in_user_id", id);

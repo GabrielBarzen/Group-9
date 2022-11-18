@@ -21,6 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthenticationController {
     public static Authenticator authenticator = new Authenticator();
 
+    private final int ADMIN_ACCESS_LEVEL = 2;
+    private final int MODERATOR_ACCESS_LEVEL = 1;
+    private final int USER_ACCESS_LEVEL = 0;
+
+
 
     @RequestMapping(method = RequestMethod.POST, value = "login")
     public ResponseEntity<String> login(HttpServletResponse response, @RequestBody String body) {
@@ -86,26 +91,20 @@ public class AuthenticationController {
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "user")
-    public ResponseEntity<String> updateUser(HttpServletResponse response,@RequestBody String body) {
+    public ResponseEntity<String> updateUser(HttpServletResponse response,@RequestBody String body,
+                                             @CookieValue(name = "authentication-token") String token,
+                                             @CookieValue(name = "user-id") String userID) {
         AuthenticationCompanion authenticationCompanion = new AuthenticationCompanion();
-        Gson gson = new Gson();
-        Register register = gson.fromJson(body, Register.class);
-        String id = authenticationCompanion.register(register);
-        if (id == null) {
-            return new ResponseEntity<>("{\"error\" : \"could not register user, must have unique username AND email\"}", HttpStatus.BAD_REQUEST);
-        } else {
-            Cookie userId = new Cookie("user-id",id);
-            Token token = new Token();
-            authenticator.putToken(id,token);
-            Cookie tokenString = new Cookie("authentication-token", token.getToken());
-
-            userId.setPath("/");
-            tokenString.setPath("/");
-
-            response.addCookie(userId);
-            response.addCookie(tokenString);
+        try {
+            if (authenticator.auth(userID, new Token(token), ADMIN_ACCESS_LEVEL)) {
+                return authenticationCompanion.updateUser(body);
+            } else if (userID == null || token == null) {
+                return new ResponseEntity<>("{\"error\" : \"bad request\"}", HttpStatus.BAD_REQUEST);
+            } else {
+                return new ResponseEntity<>("{\"error\" : \"not allowed\"}", HttpStatus.FORBIDDEN);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("{\"error\" : \"Internal server error\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<>("{\"success\" : \"registred user : "+register.userName+"\"}", HttpStatus.OK);
     }
 }
