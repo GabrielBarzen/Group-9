@@ -33,10 +33,10 @@ public class AuthenticationCompanion {
         if (uu.route != null) {
             for (Route route : uu.route) {
                 if (route.assign != null) {
-
+                    ap.assignRoute(userId,route.assign);
                 }
                 if (route.unAssign != null) {
-
+                    ap.unAssignRoute(userId,route.assign);
                 }
             }
         }

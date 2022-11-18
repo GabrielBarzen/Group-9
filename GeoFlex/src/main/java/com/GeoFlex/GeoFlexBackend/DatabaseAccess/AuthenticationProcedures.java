@@ -196,4 +196,10 @@ public class AuthenticationProcedures {
         }
         return role;
     }
+
+    public void assignRoute(String userId, String assign) {
+    }
+
+    public void unAssignRoute(String userId, String assign) {
+    }
 }
