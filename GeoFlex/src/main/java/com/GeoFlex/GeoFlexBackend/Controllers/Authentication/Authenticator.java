@@ -16,7 +16,9 @@ public class Authenticator {
     HashMap<String,Token> userIdTokenMap = new HashMap<>();
     AuthenticationProcedures ap = new AuthenticationProcedures();
 
+
     public Authenticator() {
+
     }
 
     public static String getHash(String password, String salt) {

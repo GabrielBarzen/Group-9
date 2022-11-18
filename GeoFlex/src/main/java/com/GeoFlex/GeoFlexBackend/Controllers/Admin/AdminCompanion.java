@@ -94,6 +94,9 @@ public class AdminCompanion {
         response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         Gson gson = new Gson();
         RootUpdate ru = gson.fromJson(body, RootUpdate.class);
+        if(ru.routeUpdate.routeId == null){
+            return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        }
         if(ru.routeUpdate.title != null){
             AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
             response = new ResponseEntity<>("", HttpStatus.OK);
@@ -135,6 +138,8 @@ public class AdminCompanion {
                     try {
                         System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
                         AdminProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        FileHandler fh = new FileHandler();
+                        fh.deleteFileDirectory(Integer.parseInt(ru.routeUpdate.location.get(i).delete), "locations");
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting delete");
@@ -160,7 +165,7 @@ public class AdminCompanion {
             response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
             AdminProcedures.deleteRoute(routeID);
             FileHandler fh = new FileHandler();
-            fh.deleteRouteFileDirectory(Integer.parseInt(routeID), "routes");
+            fh.deleteFileDirectory(Integer.parseInt(routeID), "routes");
         }
         return response;
     }

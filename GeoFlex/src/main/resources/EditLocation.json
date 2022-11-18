@@ -1,0 +1,23 @@
+{"location-update":{
+  "location-id": "116453",
+  "name": "Spongebob.",
+  "text_info": "Bikini Bottom.",
+  "qr" : "",
+  "x_coords": "5255.05",
+  "y_coords": "3110.22",
+  "directions": "Keep going straight.",
+  "content" : [
+    {
+      "answer" : "Gary",
+      "correct" : true
+    },
+    {
+      "answer" : "Random Fish",
+      "correct" : false
+    },
+    {
+      "answer" : "Sandy",
+      "correct" : false
+    }
+  ]
+}}

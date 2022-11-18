@@ -144,6 +144,79 @@ public class ModeratorController {
     }
 
     /**
+     * Saves a file uploaded for a specific location on the server then uploads the path to the database.
+     * @param file The file to be saved and uploaded.
+     * @param locationId The id of the route.
+     * @param token The token sent as a cookie.
+     * @param userID The user id sent as a cookie.
+     * @return Response determined in the ModeratorCompanion.
+     */
+    @RequestMapping(value = "location/file/upload", method = RequestMethod.POST)
+    public ResponseEntity<String> locationUploadFile(@RequestParam("file") MultipartFile file, @RequestParam("locationId") String locationId,
+                                                  @CookieValue(name = "authentication-token") String token,
+                                                  @CookieValue(name = "user-id") String userID) {
+        ModeratorCompanion moderatorCompanion = getModeratorCompanion(token,userID);
+        if (moderatorCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
+        }
+        return moderatorCompanion.uploadLocationFile(Integer.parseInt(locationId), file);
+    }
+
+    /**
+     * Retrieves a filepath containing images or videos for a specific location.
+     * @param locationId The id of the route.
+     * @param token The token sent as a cookie.
+     * @param userID The user id sent as a cookie.
+     * @return Response determined in the ModeratorCompanion.
+     */
+    @RequestMapping(value = "location/file/retrieve", method = RequestMethod.GET)
+    public ResponseEntity<String> locationGetFile(@RequestParam("locationId") String locationId,
+                                               @CookieValue(name = "authentication-token") String token,
+                                               @CookieValue(name = "user-id") String userID) {
+        ModeratorCompanion moderatorCompanion = getModeratorCompanion(token,userID);
+        if (moderatorCompanion == null) {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
+        return moderatorCompanion.getLocationFile(Integer.parseInt(locationId));
+    }
+
+    /**
+     * Returns content for a location from the database.
+     * @param locationId The id of the location to get the content for.
+     * @param token The user token sent as a cookie.
+     * @param userID The user id sent as a cookie.
+     * @return Response determined in the ModeratorCompanion.
+     */
+    @RequestMapping(value = "location/content", method = RequestMethod.GET)
+    public ResponseEntity<String> locationGetContent(@RequestParam("locationId") String locationId,
+                                           @CookieValue(name = "authentication-token") String token,
+                                           @CookieValue(name = "user-id") String userID) {
+        ModeratorCompanion moderatorCompanion = getModeratorCompanion(token,userID);
+        if (moderatorCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
+        }
+        return moderatorCompanion.locationGetContent(locationId);
+    }
+
+    /**
+     * Returns the position for a location from the database.
+     * @param locationId The id of the location to get the content for.
+     * @param token The user token sent as a cookie.
+     * @param userID The user id sent as a cookie.
+     * @return Response determined in the ModeratorCompanion.
+     */
+    @RequestMapping(value = "location/position", method = RequestMethod.GET)
+    public ResponseEntity<String> locationGetPosition(@RequestParam("locationId") String locationId,
+                                                     @CookieValue(name = "authentication-token") String token,
+                                                     @CookieValue(name = "user-id") String userID) {
+        ModeratorCompanion moderatorCompanion = getModeratorCompanion(token,userID);
+        if (moderatorCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
+        }
+        return moderatorCompanion.locationGetPosition(locationId);
+    }
+
+    /**
      * Function to authenticate the moderator.
      * @param token The token  sent as a cookie.
      * @param userID The user id sent as a cookie.

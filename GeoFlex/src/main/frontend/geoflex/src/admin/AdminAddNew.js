@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import M from 'materialize-css';
@@ -9,9 +9,10 @@ export default function AdminAddNew() {
     React useRef listen on input and stores the information to its assigned variable
     navigate is part of react-router-dom and lets you redirect to a specific URL when called like this: " navigate("/admin", { replace: true }); "
     */
+    const [rangeVal, setRangeval] = useState(null);
     const titleRef = useRef();
     const descriptionRef = useRef();
-    const rangeRef = useRef();
+    
 
     const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ export default function AdminAddNew() {
                 'title': titleRef.current.value,
                 'description': descriptionRef.current.value,
                 'type': "QUIZ",
-                'locations': rangeRef.current.value,
+                'locations': rangeVal,
             },
         });
 
@@ -55,6 +56,8 @@ export default function AdminAddNew() {
         M.AutoInit();
     }, []);
 
+    
+
     return (
         <div className="container white container-css">
             <h2 className="center-align">Skapa nytt</h2>
@@ -64,7 +67,7 @@ export default function AdminAddNew() {
                         <div className="input-field col s12">
                             <i className="material-icons prefix">label</i>
                             <input id="title" type="text" ref={titleRef} />
-                            <label htmlfor="title">Titel</label>
+                            <label htmlFor="title">Titel</label>
                         </div>
                     </div>
                     <div className="row">
@@ -76,21 +79,30 @@ export default function AdminAddNew() {
                                 id="description"
                                 ref={descriptionRef}
                             />
-                            <label htmlfor="description">Beskrivning</label>
+                            <label htmlFor="description">Beskrivning</label>
                         </div>
                     </div>
                     <div className="row">
+                    <div className="input-field col s12">
                         
-                            <p className="range-field">
-                                <p>Antal platser</p>
-                                <input type="range" id="test5" min="0" max="20" ref={rangeRef}/>
-                            </p>
+                        <br />
+                        <br />
+                        <br />
+                        <i className="material-icons prefix">add_location</i>
+                        <input type="range" id="locations" className="custom-range" min="0" max="20" onChange={(event) => setRangeval(event.target.value)} />
+                        <label htmlFor="locations">Ange antal platser: <b>{rangeVal}</b> </label>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                    
                         
                     </div>
-                    <div className="row">
-                        <h1 className="center-align" onClick={handleAddNew}>
-                            Spara
-                        </h1>
+                    <div className='col s12 green lighten-1 center-align btn-css icon-css z-depth-2' onClick={handleAddNew}>
+                        <i className="material-icons white-text" style={{'padding': '1rem'}}>
+                            save
+                        </i>
                     </div>
                 </form>
             </div>
