@@ -381,6 +381,7 @@ public class AdminProcedures {
             while(res.next()){
                 JSONObject row = new JSONObject();
                 try {
+                    row.put("user-id", res.getInt("id"));
                     row.put("name:", res.getString("name"));
                     array.put(row);
                 }
