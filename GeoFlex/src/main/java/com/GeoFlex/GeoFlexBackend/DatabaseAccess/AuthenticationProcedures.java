@@ -224,7 +224,7 @@ public class AuthenticationProcedures {
         DatabaseConnection dc = new DatabaseConnection();
         boolean success = false;
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_unassign_route(?,?)}")) {
-            cs.setInt("in_user_id", Integer.parseInt(id));
+            cs.setInt("in_user_id", Integer.parseInt(userId));
             cs.executeQuery();
             ResultSet res = cs.getResultSet();
             while(res.next()){
