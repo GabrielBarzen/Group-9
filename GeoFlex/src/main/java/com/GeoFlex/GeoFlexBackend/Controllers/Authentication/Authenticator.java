@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class Authenticator {
 
-    HashMap<Integer,Token> userIdTokenMap = new HashMap<>();
+    HashMap<String,Token> userIdTokenMap = new HashMap<>();
     AuthenticationProcedures ap = new AuthenticationProcedures();
 
     public Authenticator() {
@@ -57,13 +57,14 @@ public class Authenticator {
     }
 
     public boolean auth(String userId, Token authToken, int accessLevel) {
-        Token storedToken = userIdTokenMap.get(Integer.parseInt(userId));
+        Token storedToken = userIdTokenMap.get(userId);
         LocalDate ld = LocalDate.now();
+        System.out.println("get token : " + storedToken);
         // Return false if user is logged out or session expired.
         return ld.isBefore(authToken.getExpiery()) && authToken.getToken().equals(storedToken.getToken()) && ap.getAccesLevel(userId) == accessLevel; // Return true if user is logged in and session has not expired.
     }
-    public void putToken(int id, Token token){
+    public void putToken(String id, Token token){
         userIdTokenMap.put(id,token);
-
+        System.out.println("put token : " + token);
     }
 }

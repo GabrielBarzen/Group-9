@@ -27,6 +27,10 @@ public class Token {
         this.token = createToken();
     }
 
+    public Token() {
+        this(TokenType.DAY);
+    }
+
     public Token(String token) {
         LocalDate date = LocalDate.now();
         expiery = date;
@@ -46,5 +50,10 @@ public class Token {
 
     public String getToken() {
         return token;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Value : %s, Expiery :%s%n",token,expiery);
     }
 }

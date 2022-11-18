@@ -125,7 +125,7 @@ public class AuthenticationProcedures {
 
     public String createUser(String username, String email, String salt, String hashedPassword) {
         DatabaseConnection dc = new DatabaseConnection();
-        String userid= "-1";
+        String userid = null;
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_user(?,?,?,?)}")) {
             cs.setString("in_user_name", username);
             cs.setString("in_user_email", email);
@@ -137,7 +137,7 @@ public class AuthenticationProcedures {
                 userid = res.getString("id");
             }
         } catch (SQLException e) {
-            return "-1";
+            return null;
         }
         finally {
             try {

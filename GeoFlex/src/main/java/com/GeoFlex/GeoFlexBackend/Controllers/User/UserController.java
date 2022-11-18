@@ -22,12 +22,6 @@ public class UserController {
     public ResponseEntity<String> routeGet(@CookieValue(name = "authentication-token") String token,
                                            @CookieValue(name = "user-id") String userID, @RequestParam String routeCode) {
         UserCompanion userCompanion = new UserCompanion();
-        /*AdminCompanion adminCompanion = getAdminCompanion(token,userID);
-        UserCompanion userCompanion = getUserCompanion(token, userID);
-        if (adminCompanion == null) {
-            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
-        }*/
-
         return userCompanion.routeGet(routeCode);
     }
 
