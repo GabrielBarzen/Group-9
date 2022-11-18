@@ -5,6 +5,9 @@ import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Route;
 import com.google.gson.Gson;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -338,6 +341,63 @@ public class AdminProcedures {
             throw new RuntimeException(e);
         }
         finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void createModerator(String name, String email, String password, String salt) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_moderator(?, ?, ?, ?)}")) {
+            cs.setString("in_name", name);
+            cs.setString("in_email", email);
+            cs.setString("in_password_hashed", password);
+            cs.setString("in_salt", salt);
+
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static String getAllModerators() {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_users_by_role(?)}")) {
+            cs.setInt("in_role", 1);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray array = new JSONArray();
+            while(res.next()){
+                JSONObject row = new JSONObject();
+                try {
+                    row.put("name:", res.getString("name"));
+                    array.put(row);
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            try {
+                jsonObject.put("moderators", array);
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+            return jsonObject.toString();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {
