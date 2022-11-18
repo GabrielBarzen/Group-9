@@ -41,8 +41,6 @@ public class AuthenticationCompanion {
             }
         }
 
-
-
-        return new ResponseEntity<>("{\"error\" : \"not implemented\"}", HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>("{\"success\" : \"all actions completed successfully\"}", HttpStatus.OK);
     }
 }

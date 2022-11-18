@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminController {
 
     private final int ADMIN_ACCESS_LEVEL = 2;
+    Authenticator authenticator = AuthenticationController.authenticator;
 
     @RequestMapping(value = "/routes", method = RequestMethod.GET)
     public ResponseEntity<String> routesGet(@CookieValue(name = "authentication-token") String token,

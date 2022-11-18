@@ -197,9 +197,49 @@ public class AuthenticationProcedures {
         return role;
     }
 
-    public void assignRoute(String userId, String assign) {
+    public boolean assignRoute(String userId, String assign) {
+        DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_assign_route(?,?)}")) {
+            cs.setInt("in_user_id", Integer.parseInt(userId));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
+                success = res.getBoolean("success");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return success;
     }
 
-    public void unAssignRoute(String userId, String assign) {
+    public boolean unAssignRoute(String userId, String assign) {
+        DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_unassign_route(?,?)}")) {
+            cs.setInt("in_user_id", Integer.parseInt(id));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            while(res.next()){
+                success = res.getBoolean("success");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return success;
     }
 }

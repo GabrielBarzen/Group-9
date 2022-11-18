@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping(value = "/authenticator")
 public class AuthenticationController {
+
     public static Authenticator authenticator = new Authenticator();
 
     private final int ADMIN_ACCESS_LEVEL = 2;
