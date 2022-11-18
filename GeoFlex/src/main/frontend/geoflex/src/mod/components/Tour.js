@@ -5,7 +5,7 @@ export default function Tour(props) {
   /*
   Tour handles and renders each single tour passed on from ModOverview.js
   */
-  const url = "/mod/edit/" + props.data.id;
+  const url = "/moderator/edit/" + props.data.id;
   /*const editTo = {
         pathname: url,
         state: props.data

@@ -34,9 +34,7 @@ export default function Loginpage() {
         axios(config)
         .then(function (response) {
         console.log(JSON.stringify(response.data));
-            if(response.data.path === "/admin/overview"){
-                navigate('/admin/overview', { replace: true });
-            }
+        navigate(response.data.path, { replace: true });
         })
         .catch(function (error) {
         console.log(error.response.data);

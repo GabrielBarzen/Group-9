@@ -36,10 +36,10 @@ export default function App() {
                     <Route path='/admin/new/' element={<AdminAddNew />} />
                     <Route path='/admin/edit/:id' element={<AdminEdit />} />
 
-                    <Route path='/mod' element={<Mod />} />
-                    <Route path='/mod/overview' element={<ModOverview />} />
-                    <Route path='/mod/edit/:id' element={<ModEdit />} />
-                    <Route path='/mod/edit/:id/location/:id' element={<ModEditLocation />} />
+                    <Route path='/moderator' element={<Mod />} />
+                    <Route path='/moderator/overview' element={<ModOverview />} />
+                    <Route path='/moderator/edit/:id' element={<ModEdit />} />
+                    <Route path='/moderator/edit/:id/location/:id' element={<ModEditLocation />} />
 
                     
                     
