@@ -28,6 +28,7 @@ public class AdminController {
     public ResponseEntity<String> routesGet(@CookieValue(name = "authentication-token") String token,
                                             @CookieValue(name = "user-id") String userID) {
         AdminCompanion adminCompanion = getAdminCompanion(token,userID);
+        System.out.println("gotten admin companion : " + adminCompanion);
         if (adminCompanion == null) {
             return new ResponseEntity<>("{\"error\" : \"forbidden, try logging in again\"}", HttpStatus.FORBIDDEN);
         }

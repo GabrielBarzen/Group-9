@@ -16,11 +16,11 @@ public class Token {
     public Token(TokenType type) {
         LocalDate date = LocalDate.now();
         if (type == TokenType.WEEK) {
-            date.plus(1, ChronoUnit.WEEKS);
+            date = date.plus(1, ChronoUnit.WEEKS);
         } else if (type == TokenType.MONTH){
-            date.plus(1, ChronoUnit.MONTHS);
+            date = date.plus(1, ChronoUnit.MONTHS);
         } else if (type == TokenType.DAY) {
-            date.plus(1, ChronoUnit.DAYS);
+            date = date.plus(1, ChronoUnit.DAYS);
 
         }
         expiery = date;
