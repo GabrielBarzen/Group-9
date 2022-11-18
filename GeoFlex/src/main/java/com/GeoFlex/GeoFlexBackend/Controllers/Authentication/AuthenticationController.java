@@ -63,7 +63,28 @@ public class AuthenticationController {
 
             response.addCookie(tokenString);
 
-            return new ResponseEntity<>("{\"OK\" : \"Sucessfully authenticated\"}", HttpStatus.OK);
+
+            //TODO clean code, only for reference.
+            String path = "";
+            int accesslevel = ap.getAccessLevelForUser(id);
+            if (accesslevel == ADMIN_ACCESS_LEVEL) {
+                path =  "/admin/overview";
+                return new ResponseEntity<>(
+                        "{\"OK\" : \"Sucessfully authenticated\"," +
+                                "\"path\":\"" + path + "\"}", HttpStatus.OK);
+            } else if (accesslevel == MODERATOR_ACCESS_LEVEL) {
+                path =  "/moderator/overview";
+                return new ResponseEntity<>(
+                        "{\"OK\" : \"Sucessfully authenticated\"," +
+                                "\"path\":\"" + path + "\"}", HttpStatus.OK);
+            } else if (accesslevel == USER_ACCESS_LEVEL) {
+                path =  "/user/overview";
+                return new ResponseEntity<>(
+                        "{\"OK\" : \"Sucessfully authenticated\"," +
+                                "\"path\":\"" + path + "\"}", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("{\"OK\" : \"Role check failed\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
         return new ResponseEntity<>("{\"OK\" : \"Authentication unsucessfull, please retry\"}", HttpStatus.FORBIDDEN);
     }
