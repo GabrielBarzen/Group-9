@@ -25,6 +25,7 @@ export default function Static() {
                 <li><Link to="/admin">Admin</Link></li>
                 <li><Link to="/admin/overview">Admin Översikt </Link></li>
                 <li><Link to="/admin/new/">Admin lägg till </Link></li>
+                <li><Link to="/admin/moderator-management">Admin moderator admin </Link> </li>
                 <li><Link to="/mod/overview">Moderator Översikt </Link></li>                
             </ul>
         </>

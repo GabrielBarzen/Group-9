@@ -7,28 +7,28 @@ export default function Register() {
     return (<>
     <div className="row">
         <div className="container white container-css">
-            <div class="row center-align">
+            <div className="row center-align">
                 <h5>Registrera</h5>
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_box</i>
-                            <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                            <label for="icon_prefix2">Användarnamn</label>
+                <form className="col s12">
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <i className="material-icons prefix">account_box</i>
+                            <textarea id="icon_prefix2" className="materialize-textarea"></textarea>
+                            <label htmlFor="icon_prefix2">Användarnamn</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">lock</i>
-                            <input id="password" type="password" class="validate"/>
-                            <label for="password">Lösenord</label>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <i className="material-icons prefix">lock</i>
+                            <input id="password" type="password" className="validate"/>
+                            <label htmlFor="password">Lösenord</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">lock</i>
-                            <input id="passwordrepeat" type="password" class="validate"/>
-                            <label for="passwordrepeat">Upprepa lösenord</label>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <i className="material-icons prefix">lock</i>
+                            <input id="passwordrepeat" type="password" className="validate"/>
+                            <label htmlFor="passwordrepeat">Upprepa lösenord</label>
                         </div>
                     </div>
                 </form>
