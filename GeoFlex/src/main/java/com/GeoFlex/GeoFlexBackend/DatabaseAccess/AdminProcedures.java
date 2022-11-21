@@ -415,29 +415,31 @@ public class AdminProcedures {
             ResultSet res = cs.getResultSet();
             JSONObject jsonObject = new JSONObject();
             JSONArray array = new JSONArray();
-            while(res.next()){
-                JSONObject row = new JSONObject();
-                try {
-                    row.put("id", res.getInt("id"));
-                    row.put("title", res.getString("title"));
-                    row.put("description", res.getString("description"));
-                    row.put("type", res.getString("type"));
-                    row.put("code", res.getInt("code"));
-                    row.put("locations", res.getInt("locations"));
-                    array.put(row);
+            if (res != null) {
+                while (res.next()) {
+                    JSONObject row = new JSONObject();
+                    try {
+                        row.put("id", res.getInt("id"));
+                        row.put("title", res.getString("title"));
+                        row.put("description", res.getString("description"));
+                        row.put("type", res.getString("type"));
+                        row.put("code", res.getInt("code"));
+                        row.put("locations", res.getInt("locations"));
+                        array.put(row);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-                catch (JSONException e){
+                try {
+                    jsonObject.put("routes-for-user", array);
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                System.out.println(jsonObject);
+                return jsonObject.toString();
+            } else {
+                return "Den här moderatorn har inget tilldelat.";
             }
-            try {
-                jsonObject.put("routes-for-user", array);
-            }
-            catch (JSONException e){
-                e.printStackTrace();
-            }
-            System.out.println(jsonObject);
-            return jsonObject.toString();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
