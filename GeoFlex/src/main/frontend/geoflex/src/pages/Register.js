@@ -40,12 +40,12 @@ export default function Register() {
                 })
                 .catch(function (error) {
                     console.log(error);
-                    message.textContent = "Lyckades inte slutföra registrering!";
+                    message.textContent = "Lyckades inte slutföra registrering.";
                 });
                 
         }
         else {
-            message.textContent = "Dem angivna lösenorden matchar inte!";
+            message.textContent = "Dem angivna lösenorden matchar inte.";
         }
     }
 

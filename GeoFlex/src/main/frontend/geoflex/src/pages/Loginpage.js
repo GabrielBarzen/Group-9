@@ -12,7 +12,8 @@ export default function Loginpage() {
     let usernameRef = useRef();
     let passwordRef = useRef();
 
-    function callLogin(){
+    function handleLogin(){
+        let message = document.querySelector("#message");
         var data = JSON.stringify
         (
             {
@@ -38,6 +39,7 @@ export default function Loginpage() {
         })
         .catch(function (error) {
         console.log(error.response.data);
+        message.textContent = "Lyckades inte att logga in, kontrollera dina uppgifter.";
         });
     }
 
@@ -61,13 +63,14 @@ export default function Loginpage() {
                             <label htmlFor="password">Lösenord</label>
                         </div>
                     </div>
+                    <div id="message" style={{color: "RED"}}></div>
                 </form>
             </div>          
         </div>
     </div>
         <div className="row">
             <div className="col s12 offset-s1"> 
-            <Button text="Logga in" css="col s10" icon={<i className="small material-icons right">arrow_forward</i>} click={callLogin}/>
+            <Button text="Logga in" css="col s10" icon={<i className="small material-icons right">arrow_forward</i>} click={handleLogin}/>
             </div>
         </div>
         </>
