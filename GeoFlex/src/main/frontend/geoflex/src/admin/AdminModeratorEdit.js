@@ -29,6 +29,27 @@ export default function AdminModeratorEdit() {
     ]
     );
 
+    var assignedRouteExample = {
+        "routes-for-user":[
+        {
+        "code":6960,
+        "description":"Postman edit test",
+        "locations":17,
+        "id":96,
+        "title":"Spongebob Squarepants",
+        "type":"INFO"
+        },
+        {
+        "code":10501,
+        "description":"Quiz om Malmö",
+        "locations":5,
+        "id":97,
+        "title":"Malmö",
+        "type":"QUIZ"
+        }
+        ]
+        };
+
     useEffect(() => {
         M.AutoInit();
         getModeratorList();
