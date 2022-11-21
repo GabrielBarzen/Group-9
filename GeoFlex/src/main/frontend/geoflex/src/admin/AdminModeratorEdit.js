@@ -135,7 +135,7 @@ export default function AdminModeratorEdit() {
             <p>Översikt på moderatorer</p>
             <ul className='collapsible'>
                 {[...moderators].map((moderator) => (
-                    <AdminModeratorOverview key={moderator['user-id']} data={moderator} />
+                    <AdminModeratorOverview key={moderator['user-id']} data={moderator} routeData={assignedRouteExample}/>
                 ))}
             </ul>
         </div>
