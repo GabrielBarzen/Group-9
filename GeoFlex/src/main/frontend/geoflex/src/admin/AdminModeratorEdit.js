@@ -5,31 +5,12 @@ import axios from "axios";
 
 
 export default function AdminModeratorEdit() {
-    const [moderators, setModerators] = useState([
-        {
-            "name": "NewModerator",
-            "user-id": 69
-        },
-        {
-            "name": "Max",
-            "user-id": 78
-        },
-        {
-            "name": "Jack",
-            "user-id": 79
-        },
-        {
-            "name": "Lux",
-            "user-id": 80
-        },
-        {
-            "name": "Sivir",
-            "user-id": 81
-        }
-    ]
+    const [moderators, setModerators] = useState(
     );
     const [moderatorRoutes, setModeratorRoutes] = useState(null)
-
+    
+    const dummyModerators = [{"name": "Max","user-id": 78},{"name": "Jack", "user-id": 79},{"name": "Lux","user-id": 80 },{"name": "Sivir","user-id": 81}];
+    
     var assignedRouteExample = {
         "routes-for-user":[
         {
@@ -77,6 +58,8 @@ export default function AdminModeratorEdit() {
             })
             .catch(function (error) {
                 console.log(error);
+                //dummy data som ska tas bort:
+                setModerators(dummyModerators)
             });
     }
 
@@ -133,6 +116,8 @@ export default function AdminModeratorEdit() {
           })
           .catch(function (error) {
             console.log(error);
+            //dummy data som ska tas bort:
+            setModeratorRoutes(assignedRouteExample)
           });
           
     }
