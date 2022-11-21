@@ -23,6 +23,7 @@ import ModEdit from './mod/ModEdit';
 import Register from './pages/Register'
 import TempUser from './pages/tempUser'
 import AdminModeratorEdit from './admin/AdminModeratorEdit';
+import AdminModeratorRegister from './admin/components/AdminModeratorRegister';
 
 
 export default function App() {
@@ -36,7 +37,7 @@ export default function App() {
                     <Route path='/admin/new/' element={<AdminAddNew />} />
                     <Route path='/admin/edit/:id' element={<AdminEdit />} />
                     <Route path='/admin/moderator-management' element={<AdminModeratorEdit />} />
-                    <Route path='/admin/moderator-management/:id' element={<AdminModeratorEdit />} />
+                    <Route path='/admin/create-moderator' element={<AdminModeratorRegister />} />
 
                     <Route path='/mod' element={<Mod />} />
                     <Route path='/mod/overview' element={<ModOverview />} />

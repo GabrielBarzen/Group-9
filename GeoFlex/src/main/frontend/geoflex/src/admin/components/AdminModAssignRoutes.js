@@ -1,10 +1,14 @@
 import React from 'react';
 
 export default function AdminModAssignRoutes(props) {
-    const handleSelectItemClick = () => {
+    const handleAddRouteToMod = () => {
+        //lägger till route till en moderator
         alert("SELECT ITEM CLICK");
     }
-  return (
-    <option id={props.selectItem.id} value={props.selectItem.title} onClick={handleSelectItemClick}>{props.selectItem.title}</option>
+  return (<p id={props.selectItem.id} >
+    {props.selectItem.title}
+    <i className="small material-icons right" onClick={handleAddRouteToMod}>add</i>
+  </p>
+    
   )
 }

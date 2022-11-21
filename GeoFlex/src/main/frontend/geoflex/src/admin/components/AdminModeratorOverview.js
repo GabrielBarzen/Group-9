@@ -4,65 +4,78 @@ import AdminModAssignRoutes from './AdminModAssignRoutes';
 import M from 'materialize-css';
 
 export default function AdminModeratorOverview(props) {
-    const [selectItems, setselectItems] = useState(null);
+    const [selectItems, setSelectItems] = useState([]);
     const routeData = props.moderatorRoutesData;
-    console.log("här" + props.data.name)
+    console.log("routeData")
+    console.log(routeData)
 
     const handleSelectOptions = () => {
+        console.log("HÄR")
+        const dummyData = [{ "title": "Test Quiz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "1", "code": "572748", "locations": 3 }, { "title": "Test Info", "description": "This info for testing purposes.", "type": "INFO", "id": "2", "code": "184471", "locations": 3 }, { "title": "Test 2", "description": "More testing tests ", "type": "INFO", "id": "4", "code": "295052", "locations": 0 }, { "title": "Num Location Test1", "description": "test, remove", "type": "INFO", "id": "5", "code": "447827", "locations": 0 }, { "title": "Num Location Test2", "description": "test, remove", "type": "INFO", "id": "6", "code": "625158", "locations": 3 }, { "title": "Num Location Test3", "description": "test, remove", "type": "INFO", "id": "7", "code": "782310", "locations": 4 }, { "title": "Test Quiz2E", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "8", "code": "538027", "locations": 6 }, { "title": "Test Quizz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "10", "code": "983850", "locations": 6 }];
+
 
         let allRoutes = props.allRoutesData;
-        let availableRoutes = [];
-        allRoutes.forEach(element => {
-            routeData.forEach(item => {
-                if (item.id !== element.id) {
-                    availableRoutes.push(element)
-                }
-            })
-        });
-        setselectItems(availableRoutes);
+        let routes = props.moderatorRoutesData;
+        console.log("DENNA" + allRoutes);
+        console.log(routes);
+
+        var leftUsers = allRoutes.filter(u => routeData.findIndex(lu => lu.id === u.id) === -1);
+
+        console.log(leftUsers);
+        /*
+                let allRoutes = props.allRoutesData;
+                let availableRoutes = routeData.filter(val => !allRoutes.includes(val));
+                
+                availableRoutes.forEach(element => {
+                    
+                });
+        
+                setSelectItems(availableRoutes);
+        */
+        setSelectItems(leftUsers)
     }
 
 
     useEffect(() => {
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.dropdown-trigger');
-            var instances = M.Dropdown.init(elems, {});
-        });
-    });
-
-    const handleModeratorRoutes = () => {
+        M.AutoInit();
         props.getRouteForUser(props.data.id)
-    }
+    }, []);
 
-    if (routeData.length !== 0) {
-        return (<>
-            <li>
-                <div className="collapsible-header" onClick={handleModeratorRoutes}>{props.data.name}</div>
-                <div className="collapsible-body">
-                    <ul>
-                        {[...routeData['routes-for-user']].map((route) => (
-                            <AdminModRoutes key={routeData['routes-for-user'].id} data={route} />
-                        ))}
-                    </ul>
-                    <div onClick={handleSelectOptions} class="input-field col s12">
-                        <select>
-                            <option value="" disabled selected>Choose your option</option>
-                            {[...selectItems].map((item) => (<AdminModAssignRoutes 
-                            key={item.id}
-                            selectItem={item}/>
-                            ))}
-                        </select>
-                        <label>Tilldela till Moderator</label>
-                    </div>
-                </div>
-            </li>
-        </>
-        )
-    } else {
-        return (
-            <>
-                <p>Laddar</p>
-            </>
-        )
-    }
+    return (<>
+        <li>
+            <div className="collapsible-header" onClick={handleSelectOptions} >{props.data.name}</div>
+            <div className="collapsible-body">
+                <ul>
+                    {[...routeData].map((route) => (
+
+                        <AdminModRoutes key={(route.id)} data={route} moderator={props.data}/>
+                    ))}
+                </ul>
+                <ul className="collapsible">
+                    <li>
+                        <div className="collapsible-header">Tilldela rutt</div>
+                        <div className="collapsible-body">{[...selectItems].map((item) => (<AdminModAssignRoutes
+                                key={item.id}
+                                selectItem={item} />
+                            ))}</div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </>
+    )
 }
+
+/*
+{[...selectItems].map((item) => (<AdminModAssignRoutes
+                            key={item.id}
+                            selectItem={item} />
+                        ))}
+
+
+
+                        {[...selectItems].map((item) => (<AdminModAssignRoutes
+                                key={item.id}
+                                selectItem={item} />
+                            ))}
+*/

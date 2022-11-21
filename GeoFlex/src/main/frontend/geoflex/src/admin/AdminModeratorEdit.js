@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import AdminModeratorOverview from './components/AdminModeratorOverview';
 import M from 'materialize-css';
 import axios from "axios";
+import { Link } from 'react-router-dom';
+import Button from '../shared/Button';
 
 
 export default function AdminModeratorEdit() {
-    const [moderators, setModerators] = useState(null);
-    const [moderatorRoutes, setModeratorRoutes] = useState(null);
-    const [allRoutes, setAllRoutes] = useState(null);
+    const [moderators, setModerators] = useState([]);
+    const [moderatorRoutes, setModeratorRoutes] = useState([]);
+    const [allRoutes, setAllRoutes] = useState([]);
 
     const dummyModerators = [{ "name": "Max", "user-id": 78 }, { "name": "Jack", "user-id": 79 }, { "name": "Lux", "user-id": 80 }, { "name": "Sivir", "user-id": 81 }];
 
@@ -39,7 +41,8 @@ export default function AdminModeratorEdit() {
     useEffect(() => {
         M.AutoInit();
         getModeratorList();
-    });
+        getAllRoutes();
+    }, []);
 
     function getAllRoutes() {
         var config = {
@@ -56,7 +59,8 @@ export default function AdminModeratorEdit() {
                 console.log(error);
 
                 //Dev placeholderdata
-                setTours(dummyData);
+                setAllRoutes(dummyData);
+                console.log("GETALLROUTES: " + dummyData)
             });
     }
 
@@ -64,6 +68,8 @@ export default function AdminModeratorEdit() {
      * Hämtar en lista av alla moderatorer.
      */
     function getModeratorList() {
+        console.log("GET MODERATOR LIST")
+
         var config = {
             method: 'get',
             url: '/admin/moderators',
@@ -78,8 +84,10 @@ export default function AdminModeratorEdit() {
             .catch(function (error) {
                 console.log(error);
                 //dummy data som ska tas bort:
+                console.log("MODERATOR ERROR")
                 setModerators(dummyModerators)
             });
+
     }
 
     /**
@@ -120,7 +128,6 @@ export default function AdminModeratorEdit() {
      * Bara id 81 har quizzes atm.
      */
     function getRouteForUser(id) {
-        setModeratorRoutes(null);
         var config = {
             method: 'get',
             url: '/admin/route/user?user-id=' + id,
@@ -136,7 +143,8 @@ export default function AdminModeratorEdit() {
             .catch(function (error) {
                 console.log(error);
                 //dummy data som ska tas bort:
-                setModeratorRoutes(assignedRouteExample)
+                console.log("MODERATOR ROUTES DUMMY DATA")
+                setModeratorRoutes(assignedRouteExample["routes-for-user"])
             });
 
     }
@@ -146,15 +154,28 @@ export default function AdminModeratorEdit() {
             <p>Översikt på moderatorer</p>
             <ul className='collapsible'>
                 {[...moderators].map((moderator) => (
-                    <AdminModeratorOverview 
-                    key={moderator['user-id']} 
-                    getRouteForUser={getRouteForUser} 
-                    data={moderator} 
-                    moderatorRoutesData={moderatorRoutes} 
-                    allRoutesData={allRoutes}
-                     />
+                    <AdminModeratorOverview
+                        key={moderator['user-id']}
+                        getRouteForUser={getRouteForUser}
+                        data={moderator}
+                        moderatorRoutesData={moderatorRoutes}
+                        allRoutesData={allRoutes}
+                    />
                 ))}
             </ul>
+            <div className="row">
+          <div className="center-align">
+            <Link to="/admin/create-moderator">
+              <Button css=" s12 green lighten-4"
+                
+                icon={<i className="material-icons green-text">
+                    add_circle_outline
+                  </i>
+                }
+              />
+            </Link>
+          </div>
+        </div>
         </div>
     </>
     )

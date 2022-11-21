@@ -1,7 +1,12 @@
 import React from 'react';
-import Button from '../shared/Button';
+import Button from '../../shared/Button';
 
-export default function AdminModeratorEdit() {
+export default function AdminModeratorRegister() {
+
+    function handleClick(){
+        //handles click
+    }
+
     return (<>
         <div className="row">
             <div className="container white container-css">
@@ -35,7 +40,7 @@ export default function AdminModeratorEdit() {
         </div>
         <div className="row">
             <div className="col s12 offset-s1">
-                <Button text="Registrera" css="col s10" icon={<i className="small material-icons right">arrow_forward</i>} />
+                <Button text="Registrera" css="col s10" click={handleClick} icon={<i className="small material-icons right">arrow_forward</i>} />
             </div>
         </div>
     </>
