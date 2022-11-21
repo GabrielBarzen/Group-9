@@ -91,39 +91,6 @@ export default function AdminModeratorEdit() {
     }
 
     /**
-     * Skapar en moderator.
-     */
-    function createModerator() {
-        var data = JSON.stringify(
-            {
-                "create-moderator":
-                {
-                    "name": "Sätt värde från input",
-                    "email": "Sätt värde från input",
-                    "password": "Sätt värde från input"
-                }
-            }
-        );
-
-        var config = {
-            method: 'post',
-            url: '/admin/create/moderator',
-            headers: {
-                'Content-Type': 'text/plain'
-            },
-            data: data
-        };
-
-        axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    /**
      * Hämtar alla quiz en moderator har blivit tilldelad med hjälp av dens ID.
      * Bara id 81 har quizzes atm.
      */
