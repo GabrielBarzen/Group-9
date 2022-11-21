@@ -34,6 +34,9 @@ export default function AdminModeratorEdit() {
         getModeratorList();
     });
 
+    /**
+     * Hämtar en lista av alla moderatorer.
+     */
     function getModeratorList() {
         var config = {
             method: 'get',
@@ -51,6 +54,9 @@ export default function AdminModeratorEdit() {
             });
     }
 
+    /**
+     * Skapar en moderator.
+     */
     function createModerator() {
         var data = JSON.stringify(
             {
@@ -79,6 +85,28 @@ export default function AdminModeratorEdit() {
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    /**
+     * Hämtar alla quiz en moderator har blivit tilldelad med hjälp av dens ID.
+     * Bara id 81 har quizzes atm.
+     */
+    function getRouteForUser(){
+        var config = {
+            method: 'get',
+            url: '/admin/route/user?user-id=81',
+            headers: { 
+            }
+          };
+          
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          
     }
 
     return (<>
