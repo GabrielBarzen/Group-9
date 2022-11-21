@@ -3,24 +3,25 @@ import AdminModRoutes from './AdminModRoutes';
 import AdminModAssignRoutes from './AdminModAssignRoutes';
 import M from 'materialize-css';
 
-export default function (props) {
-    const [dropDownMenuItems, setDropDownMenuItems] = useState(null);
-    const routeData = props.routeData;
+export default function AdminModeratorOverview(props) {
+    const [selectItems, setselectItems] = useState(null);
+    const routeData = props.moderatorRoutesData;
     console.log("här" + props.data.name)
-    
-        const handleSelectOptions = (ModeratorID) => {
-            alert("Funkar");
-            let allRoutes = props.allRoutesData;
-            let availableRoutes = [];
-            allRoutes.forEach(element => {
-                routeData.forEach(item => {
-                    if(item.id !== element.id){
-                        availableRoutes.push(element)
-                    }
-                })
-            });
-        }
-     
+
+    const handleSelectOptions = () => {
+
+        let allRoutes = props.allRoutesData;
+        let availableRoutes = [];
+        allRoutes.forEach(element => {
+            routeData.forEach(item => {
+                if (item.id !== element.id) {
+                    availableRoutes.push(element)
+                }
+            })
+        });
+        setselectItems(availableRoutes);
+    }
+
 
     useEffect(() => {
         document.addEventListener('DOMContentLoaded', function () {
@@ -46,8 +47,10 @@ export default function (props) {
                     <div onClick={handleSelectOptions} class="input-field col s12">
                         <select>
                             <option value="" disabled selected>Choose your option</option>
-                            <AdminModAssignRoutes />
-
+                            {[...selectItems].map((item) => (<AdminModAssignRoutes 
+                            key={item.id}
+                            selectItem={item}/>
+                            ))}
                         </select>
                         <label>Tilldela till Moderator</label>
                     </div>
@@ -56,9 +59,9 @@ export default function (props) {
         </>
         )
     } else {
-        return(
+        return (
             <>
-            <p>Laddar</p>
+                <p>Laddar</p>
             </>
         )
     }
