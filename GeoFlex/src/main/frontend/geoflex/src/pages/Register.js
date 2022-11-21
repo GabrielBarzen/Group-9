@@ -13,6 +13,7 @@ export default function Register() {
     let repeatPasswordRef = useRef();
 
     function handleRegister() {
+        let message = document.querySelector("#message");
         if (passwordRef.current.value === repeatPasswordRef.current.value) {
             var data = JSON.stringify
                 (
@@ -39,12 +40,12 @@ export default function Register() {
                 })
                 .catch(function (error) {
                     console.log(error);
-                    //TODO: Ge ett felmeddelande om att inlogging misslyckades.
+                    message.textContent = "Lyckades inte slutföra registrering!";
                 });
                 
         }
         else {
-            //TODO: Ge ett felmeddelande om att lösenordet inte matchar.
+            message.textContent = "Dem angivna lösenorden matchar inte!";
         }
     }
 
@@ -83,6 +84,7 @@ export default function Register() {
                             </div>
                         </div>
                     </form>
+                    <div id="message" style={{color: "RED"}}></div>
                 </div>
             </div>
         </div>
