@@ -1,41 +1,65 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminModRoutes from './AdminModRoutes';
+import AdminModAssignRoutes from './AdminModAssignRoutes';
 import M from 'materialize-css';
 
 export default function (props) {
-  const routeData = props.routeData;
-  console.log("här" + props.data.name)
+    const [dropDownMenuItems, setDropDownMenuItems] = useState(null);
+    const routeData = props.routeData;
+    console.log("här" + props.data.name)
+    
+        const handleSelectOptions = (ModeratorID) => {
+            alert("Funkar");
+            let allRoutes = props.allRoutesData;
+            let availableRoutes = [];
+            allRoutes.forEach(element => {
+                routeData.forEach(item => {
+                    if(item.id !== element.id){
+                        availableRoutes.push(element)
+                    }
+                })
+            });
+        }
+     
 
-  useEffect(() => {
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.dropdown-trigger');
-      var instances = M.Dropdown.init(elems);
+    useEffect(() => {
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.dropdown-trigger');
+            var instances = M.Dropdown.init(elems, {});
+        });
     });
-    });
 
-  return (<>
-    <li>
-      <div className="collapsible-header">{props.data.name}</div>
-      <div className="collapsible-body">
-        <ul>
-          {[...routeData['routes-for-user']].map((route) => (
-            <AdminModRoutes key={routeData['routes-for-user'].id} data={route} />
-          ))}
-        </ul>
-        dropdown här
-        <a className='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
+    const handleModeratorRoutes = () => {
+        props.getRouteForUser(props.data.id)
+    }
 
+    if (routeData.length !== 0) {
+        return (<>
+            <li>
+                <div className="collapsible-header" onClick={handleModeratorRoutes}>{props.data.name}</div>
+                <div className="collapsible-body">
+                    <ul>
+                        {[...routeData['routes-for-user']].map((route) => (
+                            <AdminModRoutes key={routeData['routes-for-user'].id} data={route} />
+                        ))}
+                    </ul>
+                    <div onClick={handleSelectOptions} class="input-field col s12">
+                        <select>
+                            <option value="" disabled selected>Choose your option</option>
+                            <AdminModAssignRoutes />
 
-        <ul id='dropdown1' class='dropdown-content'>
-          <li><a href="#!">one</a></li>
-          <li><a href="#!">two</a></li>
-          <li className="divider" tabindex="-1"></li>
-          <li><a href="#!">three</a></li>
-          <li><a href="#!"><i className="material-icons">view_module</i>four</a></li>
-          <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
-        </ul>
-      </div>
-    </li>
-  </>
-  )
+                        </select>
+                        <label>Tilldela till Moderator</label>
+                    </div>
+                </div>
+            </li>
+        </>
+        )
+    } else {
+        return(
+            <>
+            <p>Laddar</p>
+            </>
+        )
+    }
 }
