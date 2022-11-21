@@ -186,4 +186,12 @@ public class AdminCompanion {
         }
         return response;
     }
+
+    public ResponseEntity<String> routeAddModerator(String body) {
+        return null; //TODO
+    }
+
+    public ResponseEntity<String> routeDeleteModerator(String body) {
+        return null; //TODO
+    }
 }
