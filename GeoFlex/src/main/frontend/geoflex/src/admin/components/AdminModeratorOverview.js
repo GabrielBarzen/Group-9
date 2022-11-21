@@ -7,8 +7,10 @@ export default function (props) {
   console.log("här" + props.data.name)
 
   useEffect(() => {
-    let elems = document.querySelectorAll('.dropdown-trigger');
-    M.Dropdown.init(elems, {});
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      var instances = M.Dropdown.init(elems);
+    });
     });
 
   return (<>
