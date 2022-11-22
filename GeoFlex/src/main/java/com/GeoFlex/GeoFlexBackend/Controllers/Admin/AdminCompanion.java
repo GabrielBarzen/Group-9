@@ -9,6 +9,7 @@ import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -189,6 +190,7 @@ public class AdminCompanion {
         return response;
     }
 
+
     public ResponseEntity<String> routeChangeAccess(String body) {
         Gson gson = new Gson();
         AdminProcedures ap = new AdminProcedures();
@@ -203,4 +205,44 @@ public class AdminCompanion {
     }
 
 
+
+    /**
+     * Creates a moderator account.
+     * @param body Json with the account data.
+     * @return OK message body if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> createModerator(String body) {
+        ResponseEntity<String> response;
+        if(body.isEmpty() || body == null){
+            response = new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(body, JsonObject.class);
+            String name = jsonObject.get("create-moderator").getAsJsonObject().get("name").getAsString();
+            String email = jsonObject.get("create-moderator").getAsJsonObject().get("email").getAsString();
+            String password = jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString();
+            String salt = "Salt will be here";
+            //TODO: Hash password and add salt.
+            AdminProcedures.createModerator(name, email, password, salt);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        return response;
+    }
+
+    /**
+     * Gets a list of all moderators.
+     * @return Returns a json filled with all moderators.
+     */
+    public ResponseEntity<String> getAllModerators() {
+        ResponseEntity<String> response;
+            String json = AdminProcedures.getAllModerators();
+            if(json.isEmpty()){
+                response = new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+            }
+            else {
+                response = new ResponseEntity<>(json, HttpStatus.OK);
+            }
+        return response;
+    }
 }

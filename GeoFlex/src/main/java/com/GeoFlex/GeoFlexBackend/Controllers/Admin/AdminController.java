@@ -90,11 +90,13 @@ public class AdminController {
         return adminCompanion.routeGetLocations(routeID);
     }
 
+
     @RequestMapping(value = "/route/moderator", method = RequestMethod.PATCH)
     public ResponseEntity<String> routeAssignModerator(@RequestBody String body,
-                                                    @CookieValue(name = "authentication-token") String token,
-                                                    @CookieValue(name = "user-id") String userID) {
-        AdminCompanion adminCompanion = getAdminCompanion(token,userID);
+                                                       @CookieValue(name = "authentication-token") String token,
+                                                       @CookieValue(name = "user-id") String userID) {
+
+        AdminCompanion adminCompanion = getAdminCompanion(token, userID);
         if (adminCompanion == null) {
             return new ResponseEntity<>("{\"error\" : \"forbidden, try logging in again\"}", HttpStatus.FORBIDDEN);
         }
@@ -103,10 +105,33 @@ public class AdminController {
 
 
 
+
+@RequestMapping(value = "/create/moderator", method = RequestMethod.POST)
+    public ResponseEntity<String> createModerator(
+            @CookieValue(name = "authentication-token") String token,
+            @CookieValue(name = "user-id") String userID, @RequestBody String body) {
+        AdminCompanion adminCompanion = getAdminCompanion(token, userID);
+        if (adminCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden, try logging in again\"}", HttpStatus.FORBIDDEN);
+        }
+        return adminCompanion.createModerator(body);
+    }
+
+    @RequestMapping(value = "/moderators", method = RequestMethod.GET)
+    public ResponseEntity<String> getAllModerators(
+                                                    @CookieValue(name = "authentication-token") String token,
+                                                    @CookieValue(name = "user-id") String userID) {
+        AdminCompanion adminCompanion = getAdminCompanion(token,userID);
+        if (adminCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
+        }
+        return adminCompanion.getAllModerators();
+    }
+
+
     private AdminCompanion getAdminCompanion(String token, String userID) {
         System.out.println("Admin Auth Token : " + token);
         System.out.println("Admin Auth UserId : " + userID);
-
 
         if (AuthenticationController.authenticator.auth(userID, new Token(token), ADMIN_ACCESS_LEVEL)) {
             return new AdminCompanion(userID);
@@ -115,6 +140,4 @@ public class AdminController {
         }
 
     }
-
-
 }
