@@ -18,7 +18,7 @@ import TestComponents from './shared/TestComponents';
 import 'materialize-css/dist/css/materialize.min.css';
 import FirstpageTest from './pages/Firstpage'
 import StartpageTest from './pages/Startpage_test'
-import AdminLogin from './pages/Admin_login_test'
+import AdminLogin from './pages/Loginpage'
 import ModEdit from './mod/ModEdit';
 import Register from './pages/Register'
 import TempUser from './pages/tempUser'
@@ -39,10 +39,10 @@ export default function App() {
                     <Route path='/admin/moderator-management' element={<AdminModeratorEdit />} />
                     <Route path='/admin/create-moderator' element={<AdminModeratorRegister />} />
 
-                    <Route path='/mod' element={<Mod />} />
-                    <Route path='/mod/overview' element={<ModOverview />} />
-                    <Route path='/mod/edit/:id' element={<ModEdit />} />
-                    <Route path='/mod/edit/:id/location/:id' element={<ModEditLocation />} />
+                    <Route path='/moderator' element={<Mod />} />
+                    <Route path='/moderator/overview' element={<ModOverview />} />
+                    <Route path='/moderator/edit/:id' element={<ModEdit />} />
+                    <Route path='/moderator/edit/:id/location/:id' element={<ModEditLocation />} />
 
                     
                     
@@ -56,7 +56,7 @@ export default function App() {
                     <Route path='/test' element={<TestComponents />} />
                     <Route path='/Firstpagetest' element={<FirstpageTest />} />
                     <Route path='/Startpagetest' element={<StartpageTest />} />
-                    <Route path='/Adminlogintest' element={<AdminLogin />} />
+                    <Route path='/Loginpage' element={<Loginpage />} />
                     <Route path='/Register' element={<Register />} />
                     <Route path='/TempUser' element={<TempUser />} />
                 </Route>

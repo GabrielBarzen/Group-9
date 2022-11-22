@@ -21,7 +21,7 @@ export default function Static() {
             </nav>
             <ul>
                 <li><Link to="/">Start</Link></li>
-                <li><Link to="/mod">Mod</Link></li>
+                <li><Link to="/moderator">Mod</Link></li>
                 <li><Link to="/admin">Admin</Link></li>
                 <li><Link to="/admin/overview">Admin Översikt </Link></li>
                 <li><Link to="/admin/new/">Admin lägg till </Link></li>
