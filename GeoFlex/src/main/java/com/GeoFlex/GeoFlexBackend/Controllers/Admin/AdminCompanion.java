@@ -3,6 +3,8 @@ package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
+import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.ModeratorAssign;
+import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.Route;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
@@ -187,11 +189,18 @@ public class AdminCompanion {
         return response;
     }
 
-    public ResponseEntity<String> routeAddModerator(String body) {
-        return null; //TODO
+    public ResponseEntity<String> routeChangeAccess(String body) {
+        Gson gson = new Gson();
+        AdminProcedures ap = new AdminProcedures();
+        ModeratorAssign ma = gson.fromJson(body, ModeratorAssign.class);
+        String id = ma.userId;
+        String accessLevel = ma.accessLevel;
+        for (Route route : ma.route) {
+            ap.changeUserAccess(id, route.assign != null ? route.assign : route.unAssign, accessLevel, route.unAssign != null);
+        }
+
+        return new ResponseEntity<>("OK", HttpStatus.OK); //TODO
     }
 
-    public ResponseEntity<String> routeDeleteModerator(String body) {
-        return null; //TODO
-    }
+
 }

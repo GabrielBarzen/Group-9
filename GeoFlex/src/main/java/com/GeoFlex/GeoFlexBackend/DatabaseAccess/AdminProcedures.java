@@ -345,4 +345,27 @@ public class AdminProcedures {
             }
         }
     }
+    public String changeUserAccess(String userId, String routeId, String accessLevel, boolean remove) {
+        String retval = "";
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_change_user_route_access(?, ? ,? ,?)}")) {
+            cs.setInt("in_user_id", Integer.parseInt(userId));
+            cs.setInt("in_route_id", Integer.parseInt(routeId));
+            cs.setInt("access_level", Integer.parseInt(accessLevel));
+            cs.setBoolean("remove", remove);
+            cs.execute();
+            retval = "Success";
+        } catch (SQLException e) {
+            retval = "Fail";
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return retval;
+    }
 }

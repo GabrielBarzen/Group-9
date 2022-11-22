@@ -90,7 +90,7 @@ public class AdminController {
         return adminCompanion.routeGetLocations(routeID);
     }
 
-    @RequestMapping(value = "/route/moderator", method = RequestMethod.POST)
+    @RequestMapping(value = "/route/moderator", method = RequestMethod.PATCH)
     public ResponseEntity<String> routeAssignModerator(@RequestBody String body,
                                                     @CookieValue(name = "authentication-token") String token,
                                                     @CookieValue(name = "user-id") String userID) {
@@ -98,19 +98,10 @@ public class AdminController {
         if (adminCompanion == null) {
             return new ResponseEntity<>("{\"error\" : \"forbidden, try logging in again\"}", HttpStatus.FORBIDDEN);
         }
-        return adminCompanion.routeAddModerator(body);
+        return adminCompanion.routeChangeAccess(body);
     }
 
-    @RequestMapping(value = "/route/moderator", method = RequestMethod.DELETE)
-    public ResponseEntity<String> routeUnnasignModerator(@RequestBody String body,
-                                                       @CookieValue(name = "authentication-token") String token,
-                                                       @CookieValue(name = "user-id") String userID) {
-        AdminCompanion adminCompanion = getAdminCompanion(token,userID);
-        if (adminCompanion == null) {
-            return new ResponseEntity<>("{\"error\" : \"forbidden, try logging in again\"}", HttpStatus.FORBIDDEN);
-        }
-        return adminCompanion.routeDeleteModerator(body);
-    }
+
 
     private AdminCompanion getAdminCompanion(String token, String userID) {
         System.out.println("Admin Auth Token : " + token);
