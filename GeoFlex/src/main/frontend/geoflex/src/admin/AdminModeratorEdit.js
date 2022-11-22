@@ -60,7 +60,7 @@ export default function AdminModeratorEdit() {
 
                 //Dev placeholderdata
                 setAllRoutes(dummyData);
-                console.log("GETALLROUTES: " + dummyData)
+                
             });
     }
 
@@ -94,7 +94,9 @@ export default function AdminModeratorEdit() {
      * Hämtar alla quiz en moderator har blivit tilldelad med hjälp av dens ID.
      * Bara id 81 har quizzes atm.
      */
+    
     function getRouteForUser(id) {
+        console.log("MOD ID: " + id)
         var config = {
             method: 'get',
             url: '/admin/route/user?user-id=' + id,
