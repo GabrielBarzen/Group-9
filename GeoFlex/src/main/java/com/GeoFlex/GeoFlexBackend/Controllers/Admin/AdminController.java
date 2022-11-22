@@ -128,7 +128,16 @@ public class AdminController {
         return adminCompanion.getAllModerators();
     }
 
-
+    @RequestMapping(value = "/route/user", method = RequestMethod.GET)
+    public ResponseEntity<String> getRouteForUser(@RequestParam("user-id") String userId,
+                                                  @CookieValue(name = "authentication-token") String token,
+                                                  @CookieValue(name = "user-id") String userID) {
+        AdminCompanion adminCompanion = getAdminCompanion(token,userID);
+        if (adminCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
+        }
+        return adminCompanion.getRouteForUser(userId);
+    }
 
     private AdminCompanion getAdminCompanion(String token, String userID) {
         System.out.println("Admin Auth Token : " + token);

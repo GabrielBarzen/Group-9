@@ -8,8 +8,27 @@ const loginURL = '/authenticator/login'
 export default function Static() {
 
     const login = (() => {
-        axios.get(loginURL).then((response) => {
-            console.log(response.data)
+        var data = JSON.stringify({
+            "user-name": "exampleUser1",
+            "password": "examplePassword1",
+            "expiery":"WEEK"
+          });
+
+        var config = {
+          method: 'post',
+          url: '/authenticator/login',
+          headers: { 
+            'Content-Type': 'text/plain'
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
         });
     })
     return (

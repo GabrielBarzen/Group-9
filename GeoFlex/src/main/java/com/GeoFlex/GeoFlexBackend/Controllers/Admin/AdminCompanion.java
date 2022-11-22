@@ -221,8 +221,8 @@ public class AdminCompanion {
             JsonObject jsonObject = gson.fromJson(body, JsonObject.class);
             String name = jsonObject.get("create-moderator").getAsJsonObject().get("name").getAsString();
             String email = jsonObject.get("create-moderator").getAsJsonObject().get("email").getAsString();
-            String password = jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString();
-            String salt = "Salt will be here";
+            String salt = Authenticator.generateSalt();
+            String password = Authenticator.getHash(jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString() ,salt);
             //TODO: Hash password and add salt.
             AdminProcedures.createModerator(name, email, password, salt);
             response = new ResponseEntity<>("", HttpStatus.OK);

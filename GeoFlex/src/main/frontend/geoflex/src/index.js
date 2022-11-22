@@ -18,12 +18,12 @@ import TestComponents from './shared/TestComponents';
 import 'materialize-css/dist/css/materialize.min.css';
 import FirstpageTest from './pages/Firstpage'
 import StartpageTest from './pages/Startpage_test'
-import AdminLogin from './pages/Loginpage'
 import ModEdit from './mod/ModEdit';
 import Register from './pages/Register'
 import TempUser from './pages/tempUser'
 import AdminModeratorEdit from './admin/AdminModeratorEdit';
 import AdminModeratorRegister from './admin/components/AdminModeratorRegister';
+import Loginpage from './pages/Loginpage';
 
 
 export default function App() {

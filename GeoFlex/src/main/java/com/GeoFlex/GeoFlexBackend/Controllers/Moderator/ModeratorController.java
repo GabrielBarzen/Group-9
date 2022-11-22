@@ -1,5 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
+import com.GeoFlex.GeoFlexBackend.Controllers.Admin.AdminCompanion;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.AuthenticationController;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.Model.Token;
@@ -223,8 +224,8 @@ public class ModeratorController {
      * @return Authentication.
      */
     private ModeratorCompanion getModeratorCompanion(String token, String userID) {
-        System.out.println("Admin Auth Token : " + token);
-        System.out.println("Admin Auth UserId : " + userID);
+        System.out.println("Moderator Auth Token : " + token);
+        System.out.println("Moderator Auth UserId : " + userID);
 
         if (AuthenticationController.authenticator.auth(userID,new Token(token),MODERATOR_ACCESS_LEVEL)) {
             return new ModeratorCompanion(userID);
