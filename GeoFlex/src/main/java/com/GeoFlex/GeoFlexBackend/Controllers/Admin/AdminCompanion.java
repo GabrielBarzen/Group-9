@@ -245,4 +245,21 @@ public class AdminCompanion {
             }
         return response;
     }
+
+    /**
+     * Gets a list of all routes for a specific user.
+     * @param userId The ID of the user.
+     * @return OK message body if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> getRouteForUser(String userId) {
+        ResponseEntity<String> response;
+        String json = AdminProcedures.getRoutesForUser(Integer.parseInt(userId));
+        if(json.isEmpty()){
+            response = new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            response = new ResponseEntity<>(json, HttpStatus.OK);
+        }
+        return response;
+    }
 }

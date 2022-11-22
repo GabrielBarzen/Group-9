@@ -400,7 +400,7 @@ public class AdminProcedures {
                 JSONObject row = new JSONObject();
                 try {
                     row.put("user-id", res.getInt("id"));
-                    row.put("name:", res.getString("name"));
+                    row.put("name", res.getString("name"));
                     array.put(row);
                 }
                 catch (JSONException e){
@@ -414,6 +414,50 @@ public class AdminProcedures {
                 e.printStackTrace();
             }
             return jsonObject.toString();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static String getRoutesForUser(int userId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_all_routes_for_user(?)}")) {
+            cs.setInt("in_user_id", userId);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray array = new JSONArray();
+            if (res != null) {
+                while (res.next()) {
+                    JSONObject row = new JSONObject();
+                    try {
+                        row.put("id", res.getInt("id"));
+                        row.put("title", res.getString("title"));
+                        row.put("description", res.getString("description"));
+                        row.put("type", res.getString("type"));
+                        row.put("code", res.getInt("code"));
+                        row.put("locations", res.getInt("locations"));
+                        array.put(row);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    jsonObject.put("routes-for-user", array);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(jsonObject);
+                return jsonObject.toString();
+            } else {
+                return "Den här moderatorn har inget tilldelat.";
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
