@@ -1,4 +1,3 @@
-
 package com.GeoFlex.GeoFlexBackend.PoJo.Authentication;
 
 import javax.annotation.Generated;
@@ -6,12 +5,13 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("jsonschema2pojo")
-public class AdminLogin {
+public class Route {
 
-    @SerializedName("login")
+    @SerializedName("assign")
     @Expose
-    public Login login;
-
-
+    public String assign;
+    @SerializedName("un-assign")
+    @Expose
+    public String unAssign;
 
 }

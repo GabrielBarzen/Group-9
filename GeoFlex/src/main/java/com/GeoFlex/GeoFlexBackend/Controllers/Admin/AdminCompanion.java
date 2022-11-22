@@ -3,6 +3,8 @@ package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
+import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.ModeratorAssign;
+import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.Route;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
@@ -24,20 +26,6 @@ public class AdminCompanion {
     public AdminCompanion(String userID) {
         this.userID = userID;
     }
-
-    public static AdminCompanion GetLoginCompanion(String identification, String password) {
-        //Take username or email
-        //try auth with pasword hashed with string via
-        String salt = AuthenticationProcedures.getSalt(identification);
-        String userid = AuthenticationProcedures.getID(identification);
-        String hash = Authenticator.getHash(password,salt);
-        if (Objects.equals(hash, AuthenticationProcedures.getHashedPassword(userid))) {
-            return new AdminCompanion(userid);
-        } else {
-            return null;
-        }
-    }
-
 
     /**
      * Returns all routes in the system as user is admin. (/admin/routes) GET
@@ -201,6 +189,22 @@ public class AdminCompanion {
         }
         return response;
     }
+
+
+    public ResponseEntity<String> routeChangeAccess(String body) {
+        Gson gson = new Gson();
+        AdminProcedures ap = new AdminProcedures();
+        ModeratorAssign ma = gson.fromJson(body, ModeratorAssign.class);
+        String id = ma.userId;
+        String accessLevel = ma.accessLevel;
+        for (Route route : ma.route) {
+            ap.changeUserAccess(id, route.assign != null ? route.assign : route.unAssign, accessLevel, route.unAssign != null);
+        }
+
+        return new ResponseEntity<>("OK", HttpStatus.OK); //TODO
+    }
+
+
 
     /**
      * Creates a moderator account.

@@ -1,21 +1,21 @@
-
 package com.GeoFlex.GeoFlexBackend.PoJo.Authentication;
 
+import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("jsonschema2pojo")
-public class Login {
+public class UpdateUser {
 
-    @SerializedName("user-name")
+    @SerializedName("user-id")
     @Expose
-    public String userName;
-    @SerializedName("password")
+    public String userId;
+    @SerializedName("access-level")
     @Expose
-    public String password;
-    @SerializedName("expiery")
+    public String accessLevel;
+    @SerializedName("route")
     @Expose
-    public String expiery;
+    public List<Route> route = null;
 
 }

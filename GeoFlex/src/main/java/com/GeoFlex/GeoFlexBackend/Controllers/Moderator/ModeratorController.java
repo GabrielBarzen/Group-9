@@ -1,10 +1,13 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
+import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.AuthenticationController;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
+import com.GeoFlex.GeoFlexBackend.Model.Token;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 
 
 @RestController
@@ -222,8 +225,8 @@ public class ModeratorController {
     private ModeratorCompanion getModeratorCompanion(String token, String userID) {
         System.out.println("Admin Auth Token : " + token);
         System.out.println("Admin Auth UserId : " + userID);
-        Authenticator authenticator = new Authenticator(token,userID,MODERATOR_ACCESS_LEVEL);
-        if (authenticator.auth()) {
+
+        if (AuthenticationController.authenticator.auth(userID,new Token(token),MODERATOR_ACCESS_LEVEL)) {
             return new ModeratorCompanion(userID);
         } else {
             return null;
