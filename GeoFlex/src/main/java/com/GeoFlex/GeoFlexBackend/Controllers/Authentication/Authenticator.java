@@ -71,7 +71,7 @@ public class Authenticator {
         System.out.println();
         System.out.println("Access level granted : " + (ap.getAccesLevel(userId) == accessLevel) + ",\n db access level : " + ap.getAccesLevel(userId) + ",\n request access level : " + accessLevel );
         System.out.println("==========COMPLETED==========");
-        return ld.isBefore(storedToken.getExpiery()) && authToken.getToken().equals(storedToken.getToken()) && ap.getAccesLevel(userId) == accessLevel; // Return true if user is logged in and session has not expired.
+        return ld.isBefore(storedToken.getExpiery()) && authToken.getToken().equals(storedToken.getToken()) && ap.getAccesLevel(userId) >= accessLevel; // Return true if user is logged in and session has not expired.
     }
     public void putToken(String id, Token token){
         userIdTokenMap.put(id,token);
