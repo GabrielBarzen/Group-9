@@ -29,14 +29,14 @@ export default function ModOverview() {
         console.log(error);
 
         //Dev placeholderdata
-        const placeholder = [{"title":"Test Quiz","description":"This quiz is for testing purposes.","type":"QUIZ","id":"1","code":"572748","locations":3},{"title":"Test Info","description":"This info for testing purposes.","type":"INFO","id":"2","code":"184471","locations":3},{"title":"Test 2","description":"More testing tests ","type":"INFO","id":"4","code":"295052","locations":0},{"title":"Num Location Test1","description":"test, remove","type":"INFO","id":"5","code":"447827","locations":0},{"title":"Num Location Test2","description":"test, remove","type":"INFO","id":"6","code":"625158","locations":3},{"title":"Num Location Test3","description":"test, remove","type":"INFO","id":"7","code":"782310","locations":4},{"title":"Test Quiz2E","description":"This quiz is for testing purposes.","type":"QUIZ","id":"8","code":"538027","locations":6},{"title":"Test Quizz","description":"This quiz is for testing purposes.","type":"QUIZ","id":"10","code":"983850","locations":6}];
+        const placeholder = [{ "title": "Test Quiz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "1", "code": "572748", "locations": 3 }, { "title": "Test Info", "description": "This info for testing purposes.", "type": "INFO", "id": "2", "code": "184471", "locations": 3 }, { "title": "Test 2", "description": "More testing tests ", "type": "INFO", "id": "4", "code": "295052", "locations": 0 }, { "title": "Num Location Test1", "description": "test, remove", "type": "INFO", "id": "5", "code": "447827", "locations": 0 }, { "title": "Num Location Test2", "description": "test, remove", "type": "INFO", "id": "6", "code": "625158", "locations": 3 }, { "title": "Num Location Test3", "description": "test, remove", "type": "INFO", "id": "7", "code": "782310", "locations": 4 }, { "title": "Test Quiz2E", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "8", "code": "538027", "locations": 6 }, { "title": "Test Quizz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "10", "code": "983850", "locations": 6 }];
         placeholder.reverse();
         setTours(placeholder);
       });
   }, [status]);
 
   function deleteItem(id) {
-    console.log("OVERVIEW DELETE")
+    console.log("OVERVIEW DELETE");
     /*
     API call DELETE to remove a single tour based on its ID
     */
@@ -71,13 +71,15 @@ export default function ModOverview() {
     return (
       <div className="container white container-css">
         <div className="row">
-          <h2>Översikt</h2>
-          <ul className="collection">
-            {[...tours].map((tour) => (
-              <Tour key={tour.id} data={tour} deleteItem={deleteItem} />
-            ))}
-          </ul>
-        </div>        
+          <div className="col s12 m4 l8">
+            <h2>Översikt</h2>
+            <ul className="collection">
+              {[...tours].map((tour) => (
+                <Tour key={tour.id} data={tour} deleteItem={deleteItem} />
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     );
   } else {

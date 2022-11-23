@@ -40,6 +40,7 @@ export default function AdminModeratorOverview(props) {
     }, []);
 
     return (<>
+        <row> 
         <li>
             <div className="collapsible-header" onClick={handleSelectOptions} >{props.data.name}</div>
             <div className="collapsible-body">
@@ -60,6 +61,7 @@ export default function AdminModeratorOverview(props) {
                 </ul>
             </div>
         </li>
+        </row>
     </>
     )
 }

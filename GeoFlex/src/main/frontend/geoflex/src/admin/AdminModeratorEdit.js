@@ -60,7 +60,7 @@ export default function AdminModeratorEdit() {
 
                 //Dev placeholderdata
                 setAllRoutes(dummyData);
-                
+
             });
     }
 
@@ -68,7 +68,7 @@ export default function AdminModeratorEdit() {
      * Hämtar en lista av alla moderatorer.
      */
     function getModeratorList() {
-        console.log("GET MODERATOR LIST")
+        console.log("GET MODERATOR LIST");
 
         var config = {
             method: 'get',
@@ -79,13 +79,13 @@ export default function AdminModeratorEdit() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                setModerators(response.data.moderators)
+                setModerators(response.data.moderators);
             })
             .catch(function (error) {
                 console.log(error);
                 //dummy data som ska tas bort:
-                console.log("MODERATOR ERROR")
-                setModerators(dummyModerators)
+                console.log("MODERATOR ERROR");
+                setModerators(dummyModerators);
             });
 
     }
@@ -94,9 +94,9 @@ export default function AdminModeratorEdit() {
      * Hämtar alla quiz en moderator har blivit tilldelad med hjälp av dens ID.
      * Bara id 81 har quizzes atm.
      */
-    
+
     function getRouteForUser(id) {
-        console.log("MOD ID: " + id)
+        console.log("MOD ID: " + id);
         var config = {
             method: 'get',
             url: '/admin/route/user?user-id=' + id,
@@ -107,45 +107,49 @@ export default function AdminModeratorEdit() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                setModeratorRoutes(response.data["routes-for-user"])
+                setModeratorRoutes(response.data["routes-for-user"]);
             })
             .catch(function (error) {
                 console.log(error);
                 //dummy data som ska tas bort:
-                console.log("MODERATOR ROUTES DUMMY DATA")
-                setModeratorRoutes(assignedRouteExample["routes-for-user"])
+                console.log("MODERATOR ROUTES DUMMY DATA");
+                setModeratorRoutes(assignedRouteExample["routes-for-user"]);
             });
 
     }
 
     return (<>
-        <div className='white'>
-            <p>Översikt på moderatorer</p>
-            <ul className='collapsible'>
-                {[...moderators].map((moderator) => (
-                    <AdminModeratorOverview
-                        key={moderator['user-id']}
-                        getRouteForUser={getRouteForUser}
-                        data={moderator}
-                        moderatorRoutesData={moderatorRoutes}
-                        allRoutesData={allRoutes}
-                    />
-                ))}
-            </ul>
+        <div className='container white container-css'>
+            <div className="row center-align">
+                <div className="col s12">
+                    <h2 class="center align">Översikt på moderatorer</h2>
+                    <ul className='collapsible'>
+                        {[...moderators].map((moderator) => (
+                            <AdminModeratorOverview
+                                key={moderator['user-id']}
+                                getRouteForUser={getRouteForUser}
+                                data={moderator}
+                                moderatorRoutesData={moderatorRoutes}
+                                allRoutesData={allRoutes}
+                            />
+                        ))}
+                    </ul>
+                </div>
+            </div>
             <div className="row">
-          <div className="center-align">
-            <Link to="/admin/create-moderator">
-              <Button css=" s12 green lighten-4"
-                
-                icon={<i className="material-icons green-text">
-                    add_circle_outline
-                  </i>
-                }
-              />
-            </Link>
-          </div>
-        </div>
+                <div className="center-align">
+                    <Link to="/admin/create-moderator">
+                        <Button css=" s12 green lighten-1 "
+
+                            icon={<i className="material-icons white-text">
+                                add_circle_outline
+                            </i>
+                            }
+                        />
+                    </Link>
+                </div>
+            </div>
         </div>
     </>
-    )
+    );
 }
