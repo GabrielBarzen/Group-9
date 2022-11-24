@@ -40,7 +40,7 @@ export default function AdminModeratorRegister() {
             axios(config)
                 .then(function (response) {
                     console.log(JSON.stringify(response.data));
-                    navigate('/admin/moderator-management', { replace: true });
+                    navigate('/admin/moderator/overview', { replace: true });
                 })
                 .catch(function (error) {
                     console.log(error);

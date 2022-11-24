@@ -117,6 +117,18 @@ public class AdminController {
         return adminCompanion.createModerator(body);
     }
 
+
+    @RequestMapping(value = "/delete/moderator", method = RequestMethod.POST)
+    public ResponseEntity<String> deleteModerator(
+            @CookieValue(name = "authentication-token") String token,
+            @CookieValue(name = "user-id") String userID, @RequestParam("user-id") String userId) {
+        AdminCompanion adminCompanion = getAdminCompanion(token, userID);
+        if (adminCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden, try logging in again\"}", HttpStatus.FORBIDDEN);
+        }
+        return adminCompanion.deleteModerator(userId);
+    }
+
     @RequestMapping(value = "/moderators", method = RequestMethod.GET)
     public ResponseEntity<String> getAllModerators(
                                                     @CookieValue(name = "authentication-token") String token,
