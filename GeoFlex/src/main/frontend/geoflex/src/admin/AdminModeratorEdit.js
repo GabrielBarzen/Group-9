@@ -122,7 +122,7 @@ export default function AdminModeratorEdit() {
         <div className='container white container-css'>
             <div className="row center-align">
                 <div className="col s12">
-                    <h2 class="center align">Översikt på moderatorer</h2>
+                    <h2 className="center align">Översikt på moderatorer</h2>
                     <ul className='collapsible'>
                         {[...moderators].map((moderator) => (
                             <AdminModeratorOverview
