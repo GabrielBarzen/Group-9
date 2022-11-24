@@ -9,6 +9,7 @@ export default function AdminModeratorEdit() {
     const [moderatorRoutes, setModeratorRoutes] = useState([]);
     const [allRoutes, setAllRoutes] = useState([]);
     const [selectItems, setSelectItems] = useState([]);
+    const [status, setStatus] = useState(false);
 
 
     const location = useLocation();
@@ -110,7 +111,7 @@ export default function AdminModeratorEdit() {
 
         getRouteForUser();
         getAllRoutes();
-    }, [moderator])
+    }, [status, moderator])
 
     function assignRouteToMod(routeID, moderatorID){
         var data = JSON.stringify(
@@ -137,6 +138,11 @@ export default function AdminModeratorEdit() {
           axios(config)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
+            if(!status){
+                setStatus(true);
+            } else if(status){
+                setStatus(false);
+            }
           })
           .catch(function (error) {
             console.log(error);
@@ -168,6 +174,11 @@ export default function AdminModeratorEdit() {
           axios(config)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
+            if(!status){
+                setStatus(true);
+            } else if(status){
+                setStatus(false);
+            }
           })
           .catch(function (error) {
             console.log(error);

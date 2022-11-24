@@ -16,19 +16,7 @@ export default function AdminModeratorOverviewList(props) {
  * Deletes a moderator.
  */
     function handleDeleteModerator() {
-        var config = {
-            method: 'post',
-            url: '/admin/delete/moderator?user-id=' + props.data["user-id"],
-            headers: {}
-        };
-
-        axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        props.deleteModerator(props.data["user-id"])
     }
 
     return (<>
@@ -39,7 +27,7 @@ export default function AdminModeratorOverviewList(props) {
             <Link className="left" style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }} to={url} state={{ data: props.data }}>
                 {props.data.name}
             </Link>
-            <span className='col s1 right' style={{ cursor: 'pointer', 'fontSize': '2rem' }}><i className='material-icons right black-text' id={props.data["user-id"]} onClick={() => { props.deleteItem(props.data["user-id"]) }}>delete_forever</i></span>
+            <span className='col s1 right' style={{ cursor: 'pointer', 'fontSize': '2rem' }}><i className='material-icons right black-text' id={props.data["user-id"]} onClick={handleDeleteModerator}>delete_forever</i></span>
 
         </li>
 
