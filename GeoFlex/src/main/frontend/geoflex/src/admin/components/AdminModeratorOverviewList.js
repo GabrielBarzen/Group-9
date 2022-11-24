@@ -62,21 +62,5 @@ export default function AdminModeratorOverviewList(props) {
 
 
                             <div onClick={handleSelectOptions} >{props.data.name}</div>
-            <div >
-                <ul>
-                    {[...routeData].map((route) => (
-
-                        <AdminModRoutes key={(route.id)} data={route} moderator={props.data}/>
-                    ))}
-                </ul>
-                <ul className="collapsible">
-                    <li>
-                        <div className="collapsible-header">Tilldela rutt</div>
-                        <div className="collapsible-body">{[...selectItems].map((item) => (<AdminModAssignRoutes
-                                key={item.id}
-                                selectItem={item} />
-                            ))}</div>
-                    </li>
-                </ul>
-            </div>
+            
 */

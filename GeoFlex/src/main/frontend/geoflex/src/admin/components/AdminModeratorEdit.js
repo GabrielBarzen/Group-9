@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import AdminModRoutes from './AdminModRoutes';
+import AdminModAssignRoutes from './AdminModAssignRoutes'
+import M from 'materialize-css';
 
 export default function AdminModeratorEdit() {
     const [moderatorRoutes, setModeratorRoutes] = useState([]);
     const [allRoutes, setAllRoutes] = useState([]);
-    
-    
+    const [selectItems, setSelectItems] = useState([]);
+
+
     const location = useLocation();
     const navigate = useNavigate();
 
-    const moderatorID = location.state.data["user-id"];
+    const moderator = location.state.data;
 
-    
+
 
     const handleSelectOptions = () => {
-        
+
         //
 
-        
-        
+
+
         //let routes = props.moderatorRoutesData;
 
 
@@ -36,19 +40,20 @@ export default function AdminModeratorEdit() {
         
                 setSelectItems(availableRoutes);
         */
-        //setSelectItems(leftUsers)
+        setSelectItems(leftUsers)
     }
-    useEffect(() =>{
+    useEffect(() => {
+        M.AutoInit();
 
         function getRouteForUser() {
-            console.log("MOD ID: " + moderatorID);
+            console.log("MOD ID: " + moderator["user-id"]);
             var config = {
                 method: 'get',
-                url: '/admin/route/user?user-id=' + moderatorID,
+                url: '/admin/route/user?user-id=' + moderator["user-id"],
                 headers: {
                 }
             };
-    
+
             axios(config)
                 .then(function (response) {
                     console.log(JSON.stringify(response.data));
@@ -80,7 +85,7 @@ export default function AdminModeratorEdit() {
                     console.log("MODERATOR ROUTES DUMMY DATA");
                     setModeratorRoutes(assignedRouteExample["routes-for-user"]);
                 });
-    
+
         }
         function getAllRoutes() {
             var config = {
@@ -88,30 +93,53 @@ export default function AdminModeratorEdit() {
                 url: "/admin/routes",
                 headers: {},
             };
-    
+
             axios(config)
                 .then(function (response) {
                     setAllRoutes(response.data);
                 })
                 .catch(function (error) {
                     console.log(error);
-    
+
                     //Dev placeholderdata
                     const dummyData = [{ "title": "Test Quiz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "1", "code": "572748", "locations": 3 }, { "title": "Test Info", "description": "This info for testing purposes.", "type": "INFO", "id": "2", "code": "184471", "locations": 3 }, { "title": "Test 2", "description": "More testing tests ", "type": "INFO", "id": "4", "code": "295052", "locations": 0 }, { "title": "Num Location Test1", "description": "test, remove", "type": "INFO", "id": "5", "code": "447827", "locations": 0 }, { "title": "Num Location Test2", "description": "test, remove", "type": "INFO", "id": "6", "code": "625158", "locations": 3 }, { "title": "Num Location Test3", "description": "test, remove", "type": "INFO", "id": "7", "code": "782310", "locations": 4 }, { "title": "Test Quiz2E", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "8", "code": "538027", "locations": 6 }, { "title": "Test Quizz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "10", "code": "983850", "locations": 6 }];
                     setAllRoutes(dummyData);
-    
+
                 });
         }
 
         getRouteForUser();
         getAllRoutes();
-    }, [moderatorID])
-    
+    }, [moderator])
 
-  return (
-    <div>
-        <h1></h1>
 
-    </div>
-  )
+    return (
+        <div className='container white'>
+            <h1>{moderator.name}</h1>
+                <ul>
+                    {[...moderatorRoutes].map((route) => (
+
+                        <AdminModRoutes
+                            key={moderator["user-id"]}
+                            moderator={moderator}
+                            route={route} />
+                    ))}
+                </ul>
+                <ul className="collapsible">
+                    <li>
+                        <div className="collapsible-header" onClick={handleSelectOptions}>Tilldela rutt</div>
+                        <div className="collapsible-body">{[...selectItems].map((item) => (<AdminModAssignRoutes
+                            key={item.id}
+                            selectItem={item} 
+                            moderatorID={moderator["user-id"]}
+                            
+                            />
+                        ))}</div>
+                    </li>
+                </ul>
+                <Link to={"/admin/moderator/overview"}>
+                <h2>Gå tillbaka</h2>
+                </Link>
+        </div>
+    )
 }
