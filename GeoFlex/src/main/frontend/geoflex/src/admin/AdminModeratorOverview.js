@@ -23,7 +23,7 @@ export default function AdminModeratorOverview() {
     useEffect(() => {
         M.AutoInit();
         console.log("GET MODERATOR LIST");
-
+        console.log(status);
         var config = {
             method: 'get',
             url: '/admin/moderators',
@@ -56,12 +56,12 @@ export default function AdminModeratorOverview() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                if(!status){
+                    setStatus(true);
+                } else if(status){
+                    setStatus(false);
+                }
             })
-            if(!status){
-                setStatus(true);
-            } else if(status){
-                setStatus(false);
-            }
             .catch(function (error) {
                 console.log(error);
             });

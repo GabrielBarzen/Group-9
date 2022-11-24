@@ -388,6 +388,24 @@ public class AdminProcedures {
         }
     }
 
+    public static void deleteModerator(String userId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_moderator(?)}")) {
+            cs.setString("in_user_id", userId);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
     public static String getAllModerators() {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_users_by_role(?)}")) {

@@ -42,10 +42,16 @@ export default function AdminModeratorEdit() {
                 setSelectItems(availableRoutes);
         */
         setSelectItems(leftUsers)
+        if(!status){
+            setStatus(true);
+        } else if(status){
+            setStatus(false);
+        }
+        
     }
     useEffect(() => {
         M.AutoInit();
-
+        console.log(status);
         function getRouteForUser() {
             console.log("MOD ID: " + moderator["user-id"]);
             var config = {
