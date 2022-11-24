@@ -113,8 +113,6 @@ export default function AdminModeratorEdit() {
     }, [moderator])
 
     function assignRouteToMod(routeID, moderatorID){
-        console.log("HERE")
-        /*alert(routeID)
         var data = JSON.stringify(
             {
               "user-id": moderatorID,
@@ -142,10 +140,10 @@ export default function AdminModeratorEdit() {
           })
           .catch(function (error) {
             console.log(error);
-          });*/
+          });
     }
 
-    function unassignRouteToMod(routeID, moderatorID){
+    function unassignRouteFromMod(routeID, moderatorID){
         var data = JSON.stringify(
             {
               "user-id": moderatorID,
@@ -186,6 +184,7 @@ export default function AdminModeratorEdit() {
                         <AdminModRoutes
                             key={route.id}
                             moderator={moderator}
+                            unassignRouteFromMod={unassignRouteFromMod}
                             route={route} />
                     ))}
                 </ul>
@@ -197,7 +196,6 @@ export default function AdminModeratorEdit() {
                             selectItem={item} 
                             moderatorID={moderator["user-id"]}
                             assignRouteToMod={assignRouteToMod}
-                            unassignRouteToMod={unassignRouteToMod}
                             />
                         ))}</div>
                     </li>

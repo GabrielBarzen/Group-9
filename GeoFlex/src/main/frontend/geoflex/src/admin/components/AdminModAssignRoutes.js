@@ -3,13 +3,12 @@ import React from 'react';
 export default function AdminModAssignRoutes(props) {
     const handleAddRouteToMod = () => {
         //lägger till route till en moderator
-        props.assignRouteToMod(props.selectItem.id, props.moderator.id);
-        //props.unassignRouteToMod();
+        props.assignRouteToMod(props.selectItem.id, props.moderatorID);
     }
-    
+
     const handleRemoveRouteToMod = () => {
-      //lägger till route till en moderator
-      //props.unassignRouteToMod();
+      //tar bort  route från en moderator
+      props.unassignRouteToMod(props.selectItem.id, props.moderatorID);
   }
 
   return (<p id={props.selectItem.id} >

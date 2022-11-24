@@ -4,7 +4,7 @@ export default function AdminModRoutes(props) {
 
   function handleDelete(){
     //tar bort en route från en moderator
-    alert(props.moderator["user-id"] + " " + props.route.id)
+    props.unassignRouteFromMod(props.route.id, props.moderator["user-id"]);
   }
   return (
     <li className='row'>
