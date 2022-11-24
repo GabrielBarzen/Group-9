@@ -112,6 +112,70 @@ export default function AdminModeratorEdit() {
         getAllRoutes();
     }, [moderator])
 
+    function assignRouteToMod(routeID, moderatorID){
+        console.log("HERE")
+        /*alert(routeID)
+        var data = JSON.stringify(
+            {
+              "user-id": moderatorID,
+              "access-level": 1,
+              "route": [
+                  {
+                      "assign" : routeID
+                  }
+              ] 
+          }
+          )
+  
+          var config = {
+            method: 'patch',
+            url: '/admin/route/moderator',
+            headers: { 
+              'Content-Type': 'text/plain', 
+            },
+            data : data
+          };
+  
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });*/
+    }
+
+    function unassignRouteToMod(routeID, moderatorID){
+        var data = JSON.stringify(
+            {
+              "user-id": moderatorID,
+              "access-level": 1,
+              "route": [
+                  {
+                      "un-assign" : routeID
+                  }
+              ]
+          }
+          )
+      
+          var config = {
+            method: 'patch',
+            url: '/admin/route/moderator',
+            headers: { 
+              'Content-Type': 'text/plain', 
+            },
+            data : data
+          };
+      
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
 
     return (
         <div className='container white'>
@@ -120,7 +184,7 @@ export default function AdminModeratorEdit() {
                     {[...moderatorRoutes].map((route) => (
 
                         <AdminModRoutes
-                            key={moderator["user-id"]}
+                            key={route.id}
                             moderator={moderator}
                             route={route} />
                     ))}
@@ -132,7 +196,8 @@ export default function AdminModeratorEdit() {
                             key={item.id}
                             selectItem={item} 
                             moderatorID={moderator["user-id"]}
-                            
+                            assignRouteToMod={assignRouteToMod}
+                            unassignRouteToMod={unassignRouteToMod}
                             />
                         ))}</div>
                     </li>
