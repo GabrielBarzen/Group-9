@@ -29,7 +29,7 @@ export default class LocationFormMedia extends Component {
     };
 
     handleGetMediaLocation() {
-
+        var myData;
         var config = {
             method: 'get',
             url: '/moderator/location/file/retrieve?locationId=' + this.state.locationID,
@@ -40,17 +40,18 @@ export default class LocationFormMedia extends Component {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 alert("GETMEDIA: " + response.data)
-                let myData = "http://localhost:8080/" + response.data
-                setState({ mediaUrl: myData })
-
+                myData = "http://localhost:8080/" + response.data
+                setImage(myData)
             })
             .catch(function (error) {
                 console.log(error);
+                myData = "https://m.media-amazon.com/images/M/MV5BNGJmMWEzOGQtMWZkNS00MGNiLTk5NGEtYzg1YzAyZTgzZTZmXkEyXkFqcGdeQXVyMTE1MTYxNDAw._V1_.jpg";
+                setImage(myData)
             });
 
-
-
-
+            var setImage = (imagePath) => {
+                this.setState({ mediaUrl: imagePath});
+            }
     }
 
 
