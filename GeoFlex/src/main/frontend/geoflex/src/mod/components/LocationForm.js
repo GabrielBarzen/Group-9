@@ -32,10 +32,10 @@ export default class LocationForm extends Component {
 
 
     handleShowContent(){
-        console.log("CONTENT: " + this.state.locationContent)
+        //console.log("CONTENT: " + this.state.locationContent)
         //if(this.state.locationContent.length !== 0){
         let counter = 1;
-        [...this.state.locationContent].map((content) =>{
+        /*[...this.state.locationContent].map((content) =>{
             
             let title = "Svar" + counter;            
             let contentName = "answer" + content["content-id"];
@@ -51,7 +51,7 @@ export default class LocationForm extends Component {
                             onChange={this.handleInputChange} />
                     </label>
                 </>)
-        })
+        })*/
     /*
     } else {
         return(

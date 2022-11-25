@@ -8,15 +8,14 @@ export default function Location(props) {
      * Location.js renders each single location-object received
      * all properties and functions is mapped through props.
      */
-    const locationContent = [];
+    const [locationContent, setLocationContent] = useState();
 
     const currentValue = props.data;
 
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
 
-    function handleEditLocation(locationContent){
-        alert("Edit Location " + currentValue.id)
+    function handleEditLocation(){
         var config = {
             method: 'get',
             url: '/moderator/location/content/?locationId=' + currentValue.id,
@@ -56,21 +55,10 @@ export default function Location(props) {
                 }
                 ]
                 };
-            alert(dummyResponse.content[0].answer);
-            dummyResponse.content.forEach(element => {
-                locationContent.push(element);                
-            });
-            
-
-            
-            
-            
+                setLocationContent(dummyResponse)
+                console.log("HÄR" + locationContent.content[0].answer);
           });
-          console.log("HÄR" + locationContent.content[0].answer);
     }
-
-    
-
 
     const firstLocation = () => {
         /**
