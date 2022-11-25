@@ -5,8 +5,9 @@ import ModGeolocate from './ModGeolocate';
 export default class LocationForm extends Component {
     constructor(props) {
         super(props);
-        console.log("CURRENTDATA LOCATION FORM")
-        console.log(props.currentData)
+        console.log("CURRENTDATA - LOCATION FORM")
+        //Location form laddar innan man trycker på edit vilket gör att man ej kan skicka datan.
+        console.log(props.locationContent)
 
         //Här definierar vi alla förifyllda värden baserat på props
 
@@ -32,9 +33,13 @@ export default class LocationForm extends Component {
 
 
     handleShowContent(){
+        console.log(this.state.locationID)
+        console.log(this.state.locationContent)
+
         //console.log("CONTENT: " + this.state.locationContent)
         //if(this.state.locationContent.length !== 0){
-        let counter = 1;
+            //let counter = 1;
+            //console.log("LocationFormASD" + this.state.locationContent)
         /*[...this.state.locationContent].map((content) =>{
             
             let title = "Svar" + counter;            
@@ -122,6 +127,7 @@ export default class LocationForm extends Component {
     render() {
         return (
             <div className='container col s12'>
+                <p onClick={this.handleShowContent}> kör en gång</p>
                 <h3>Plats 1</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label>
@@ -172,7 +178,7 @@ export default class LocationForm extends Component {
 
                     </fieldset>
                     <fieldset>
-                        {this.handleShowContent()}
+                        {this.handleShowContent}
                         <span onClick={this.handleAddAnswer}>
                             Lägg till svar
                         </span>

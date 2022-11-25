@@ -11,7 +11,6 @@ export default function Location(props) {
     const [locationContent, setLocationContent] = useState();
 
     const currentValue = props.data;
-
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
 
@@ -56,7 +55,7 @@ export default function Location(props) {
                 ]
                 };
                 setLocationContent(dummyResponse)
-                console.log("HÄR" + locationContent.content[0].answer);
+                console.log("HÄR-Location" + locationContent.content[0].answer);
           });
     }
 

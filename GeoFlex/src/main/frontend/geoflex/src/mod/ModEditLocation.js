@@ -115,8 +115,6 @@ export default function ModEditLocation(props) {
       });
   }
 
-  
-
   return (
     <>
       <LocationForm
