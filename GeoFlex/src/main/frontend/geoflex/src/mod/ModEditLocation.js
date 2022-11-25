@@ -74,7 +74,7 @@ export default function ModEditLocation(props) {
       });
   }
 
-  function removeAnswer(id) {
+  function removeAnswer(contentID) {
     /**
      * API-call to remove 1 answer 
      */
@@ -89,7 +89,7 @@ export default function ModEditLocation(props) {
         "directions": "Go left then turn back.",
         "content" : [
           {
-            "delete" : "content id"
+            "delete" : contentID
           }
         ]
       }},

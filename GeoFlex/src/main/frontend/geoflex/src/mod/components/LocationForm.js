@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import LocationFormMedia from './LocationFormMedia';
 import ModGeolocate from './ModGeolocate';
 
 export default class LocationForm extends Component {
     constructor(props) {
         super(props);
+        console.log("CURRENTDATA LOCATION FORM")
         console.log(props.currentData)
 
         //Här definierar vi alla förifyllda värden baserat på props
-        
+
         this.state = {
             locationName: props.currentData.name,
             locationInfo: props.currentData.text_info,
@@ -76,7 +78,7 @@ export default class LocationForm extends Component {
         }
         this.props.callUpdateLocation(data);
 
-        alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude);
+        alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections);
     }
 
 
@@ -103,30 +105,12 @@ export default class LocationForm extends Component {
                             value={this.state.locationInfo}
                             onChange={this.handleInputChange} />
                     </label>
-                    <label>
-                        Lägg till bild
-                        <input
-                            className='blue lighten-4'
-                            name="locationImage" type="text"
-                            value={this.state.locationImage}
-                            onChange={this.handleInputChange} />
-
-                    </label>
-
-                    <label>
-                        Lägg till video
-                        <input
-                            className='blue lighten-4'
-                            name="locationVideo" type="text"
-                            value={this.state.locationVideo}
-                            onChange={this.handleInputChange} />
-
-                    </label>
+                    <LocationFormMedia locationID={this.props.currentData.id}/>
                     <label>
                         Vägbeskrivning
                         <input
                             className='blue lighten-4'
-                            name="locationVideo" type="text"
+                            name="locationDirections" type="text"
                             value={this.state.locationDirections}
                             onChange={this.handleInputChange} />
 
@@ -149,11 +133,11 @@ export default class LocationForm extends Component {
                                 onChange={this.handleInputChange} />
                         </label>
                         <ModGeolocate handleGeoLocation={this.handleGeoLocation} />
-                        
+
                     </fieldset>
                     <fieldset>
                         <span onClick={this.handleAddAnswer}>
-                            Add question
+                            Lägg till svar
                         </span>
                     </fieldset>
                     <input type="submit" value="Submit" />
