@@ -15,7 +15,7 @@ export default function Location(props) {
     const currentIndex = props.data.location_index;
 
     function handleEditLocation(){
-        var config = {
+        /*var config = {
             method: 'get',
             url: '/moderator/location/content/?locationId=' + currentValue.id,
             headers: { }
@@ -56,7 +56,7 @@ export default function Location(props) {
                 };
                 setLocationContent(dummyResponse)
                 console.log("HÄR-Location" + locationContent.content[0].answer);
-          });
+          });*/
     }
 
     const firstLocation = () => {
