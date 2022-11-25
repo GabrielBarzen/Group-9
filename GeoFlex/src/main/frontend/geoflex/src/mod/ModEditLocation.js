@@ -3,6 +3,7 @@ import LocationForm from './components/LocationForm';
 import axios from 'axios';
 
 export default function ModEditLocation(props) {
+  
   /**
    * ModEditLocation handles all API-calls needed to edit a location
    *  
@@ -32,14 +33,14 @@ export default function ModEditLocation(props) {
 
   }
 
-  function addAnswer(id) {
+  function addAnswer(locationID) {
     /**
      * API-call to add 1 answer 
      */
     var data = JSON.stringify(
       {
         "location-update": {
-          "location-id": id,
+          "location-id": locationID,
           "name": "",
           "text_info": "",
           "qr": "",
@@ -48,7 +49,7 @@ export default function ModEditLocation(props) {
           "directions": "",
           "content": [
             {
-              "new": "1"
+              "id": null
             }
           ]
         }
@@ -120,6 +121,7 @@ export default function ModEditLocation(props) {
     <>
       <LocationForm
         currentData={props.data}
+        locationContent={props.locationContent}
         callUpdateLocation={updateLocation}
         callAddAnswer={addAnswer} 
         callRemoveAnswer={removeAnswer}

@@ -111,23 +111,6 @@ export default class LocationFormMedia extends Component {
                 </label>
                 <p onClick={this.handleGetMediaLocation}>Hämta bild</p>
 
-
-
-                <label>
-                    Lägg till video
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>Video</span>
-                            <input type="file"
-                                className='blue lighten-4'
-                            />
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" />
-                        </div>
-                    </div>
-
-                </label>
             </fieldset>
         )
     }

@@ -13,23 +13,60 @@ export default class LocationForm extends Component {
         this.state = {
             locationName: props.currentData.name,
             locationInfo: props.currentData.text_info,
+            locationID: props.currentData.id,
             locationImage: 'BILD URL HÄR',
             locationVideo: 'Video URL HÄR',
             locationDirections: 'Go left then turn back',
             locationLongitude: 'Longitud här',
-            locationLatitude: 'Latitud här'
+            locationLatitude: 'Latitud här',
+            locationContent: props.locationContent
         };
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGeoLocation = this.handleGeoLocation.bind(this);
+        this.handleShowContent = this.handleShowContent.bind(this);
+        
+    }
+
+
+    handleShowContent(){
+        console.log("CONTENT: " + this.state.locationContent)
+        //if(this.state.locationContent.length !== 0){
+        let counter = 1;
+        [...this.state.locationContent].map((content) =>{
+            
+            let title = "Svar" + counter;            
+            let contentName = "answer" + content["content-id"];
+
+            counter++
+            return(<>
+                        <label>
+                        {title}
+                        <input
+                            className='blue lighten-4'
+                            name={contentName} type="text"
+                            value={content.answer}
+                            onChange={this.handleInputChange} />
+                    </label>
+                </>)
+        })
+    /*
+    } else {
+        return(
+            <div>INGET CONTENT FÖR TILLFÄLLET</div>
+        )
+    }
+    */
     }
 
     handleAddAnswer() {
         /**
          * Add a new question
          */
+        this.props.addAnswer(this.state.locationID);
+
 
     }
 
@@ -72,8 +109,7 @@ export default class LocationForm extends Component {
                 "x_coords": this.state.locationLongitude,
                 "y_coords": this.state.locationLatitude,
                 "directions": this.state.locationDirections,
-                "content": [
-                ]
+                "content": "content"
             }
         }
         this.props.callUpdateLocation(data);
@@ -136,6 +172,7 @@ export default class LocationForm extends Component {
 
                     </fieldset>
                     <fieldset>
+                        {this.handleShowContent()}
                         <span onClick={this.handleAddAnswer}>
                             Lägg till svar
                         </span>
