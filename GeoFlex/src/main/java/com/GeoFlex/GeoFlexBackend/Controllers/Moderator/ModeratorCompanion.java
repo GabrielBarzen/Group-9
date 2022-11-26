@@ -132,7 +132,8 @@ public class ModeratorCompanion {
             response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         else {
-            String json = ModeratorProcedures.getRouteLocations(routeID);
+            //String json = ModeratorProcedures.getRouteLocations(routeID);
+            String json = ModeratorProcedures.getRouteLocationsExperimental(routeID);
             response = new ResponseEntity<>(json, HttpStatus.OK);
         }
         return response;

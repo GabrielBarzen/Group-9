@@ -1,6 +1,8 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
-import com.GeoFlex.GeoFlexBackend.PoJo.LocationUpdate.LocationEdit;
+import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.CompleteLocationRoot;
+import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.ContentEdit;
+import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.Locations;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
@@ -10,14 +12,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ModeratorProcedures {
 
@@ -667,6 +664,55 @@ public class ModeratorProcedures {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        getRouteLocationsExperimental(String.valueOf(97));
+    }
+    public static String getRouteLocationsExperimental(String routeID) {
+        DatabaseConnection dc = new DatabaseConnection();
+        CompleteLocationRoot clr = new CompleteLocationRoot();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_location_for_route_test_experimental(?)}")) {
+            cs.setInt("in_route_id", Integer.parseInt(routeID));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            String currentLocationId = "0";
+            List<Locations> list = new ArrayList<>();
+            while(res.next()) {
+                if (!currentLocationId.equals(res.getString("id"))) {
+                    currentLocationId = res.getString("id");
+                    clr.locations = new Locations();
+                    clr.locations.name = res.getString("name");
+                    clr.locations.textInfo = res.getString("text_info");
+                    clr.locations.locationId = res.getString("id");
+                    clr.locations.locationIndex = res.getString("location_index");
+                    clr.locations.lastLocation = String.valueOf(res.getBoolean("last_location"));
+                    clr.locations.xCoords = res.getString("x_coordinate");
+                    clr.locations.yCoords = res.getString("y_coordinate");
+                    clr.locations.directions = res.getString("directions");
+                    clr.locations.content = new ArrayList<>();
+                    list.add(clr.locations);
+                }
+                if(res.getString("content_id") != null){
+                    ContentEdit content = new ContentEdit();
+                    content.answer = res.getString("answer");
+                    content.correct = res.getBoolean("correct");
+                    content.contentId = res.getString("content_id");
+                    clr.locations.content.add(content);
+                }
+            }
+            Gson gson = new Gson();
+            return gson.toJson(list);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {

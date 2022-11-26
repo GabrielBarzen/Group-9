@@ -84,8 +84,7 @@ export default class LocationForm extends Component {
                 data.content.map((content) => {
                     return console.log(content.answer)
             })
-        }
-
+            }
     }
 
     //console.log("CONTENT: " + this.state.locationContent)
