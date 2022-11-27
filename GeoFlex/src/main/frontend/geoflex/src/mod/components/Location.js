@@ -43,7 +43,7 @@ export default function Location(props) {
                         <div className='col s1'>
                             <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '2'}} 
                             className='material-icons right black-text large' 
-                            onClick={() => { props.swapLocationsDown(props.data.location_id) }}>keyboard_arrow_down</i>
+                            onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                         </div>
                         <div className='collapsible-body col s10'>
                             <ModEditLocation data={currentValue}/>
@@ -72,7 +72,7 @@ export default function Location(props) {
                     <div className='col s2'>
                         <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '1.5'}} 
                         className='material-icons right black-text large' 
-                        onClick={() => { props.swapLocationsUp(props.data.location_id) }}>keyboard_arrow_up</i>
+                        onClick={() => { props.swapLocationsUp(props.data.location_index) }}>keyboard_arrow_up</i>
                     </div>
                     <div className='col s1 offset-s2'>
                         <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '1.5'}} 
@@ -86,7 +86,7 @@ export default function Location(props) {
                     <div className='col s1'>
                         <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '2'}} 
                         className='material-icons right black-text large' 
-                        onClick={() => { props.swapLocationsDown(props.data.location_id) }}>keyboard_arrow_down</i>
+                        onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                     </div>
                     <div className='collapsible-body col s12'>
                         <ModEditLocation data={currentValue}/>
@@ -116,7 +116,7 @@ export default function Location(props) {
                         </span>
                         <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}>
                             <i className='material-icons right black-text' 
-                            onClick={() => { props.swapLocationsDown(props.data.location_id) }}>keyboard_arrow_down</i>
+                            onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                         </span>
                         <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}>
                             <i className='material-icons collapsible-header'>edit</i>

@@ -13,7 +13,7 @@ export default function ModEditForms(props) {
 
   }, []);
 
-  function swapLocationsUp(idFrom) {
+  function swapLocationsUp(locIndex) {
     /*
     onClick function to move a location-object up
     receives the ID from a specific location
@@ -21,25 +21,24 @@ export default function ModEditForms(props) {
     location_index will always be ordered ascending, making it possible to find the right object    
     */
     let routeID = props.mainData.id;
-    var temp = "";
-    var idToIndex = "";
+    var idToIndex = (parseInt(locIndex) - 1);
     var idTo = "";
-    props.locationsData.forEach((element) => {
-      if (element.id === idFrom) {
-        temp = parseInt(element.location_index);
-        idToIndex = temp - 1;
-      }
-    });
+    let idFrom = ""
 
     props.locationsData.forEach((item) => {
-      if (item.location_index === idToIndex.toString()) {
-        idTo = item.id;
+      console.log(item.location_index + "   " + idToIndex);
+      if (item.location_index === locIndex) {
+        idFrom = item.location_id;
+      } else if(item.location_index === idToIndex.toString()){
+        console.log("IF ELSE")
+        idTo = item.location_id
       }
     });
     props.callMoveLocation(routeID, idFrom, idTo);
   }
 
-  function swapLocationsDown(idFrom) {
+  function swapLocationsDown(locIndex) {
+   
     /*
     onClick function to move a location-object down
     receives the ID from a specific location
@@ -47,25 +46,32 @@ export default function ModEditForms(props) {
     location_index will always be ordered ascending, making it possible to find the right object    
     */
     let routeID = props.mainData.id;
-    var temp = "";
-    var idToIndex = "";
+    var idToIndex = (parseInt(locIndex) + 1);
     var idTo = "";
-    props.locationsData.forEach((element) => {
+    let idFrom = ""
+    /*props.locationsData.forEach((element) => {
       if (element.id === idFrom) {
         temp = parseInt(element.location_index);
         idToIndex = temp + 1;
       }
     });
-
+*/
     props.locationsData.forEach((item) => {
-      if (item.location_index === idToIndex.toString()) {
-        idTo = item.id;
+      console.log(item.location_index + "   " + idToIndex);
+      if (item.location_index === locIndex) {
+        idFrom = item.location_id;
+      } else if(item.location_index === idToIndex.toString()){
+        console.log("IF ELSE")
+        idTo = item.location_id
       }
     });
+
     props.callMoveLocation(routeID, idFrom, idTo);
   }
 
   function handleDelete(id) {
+    alert(id)
+
     let routeID = props.mainData.id;
     props.callDeleteLocation(routeID, id);
   }
