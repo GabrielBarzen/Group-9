@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-
 import Location from './Location';
 import M from 'materialize-css'
 
