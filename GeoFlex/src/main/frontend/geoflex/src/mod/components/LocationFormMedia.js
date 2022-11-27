@@ -5,6 +5,11 @@ import FormData from 'form-data';
 
 
 export default class LocationFormMedia extends Component {
+    /**
+     * Todo: 
+     *          kommentera kod
+     *          Fixa riktig knapp i html
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -29,6 +34,7 @@ export default class LocationFormMedia extends Component {
     };
 
     handleGetMediaLocation() {
+
         var myData;
         var config = {
             method: 'get',
@@ -91,19 +97,18 @@ export default class LocationFormMedia extends Component {
                 <label>
                     Lägg till bild
 
-                    <div class="file-field input-field">
-                        <div class="btn">
+                    <div className="file-field input-field">
+                        <div className="btn">
                             <span>Bild</span>
                             <input type="file"
                                 className='blue lighten-4'
                                 onChange={this.onFileChange}
                             />
                         </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" />
+                        <div className="file-path-wrapper">
+                            <input className="file-path validate" type="text" />
                         </div>
                         <img src={this.state.mediaUrl} alt={this.state.mediaUrl}/>
-
 
 
                     </div>

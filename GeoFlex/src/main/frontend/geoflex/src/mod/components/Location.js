@@ -9,7 +9,6 @@ export default function Location(props) {
      * all properties and functions is mapped through props.
      */
 
-
     const currentValue = props.data;
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
@@ -33,16 +32,16 @@ export default function Location(props) {
                                 
                         </div>
                         <div className='col s1 offset-s2'>
-                            <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '1.5'}} 
+                            <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '1.5'}} 
                             className='material-icons black-text col s1' 
                             onClick={() => { props.deleteLocation(props.data.id) }}>delete_forever</i>
                         </div>
                         <div className='col s7 offset-s1'>
-                            <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} 
+                            <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'borderBottom': '0', 'padding': '1rem'}} 
                             className='material-icons black-text collapsible-header col s1'>edit</i>
                         </div>
                         <div className='col s1'>
-                            <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '2'}} 
+                            <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '2'}} 
                             className='material-icons right black-text large' 
                             onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
                         </div>
@@ -71,21 +70,21 @@ export default function Location(props) {
                         </span> 
                     </div>  
                     <div className='col s2'>
-                        <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '1.5'}} 
+                        <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '1.5'}} 
                         className='material-icons right black-text large' 
                         onClick={() => { props.swapLocationsUp(props.data.id) }}>keyboard_arrow_up</i>
                     </div>
                     <div className='col s1 offset-s2'>
-                        <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '1.5'}} 
+                        <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '1.5'}} 
                         className='material-icons black-text col s1' 
                         onClick={() => { props.deleteLocation(props.data.id) }}>delete_forever</i>
                     </div>
                     <div className='col s7 offset-s1'>
-                        <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} 
+                        <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'borderBottom': '0', 'padding': '1rem'}} 
                         className='material-icons black-text collapsible-header col s1'>edit</i>
                     </div>
                     <div className='col s1'>
-                        <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '2'}} 
+                        <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'lineHeight': '2'}} 
                         className='material-icons right black-text large' 
                         onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
                     </div>
@@ -146,7 +145,7 @@ export default function Location(props) {
                     </span> 
                 </div>                  
                 <div className='col s7 offset-s1'>
-                    <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} 
+                    <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'borderBottom': '0', 'padding': '1rem'}} 
                     className='material-icons black-text collapsible-header col s1'>edit</i>
                 </div>
                 <div className='col s1'>
