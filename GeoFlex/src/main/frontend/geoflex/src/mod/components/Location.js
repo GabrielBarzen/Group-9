@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ModEditLocation from '../ModEditLocation';
-import axios from 'axios';
+
 
 export default function Location(props) {
     /**
@@ -8,56 +8,11 @@ export default function Location(props) {
      * Location.js renders each single location-object received
      * all properties and functions is mapped through props.
      */
-    const [locationContent, setLocationContent] = useState();
+
 
     const currentValue = props.data;
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
-
-    function handleEditLocation(){
-        /*var config = {
-            method: 'get',
-            url: '/moderator/location/content/?locationId=' + currentValue.id,
-            headers: { }
-          };
-          
-          axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-
-          })
-          .catch(function (error) {
-            console.log(error);
-            //DummyData:
-            
-            let dummyResponse = {
-                "content":[
-                {
-                "answer":"Spongebob",
-                "correct":true,
-                "content-id":46
-                },
-                {
-                "answer":"Squidward",
-                "correct":false,
-                "content-id":47
-                },
-                {
-                "answer":"Puffs",
-                "correct":false,
-                "content-id":53
-                },
-                {
-                "answer":"Patrick",
-                "correct":false,
-                "content-id":54
-                }
-                ]
-                };
-                setLocationContent(dummyResponse)
-                console.log("HÄR-Location" + locationContent.content[0].answer);
-          });*/
-    }
 
     const firstLocation = () => {
         /**
@@ -84,8 +39,7 @@ export default function Location(props) {
                         </div>
                         <div className='col s7 offset-s1'>
                             <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} 
-                            className='material-icons black-text collapsible-header col s1'
-                            onClick={handleEditLocation}>edit</i>
+                            className='material-icons black-text collapsible-header col s1'>edit</i>
                         </div>
                         <div className='col s1'>
                             <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '2'}} 
@@ -93,7 +47,7 @@ export default function Location(props) {
                             onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
                         </div>
                         <div className='collapsible-body col s10'>
-                            <ModEditLocation data={currentValue} locationContent={locationContent}/>
+                            <ModEditLocation data={currentValue}/>
                         </div>
                         <div className="divider col s10 offset-s1"></div>    
                 </li>
@@ -128,8 +82,7 @@ export default function Location(props) {
                     </div>
                     <div className='col s7 offset-s1'>
                         <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} 
-                        className='material-icons black-text collapsible-header col s1'
-                        onClick={handleEditLocation}>edit</i>
+                        className='material-icons black-text collapsible-header col s1'>edit</i>
                     </div>
                     <div className='col s1'>
                         <i style={{cursor: 'pointer', 'fontSize': '2rem', 'padding': '1rem', 'line-height': '2'}} 
@@ -137,7 +90,7 @@ export default function Location(props) {
                         onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
                     </div>
                     <div className='collapsible-body col s12'>
-                        <ModEditLocation data={currentValue} locationContent={locationContent}/>
+                        <ModEditLocation data={currentValue}/>
                     </div>
                     <div className="divider col s10 offset-s1"></div>
                 </li>
@@ -167,12 +120,11 @@ export default function Location(props) {
                             onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
                         </span>
                         <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}>
-                            <i className='material-icons collapsible-header'
-                            onClick={handleEditLocation}>edit</i>
+                            <i className='material-icons collapsible-header'>edit</i>
                         </span>
                     </section>
                     <section className='collapsible-body col s12'>
-                        <ModEditLocation data={currentValue} locationContent={locationContent}/>
+                        <ModEditLocation data={currentValue}/>
                     </section>
                 </li>
             </>
@@ -195,14 +147,13 @@ export default function Location(props) {
                 </div>                  
                 <div className='col s7 offset-s1'>
                     <i  style={{cursor: 'pointer', 'fontSize': '2rem', 'border-bottom': '0', 'padding': '1rem'}} 
-                    className='material-icons black-text collapsible-header col s1'
-                    onClick={handleEditLocation}>edit</i>
+                    className='material-icons black-text collapsible-header col s1'>edit</i>
                 </div>
                 <div className='col s1'>
 
                 </div>
                 <div className='collapsible-body col s12'>
-                    <ModEditLocation data={currentValue} locationContent={locationContent}/>
+                    <ModEditLocation data={currentValue}/>
                 </div>
                 <div className="divider col s10 offset-s1"></div>    
             </li>

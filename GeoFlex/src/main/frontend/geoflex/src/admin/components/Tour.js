@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Tour(props) {  
+  console.log(props.data.title)
   /*
   Tour handles and renders each single tour passed on from AdminOverview.js
   */

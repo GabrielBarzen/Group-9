@@ -102,7 +102,7 @@ export default class LocationFormMedia extends Component {
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text" />
                         </div>
-                        <img src={this.state.mediaUrl} />
+                        <img src={this.state.mediaUrl} alt={this.state.mediaUrl}/>
 
 
 
