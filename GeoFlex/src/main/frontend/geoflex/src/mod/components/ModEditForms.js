@@ -49,13 +49,7 @@ export default function ModEditForms(props) {
     var idToIndex = (parseInt(locIndex) + 1);
     var idTo = "";
     let idFrom = ""
-    /*props.locationsData.forEach((element) => {
-      if (element.id === idFrom) {
-        temp = parseInt(element.location_index);
-        idToIndex = temp + 1;
-      }
-    });
-*/
+
     props.locationsData.forEach((item) => {
       console.log(item.location_index + "   " + idToIndex);
       if (item.location_index === locIndex) {
