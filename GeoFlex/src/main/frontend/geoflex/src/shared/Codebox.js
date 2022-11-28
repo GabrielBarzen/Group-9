@@ -10,7 +10,7 @@ export default function Codebox() {
         </div>
         <div className="row center-align">
             <div>
-            <text>SKICKA</text> <i className="small material-icons">play_arrow</i>
+            <p>SKICKA</p> <i className="small material-icons">play_arrow</i>
             </div>
             
         </div>

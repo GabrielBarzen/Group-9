@@ -4,8 +4,6 @@ import axios from 'axios';
 import logo from './GeoFlexSmall.png'
 
 
-const loginURL = '/authenticator/login'
-
 export default function Static() {
 
     const login = (() => {
@@ -50,6 +48,12 @@ export default function Static() {
                 <li><Link to="/admin/new/">Admin lägg till </Link></li>
                 <li><Link to="/admin/moderator/overview">Admin moderator admin </Link> </li>
                 <button onClick={login}>logga in</button>
+                <li><Link to="/game/start">User Starta quiz</Link></li>
+                <li><Link to="/game/:id/welcome">User Quiz Välkomstskärm</Link></li>
+                <li><Link to="/game/:id/navigation">User Quiz Vägbeskrivning</Link></li>
+                <li><Link to="/game/:id/item">User Quiz Fråga</Link></li>
+                <li><Link to="/game/:id/finish">User Quiz FÄRDIG</Link></li>
+                
                              
             </ul>
         </>

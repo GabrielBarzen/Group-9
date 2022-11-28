@@ -4,7 +4,7 @@ import QRscanner from "../shared/QR"
 
 
 
-export default function WelcomeTest() {
+export default function StartQuiz() {
     return (
         <div className="container">
             <div className="row">
