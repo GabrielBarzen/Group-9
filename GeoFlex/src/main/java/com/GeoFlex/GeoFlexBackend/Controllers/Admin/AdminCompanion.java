@@ -230,6 +230,18 @@ public class AdminCompanion {
         return response;
     }
 
+    public ResponseEntity<String> deleteModerator(String userId) {
+        ResponseEntity<String> response;
+        if(userId != null){
+            AdminProcedures.deleteModerator(userId);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        else {
+            response = new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
+        }
+        return response;
+    }
+
     /**
      * Gets a list of all moderators.
      * @return Returns a json filled with all moderators.

@@ -21,9 +21,10 @@ import StartpageTest from './pages/Startpage_test'
 import ModEdit from './mod/ModEdit';
 import Register from './pages/Register'
 import TempUser from './pages/tempUser'
-import AdminModeratorEdit from './admin/AdminModeratorEdit';
+import AdminModeratorEdit from './admin/components/AdminModeratorEdit';
 import AdminModeratorRegister from './admin/components/AdminModeratorRegister';
 import Loginpage from './pages/Loginpage';
+import AdminModeratorOverview from './admin/AdminModeratorOverview';
 
 
 export default function App() {
@@ -36,8 +37,9 @@ export default function App() {
                     <Route path='/admin/overview' element={<AdminOverview />} />
                     <Route path='/admin/new/' element={<AdminAddNew />} />
                     <Route path='/admin/edit/:id' element={<AdminEdit />} />
-                    <Route path='/admin/moderator-management' element={<AdminModeratorEdit />} />
-                    <Route path='/admin/create-moderator' element={<AdminModeratorRegister />} />
+                    <Route path='/admin/moderator/overview' element={<AdminModeratorOverview />} />
+                    <Route path='/admin/moderator/edit/:id' element={<AdminModeratorEdit />} />
+                    <Route path='/admin/moderator/create' element={<AdminModeratorRegister />} />
 
                     <Route path='/moderator' element={<Mod />} />
                     <Route path='/moderator/overview' element={<ModOverview />} />
