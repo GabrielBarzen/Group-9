@@ -29,8 +29,8 @@ export default function Firstpage() {
                     </div>
                     <div className="row">
                         <Button text="Starta direkt" css="col s10" icon={<i className="small material-icons right">arrow_forward</i>}/>
-                </div>    
-            </div>
+                    </div>    
+                </div>
             </div> 
         </div>
     )

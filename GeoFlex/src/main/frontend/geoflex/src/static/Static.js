@@ -32,14 +32,9 @@ export default function Static() {
     })
     return (
         <>
-        <nav>
-        <img src={logo} alt='logo' />
-        </nav>
+        
             <Outlet />
-            <nav>
-                <img src='GeoFlexSmall.png' alt='logo' />
-                
-            </nav>
+            
             <ul>
                 <li><Link to="/">Start</Link></li>
                 <li><Link to="/moderator">Mod</Link></li>
