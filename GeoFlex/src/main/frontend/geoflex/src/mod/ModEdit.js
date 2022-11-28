@@ -63,7 +63,7 @@ export default function ModEdit() {
             "last_location": "false",
             "x_coords": "5.0",
             "y_coords": "5.0",
-            "directions": "Move!",
+            "directions": "Gå till vänster",
             "content": [
               {
                 "content-id": "56",
@@ -79,11 +79,6 @@ export default function ModEdit() {
                 "content-id": "58",
                 "answer": "Mars",
                 "correct": false
-              },
-              {
-                "content-id": "60",
-                "answer": "Sun",
-                "correct": false
               }
             ]
           },
@@ -95,7 +90,7 @@ export default function ModEdit() {
             "last_location": "false",
             "x_coords": "2.0",
             "y_coords": "2.0",
-            "directions": "Back!",
+            "directions": "",
             "content": [
             ]
           },
