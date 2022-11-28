@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import axios from 'axios';
+import logo from './GeoFlexSmall.png'
 
 
 const loginURL = '/authenticator/login'
@@ -33,10 +34,13 @@ export default function Static() {
     })
     return (
         <>
+        <nav>
+        <img src={logo} alt='logo' />
+        </nav>
             <Outlet />
             <nav>
-                <h1>GeoFlex</h1>
-                <button onClick={login}>logga in</button>
+                <img src='GeoFlexSmall.png' alt='logo' />
+                
             </nav>
             <ul>
                 <li><Link to="/">Start</Link></li>
@@ -45,6 +49,7 @@ export default function Static() {
                 <li><Link to="/admin/overview">Admin Översikt </Link></li>
                 <li><Link to="/admin/new/">Admin lägg till </Link></li>
                 <li><Link to="/admin/moderator/overview">Admin moderator admin </Link> </li>
+                <button onClick={login}>logga in</button>
                              
             </ul>
         </>
