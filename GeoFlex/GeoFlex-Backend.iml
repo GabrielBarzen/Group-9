@@ -631,7 +631,21 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://C:/Users/mahe/.m2/repository/org/im4java/im4java/1.4.0/im4java-1.4.0.jar!/"/>
+          <root url="jar://C:/Users/mahe/.m2/repository/org/json/json/20220924/json-20220924.jar!/"/>
+        </CLASSES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/mahe/.m2/repository/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar!/"/>
+        </CLASSES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/mahe/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar!/"/>
         </CLASSES>
       </library>
     </orderEntry>
