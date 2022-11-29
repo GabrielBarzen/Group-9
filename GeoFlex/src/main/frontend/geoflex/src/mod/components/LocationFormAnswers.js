@@ -60,11 +60,12 @@ export default class LocationFormAnswers extends Component {
                                             value={inputValue}
                                             onChange={this.onFieldChange.bind(this)} />
                                     </label>
-                                    <label className='col s2'>
+                                    <label className='col s2' htmlFor={checkboxName}>
                                         Rätt svar
-                                        <input className='text-black '
+                                        <input className='text-black'
+                                            id={checkboxName}
                                             name={checkboxName}
-                                            type="radio"
+                                            type="checkbox"
                                             
                                             onChange={this.onFieldChange.bind(this)} />
                                     </label>
