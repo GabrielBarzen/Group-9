@@ -139,13 +139,13 @@ export default class LocationForm extends Component {
                     break;
             }
         }
-        if((this.props.currentData.x_coords !== undefined) &&  (this.props.currentData.y_coords !== undefined)){
+        if ((this.props.currentData.x_coords !== undefined) && (this.props.currentData.y_coords !== undefined)) {
             this.setState({
                 locationLongitude: this.props.currentData.x_coords,
                 locationLatitude: this.props.currentData.y_coords
             })
         }
-        if(this.props.currentData.directions !== undefined){
+        if (this.props.currentData.directions !== undefined) {
             this.setState({
                 locationDirections: this.props.currentData.directions
             })
@@ -176,16 +176,17 @@ export default class LocationForm extends Component {
         //här lyssnar vi på förändring [name] anpassar sig till name i varje inputfält. 
         //Lite annorlunda om man använder annat än type="text/number" men går att lösa förstås
         const target = event.target;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        //const value = target.value;
         const name = target.name;
-        /*
+
         console.log("Target")
         console.log(target)
         console.log("Value")
         console.log(value)
         console.log("Name")
         console.log(name)
-*/
+
         this.setState({
             [name]: value
         });
@@ -199,7 +200,7 @@ export default class LocationForm extends Component {
         och anropar sedan funktionen där API-anropet ligger och skickar med objektet
         just nu får man bara en alert med de värden man fyllt i
         */
-       let contentArray =[]
+        let contentArray = []
         let data = {
             "location-update": {
                 "location-id": this.props.currentData.id,
@@ -272,14 +273,17 @@ export default class LocationForm extends Component {
 
                     </fieldset>
                     <fieldset>
+                        <div className='row'>
                         <LocationFormAnswers
                             data={this.state}
                             content={this.props.currentData.content}
                             handleInputChange={this.handleInputChange} />
-
-                        <span onClick={this.handleAddAnswer}>
-                            Lägg till svar
-                        </span>
+                        </div>
+                        <div className='row'>
+                            <span onClick={this.handleAddAnswer}>
+                                Lägg till svar
+                            </span>
+                        </div>
                     </fieldset>
                     <input type="submit" value="Submit" />
                 </form>

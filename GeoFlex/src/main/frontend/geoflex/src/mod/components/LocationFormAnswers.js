@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import M from 'materialize-css';
 
 export default class LocationFormAnswers extends Component {
     constructor(props) {
@@ -8,14 +9,14 @@ export default class LocationFormAnswers extends Component {
 
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
     }
+    componentDidMount(){
+        
+    }
 
     onFieldChange(event) {
-
-        // for a regular input field, read field name and value from the event
-        console.log("ON FIELD CHANGE i LocationFormAnswers.js")
-        console.log(this.props.data.locationAnswer1)
-        //const fieldName = event.target.name;
-        //const fieldValue = event.target.value;
+        /**
+         * passing on the event to parent class method
+         *  */        
         this.props.handleInputChange(event);
     }
 
@@ -29,16 +30,48 @@ export default class LocationFormAnswers extends Component {
                             <div>someCase</div>
                         )
                     } else if ((this.props.content.length !== 0) && (this.props.content.length <= contentLength)) {
-                        let i = 0;                        
+                        let i = 0;
                         let renderThis = null;
                         let andThis = []
-                        this.props.content.forEach(element => {                                                    
-                            
+                        let addNewAnswer = (<p>Lägg tlill ett svarsalternativ</p>)
+                        if (this.props.content.length <= 4){
+
+                        }
+
+                        this.props.content.forEach(element => {
+
                             i++;
                             let inputName = "locationAnswer" + i.toString();
                             let inputValue = this.props.data[inputName];
-                            renderThis = (<label>Fråga<input className="blue lighten-4" name={inputName} type="text" value={inputValue} onChange={this.onFieldChange.bind(this)} /></label>)
+                            let checkboxName = "locationCorrect" + i.toString();
+                            let getCheckboxValue = this.props.data[checkboxName];
+                            let setChecked = "checked";
+                            let keyValue = "locationID" + i.toString();
+                            if(getCheckboxValue !== false){
+                                setChecked = ""
+                            }
+                            renderThis = (
+                                <div key={keyValue}>
+                                    <label className='col s10'>
+                                        Fråga
+                                        <input className="blue lighten-4"
+                                            name={inputName}
+                                            type="text"
+                                            value={inputValue}
+                                            onChange={this.onFieldChange.bind(this)} />
+                                    </label>
+                                    <label className='col s2'>
+                                        Rätt svar
+                                        <input className='text-black '
+                                            name={checkboxName}
+                                            type="radio"
+                                            
+                                            onChange={this.onFieldChange.bind(this)} />
+                                    </label>
+                                </div>
+                            )
                             andThis.push(renderThis);
+                            
 
                         });
                         return (<>
@@ -47,9 +80,10 @@ export default class LocationFormAnswers extends Component {
                             ))}
                         </>
                         )
-                    } else {
+                    } else if(this.props.content.length <= 4) {
+                        //försökte få till knappen här men ska nog lägga den i en egen if sats helt enkelt.
                         return (
-                            <div>catch all</div>
+                            <div>Lägg till ett svarsalternativ</div>
                         )
                     }
                 })()
