@@ -20,6 +20,8 @@ export default class LocationFormAnswers extends Component {
         this.props.handleInputChange(event);
     }
 
+    
+
     render() {
         return (<>
             {
@@ -52,7 +54,7 @@ export default class LocationFormAnswers extends Component {
                             }
                             renderThis = (
                                 <div key={keyValue}>
-                                    <label className='col s10'>
+                                    <label className='col s9'>
                                         Fråga
                                         <input className="blue lighten-4"
                                             name={inputName}
@@ -72,7 +74,7 @@ export default class LocationFormAnswers extends Component {
                                             onChange={this.onFieldChange.bind(this)} />
                                             <span>Rätt svar</span>
                                     </label>
-
+                                    <span className='col s1 right'> <i class="material-icons">delete_forever</i></span>
                                 </div>
                             )
                             andThis.push(renderThis);

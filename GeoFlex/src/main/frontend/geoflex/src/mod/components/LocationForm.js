@@ -7,12 +7,15 @@ import ModGeolocate from './ModGeolocate';
 
 /**
  * TODO:
- *      radiobutton för correct answer
+ *      
  *      setState för media så de kan få rätt url
  *      ordna lägg till content med begränsning på 5
  *      se över API anrop och lägg till TA BORT ett svar
  *      
  *      skicka formulär
+ * 
+ * DONE:
+ *      radiobutton för correct answer
  */
 
 export default class LocationForm extends Component {
@@ -200,10 +203,40 @@ export default class LocationForm extends Component {
         och anropar sedan funktionen där API-anropet ligger och skickar med objektet
         just nu får man bara en alert med de värden man fyllt i
         */
+        let tempContentArray = [{
+            "content-id": this.state.locationContentID1,
+            "answer": this.state.locationAnswer1,
+            "correct": this.state.locationCorrect1
+        },
+        {
+            "content-id": this.state.locationContentID2,
+            "answer": this.state.locationAnswer2,
+            "correct": this.state.locationCorrect2
+        },
+        {
+            "content-id": this.state.locationContentID3,
+            "answer": this.state.locationAnswer3,
+            "correct": this.state.locationCorrect3
+        },
+        {
+            "content-id": this.state.locationContentID4,
+            "answer": this.state.locationAnswer4,
+            "correct": this.state.locationCorrect4
+        },
+        {
+            "content-id": this.state.locationContentID5,
+            "answer": this.state.locationAnswer5,
+            "correct": this.state.locationCorrect5
+        }]
         let contentArray = []
+        tempContentArray.forEach(item => {
+            if(item["content-id"]){
+                contentArray.push(item);
+            }
+        });
         let data = {
             "location-update": {
-                "location-id": this.props.currentData.id,
+                "location-id": this.props.currentData.location_id,
                 "name": this.state.locationName,
                 "text_info": this.state.locationInfo,
                 "qr": "",
@@ -213,9 +246,10 @@ export default class LocationForm extends Component {
                 "content": contentArray
             }
         }
-        this.props.callUpdateLocation(data);
+        //this.props.callUpdateLocation(data);
 
-        alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections + ' AND: ' + this.state.locationAnswer1 + ' AND: ' + this.state.locationAnswer2 + ' AND: ' + this.state.locationAnswer3);
+        //alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections + ' AND: ' + this.state.locationAnswer1 + ' AND: ' + this.state.locationAnswer2 + ' AND: ' + this.state.locationAnswer3);
+        alert('DATA OBJEKT: ' + data["location-update"]["location-id"] + ' AND: ' + data["location-update"].name + ' AND: ' + data["location-update"].text_info + ' AND: ' + data["location-update"].x_coords + ' AND: ' + data["location-update"].y_coords + ' AND: ' + data["location-update"].directions + ' AND: ' + data["location-update"].content[4].answer);
     }
 
 
