@@ -9,14 +9,14 @@ export default class LocationFormAnswers extends Component {
 
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
     }
-    componentDidMount(){
-        
+    componentDidMount() {
+        M.updateTextFields();
     }
 
     onFieldChange(event) {
         /**
          * passing on the event to parent class method
-         *  */        
+         *  */
         this.props.handleInputChange(event);
     }
 
@@ -34,7 +34,7 @@ export default class LocationFormAnswers extends Component {
                         let renderThis = null;
                         let andThis = []
                         let addNewAnswer = (<p>Lägg tlill ett svarsalternativ</p>)
-                        if (this.props.content.length <= 4){
+                        if (this.props.content.length <= 4) {
 
                         }
 
@@ -47,7 +47,7 @@ export default class LocationFormAnswers extends Component {
                             let getCheckboxValue = this.props.data[checkboxName];
                             let setChecked = "checked";
                             let keyValue = "locationID" + i.toString();
-                            if(getCheckboxValue !== false){
+                            if (getCheckboxValue !== true) {
                                 setChecked = ""
                             }
                             renderThis = (
@@ -60,19 +60,23 @@ export default class LocationFormAnswers extends Component {
                                             value={inputValue}
                                             onChange={this.onFieldChange.bind(this)} />
                                     </label>
-                                    <label className='col s2' htmlFor={checkboxName}>
-                                        Rätt svar
+                                    <label className='col s2 checkbox-css' htmlFor={checkboxName}>
+                                        
+
                                         <input className='text-black'
                                             id={checkboxName}
                                             name={checkboxName}
+                                            checked={setChecked}
                                             type="checkbox"
-                                            
+
                                             onChange={this.onFieldChange.bind(this)} />
+                                            <span>Rätt svar</span>
                                     </label>
+
                                 </div>
                             )
                             andThis.push(renderThis);
-                            
+
 
                         });
                         return (<>
@@ -81,7 +85,7 @@ export default class LocationFormAnswers extends Component {
                             ))}
                         </>
                         )
-                    } else if(this.props.content.length <= 4) {
+                    } else if (this.props.content.length <= 4) {
                         //försökte få till knappen här men ska nog lägga den i en egen if sats helt enkelt.
                         return (
                             <div>Lägg till ett svarsalternativ</div>

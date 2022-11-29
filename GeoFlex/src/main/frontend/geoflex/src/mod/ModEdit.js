@@ -68,7 +68,7 @@ export default function ModEdit() {
               {
                 "content-id": "56",
                 "answer": "Moon",
-                "correct": false
+                "correct": true
               },
               {
                 "content-id": "57",
@@ -107,7 +107,7 @@ export default function ModEdit() {
               {
                 "content-id": "59",
                 "answer": "Abyssal Whip",
-                "correct": false
+                "correct": true
               },
               {
                 "content-id": "61",
