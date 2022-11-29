@@ -234,7 +234,7 @@ public class ModeratorCompanion {
         if(rle.locationEdit.media != null){
             for (int i = 0; i < rle.locationEdit.media.size(); i++) {
                 if(rle.locationEdit.media.get(i).mediaUrl != null && rle.locationEdit.media.get(i).mediaType != null){
-                    ModeratorProcedures.updateExternalMedia(Integer.parseInt(rle.locationEdit.locationId), rle.locationEdit.media.get(i).mediaUrl,
+                    ModeratorProcedures.locationUploadFile(Integer.parseInt(rle.locationEdit.locationId), rle.locationEdit.media.get(i).mediaUrl,
                             rle.locationEdit.media.get(i).mediaType);
                     response = new ResponseEntity<>("", HttpStatus.OK);
                 }

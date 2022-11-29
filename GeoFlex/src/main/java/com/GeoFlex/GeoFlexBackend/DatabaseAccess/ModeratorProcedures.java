@@ -545,7 +545,7 @@ public class ModeratorProcedures {
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
             cs.setString("in_data", filePath);
-            cs.setString("in_data_Type", dataType);
+            cs.setString("in_data_type", dataType);
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -725,30 +725,6 @@ public class ModeratorProcedures {
             throw new RuntimeException(e);
         }
         finally {
-            try {
-                dc.getConnection().close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    /**
-     * Sets an external media link for a location. (YouTube video or google image)
-     * @param locationId The ID of the location.
-     * @param mediaUrl The media url to set.
-     * @param mediaType The type of the media set.
-     */
-    public static void updateExternalMedia(int locationId, String mediaUrl, String mediaType) {
-        DatabaseConnection dc = new DatabaseConnection();
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?)}")) {
-            cs.setInt("in_location_id", locationId);
-            cs.setString("in_data", mediaUrl);
-            cs.setString("in_data_type", mediaType);
-            cs.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {
