@@ -231,6 +231,15 @@ public class ModeratorCompanion {
             ModeratorProcedures.locationPositionUpdateDirections(rle.locationEdit.locationId, rle.locationEdit.directions);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
+        if(rle.locationEdit.media != null){
+            for (int i = 0; i < rle.locationEdit.media.size(); i++) {
+                if(rle.locationEdit.media.get(i).mediaUrl != null && rle.locationEdit.media.get(i).mediaType != null){
+                    ModeratorProcedures.updateExternalMedia(Integer.parseInt(rle.locationEdit.locationId), rle.locationEdit.media.get(i).mediaUrl,
+                            rle.locationEdit.media.get(i).mediaType);
+                    response = new ResponseEntity<>("", HttpStatus.OK);
+                }
+            }
+        }
         if(rle.locationEdit.content != null){
             for (int i = 0; i < rle.locationEdit.content.size(); i++) {
                 if(rle.locationEdit.content.get(i).answer != null && rle.locationEdit.content.get(i).correct != null){
@@ -266,16 +275,20 @@ public class ModeratorCompanion {
         switch(fileType){
             case "image/jpeg":
             case "image/png":
+                fh.createDirectoriesAndSaveFile(locationId, file, "locations");
+                ModeratorProcedures.locationUploadFile(locationId, path, "image");
+                response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
             case "video/mp4":
             case "video/quicktime":
                 fh.createDirectoriesAndSaveFile(locationId, file, "locations");
-                ModeratorProcedures.locationUploadFile(locationId, path);
+                ModeratorProcedures.locationUploadFile(locationId, path, "video");
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             case "image/heic":
                 fh.createDirectoriesAndSaveFile(locationId, file, "locations");
                 fh.heicToPng(locationId, file, "locations");
-                ModeratorProcedures.locationUploadFile(locationId, path.replace("heic", "png"));
+                ModeratorProcedures.locationUploadFile(locationId, path.replace("heic", "png"), "image");
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             default:

@@ -33,5 +33,7 @@ public class LocationEdit {
     @SerializedName("content")
     @Expose
     public List<ContentUpdate> content = null;
-
+    @SerializedName("media")
+    @Expose
+    public List<MediaUpdate> media = null;
 }

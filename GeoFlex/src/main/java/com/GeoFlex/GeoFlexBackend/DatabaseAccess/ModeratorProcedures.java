@@ -3,6 +3,7 @@ package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.CompleteLocationRoot;
 import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.ContentEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.Locations;
+import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.MediaEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
@@ -539,11 +540,12 @@ public class ModeratorProcedures {
      * @param locationId The id of the route.
      * @param filePath The path to save in the database.
      */
-    public static void locationUploadFile(int locationId, String filePath) {
+    public static void locationUploadFile(int locationId, String filePath, String dataType) {
         DatabaseConnection dc = new DatabaseConnection();
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?)}")) {
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
             cs.setString("in_data", filePath);
+            cs.setString("in_data_Type", dataType);
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -571,8 +573,7 @@ public class ModeratorProcedures {
             while(res.next()){
                 filepath = res.getString("data");
             }
-            Gson gson = new Gson();
-            return gson.toJson(filepath);
+            return filepath;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -673,7 +674,7 @@ public class ModeratorProcedures {
     }
 
     public static void main(String[] args) {
-        getRouteLocationsExperimental(String.valueOf(97));
+        getRouteLocationsExperimental(String.valueOf(96));
     }
     public static String getRouteLocationsExperimental(String routeID) {
         DatabaseConnection dc = new DatabaseConnection();
@@ -697,8 +698,18 @@ public class ModeratorProcedures {
                     clr.locations.yCoords = res.getString("y_coordinate");
                     clr.locations.directions = res.getString("directions");
                     clr.locations.content = new ArrayList<>();
+                    clr.locations.media = new ArrayList<>();
                     list.add(clr.locations);
+
+                    if(res.getString("data") != null){
+                        MediaEdit media = new MediaEdit();
+                        media.mediaURL = res.getString("data");
+                        media.mediaType = res.getString("dataType");
+                        clr.locations.media.add(media);
+                    }
+
                 }
+
                 if(res.getString("content_id") != null){
                     ContentEdit content = new ContentEdit();
                     content.answer = res.getString("answer");
@@ -708,11 +719,36 @@ public class ModeratorProcedures {
                 }
             }
             Gson gson = new Gson();
+            System.out.println(gson.toJson(list));
             return gson.toJson(list);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Sets an external media link for a location. (YouTube video or google image)
+     * @param locationId The ID of the location.
+     * @param mediaUrl The media url to set.
+     * @param mediaType The type of the media set.
+     */
+    public static void updateExternalMedia(int locationId, String mediaUrl, String mediaType) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?)}")) {
+            cs.setInt("in_location_id", locationId);
+            cs.setString("in_data", mediaUrl);
+            cs.setString("in_data_type", mediaType);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {
