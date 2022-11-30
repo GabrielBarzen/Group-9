@@ -32,11 +32,7 @@ public class MailService {
      * @param accountType Enum containing the type of the account created.
      */
     public void sendEmailCreateAccount(String recipient, String username, String password, AccountTypes accountType) {
-        /**
-         * TODO: Create a google account to send emails from and insert details below.
-         * TODO: Need to enable 2FA for the account and set an app password.
-         */
-
+        
         //TODO: REMOVE IN PRODUCTION VERSION USE THE VARIABLES DECLARED IN THE CLASS INSTEAD
         String sender = "not set";
         String senderPassword = "not set";
