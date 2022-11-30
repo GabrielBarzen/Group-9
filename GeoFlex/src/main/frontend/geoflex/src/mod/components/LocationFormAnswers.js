@@ -20,24 +20,28 @@ export default class LocationFormAnswers extends Component {
          *  */
         this.props.handleInputChange(event);
     }
-    handleAddAnswer(){
+    handleAddAnswer(contentID) {
         this.props.handleAddAnswer()
     }
-    handleRemoveAnswer(){
-        this.props.handleRemoveAnswer(this.props.data["content-id"])
+    handleRemoveAnswer() {
+        console.log("locationFormAnswer")
+        console.log(this.props.content)
+        this.props.handleRemoveAnswer()
     }
 
     render() {
         return (<>
             {
                 (() => {
-                    let contentLength = this.props.content.length
-                    if ((this.props.content.length !== 0) && (this.props.content.length <= contentLength)) {
+                    let contentLength = this.props.content.content.length
+                    if ((this.props.content.content.length !== 0) && (this.props.content.content.length <= contentLength)) {
                         let i = 0;
                         let renderThis = null;
                         let andThis = []
-
-                        this.props.content.forEach(element => {
+                        console.log("RENDERFUNKTIONEN FÖRSTA");
+                        console.log(this.props.content.content.length)
+                        this.props.content.content.forEach(element => {
+                            //måste rensa arrayen här på tomma objekt innan rendering
 
                             i++;
                             let inputName = "locationAnswer" + i.toString();
@@ -45,37 +49,40 @@ export default class LocationFormAnswers extends Component {
                             let checkboxName = "locationCorrect" + i.toString();
                             let getCheckboxValue = this.props.data[checkboxName];
                             let setChecked = "checked";
-                            let keyValue = "locationID" + i.toString();
+                            let contentID = "locationContentID" + i.toString();
+                            console.log("RENDERFUNKTIONEN");
+                            console.log(this.props.data[contentID]);
                             if (getCheckboxValue !== true) {
                                 setChecked = ""
                             }
-                            renderThis = (
-                                <div key={keyValue} className="row">
-                                    <label className='col s9'>
-                                        Fråga
-                                        <input className="blue lighten-4"
-                                            name={inputName}
-                                            type="text"
-                                            value={inputValue}
-                                            onChange={this.onFieldChange.bind(this)} />
-                                    </label>
-                                    <label className='col s2' htmlFor={checkboxName}>
+                            if (element["content-id"] !== "") {
+                                renderThis = (
+                                    <div key={this.props.data[contentID]} className="row">
+                                        <label className='col s9'>
+                                            Fråga
+                                            <input className="blue lighten-4"
+                                                name={inputName}
+                                                type="text"
+                                                value={inputValue}
+                                                onChange={this.onFieldChange.bind(this)} />
+                                        </label>
+                                        <label className='col s2' htmlFor={checkboxName}>
 
 
-                                        <input className='text-black'
-                                            id={checkboxName}
-                                            name={checkboxName}
-                                            checked={setChecked}
-                                            type="checkbox"
+                                            <input className='text-black'
+                                                id={checkboxName}
+                                                name={checkboxName}
+                                                checked={setChecked}
+                                                type="checkbox"
 
-                                            onChange={this.onFieldChange.bind(this)} />
-                                        <span>Rätt svar</span>
-                                    </label>
-                                    <span className='col s1 right' onClick={this.handleRemoveAnswer}> <i className="material-icons">delete_forever</i></span>
-                                </div>
-                            )
-                            andThis.push(renderThis);
-                            
+                                                onChange={this.onFieldChange.bind(this)} />
+                                            <span>Rätt svar</span>
+                                        </label>
+                                        <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.props.data[contentID])}> <i className="material-icons">delete_forever</i></span>
+                                    </div>
+                                )
+                                andThis.push(renderThis);
+                            }
                         });
                         return (<>
                             {[...andThis].map((html) => (

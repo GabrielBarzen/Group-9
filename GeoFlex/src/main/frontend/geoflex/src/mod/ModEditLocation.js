@@ -86,34 +86,29 @@ export default function ModEditLocation(props) {
       });
   }
 
-  function removeAnswer(contentID) {
+  function removeAnswer(locationID, contentID) {
     /**
      * API-call to remove 1 answer 
      */
     console.log("REMOVE ANSWER");
     console.log(contentID)
-     var data = JSON.stringify(
+    var data = JSON.stringify(
       {
         "location-update": {
-          "location_id": "",
+          "location-id": locationID,
           "name": "",
           "text_info": "",
-          "location_index": "",
-          "last_location": "",
-          "x_coords": "",
-          "y_coords": "",
+          "media": [{
+            "mediaURL": "",
+            "mediaType": ""
+          }],
+          "qr": "",
+          "x_coords": "0.0",
+          "y_coords": "0.0",
           "directions": "",
-          "content": [
-            {
-              "id": contentID
-            }
-          ],
-          "media": [
-            {
-              "mediaURL": "",
-              "mediaType": ""
-            }
-          ]
+          "content": [{
+            "delete": contentID
+          }]
         }
       }
     );

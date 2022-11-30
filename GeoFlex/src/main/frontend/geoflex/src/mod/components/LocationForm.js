@@ -72,7 +72,7 @@ export default class LocationForm extends Component {
         let contentLength = this.props.currentData.content.length
         //console.log("LENGTH")
         //console.log(contentLength)
-        if (this.props.currentData.content !== 0) {
+        if (this.props.currentData.content.length !== 0) {
             console.log("DIDMOUNT IF")
             switch (contentLength) {
                 case 1:
@@ -166,8 +166,8 @@ export default class LocationForm extends Component {
         alert("handleAddAnswer")
         this.props.callAddAnswer(this.props.currentData.location_id);
     }
-    handleRemoveAnswer(contentID){
-        this.props.callRemoveAnswer(contentID)
+    handleRemoveAnswer(locationID, contentID){
+        this.props.callRemoveAnswer(locationID, contentID)
     }
 
     handleGeoLocation(long, lat) {
@@ -317,7 +317,7 @@ export default class LocationForm extends Component {
                         <div className=''>
                         <LocationFormAnswers
                             data={this.state}
-                            content={this.props.currentData.content}
+                            content={this.props.currentData}
                             handleInputChange={this.handleInputChange} 
                             handleAddAnswer={this.handleAddAnswer}
                             handleRemoveAnswer={this.handleRemoveAnswer}/>
