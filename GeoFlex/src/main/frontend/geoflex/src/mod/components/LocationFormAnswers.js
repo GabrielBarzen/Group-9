@@ -7,7 +7,8 @@ export default class LocationFormAnswers extends Component {
         console.log("CHILD")
         console.log(this.props.data.locationAnswer1)
 
-        //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
+        this.handleAddAnswer = this.handleAddAnswer.bind(this);
+        this.handleRemoveAnswer = this.handleRemoveAnswer.bind(this);
     }
     componentDidMount() {
         M.updateTextFields();
@@ -19,26 +20,22 @@ export default class LocationFormAnswers extends Component {
          *  */
         this.props.handleInputChange(event);
     }
-
-    
+    handleAddAnswer(){
+        this.props.handleAddAnswer()
+    }
+    handleRemoveAnswer(){
+        this.props.handleRemoveAnswer(this.props.data["content-id"])
+    }
 
     render() {
         return (<>
             {
                 (() => {
                     let contentLength = this.props.content.length
-                    if (this.props.content.length === 0) {
-                        return (
-                            <div>someCase</div>
-                        )
-                    } else if ((this.props.content.length !== 0) && (this.props.content.length <= contentLength)) {
+                    if ((this.props.content.length !== 0) && (this.props.content.length <= contentLength)) {
                         let i = 0;
                         let renderThis = null;
                         let andThis = []
-                        let addNewAnswer = (<p>Lägg tlill ett svarsalternativ</p>)
-                        if (this.props.content.length <= 4) {
-
-                        }
 
                         this.props.content.forEach(element => {
 
@@ -53,7 +50,7 @@ export default class LocationFormAnswers extends Component {
                                 setChecked = ""
                             }
                             renderThis = (
-                                <div key={keyValue}>
+                                <div key={keyValue} className="row">
                                     <label className='col s9'>
                                         Fråga
                                         <input className="blue lighten-4"
@@ -62,8 +59,8 @@ export default class LocationFormAnswers extends Component {
                                             value={inputValue}
                                             onChange={this.onFieldChange.bind(this)} />
                                     </label>
-                                    <label className='col s2 checkbox-css' htmlFor={checkboxName}>
-                                        
+                                    <label className='col s2' htmlFor={checkboxName}>
+
 
                                         <input className='text-black'
                                             id={checkboxName}
@@ -72,14 +69,13 @@ export default class LocationFormAnswers extends Component {
                                             type="checkbox"
 
                                             onChange={this.onFieldChange.bind(this)} />
-                                            <span>Rätt svar</span>
+                                        <span>Rätt svar</span>
                                     </label>
-                                    <span className='col s1 right'> <i class="material-icons">delete_forever</i></span>
+                                    <span className='col s1 right' onClick={this.handleRemoveAnswer}> <i className="material-icons">delete_forever</i></span>
                                 </div>
                             )
                             andThis.push(renderThis);
-
-
+                            
                         });
                         return (<>
                             {[...andThis].map((html) => (
@@ -87,10 +83,15 @@ export default class LocationFormAnswers extends Component {
                             ))}
                         </>
                         )
-                    } else if (this.props.content.length <= 4) {
+                    }
+                })()
+            }
+            {
+                (() => {
+                    if (this.props.content.length <= 4) {
                         //försökte få till knappen här men ska nog lägga den i en egen if sats helt enkelt.
                         return (
-                            <div>Lägg till ett svarsalternativ</div>
+                            <div className='row' onClick={this.handleAddAnswer}><p>Lägg till ett svarsalternativ</p></div>
                         )
                     }
                 })()
@@ -100,15 +101,3 @@ export default class LocationFormAnswers extends Component {
         )
     }
 }
-
-
-/*
-            <label>
-                Fråga
-                <input
-                    className='blue lighten-4'
-                    name="lcoationAnswer1" type="text"
-                    value="hejsan"
-                    onChange={this.onFieldChange.bind(this)} />
-            </label>
-*/

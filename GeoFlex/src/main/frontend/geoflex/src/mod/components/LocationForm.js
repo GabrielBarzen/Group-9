@@ -28,7 +28,7 @@ export default class LocationForm extends Component {
         this.state = {
             locationName: props.currentData.name,
             locationInfo: props.currentData.text_info,
-            locationID: props.currentData.id,
+            locationID: props.currentData.location_id,
             locationImage: 'BILD URL HÄR',
             locationVideo: 'Video URL HÄR',
             locationDirections: 'Go left then turn back',
@@ -55,8 +55,11 @@ export default class LocationForm extends Component {
             locationContentID5: "",
             locationCorrect5: ""
         };
+        console.log("TITTA")
+        console.log(this.props.currentData.location_id)
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
+        this.handleRemoveAnswer = this.handleRemoveAnswer.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGeoLocation = this.handleGeoLocation.bind(this);
@@ -160,7 +163,11 @@ export default class LocationForm extends Component {
         /**
          * Add a new question
          */
-        this.props.addAnswer(this.state.locationID);
+        alert("handleAddAnswer")
+        this.props.callAddAnswer(this.props.currentData.location_id);
+    }
+    handleRemoveAnswer(contentID){
+        this.props.callRemoveAnswer(contentID)
     }
 
     handleGeoLocation(long, lat) {
@@ -307,17 +314,15 @@ export default class LocationForm extends Component {
 
                     </fieldset>
                     <fieldset>
-                        <div className='row'>
+                        <div className=''>
                         <LocationFormAnswers
                             data={this.state}
                             content={this.props.currentData.content}
-                            handleInputChange={this.handleInputChange} />
+                            handleInputChange={this.handleInputChange} 
+                            handleAddAnswer={this.handleAddAnswer}
+                            handleRemoveAnswer={this.handleRemoveAnswer}/>
                         </div>
-                        <div className='row'>
-                            <span onClick={this.handleAddAnswer}>
-                                Lägg till svar
-                            </span>
-                        </div>
+                        
                     </fieldset>
                     <input type="submit" value="Submit" />
                 </form>
@@ -325,3 +330,10 @@ export default class LocationForm extends Component {
         )
     }
 }
+/*
+<div className='row'>
+                            <span onClick={this.handleAddAnswer}>
+                                Lägg till svar
+                            </span>
+                        </div>
+*/

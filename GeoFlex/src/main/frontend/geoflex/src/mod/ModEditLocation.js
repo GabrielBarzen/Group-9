@@ -3,11 +3,13 @@ import LocationForm from './components/LocationForm';
 import axios from 'axios';
 
 export default function ModEditLocation(props) {
-  
+
   /**
    * ModEditLocation handles all API-calls needed to edit a location
    *  
    */
+  console.log("EDITLOCATION")
+
 
   function updateLocation(data) {
     /**
@@ -37,13 +39,16 @@ export default function ModEditLocation(props) {
     /**
      * API-call to add 1 answer 
      */
+    console.log("ADDANSWER")
+    console.log(locationID)
     var data = JSON.stringify(
       {
         "location-update": {
-          "location-id": locationID,
+          "location_id": locationID,
           "name": "",
           "text_info": "",
-          "qr": "",
+          "location_index": "",
+          "last_location": "",
           "x_coords": "",
           "y_coords": "",
           "directions": "",
@@ -51,9 +56,15 @@ export default function ModEditLocation(props) {
             {
               "id": null
             }
+          ],
+          "media": [
+            {
+              "mediaURL": "",
+              "mediaType": ""
+            }
           ]
         }
-      },
+      }
     );
 
     var config = {
@@ -68,10 +79,10 @@ export default function ModEditLocation(props) {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-                
+
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response.data);
       });
   }
 
@@ -79,21 +90,32 @@ export default function ModEditLocation(props) {
     /**
      * API-call to remove 1 answer 
      */
-    var data = JSON.stringify(
-      {"location-update":{
-        "location-id": "3983",
-        "name": "Test Name.",
-        "text_info": "Test Info.",
-        "qr" : "",
-        "x_coords": "55",
-        "y_coords": "310",
-        "directions": "Go left then turn back.",
-        "content" : [
-          {
-            "delete" : contentID
-          }
-        ]
-      }},
+    console.log("REMOVE ANSWER");
+    console.log(contentID)
+     var data = JSON.stringify(
+      {
+        "location-update": {
+          "location_id": "",
+          "name": "",
+          "text_info": "",
+          "location_index": "",
+          "last_location": "",
+          "x_coords": "",
+          "y_coords": "",
+          "directions": "",
+          "content": [
+            {
+              "id": contentID
+            }
+          ],
+          "media": [
+            {
+              "mediaURL": "",
+              "mediaType": ""
+            }
+          ]
+        }
+      }
     );
 
     var config = {
@@ -108,7 +130,7 @@ export default function ModEditLocation(props) {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-                
+
       })
       .catch(function (error) {
         console.log(error);
@@ -121,9 +143,9 @@ export default function ModEditLocation(props) {
         currentData={props.data}
         locationContent={props.locationContent}
         callUpdateLocation={updateLocation}
-        callAddAnswer={addAnswer} 
+        callAddAnswer={addAnswer}
         callRemoveAnswer={removeAnswer}
-        />
+      />
     </>
   )
 }
