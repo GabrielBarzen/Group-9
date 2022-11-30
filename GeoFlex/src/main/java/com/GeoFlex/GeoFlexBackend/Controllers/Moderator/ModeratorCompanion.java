@@ -208,30 +208,30 @@ public class ModeratorCompanion {
         if(rle.locationEdit.locationId == null){
             return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
         }
-        if(rle.locationEdit.name != null){
+        if(rle.locationEdit.name != null && !rle.locationEdit.name.isEmpty()){
             ModeratorProcedures.locationUpdateName(rle.locationEdit.locationId, rle.locationEdit.name);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.textInfo != null){
+        if(rle.locationEdit.textInfo != null && !rle.locationEdit.textInfo.isEmpty()){
             ModeratorProcedures.locationUpdateTextInfo(rle.locationEdit.locationId, rle.locationEdit.textInfo);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.qr != null){
+        if(rle.locationEdit.qr != null && !rle.locationEdit.qr.isEmpty()){
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.xCoords != null){
+        if(rle.locationEdit.xCoords != null && !rle.locationEdit.xCoords.isEmpty()){
             ModeratorProcedures.locationPositionUpdateXcoords(rle.locationEdit.locationId, rle.locationEdit.xCoords);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.yCoords != null){
+        if(rle.locationEdit.yCoords != null && !rle.locationEdit.yCoords.isEmpty()){
             ModeratorProcedures.locationPositionUpdateYcoords(rle.locationEdit.locationId, rle.locationEdit.yCoords);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.directions != null){
+        if(rle.locationEdit.directions != null && !rle.locationEdit.directions.isEmpty()){
             ModeratorProcedures.locationPositionUpdateDirections(rle.locationEdit.locationId, rle.locationEdit.directions);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.media != null){
+        if(rle.locationEdit.media != null && !rle.locationEdit.media.isEmpty()){
             for (int i = 0; i < rle.locationEdit.media.size(); i++) {
                 if(rle.locationEdit.media.get(i).mediaUrl != null && rle.locationEdit.media.get(i).mediaType != null){
                     ModeratorProcedures.locationUploadFile(Integer.parseInt(rle.locationEdit.locationId), rle.locationEdit.media.get(i).mediaUrl,
@@ -240,7 +240,7 @@ public class ModeratorCompanion {
                 }
             }
         }
-        if(rle.locationEdit.content != null){
+        if(rle.locationEdit.content != null && !rle.locationEdit.content.isEmpty()){
             for (int i = 0; i < rle.locationEdit.content.size(); i++) {
                 if(rle.locationEdit.content.get(i).answer != null && rle.locationEdit.content.get(i).correct != null){
                     ModeratorProcedures.createContent(rle.locationEdit.locationId, rle.locationEdit.content.get(i).answer,
