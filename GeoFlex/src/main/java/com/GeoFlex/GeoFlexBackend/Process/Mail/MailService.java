@@ -1,12 +1,28 @@
 package com.GeoFlex.GeoFlexBackend.Process.Mail;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+
+import javax.annotation.PostConstruct;
 import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+@Configuration
 public class MailService {
+
+    @Autowired
+    private Environment env;
+    private static String sender;
+    private static String senderPassword;
+    @PostConstruct
+    private void postConstruct() {
+        sender = env.getProperty("domain.email");
+        senderPassword = env.getProperty("domain.password");
+    }
 
     /**
      * Sends an email to a user/moderator after account creation.
@@ -20,18 +36,18 @@ public class MailService {
          * TODO: Create a google account to send emails from and insert details below.
          * TODO: Need to enable 2FA for the account and set an app password.
          */
-        String sender = "";
-        String senderPassword = "";
 
-        Properties properties = System.getProperties();
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.socketFactory.port", "465");
-        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.port", "465");
+        //TODO: REMOVE IN PRODUCTION VERSION USE THE VARIABLES DECLARED IN THE CLASS INSTEAD
+        String sender = "not set";
+        String senderPassword = "not set";
 
+        Properties props = System.getProperties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "send.one.com");
+        props.put("mail.smtp.port", "587");
 
-        Session session = Session.getInstance(properties, new Authenticator() {
+        Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(sender, senderPassword);
@@ -44,14 +60,28 @@ public class MailService {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 
             if(accountType == AccountTypes.MODERATOR){
-                message.setSubject("Ditt moderartor konto för GeoFlex är skapad");
-                message.setText("Hej, ditt moderator konto för GeoFlex har nu blivit skapad. Dina inloggningsuppgifter är" +
-                        "\n\nAnvändarnamn: " + username + "\nLösenord: " + password);
+                message.setSubject("Ditt moderartor konto för GeoFlex är skapad!");
+                String txt = "Hej!\n" +
+                        "\n" +
+                        "Ditt moderator-konto för Geoflex är nu skapat! Logga in med nedslående uppgifter för att börja använda appen\n" +
+                        "\n" +
+                        "Användarnamn:" + username + "\n" +
+                        "Lösenord:" + password +"\n" +
+                        "\n" +
+                        "Https://länk-till-webb-appen-här";
+                message.setText(txt);
             }
             else if(accountType == AccountTypes.USER){
-                message.setSubject("Ditt konto för GeoFlex är skapad");
-                message.setText("Hej, ditt konto för GeoFlex har nu blivit skapad. Dina inloggningsuppgifter är" +
-                        "\n\nAnvändarnamn: " + username + "\nLösenord: " + password);
+                message.setSubject("Ditt konto för GeoFlex är skapad!");
+                String txt = "Hej!\n" +
+                        "\n" +
+                        "Ditt konto för Geoflex är nu skapat! Logga in med nedslående uppgifter för att börja använda appen\n" +
+                        "\n" +
+                        "Användarnamn:" + username + "\n" +
+                        "Lösenord:" + password +"\n" +
+                        "\n" +
+                        "Https://länk-till-webb-appen-här";
+                message.setText(txt);
             }
             Transport.send(message);
         } catch (AddressException e) {
@@ -59,7 +89,6 @@ public class MailService {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
 
