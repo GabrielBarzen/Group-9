@@ -8,6 +8,8 @@ import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.Route;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
+import com.GeoFlex.GeoFlexBackend.Process.Mail.AccountTypes;
+import com.GeoFlex.GeoFlexBackend.Process.Mail.MailService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.springframework.http.HttpStatus;
@@ -221,10 +223,12 @@ public class AdminCompanion {
             JsonObject jsonObject = gson.fromJson(body, JsonObject.class);
             String name = jsonObject.get("create-moderator").getAsJsonObject().get("name").getAsString();
             String email = jsonObject.get("create-moderator").getAsJsonObject().get("email").getAsString();
+            String unsaltedPassword = jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString();
             String salt = Authenticator.generateSalt();
             String password = Authenticator.getHash(jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString() ,salt);
-            //TODO: Hash password and add salt.
             AdminProcedures.createModerator(name, email, password, salt);
+            MailService ms = new MailService();
+            ms.sendEmailCreateAccount(email, name, unsaltedPassword, AccountTypes.MODERATOR);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         return response;

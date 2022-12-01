@@ -4,6 +4,8 @@ import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.Authentication.Register;
 import com.GeoFlex.GeoFlexBackend.PoJo.Authentication.Route;
 import com.GeoFlex.GeoFlexBackend.PoJo.Authentication.UpdateUser;
+import com.GeoFlex.GeoFlexBackend.Process.Mail.AccountTypes;
+import com.GeoFlex.GeoFlexBackend.Process.Mail.MailService;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,8 @@ public class AuthenticationCompanion {
     public String register (Register register) {
         AuthenticationProcedures ap = new AuthenticationProcedures();
         String salt = Authenticator.generateSalt();
+        MailService ms = new MailService();
+        ms.sendEmailCreateAccount(register.userEmail, register.userName, register.password, AccountTypes.USER);
         return  ap.createUser(
                 register.userName,
                 register.userEmail,

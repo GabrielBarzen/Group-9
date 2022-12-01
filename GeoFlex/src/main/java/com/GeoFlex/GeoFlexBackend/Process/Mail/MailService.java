@@ -34,8 +34,8 @@ public class MailService {
     public void sendEmailCreateAccount(String recipient, String username, String password, AccountTypes accountType) {
         
         //TODO: REMOVE IN PRODUCTION VERSION USE THE VARIABLES DECLARED IN THE CLASS INSTEAD
-        String sender = "not set";
-        String senderPassword = "not set";
+        String sender = "";
+        String senderPassword = "";
 
         Properties props = System.getProperties();
         props.put("mail.smtp.auth", "true");
@@ -59,7 +59,7 @@ public class MailService {
                 message.setSubject("Ditt moderartor konto för GeoFlex är skapad!");
                 String txt = "Hej!\n" +
                         "\n" +
-                        "Ditt moderator-konto för Geoflex är nu skapat! Logga in med nedslående uppgifter för att börja använda appen\n" +
+                        "Ditt moderator-konto för Geoflex är nu skapat! Logga in med nedanstående uppgifter för att börja använda appen\n" +
                         "\n" +
                         "Användarnamn:" + username + "\n" +
                         "Lösenord:" + password +"\n" +
@@ -71,7 +71,7 @@ public class MailService {
                 message.setSubject("Ditt konto för GeoFlex är skapad!");
                 String txt = "Hej!\n" +
                         "\n" +
-                        "Ditt konto för Geoflex är nu skapat! Logga in med nedslående uppgifter för att börja använda appen\n" +
+                        "Ditt konto för Geoflex är nu skapat! Logga in med nedanstående uppgifter för att börja använda appen\n" +
                         "\n" +
                         "Användarnamn:" + username + "\n" +
                         "Lösenord:" + password +"\n" +
