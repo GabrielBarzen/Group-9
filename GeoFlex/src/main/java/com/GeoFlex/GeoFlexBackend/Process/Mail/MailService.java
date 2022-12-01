@@ -1,7 +1,9 @@
 package com.GeoFlex.GeoFlexBackend.Process.Mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 @Configuration
+@PropertySource("classpath:/config.properties")
 public class MailService {
 
     @Autowired
@@ -32,11 +35,6 @@ public class MailService {
      * @param accountType Enum containing the type of the account created.
      */
     public void sendEmailCreateAccount(String recipient, String username, String password, AccountTypes accountType) {
-        
-        //TODO: REMOVE IN PRODUCTION VERSION USE THE VARIABLES DECLARED IN THE CLASS INSTEAD
-        String sender = "";
-        String senderPassword = "";
-
         Properties props = System.getProperties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
