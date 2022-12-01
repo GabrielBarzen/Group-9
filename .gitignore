@@ -360,6 +360,4 @@ ImageMagick
 # End of https://www.toptal.com/developers/gitignore/api/react,node
 
 GeoFlex/src/main/resources/application.properties
-.properties
-.connection.properties
-GeoFlex/src/main/resources/connections.properties
+GeoFlex/src/main/resources/config.properties
