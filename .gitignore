@@ -361,3 +361,4 @@ ImageMagick
 
 GeoFlex/src/main/resources/application.properties
 .properties
+.connection.properties
