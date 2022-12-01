@@ -359,3 +359,4 @@ ImageMagick
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node
 
+GeoFlex/src/main/resources/application.properties
