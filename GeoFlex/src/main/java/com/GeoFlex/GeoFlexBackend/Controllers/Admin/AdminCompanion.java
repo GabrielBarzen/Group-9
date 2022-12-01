@@ -123,7 +123,7 @@ public class AdminCompanion {
                 if(ru.routeUpdate.location.get(i).to != null){
                     try {
                         System.out.println("swapping from: " + Integer.parseInt(ru.routeUpdate.location.get(i).from) + ", to :" +  Integer.parseInt(ru.routeUpdate.location.get(i).to));
-                        ap.routeSwapLocation(Integer.parseInt(ru.routeUpdate.location.get(i).from), Integer.parseInt(ru.routeUpdate.location.get(i).to));
+                        ap.routeSwapLocation((ru.routeUpdate.location.get(i).from), (ru.routeUpdate.location.get(i).to));
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting swap");
@@ -142,7 +142,7 @@ public class AdminCompanion {
                 else {
                     try {
                         System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
-                        ap.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        ap.routeDeleteLocation((ru.routeUpdate.routeId),(ru.routeUpdate.location.get(i).delete));
                         FileHandler fh = new FileHandler();
                         fh.deleteFileDirectory(Integer.parseInt(ru.routeUpdate.location.get(i).delete), "locations");
                         response = new ResponseEntity<>("", HttpStatus.OK);

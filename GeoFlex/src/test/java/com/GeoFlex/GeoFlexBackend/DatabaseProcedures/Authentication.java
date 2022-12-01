@@ -53,7 +53,7 @@ public class Authentication {
         id = ap.getUserId(username);
         System.out.println("got id : " + id + ", for username : " + username);
         System.out.println("user id to set acces level for : " + id);
-        assertTrue(ap.setAccessLevelForUser(id, ACCESS_LEVEL_SET));
+        assertTrue(ap.setAccessLevelForUser(id, String.valueOf(ACCESS_LEVEL_SET)));
     }
 
     @Test

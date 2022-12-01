@@ -71,8 +71,9 @@ public class AdminProcedures {
      * @param numLocations Amount of locations to create.
      * @return The route ID as an output parameter.
      */
-    public void createRoute(String title, String description, String type, int numLocations) {
+    public int createRoute(String title, String description, String type, int numLocations) {
         DatabaseConnection dbc = new DatabaseConnection();
+        int routeId = -1;
         try (CallableStatement cs = dbc.getConnection().prepareCall("{CALL sp_initialize_route(?, ?, ?, ?, ?, ?)}")) {
 
             cs.setString(1, title);
@@ -81,9 +82,10 @@ public class AdminProcedures {
             cs.setInt(4, numLocations);
 
             //Register the out param from the proecure.
-            cs.registerOutParameter(5, Types.INTEGER);
-            cs.registerOutParameter(6, Types.INTEGER);
-            cs.executeQuery();
+            cs.registerOutParameter("route_id", Types.INTEGER);
+            cs.registerOutParameter("route_code", Types.INTEGER);
+            ResultSet res = cs.executeQuery();
+            routeId = cs.getInt("route_id");
 
             //Return the out param from the procedure.
             //return cs.getInt(5);
@@ -97,6 +99,7 @@ public class AdminProcedures {
                 throw new RuntimeException(e);
             }
         }
+        return routeId;
     }
 
 
@@ -174,13 +177,16 @@ public class AdminProcedures {
      * Deletes a route and all related location/content from the database.
      * @param routeId The ID of the route to be deleted.
      */
-    public  void deleteRoute(String routeId) {
+    public  boolean deleteRoute(String routeId) {
         DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_route_with_id(?)}")) {
             cs.setInt(1, Integer.parseInt(routeId));
             cs.executeQuery();
+            success = true;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            success = false;
+            e.printStackTrace();
         }
         finally {
             try {
@@ -189,15 +195,16 @@ public class AdminProcedures {
                 throw new RuntimeException(e);
             }
         }
+        return success;
     }
 
-    public void routeSwapLocation(int locationIdFrom, int locationIdTo) {
+    public void routeSwapLocation(String locationIdFrom, String locationIdTo) {
         System.out.println("from id : " + locationIdFrom);
         System.out.println("to id : " + locationIdTo);
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_swap_location(?,?)}")) {
-            cs.setInt(1, locationIdFrom);
-            cs.setInt(2, locationIdTo);
+            cs.setInt(1, Integer.parseInt(locationIdFrom));
+            cs.setInt(2, Integer.parseInt(locationIdTo));
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -213,11 +220,11 @@ public class AdminProcedures {
 
 
 
-    public void routeDeleteLocation(int routeId, int locationIdDelete) {
+    public void routeDeleteLocation(String routeId, String locationIdDelete) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_location(?,?)}")) {
-            cs.setInt("in_route_id", routeId);
-            cs.setInt("in_location_id", locationIdDelete);
+            cs.setInt("in_route_id", Integer.parseInt(routeId));
+            cs.setInt("in_location_id", Integer.parseInt(locationIdDelete));
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
