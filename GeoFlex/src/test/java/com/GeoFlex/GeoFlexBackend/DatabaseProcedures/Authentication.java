@@ -1,16 +1,14 @@
-package com.GeoFlex.GeoFlexBackend.DatabaseProcedureTests;
+package com.GeoFlex.GeoFlexBackend.DatabaseProcedures;
 
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 import org.junit.jupiter.api.*;
 
-import java.sql.SQLOutput;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class AuthenticationTests {
+public class Authentication {
 
     static AuthenticationProcedures ap = new AuthenticationProcedures();
 

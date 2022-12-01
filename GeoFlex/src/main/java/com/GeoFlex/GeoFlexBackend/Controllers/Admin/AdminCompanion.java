@@ -10,6 +10,7 @@ import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
 import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -22,6 +23,7 @@ public class AdminCompanion {
     public String getUserID() {
         return userID;
     }
+    AdminProcedures ap = new AdminProcedures();
 
     public AdminCompanion(String userID) {
         this.userID = userID;
@@ -34,7 +36,7 @@ public class AdminCompanion {
     public ResponseEntity<String> routesGet() {
         ResponseEntity<String> response;
         HttpStatus responseStatus = HttpStatus.OK;
-        String json = AdminProcedures.getRoutes(userID);
+        String json = ap.getRoutes(userID);
         if (json == null) {
             json = "{\"error\" : \"Internal server error, contact administrator\"}";
             responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -54,7 +56,7 @@ public class AdminCompanion {
     public ResponseEntity<String> routeGet(String routeID) {
         ResponseEntity<String> response;
         HttpStatus responseStatus = HttpStatus.OK;
-        String json = AdminProcedures.getRoute(routeID, userID);
+        String json = ap.getRoute(routeID, userID);
         if (json == null) {
             json = "{\"error\" : \"Internal server error, contact administrator\"}";
             responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -82,7 +84,7 @@ public class AdminCompanion {
             Root r;
             r = gson.fromJson(body, Root.class);
             int numLocations = r.route.locations;
-            AdminProcedures.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
+            ap.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
         }
         return response;
     }
@@ -101,15 +103,15 @@ public class AdminCompanion {
             return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
         }
         if(ru.routeUpdate.title != null){
-            AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
+            ap.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.description != null){
-            AdminProcedures.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
+            ap.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.type != null){
-            AdminProcedures.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
+            ap.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.image != null){
@@ -121,7 +123,7 @@ public class AdminCompanion {
                 if(ru.routeUpdate.location.get(i).to != null){
                     try {
                         System.out.println("swapping from: " + Integer.parseInt(ru.routeUpdate.location.get(i).from) + ", to :" +  Integer.parseInt(ru.routeUpdate.location.get(i).to));
-                        AdminProcedures.routeSwapLocation(Integer.parseInt(ru.routeUpdate.location.get(i).from), Integer.parseInt(ru.routeUpdate.location.get(i).to));
+                        ap.routeSwapLocation(Integer.parseInt(ru.routeUpdate.location.get(i).from), Integer.parseInt(ru.routeUpdate.location.get(i).to));
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting swap");
@@ -130,7 +132,7 @@ public class AdminCompanion {
                 } else if (ru.routeUpdate.location.get(i).newLocation != null) {
                     try {
                         System.out.println("addning: " + Integer.parseInt(ru.routeUpdate.location.get(i).newLocation));
-                        AdminProcedures.routeNewLocations(Integer.parseInt(ru.routeUpdate.location.get(i).newLocation), Integer.parseInt(ru.routeUpdate.routeId));
+                        ap.routeNewLocations(Integer.parseInt(ru.routeUpdate.location.get(i).newLocation), Integer.parseInt(ru.routeUpdate.routeId));
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting delete");
@@ -140,7 +142,7 @@ public class AdminCompanion {
                 else {
                     try {
                         System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
-                        AdminProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        ap.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
                         FileHandler fh = new FileHandler();
                         fh.deleteFileDirectory(Integer.parseInt(ru.routeUpdate.location.get(i).delete), "locations");
                         response = new ResponseEntity<>("", HttpStatus.OK);
@@ -166,7 +168,7 @@ public class AdminCompanion {
         }
         else {
             response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
-            AdminProcedures.deleteRoute(routeID);
+            ap.deleteRoute(routeID);
             FileHandler fh = new FileHandler();
             fh.deleteFileDirectory(Integer.parseInt(routeID), "routes");
         }
@@ -184,7 +186,7 @@ public class AdminCompanion {
             response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         else {
-            String json = AdminProcedures.getRouteLocations(routeID);
+            String json = ap.getRouteLocations(routeID);
             response = new ResponseEntity<>(json, HttpStatus.OK);
         }
         return response;
@@ -193,7 +195,6 @@ public class AdminCompanion {
 
     public ResponseEntity<String> routeChangeAccess(String body) {
         Gson gson = new Gson();
-        AdminProcedures ap = new AdminProcedures();
         ModeratorAssign ma = gson.fromJson(body, ModeratorAssign.class);
         String id = ma.userId;
         String accessLevel = ma.accessLevel;
@@ -224,7 +225,7 @@ public class AdminCompanion {
             String salt = Authenticator.generateSalt();
             String password = Authenticator.getHash(jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString() ,salt);
             //TODO: Hash password and add salt.
-            AdminProcedures.createModerator(name, email, password, salt);
+            ap.createModerator(name, email, password, salt);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         return response;
@@ -233,7 +234,7 @@ public class AdminCompanion {
     public ResponseEntity<String> deleteModerator(String userId) {
         ResponseEntity<String> response;
         if(userId != null){
-            AdminProcedures.deleteModerator(userId);
+            ap.deleteModerator(userId);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         else {
@@ -248,7 +249,7 @@ public class AdminCompanion {
      */
     public ResponseEntity<String> getAllModerators() {
         ResponseEntity<String> response;
-            String json = AdminProcedures.getAllModerators();
+            String json = ap.getAllModerators();
             if(json.isEmpty()){
                 response = new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
             }
@@ -265,7 +266,7 @@ public class AdminCompanion {
      */
     public ResponseEntity<String> getRouteForUser(String userId) {
         ResponseEntity<String> response;
-        String json = AdminProcedures.getRoutesForUser(Integer.parseInt(userId));
+        String json = ap.getRoutesForUser(Integer.parseInt(userId));
         if(json.isEmpty()){
             response = new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
         }

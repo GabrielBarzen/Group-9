@@ -22,7 +22,7 @@ public class AdminProcedures {
      * @param userID The user id.
      * @return The routes as a string.
      */
-    public static String getRoutes(String userID) {
+    public String getRoutes(String userID) {
         DatabaseConnection dbc = new DatabaseConnection();
         String response = "";
         System.out.println("Starting cs");
@@ -71,7 +71,7 @@ public class AdminProcedures {
      * @param numLocations Amount of locations to create.
      * @return The route ID as an output parameter.
      */
-    public static void createRoute(String title, String description, String type, int numLocations) {
+    public void createRoute(String title, String description, String type, int numLocations) {
         DatabaseConnection dbc = new DatabaseConnection();
         try (CallableStatement cs = dbc.getConnection().prepareCall("{CALL sp_initialize_route(?, ?, ?, ?, ?, ?)}")) {
 
@@ -107,7 +107,7 @@ public class AdminProcedures {
      * @param routeId The id of the route.
      * @return Json object with route information.
      */
-    public static String getRoute(String routeId, String userId) {
+    public  String getRoute(String routeId, String userId) {
         DatabaseConnection dc = new DatabaseConnection();
         Root r = new Root();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo_with_id(?, ?, ?)}")) {
@@ -174,7 +174,7 @@ public class AdminProcedures {
      * Deletes a route and all related location/content from the database.
      * @param routeId The ID of the route to be deleted.
      */
-    public static void deleteRoute(String routeId) {
+    public  void deleteRoute(String routeId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_route_with_id(?)}")) {
             cs.setInt(1, Integer.parseInt(routeId));
@@ -191,7 +191,7 @@ public class AdminProcedures {
         }
     }
 
-    public static void routeSwapLocation(int locationIdFrom, int locationIdTo) {
+    public void routeSwapLocation(int locationIdFrom, int locationIdTo) {
         System.out.println("from id : " + locationIdFrom);
         System.out.println("to id : " + locationIdTo);
         DatabaseConnection dc = new DatabaseConnection();
@@ -211,11 +211,9 @@ public class AdminProcedures {
         }
     }
 
-    public static void main(String[] args) {
-        routeDeleteLocation(42,173);
-    }
 
-    public static void routeDeleteLocation(int routeId, int locationIdDelete) {
+
+    public void routeDeleteLocation(int routeId, int locationIdDelete) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_location(?,?)}")) {
             cs.setInt("in_route_id", routeId);
@@ -233,7 +231,7 @@ public class AdminProcedures {
         }
     }
 
-    public static void routeUpdateTitle(String routeID, String title){
+    public void routeUpdateTitle(String routeID, String title){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_title(?, ?)}")) {
             cs.setString("in_route_id", String.valueOf(routeID));
@@ -251,7 +249,7 @@ public class AdminProcedures {
         }
     }
 
-    public static void routeUpdateDescription(String routeID, String description){
+    public void routeUpdateDescription(String routeID, String description){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_description(?, ?)}")) {
             cs.setString("in_route_id", String.valueOf(routeID));
@@ -269,7 +267,7 @@ public class AdminProcedures {
         }
     }
 
-    public static void routeUpdateType(String routeID, String type){
+    public void routeUpdateType(String routeID, String type){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_type(?, ?)}")) {
             cs.setString("in_route_id", String.valueOf(routeID));
@@ -288,7 +286,7 @@ public class AdminProcedures {
         }
     }
 
-    public static String getRouteLocations(String routeID) {
+    public String getRouteLocations(String routeID) {
         DatabaseConnection dc = new DatabaseConnection();
         Root r = new Root();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_locations_for_route(?)}")) {
@@ -330,7 +328,7 @@ public class AdminProcedures {
         }
     }
 
-    public static void routeNewLocations(int numLocations, int routeId) {
+    public void routeNewLocations(int numLocations, int routeId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_route_add_location(?, ?)}")) {
             cs.setInt("in_num_locations", numLocations);
@@ -366,7 +364,7 @@ public class AdminProcedures {
     }
 
 
-    public static void createModerator(String name, String email, String password, String salt) {
+    public void createModerator(String name, String email, String password, String salt) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_moderator(?, ?, ?, ?)}")) {
             cs.setString("in_name", name);
@@ -388,7 +386,7 @@ public class AdminProcedures {
         }
     }
 
-    public static void deleteModerator(String userId) {
+    public void deleteModerator(String userId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_moderator(?)}")) {
             cs.setString("in_user_id", userId);
@@ -406,7 +404,7 @@ public class AdminProcedures {
     }
 
 
-    public static String getAllModerators() {
+    public String getAllModerators() {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_users_by_role(?)}")) {
             cs.setInt("in_role", 1);
@@ -443,7 +441,7 @@ public class AdminProcedures {
         }
     }
 
-    public static String getRoutesForUser(int userId) {
+    public String getRoutesForUser(int userId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_all_routes_for_user(?)}")) {
             cs.setInt("in_user_id", userId);
