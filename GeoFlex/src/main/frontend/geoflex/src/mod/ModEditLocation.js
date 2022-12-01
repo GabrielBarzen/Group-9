@@ -42,28 +42,14 @@ export default function ModEditLocation(props) {
     console.log("ADDANSWER")
     console.log(locationID)
     var data = JSON.stringify(
-      {
-        "location-update": {
-          "location_id": locationID,
-          "name": "",
-          "text_info": "",
-          "location_index": "",
-          "last_location": "",
-          "x_coords": "",
-          "y_coords": "",
-          "directions": "",
-          "content": [
-            {
-              "id": null
-            }
-          ],
-          "media": [
-            {
-              "mediaURL": "",
-              "mediaType": ""
-            }
-          ]
-        }
+      {"location-update":{
+        "location-id": locationID,
+        "content" :[{
+          "answer": "",
+          "correct": false,
+          "content-id" : null
+          }]
+      }
       }
     );
 
@@ -91,25 +77,15 @@ export default function ModEditLocation(props) {
      * API-call to remove 1 answer 
      */
     console.log("REMOVE ANSWER");
+    console.log(locationID)
     console.log(contentID)
     var data = JSON.stringify(
-      {
-        "location-update": {
-          "location-id": locationID,
-          "name": "",
-          "text_info": "",
-          "media": [{
-            "mediaURL": "",
-            "mediaType": ""
-          }],
-          "qr": "",
-          "x_coords": "0.0",
-          "y_coords": "0.0",
-          "directions": "",
-          "content": [{
-            "delete": contentID
+      {"location-update":{
+        "location-id": locationID,
+        "content" :[{
+            "delete" : contentID
           }]
-        }
+      }
       }
     );
 

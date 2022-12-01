@@ -122,6 +122,11 @@ export default function ModEdit() {
               {
                 "content-id": "63",
                 "answer": "Rune Platebody",
+                "correct": true
+              },
+              {
+                "content-id": "01",
+                "answer": "Belsebub",
                 "correct": false
               }
             ]

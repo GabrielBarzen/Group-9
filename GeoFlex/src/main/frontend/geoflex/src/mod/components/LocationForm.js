@@ -159,12 +159,12 @@ export default class LocationForm extends Component {
 
     }
 
-    handleAddAnswer() {
+    handleAddAnswer(locationID) {
         /**
          * Add a new question
          */
-        alert("handleAddAnswer")
-        this.props.callAddAnswer(this.props.currentData.location_id);
+        
+        this.props.callAddAnswer(locationID);
     }
     handleRemoveAnswer(locationID, contentID){
         this.props.callRemoveAnswer(locationID, contentID)
@@ -317,7 +317,7 @@ export default class LocationForm extends Component {
                         <div className=''>
                         <LocationFormAnswers
                             data={this.state}
-                            content={this.props.currentData}
+                            content={this.props.currentData.content}
                             handleInputChange={this.handleInputChange} 
                             handleAddAnswer={this.handleAddAnswer}
                             handleRemoveAnswer={this.handleRemoveAnswer}/>
