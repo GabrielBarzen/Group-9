@@ -44,7 +44,7 @@ export default class LocationFormAnswers extends Component {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 update(response.data.content);
-                this.forceUpdate()
+                
 
             })
             .catch(function (error) {
@@ -53,6 +53,7 @@ export default class LocationFormAnswers extends Component {
 
             const update = (data) => {
                 this.setState({ content: data })
+                this.props.handleContentIDState(data)
                 this.forceUpdate()
             }
     }

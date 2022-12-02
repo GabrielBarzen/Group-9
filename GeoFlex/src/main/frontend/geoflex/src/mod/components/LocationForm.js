@@ -65,6 +65,7 @@ export default class LocationForm extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGeoLocation = this.handleGeoLocation.bind(this);
+        this.handleContentIDState = this.handleContentIDState.bind(this);
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
     }
     componentDidMount() {
@@ -162,6 +163,16 @@ export default class LocationForm extends Component {
         */
 
     }
+    handleContentIDState(content) {
+        let i = 1;
+        let stateKey = "locationContentID"
+        content.forEach(item => {
+            stateKey + i.toString();
+            this.setState({ [stateKey]: item["content-id"] })
+            i++
+        });
+
+    }
 
     handleAddAnswer(locationID) {
         /**
@@ -214,11 +225,11 @@ export default class LocationForm extends Component {
         och anropar sedan funktionen där API-anropet ligger och skickar med objektet
         just nu får man bara en alert med de värden man fyllt i
         */
-       if(this.state.locationUseQR === false){
-        this.setState({locationDirections: ""})
-       } else if(this.state.locationUseQR === true) {
-        this.setState({locationLatitude: "", locationLongitude: ""})
-       }
+        if (this.state.locationUseQR === false) {
+            this.setState({ locationDirections: "" })
+        } else if (this.state.locationUseQR === true) {
+            this.setState({ locationLatitude: "", locationLongitude: "" })
+        }
 
         let tempContentArray = [{
             "content-id": this.state.locationContentID1,
@@ -264,7 +275,7 @@ export default class LocationForm extends Component {
             }
         }
         console.log("CONTENTARRAY")
-        console.log(contentArray)
+        console.log(data)
         //this.props.callUpdateLocation(data);
 
         //alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections + ' AND: ' + this.state.locationAnswer1 + ' AND: ' + this.state.locationAnswer2 + ' AND: ' + this.state.locationAnswer3);
@@ -313,7 +324,7 @@ export default class LocationForm extends Component {
 
                     {(() => {
                         if (this.state.locationUseQR === true) {
-                           
+
                             return (
                                 <LocationFormUseQR
                                     data={this.state}
@@ -321,7 +332,7 @@ export default class LocationForm extends Component {
                                 />
                             )
                         } else if (this.state.locationUseQR === false) {
-                            
+
                             return (
                                 <ModGeolocate
                                     data={this.state}
@@ -337,7 +348,8 @@ export default class LocationForm extends Component {
                                 content={this.props.currentData.content}
                                 handleInputChange={this.handleInputChange}
                                 handleAddAnswer={this.handleAddAnswer}
-                                handleRemoveAnswer={this.handleRemoveAnswer} />
+                                handleRemoveAnswer={this.handleRemoveAnswer}
+                                handleContentIDState={this.handleContentIDState} />
                         </div>
 
                     </fieldset>
