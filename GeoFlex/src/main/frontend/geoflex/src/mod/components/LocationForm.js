@@ -165,9 +165,9 @@ export default class LocationForm extends Component {
     }
     handleContentIDState(content) {
         let i = 1;
-        let stateKey = "locationContentID"
+       
         content.forEach(item => {
-            stateKey + i.toString();
+            let stateKey = "locationContentID" + i.toString();
             this.setState({ [stateKey]: item["content-id"] })
             i++
         });
