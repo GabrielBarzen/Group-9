@@ -24,17 +24,7 @@ export default class LocationFormAnswers extends Component {
             this.setState({ content: [] })
         }
     }
-    shouldComponentUpdate(nextProps) {
-        // Rendering the component only if 
-        // passed props value is changed
-
-        if (nextProps.status !== this.props.status) {
-            console.log("Should Component Update");
-            return false;
-        } else {
-            return true;
-        }
-    }
+   
     fetchUpdatedAnswerArray(locationID) {
         console.log("FETCHING UPDATED ANSWER ARRAY")
         /**
@@ -52,11 +42,13 @@ export default class LocationFormAnswers extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                this.setState({content: response.data.content})
                 if (this.state.status === false) {
                     this.setState({ status: true })
                 } else if (this.state.status === true) {
                     this.setState({ status: false })
                 }
+                
                 return response.data.content
             })
             .catch(function (error) {
@@ -66,6 +58,7 @@ export default class LocationFormAnswers extends Component {
                 } else if (this.state.status === true) {
                     this.setState({ status: false })
                 }
+                
             });
     }
 
@@ -77,6 +70,7 @@ export default class LocationFormAnswers extends Component {
     }
     handleAddAnswer(locationID) {
         this.props.handleAddAnswer(locationID)
+        fetchUpdatedAnswerArray(locationID)
 
     }
     handleRemoveAnswer(locationID, contentID) {
