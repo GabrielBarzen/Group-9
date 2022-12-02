@@ -276,10 +276,9 @@ export default class LocationForm extends Component {
         }
         console.log("CONTENTARRAY")
         console.log(data)
-        //this.props.callUpdateLocation(data);
+        this.props.callUpdateLocation(data);
 
         //alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections + ' AND: ' + this.state.locationAnswer1 + ' AND: ' + this.state.locationAnswer2 + ' AND: ' + this.state.locationAnswer3);
-        alert('DATA OBJEKT: ' + data["location-update"]["location-id"] + ' AND: ' + data["location-update"].name + ' AND: ' + data["location-update"].text_info + ' AND: ' + data["location-update"].x_coords + ' AND: ' + data["location-update"].y_coords + ' AND: ' + data["location-update"].directions + ' AND: ' + data["location-update"].content[4].answer);
     }
 
 

@@ -25,7 +25,7 @@ export default function Location(props) {
                         </div>
                         <div className='col s8'>
                             <span className=''>
-                                {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                                {props.data.name}
                             </span> 
                         </div>  
                         <div className='col s2'>
@@ -66,7 +66,7 @@ export default function Location(props) {
                     </div>
                     <div className='col s8'>
                         <span className=''>
-                            {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                            {props.data.name}
                         </span> 
                     </div>  
                     <div className='col s2'>
@@ -108,7 +108,7 @@ export default function Location(props) {
                     <section className=''>
                         <i className="material-icons col s1">place</i>
                         <span className='col s8'>
-                            {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                            {props.data.name}
                         </span>
                         <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}>
                             <i className='material-icons right black-text' 
@@ -141,7 +141,7 @@ export default function Location(props) {
                 </div>
                 <div className='col s8'>
                     <span className=''>
-                        {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                        {props.data.name}
                     </span> 
                 </div>                  
                 <div className='col s7 offset-s1'>
