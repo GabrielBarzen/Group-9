@@ -148,20 +148,6 @@ export default class LocationForm extends Component {
                     break;
             }
         }
-        /*
-        if ((this.props.currentData.x_coords !== undefined) && (this.props.currentData.y_coords !== undefined)) {
-            this.setState({
-                locationLongitude: this.props.currentData.x_coords,
-                locationLatitude: this.props.currentData.y_coords
-            })
-        }
-        if (this.props.currentData.directions !== undefined) {
-            this.setState({
-                locationDirections: this.props.currentData.directions
-            })
-        }
-        */
-
     }
     handleContentIDState(content) {
         let i = 1;
@@ -215,6 +201,9 @@ export default class LocationForm extends Component {
         this.setState({
             [name]: value
         });
+        if(name === "locationName"){
+            this.props.handleChange(value)
+        }
     }
 
     handleSubmit(event) {
@@ -294,7 +283,9 @@ export default class LocationForm extends Component {
                             className='blue lighten-4'
                             name="locationName" type="text"
                             value={this.state.locationName}
-                            onChange={this.handleInputChange} />
+                            onChange={this.handleInputChange}
+                           
+                             />
                     </label>
 
                     <label>
@@ -307,7 +298,7 @@ export default class LocationForm extends Component {
                     </label>
                     <LocationFormMedia locationID={this.props.currentData.id} />
 
-                    <div class="switch">
+                    <div className="switch">
                         <label>
                             Använd koordinater
                             <input type="checkbox"
@@ -315,7 +306,7 @@ export default class LocationForm extends Component {
                                 checked={this.state.locationUseQR}
                                 onChange={this.handleInputChange}
                             />
-                            <span class="lever"></span>
+                            <span className="lever"></span>
                             Använd QR
 
                         </label>
@@ -358,10 +349,3 @@ export default class LocationForm extends Component {
         )
     }
 }
-/*
-<div className='row'>
-                            <span onClick={this.handleAddAnswer}>
-                                Lägg till svar
-                            </span>
-                        </div>
-*/

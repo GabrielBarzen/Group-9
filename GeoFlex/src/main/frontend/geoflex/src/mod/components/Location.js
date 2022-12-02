@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ModEditLocation from '../ModEditLocation';
 
 
@@ -8,10 +8,19 @@ export default function Location(props) {
      * Location.js renders each single location-object received
      * all properties and functions is mapped through props.
      */
+    const [titleValue, setTitleValue] = useState(props.data.name)
+  
+    
 
     const currentValue = props.data;
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
+    
+    function handleChange(value) {
+     
+        setTitleValue(value);
+        
+      }
 
     const firstLocation = () => {
         /**
@@ -25,7 +34,7 @@ export default function Location(props) {
                         </div>
                         <div className='col s8'>
                             <span className=''>
-                                {props.data.name}
+                                {titleValue}
                             </span> 
                         </div>  
                         <div className='col s2'>
@@ -46,7 +55,9 @@ export default function Location(props) {
                             onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                         </div>
                         <div className='collapsible-body col s10'>
-                            <ModEditLocation data={currentValue}/>
+                            <ModEditLocation 
+                            data={currentValue}
+                            handleChange={handleChange} />
                         </div>
                         <div className="divider col s10 offset-s1"></div>    
                 </li>
@@ -66,7 +77,7 @@ export default function Location(props) {
                     </div>
                     <div className='col s8'>
                         <span className=''>
-                            {props.data.name}
+                            {titleValue}
                         </span> 
                     </div>  
                     <div className='col s2'>
@@ -89,7 +100,9 @@ export default function Location(props) {
                         onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                     </div>
                     <div className='collapsible-body col s12'>
-                        <ModEditLocation data={currentValue}/>
+                        <ModEditLocation 
+                        data={currentValue}
+                        handleChange={handleChange} />
                     </div>
                     <div className="divider col s10 offset-s1"></div>
                 </li>
@@ -108,7 +121,7 @@ export default function Location(props) {
                     <section className=''>
                         <i className="material-icons col s1">place</i>
                         <span className='col s8'>
-                            {props.data.name}
+                            {titleValue}
                         </span>
                         <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}>
                             <i className='material-icons right black-text' 
@@ -123,7 +136,9 @@ export default function Location(props) {
                         </span>
                     </section>
                     <section className='collapsible-body col s12'>
-                        <ModEditLocation data={currentValue}/>
+                        <ModEditLocation 
+                        data={currentValue}
+                        handleChange={handleChange} />
                     </section>
                 </li>
             </>
@@ -141,7 +156,7 @@ export default function Location(props) {
                 </div>
                 <div className='col s8'>
                     <span className=''>
-                        {props.data.name}
+                        {titleValue}
                     </span> 
                 </div>                  
                 <div className='col s7 offset-s1'>
@@ -152,7 +167,8 @@ export default function Location(props) {
 
                 </div>
                 <div className='collapsible-body col s12'>
-                    <ModEditLocation data={currentValue}/>
+                    <ModEditLocation data={currentValue} 
+                    handleChange={handleChange} />
                 </div>
                 <div className="divider col s10 offset-s1"></div>    
             </li>

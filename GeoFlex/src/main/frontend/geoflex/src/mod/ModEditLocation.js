@@ -107,6 +107,9 @@ export default function ModEditLocation(props) {
         console.log(error);
       });
   }
+  function handleChange(value){
+    props.handleChange(value)
+  }
 
   return (
     <>
@@ -116,6 +119,7 @@ export default function ModEditLocation(props) {
         callUpdateLocation={updateLocation}
         callAddAnswer={addAnswer}
         callRemoveAnswer={removeAnswer}
+        handleChange={handleChange}
       />
     </>
   )
