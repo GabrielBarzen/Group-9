@@ -50,6 +50,7 @@ export default class LocationFormAnswers extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                this.forceUpdate();
                 return response.data.content
             })
             .catch(function (error) {
@@ -78,7 +79,7 @@ export default class LocationFormAnswers extends Component {
         let toReturn;
         let toReturnArray = [];
         if (this.state.content.length !== 0) {
-            let i = 0;
+            
             let j = 1;
             this.state.content.forEach(item => {
                 
@@ -121,7 +122,7 @@ export default class LocationFormAnswers extends Component {
                 </div>
                 );
                 toReturnArray.push(toReturn);
-                i++;
+                
                 j++;
             }
             )
