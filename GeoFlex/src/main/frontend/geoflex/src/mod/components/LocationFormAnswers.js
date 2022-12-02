@@ -24,7 +24,7 @@ export default class LocationFormAnswers extends Component {
             this.setState({ content: [] })
         }
     }
-   
+
     fetchUpdatedAnswerArray(locationID) {
         console.log("FETCHING UPDATED ANSWER ARRAY")
         /**
@@ -42,23 +42,11 @@ export default class LocationFormAnswers extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                this.setState({content: response.data.content})
-                if (this.state.status === false) {
-                    this.setState({ status: true })
-                } else if (this.state.status === true) {
-                    this.setState({ status: false })
-                }
-                
-                return response.data.content
+                this.setState({ content: response.data.content })
+
             })
             .catch(function (error) {
                 console.log(error);
-                if (this.state.status === false) {
-                    this.setState({ status: true })
-                } else if (this.state.status === true) {
-                    this.setState({ status: false })
-                }
-                
             });
     }
 
@@ -69,10 +57,47 @@ export default class LocationFormAnswers extends Component {
         this.props.handleInputChange(event);
     }
     handleAddAnswer(locationID) {
-        this.props.handleAddAnswer(locationID)
-        fetchUpdatedAnswerArray(locationID)
+        //this.props.handleAddAnswer(locationID)
+
+        /**
+     * API-call to add 1 answer 
+     */
+        console.log("ADDANSWER")
+        console.log(locationID)
+        var data = JSON.stringify(
+            {
+                "location-update": {
+                    "location-id": locationID,
+                    "content": [{
+                        "answer": "",
+                        "correct": false,
+                        "content-id": null
+                    }]
+                }
+            }
+        );
+
+        var config = {
+            method: "patch",
+            url: "/moderator/location",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: data,
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                this.fetchUpdatedAnswerArray(locationID)
+
+            })
+            .catch(function (error) {
+                console.log(error.response.data);
+            });
 
     }
+
     handleRemoveAnswer(locationID, contentID) {
 
         this.props.handleRemoveAnswer(locationID, contentID)
