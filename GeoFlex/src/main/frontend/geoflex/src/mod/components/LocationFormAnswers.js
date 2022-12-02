@@ -43,6 +43,7 @@ export default class LocationFormAnswers extends Component {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 this.setState({ content: response.data.content })
+                this.forceUpdate()
 
             })
             .catch(function (error) {
