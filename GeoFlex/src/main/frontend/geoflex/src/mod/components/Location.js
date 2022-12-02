@@ -56,6 +56,7 @@ export default function Location(props) {
                         </div>
                         <div className='collapsible-body col s10'>
                             <ModEditLocation 
+                            routeID={props.routeID}
                             data={currentValue}
                             handleChange={handleChange} />
                         </div>
@@ -101,6 +102,7 @@ export default function Location(props) {
                     </div>
                     <div className='collapsible-body col s12'>
                         <ModEditLocation 
+                        routeID={props.routeID}
                         data={currentValue}
                         handleChange={handleChange} />
                     </div>
@@ -137,6 +139,7 @@ export default function Location(props) {
                     </section>
                     <section className='collapsible-body col s12'>
                         <ModEditLocation 
+                        routeID={props.routeID}
                         data={currentValue}
                         handleChange={handleChange} />
                     </section>
@@ -168,6 +171,7 @@ export default function Location(props) {
                 </div>
                 <div className='collapsible-body col s12'>
                     <ModEditLocation data={currentValue} 
+                    routeID={props.routeID}
                     handleChange={handleChange} />
                 </div>
                 <div className="divider col s10 offset-s1"></div>    

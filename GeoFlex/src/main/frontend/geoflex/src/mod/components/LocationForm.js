@@ -298,7 +298,7 @@ export default class LocationForm extends Component {
                     </label>
                     <LocationFormMedia locationID={this.props.currentData.id} />
 
-                    <div className="switch">
+                    <div className="switch row">
                         <label>
                             Använd koordinater
                             <input type="checkbox"
@@ -318,6 +318,7 @@ export default class LocationForm extends Component {
                             return (
                                 <LocationFormUseQR
                                     data={this.state}
+                                    routeID={this.props.routeID}
                                     handleInputChange={this.handleInputChange}
                                 />
                             )

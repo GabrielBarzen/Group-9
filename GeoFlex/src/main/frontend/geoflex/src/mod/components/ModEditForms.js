@@ -124,7 +124,7 @@ export default function ModEditForms(props) {
                 {[...props.locationsData].map((location) => (
                   <Location
                     key={location.location_id}
-                    route={props.mainData.id}
+                    routeID={props.mainData.location_id}
                     data={location}
                     deleteLocation={handleDelete}
                     swapLocationsUp={swapLocationsUp}
