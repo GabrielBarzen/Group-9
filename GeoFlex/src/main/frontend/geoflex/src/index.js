@@ -44,14 +44,13 @@ export default function App() {
                     <Route path='/moderator/overview' element={<ModOverview />} />
                     <Route path='/moderator/edit/:id' element={<ModEdit />} />
                     <Route path='/moderator/edit/:id/location/:id' element={<ModEditLocation />} />
-
                     
                     
 
                     <Route path='/game/start' element={<StartQuiz />} />
                     <Route path='/game/:id/welcome' element={<GameWelcome />} />
                     <Route path='/game/:id/navigation' element={<GameNavigation />} />
-                    <Route path='/game/:id/item' element={<GameItem />} />
+                    <Route path='/game/route/:id/location/:id' element={<GameItem />} />
                     <Route path='/game/:id/finish' element={<GameFinish />} />
 
                     <Route path='/test' element={<TestComponents />} />
