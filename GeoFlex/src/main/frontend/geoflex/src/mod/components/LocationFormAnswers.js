@@ -157,13 +157,13 @@ export default class LocationFormAnswers extends Component {
                 let inputName = "locationAnswer" + j.toString();
                 let inputValue = this.props.data[inputName];
                 let checkboxName = "locationCorrect" + j.toString();
-                let getCheckboxValue = this.props.data[checkboxName];
+                let checkboxValue = this.props.data[checkboxName];
                 let setChecked = "checked";
                 let contentID = item["content-id"];
                 console.log("CONTENT ID HÄR")
                 console.log(contentID)
 
-                if (getCheckboxValue !== true) {
+                if (checkboxValue !== true) {
                     setChecked = ""
                 }
 
@@ -183,7 +183,7 @@ export default class LocationFormAnswers extends Component {
                             <input className='text-black'
                                 id={checkboxName}
                                 name={checkboxName}
-                                checked={setChecked}
+                                checked={checkboxValue}
                                 type="checkbox"
 
                                 onChange={this.onFieldChange.bind(this)} />

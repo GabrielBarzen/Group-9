@@ -61,7 +61,7 @@ export default function ModEdit() {
             "text_info": "Replace me",
             "location_index": "3",
             "last_location": "false",
-            "qr": true,
+            "qr": false,
             "x_coords": "",
             "y_coords": "",
             "directions": "Gå till vänster",
