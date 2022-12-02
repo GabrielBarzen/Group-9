@@ -20,7 +20,7 @@ public class LocationEdit {
     public String textInfo;
     @SerializedName("qr")
     @Expose
-    public String qr;
+    public Boolean qr;
     @SerializedName("x_coords")
     @Expose
     public String xCoords;
