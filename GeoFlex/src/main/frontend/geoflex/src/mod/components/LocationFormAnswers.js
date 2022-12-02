@@ -24,15 +24,17 @@ export default class LocationFormAnswers extends Component {
             this.setState({ content: [] })
         }
     }
-    /*    componentDidUpdate(prevState) {
-    
-            if (this.state.status !== prevState.status) {
-                let newData = this.fetchUpdatedAnswerArray(this.state.locationID)
-                this.setState({ content: newData })
-    
-            }
+    shouldComponentUpdate(nextProps) {
+        // Rendering the component only if 
+        // passed props value is changed
+
+        if (nextProps.status !== this.props.status) {
+            console.log("Should Component Update");
+            return false;
+        } else {
+            return true;
         }
-    */
+    }
     fetchUpdatedAnswerArray(locationID) {
         console.log("FETCHING UPDATED ANSWER ARRAY")
         /**
@@ -50,11 +52,20 @@ export default class LocationFormAnswers extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                this.forceUpdate();
+                if (this.state.status === false) {
+                    this.setState({ status: true })
+                } else if (this.state.status === true) {
+                    this.setState({ status: false })
+                }
                 return response.data.content
             })
             .catch(function (error) {
                 console.log(error);
+                if (this.state.status === false) {
+                    this.setState({ status: true })
+                } else if (this.state.status === true) {
+                    this.setState({ status: false })
+                }
             });
     }
 
@@ -79,10 +90,10 @@ export default class LocationFormAnswers extends Component {
         let toReturn;
         let toReturnArray = [];
         if (this.state.content.length !== 0) {
-            
+
             let j = 1;
             this.state.content.forEach(item => {
-                
+
                 let inputName = "locationAnswer" + j.toString();
                 let inputValue = this.props.data[inputName];
                 let checkboxName = "locationCorrect" + j.toString();
@@ -98,31 +109,31 @@ export default class LocationFormAnswers extends Component {
 
                 toReturn = (
                     <div key={contentID} className="row">
-                    <label className='col s9'>
-                        Fråga
-                        <input className="blue lighten-4"
-                            name={inputName}
-                            type="text"
-                            value={inputValue}
-                            onChange={this.onFieldChange.bind(this)} />
-                    </label>
-                    <label className='col s2' htmlFor={checkboxName}>
+                        <label className='col s9'>
+                            Fråga
+                            <input className="blue lighten-4"
+                                name={inputName}
+                                type="text"
+                                value={inputValue}
+                                onChange={this.onFieldChange.bind(this)} />
+                        </label>
+                        <label className='col s2' htmlFor={checkboxName}>
 
 
-                        <input className='text-black'
-                            id={checkboxName}
-                            name={checkboxName}
-                            checked={setChecked}
-                            type="checkbox"
+                            <input className='text-black'
+                                id={checkboxName}
+                                name={checkboxName}
+                                checked={setChecked}
+                                type="checkbox"
 
-                            onChange={this.onFieldChange.bind(this)} />
-                        <span>Rätt svar</span>
-                    </label>
-                    <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.state.locationID, contentID)}> <i className="material-icons">delete_forever</i></span>
-                </div>
+                                onChange={this.onFieldChange.bind(this)} />
+                            <span>Rätt svar</span>
+                        </label>
+                        <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.state.locationID, contentID)}> <i className="material-icons">delete_forever</i></span>
+                    </div>
                 );
                 toReturnArray.push(toReturn);
-                
+
                 j++;
             }
             )
@@ -132,13 +143,13 @@ export default class LocationFormAnswers extends Component {
             {[...toReturnArray].map((answer) => (
                 answer
             ))}
-             {(() => {
-        if (this.state.content.length <=4) {
-          return (
-            <div onClick={() => this.handleAddAnswer(this.state.locationID)}>Lägga till här</div>
-          )
-        }
-      })()}
+            {(() => {
+                if (this.state.content.length <= 4) {
+                    return (
+                        <div onClick={() => this.handleAddAnswer(this.state.locationID)}>Lägga till här</div>
+                    )
+                }
+            })()}
         </>
         )
     }
