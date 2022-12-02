@@ -15,6 +15,7 @@ export default class LocationFormAnswers extends Component {
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
         this.handleRemoveAnswer = this.handleRemoveAnswer.bind(this);
+        this.fetchUpdatedAnswerArray = this.fetchUpdatedAnswerArray.bind(this);
     }
     componentDidMount() {
         M.updateTextFields();
@@ -42,13 +43,18 @@ export default class LocationFormAnswers extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                this.setState({ content: response.data.content })
+                update(response.data.content);
                 this.forceUpdate()
 
             })
             .catch(function (error) {
                 console.log(error);
             });
+
+            const update = (data) => {
+                this.setState({ content: data })
+                this.forceUpdate()
+            }
     }
 
     onFieldChange(event) {
@@ -90,18 +96,51 @@ export default class LocationFormAnswers extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                this.fetchUpdatedAnswerArray(locationID)
-
+                fetchNewContent(locationID);
             })
             .catch(function (error) {
-                console.log(error.response.data);
+                //fetchNewContent(locationID);
+                console.log(error);
             });
+
+            const fetchNewContent = (locationID) => {
+                this.fetchUpdatedAnswerArray(locationID)
+            }
 
     }
 
     handleRemoveAnswer(locationID, contentID) {
+        var data = JSON.stringify(
+            {"location-update":{
+              "location-id": locationID,
+              "content" :[{
+                  "delete" : contentID
+                }]
+            }
+            }
+          );
+      
+          var config = {
+            method: "patch",
+            url: "/moderator/location",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: data,
+          };
+      
+          axios(config)
+            .then(function (response) {
+              console.log(JSON.stringify(response.data));
+                fetchNewContent(locationID);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
 
-        this.props.handleRemoveAnswer(locationID, contentID)
+            const fetchNewContent = (locationID) => {
+                this.fetchUpdatedAnswerArray(locationID)
+            }
     }
 
     render() {
