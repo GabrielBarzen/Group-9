@@ -311,6 +311,7 @@ export default class LocationForm extends Component {
                         locationID={this.props.currentData.id}
                         locationMediaUrl={this.state.locationMediaUrl}
                         locationMediaType={this.state.locationMediaType}
+                        locationMediaExternal={this.state.locationMediaExternal}
                         handleInputChange={this.handleInputChange}
                     />
 

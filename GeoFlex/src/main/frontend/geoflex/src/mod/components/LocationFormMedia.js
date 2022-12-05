@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import FormData from 'form-data';
+import M from 'materialize-css'
 
 
 
@@ -15,7 +16,7 @@ export default class LocationFormMedia extends Component {
         super(props);
         this.state = {
             locationID: props.locationID,
-            mediaExternal: false,
+            mediaExternal: props.locationMediaExternal,
             mediaUrl: props.locationMediaUrl,
             mediaType: props.locationMediaType
         }
@@ -25,7 +26,11 @@ export default class LocationFormMedia extends Component {
         this.handleSwitch = this.handleSwitch.bind(this);
         this.onFieldChange = this.onFieldChange.bind(this);
     }
-
+/*
+    componentDidMount() {
+        M.AutoInit();
+    }
+*/
     onFileChange = event => {
 
 
@@ -57,9 +62,9 @@ export default class LocationFormMedia extends Component {
                 setImage(myData)
             });
 
-            var setImage = (imagePath) => {
-                this.setState({ mediaUrl: imagePath});
-            }
+        var setImage = (imagePath) => {
+            this.setState({ mediaUrl: imagePath });
+        }
     }
 
 
@@ -93,12 +98,12 @@ export default class LocationFormMedia extends Component {
             });
     }
 
-    handleSwitch(event){
+    handleSwitch(event) {
 
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
- 
-        this.setState({mediaExternal: value})
+
+        this.setState({ mediaExternal: value })
     }
     onFieldChange(event) {
         /**
@@ -107,16 +112,48 @@ export default class LocationFormMedia extends Component {
         this.props.handleInputChange(event);
     }
 
-    
+
 
     render() {
-        return (
-            <fieldset>
-                <div className="switch row">
-                    <span>Media</span>
+
+        let renderImage = (<>
+            <div className="collapsible-body"><img src={this.state.mediaUrl} alt="uppladdad bild" /></div>
+        </>)
+
+        let renderExternalVideo = (<>
+            <div className="collapsible-body">
+                <div class="video-container">
+                    <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </>);
+        let renderInternalVideo = (<>
+            <video class="responsive-video" controls>
+                <source src={this.state.mediaUrl} type="video/mp4" />
+            </video>
+        </>)
+        let renderMedia;
+        if (this.state.mediaExternal === true) {
+            if (this.state.mediaType === true) {
+                renderMedia = renderImage;
+            } else if (this.state.mediaType === false) {
+                renderMedia = renderExternalVideo;
+            }
+        } else if (this.state.mediaExternal === false){
+            if (this.state.mediaType === true){
+                renderMedia = renderImage
+            } else if (this.state.mediaType === false) {
+                renderMedia = renderInternalVideo
+            }
+        }
+
+            return (
+                <fieldset>
+                    <div className="switch row">
+                        <span>Media</span>
                         <label>
-                            
-                        Ladda upp egen media
+
+                            Ladda upp egen media
                             <input type="checkbox"
                                 name="mediaExternal"
                                 checked={this.state.mediaExternal}
@@ -127,10 +164,10 @@ export default class LocationFormMedia extends Component {
 
                         </label>
                     </div>
-                <div className="switch row">
-                    <span>Media typ:</span>
+                    <div className="switch row">
+                        <span>Media typ:</span>
                         <label>
-                            
+
                             Video
                             <input type="checkbox"
                                 name="locationMediaType"
@@ -142,43 +179,34 @@ export default class LocationFormMedia extends Component {
 
                         </label>
                     </div>
-                {(() => {
-                        if ("X") {
 
-                            return (<>
-                            </>
-                                
-                            )
-                        } else if ("X") {
+                    <label>
+                        Lägg till bild
 
-                            return (
-                                <>
-                                </>
-                            )
-                        }
-                    })()}
-                <label>
-                    Lägg till bild
+                        <div className="file-field input-field">
+                            <div className="btn">
+                                <span>Bild</span>
+                                <input type="file"
+                                    className='blue lighten-4'
+                                    onChange={this.onFileChange}
+                                />
+                            </div>
+                            <div className="file-path-wrapper">
+                                <input className="file-path validate" type="text" />
+                            </div>
 
-                    <div className="file-field input-field">
-                        <div className="btn">
-                            <span>Bild</span>
-                            <input type="file"
-                                className='blue lighten-4'
-                                onChange={this.onFileChange}
-                            />
+
                         </div>
-                        <div className="file-path-wrapper">
-                            <input className="file-path validate" type="text" />
-                        </div>
-                        <img src={this.state.mediaUrl} alt={this.state.mediaUrl}/>
+                        <p onClick={this.handleSaveMediaLocation}>Spara bild</p>
+                    </label>
+                    <ul className="collapsible popout">
+                        <li>
+                            <div className="collapsible-header" onClick={this.handleGetMediaLocation}>Förhandsvy Media</div>
+                            {renderMedia}
+                        </li>
+                    </ul>
 
-                    </div>
-                    <p onClick={this.handleSaveMediaLocation}>Spara bild</p>
-                </label>
-                <p onClick={this.handleGetMediaLocation}>Hämta bild</p>
-
-            </fieldset>
-        )
+                </fieldset>
+            )
     }
 }
