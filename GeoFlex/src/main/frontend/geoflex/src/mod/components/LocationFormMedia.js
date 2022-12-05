@@ -14,9 +14,10 @@ export default class LocationFormMedia extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            locationID: this.props.locationID,
-            mediaUrl: this.props.locationMediaUrl,
-            mediaType: false
+            locationID: props.locationID,
+            mediaExternal: false,
+            mediaUrl: props.locationMediaUrl,
+            mediaType: props.locationMediaType
         }
 
         this.handleSaveMediaLocation = this.handleSaveMediaLocation.bind(this);
@@ -94,11 +95,10 @@ export default class LocationFormMedia extends Component {
 
     handleSwitch(event){
 
-        let target = event.target;
-        let value = target.value;
-        let name = target.name;
-
-        this.setState({[name]: value})
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+ 
+        this.setState({mediaExternal: value})
     }
     onFieldChange(event) {
         /**
@@ -118,8 +118,8 @@ export default class LocationFormMedia extends Component {
                             
                         Ladda upp egen media
                             <input type="checkbox"
-                                name="externalMediaUrl"
-                                checked={this.state.externalMediaUrl}
+                                name="mediaExternal"
+                                checked={this.state.mediaExternal}
                                 onChange={this.handleSwitch}
                             />
                             <span className="lever"></span>
@@ -134,7 +134,7 @@ export default class LocationFormMedia extends Component {
                             Video
                             <input type="checkbox"
                                 name="locationMediaType"
-                                checked={this.state.mediaType}
+                                checked={this.props.locationMediaType}
                                 onChange={this.onFieldChange}
                             />
                             <span className="lever"></span>

@@ -65,6 +65,10 @@ export default function ModEdit() {
             "x_coords": "",
             "y_coords": "",
             "directions": "Gå till vänster",
+            "media": [{
+              "mediaURL": "https://www.nin.com/wp-content/uploads/2016/12/facebook.jpg",
+              "mediaType": true
+              }],
             "content": [
               {
                 "content-id": "56",
@@ -93,6 +97,10 @@ export default function ModEdit() {
             "x_coords": "2.0",
             "y_coords": "2.0",
             "directions": "",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": false
+              }],
             "content": [
             ]
           },
@@ -106,6 +114,10 @@ export default function ModEdit() {
             "x_coords": "1.0",
             "y_coords": "1.0",
             "directions": "Stand still!",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": false
+              }],
             "content": [
               {
                 "content-id": "59",
@@ -139,6 +151,10 @@ export default function ModEdit() {
             "name": "Last location",
             "text_info": "Replace me",
             "last_location": "true",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": false
+              }],
             "content": [
             ]
           },
@@ -152,6 +168,10 @@ export default function ModEdit() {
             "x_coords": "22.5",
             "y_coords": "55.5",
             "directions": "Spring!",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": false
+              }],
             "content": [
             ]
           }

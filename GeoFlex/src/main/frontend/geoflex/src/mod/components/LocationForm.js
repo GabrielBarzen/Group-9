@@ -24,12 +24,14 @@ export default class LocationForm extends Component {
         super(props);
         //Här definierar vi alla förifyllda värden baserat på props
 
+
         this.state = {
             locationName: props.currentData.name,
             locationInfo: props.currentData.text_info,
             locationID: props.currentData.location_id,
-            locationMediaUrl: '',
-            locationMediaType: '',
+            locationMediaUrl: props.currentData.media[0].mediaUrl,
+            locationMediaType: "",
+            locationMediaExternal: false,
             locationUseQR: props.currentData.qr,
             locationDirections: props.currentData.directions,
             locationLongitude: props.currentData.x_coords,
@@ -55,6 +57,8 @@ export default class LocationForm extends Component {
             locationContentID5: "",
             locationCorrect5: ""
         };
+        console.log("KOLLAHIT")
+        console.log(props.currentData.media[0].mediaType)
 
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
@@ -71,6 +75,12 @@ export default class LocationForm extends Component {
         let contentLength = this.props.currentData.content.length
         //console.log("LENGTH")
         //console.log(contentLength)
+        if (this.props.currentData.media[0].mediaType === "video") {
+            this.setState({ locationMediaType: false })
+        } else if (this.props.currentData.media[0].mediaType === "image") {
+            this.setState({ locationMediaType: true })
+        }
+
         if (this.props.currentData.content.length !== 0) {
 
             switch (contentLength) {
@@ -147,7 +157,7 @@ export default class LocationForm extends Component {
     }
     handleContentIDState(content) {
         let i = 1;
-       
+
         content.forEach(item => {
             let stateKey = "locationContentID" + i.toString();
             this.setState({ [stateKey]: item["content-id"] })
@@ -190,7 +200,7 @@ export default class LocationForm extends Component {
         this.setState({
             [name]: value
         });
-        if(name === "locationName"){
+        if (name === "locationName") {
             this.props.handleChange(value)
         }
     }
@@ -207,6 +217,13 @@ export default class LocationForm extends Component {
             this.setState({ locationDirections: "" })
         } else if (this.state.locationUseQR === true) {
             this.setState({ locationLatitude: "", locationLongitude: "" })
+        }
+
+        let mediaType;
+        if(this.state.locationMediaType === false){
+            mediaType = "video"
+        } else if(this.state.locationMediaType === true){
+            mediaType = "image"
         }
 
         let tempContentArray = [{
@@ -249,6 +266,11 @@ export default class LocationForm extends Component {
                 "x_coords": this.state.locationLongitude,
                 "y_coords": this.state.locationLatitude,
                 "directions": this.state.locationDirections,
+                "media": [{
+                    "mediaUrl": this.state.mediaUrl,
+                    "mediaType": mediaType,
+                    "externalMedia": this.state.locationMediaExternal
+                }],
                 "content": contentArray
             }
         }
@@ -273,8 +295,8 @@ export default class LocationForm extends Component {
                             name="locationName" type="text"
                             value={this.state.locationName}
                             onChange={this.handleInputChange}
-                           
-                             />
+
+                        />
                     </label>
 
                     <label>
@@ -285,11 +307,11 @@ export default class LocationForm extends Component {
                             value={this.state.locationInfo}
                             onChange={this.handleInputChange} />
                     </label>
-                    <LocationFormMedia 
-                    locationID={this.props.currentData.id}
-                    locationMediaUrl={this.state.locationMediaUrl}
-                    locationMediaType={this.state.locationMediaType}
-                    handleInputChange={this.handleInputChange}
+                    <LocationFormMedia
+                        locationID={this.props.currentData.id}
+                        locationMediaUrl={this.state.locationMediaUrl}
+                        locationMediaType={this.state.locationMediaType}
+                        handleInputChange={this.handleInputChange}
                     />
 
                     <div className="switch row">
