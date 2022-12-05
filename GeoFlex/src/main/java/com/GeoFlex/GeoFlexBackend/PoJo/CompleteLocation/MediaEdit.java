@@ -12,4 +12,7 @@ public class MediaEdit {
     @SerializedName("mediaType")
     @Expose
     public String mediaType;
+    @SerializedName("externalMedia")
+    @Expose
+    public boolean externalMedia;
 }

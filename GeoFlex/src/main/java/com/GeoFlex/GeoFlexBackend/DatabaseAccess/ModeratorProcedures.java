@@ -540,12 +540,13 @@ public class ModeratorProcedures {
      * @param locationId The id of the route.
      * @param filePath The path to save in the database.
      */
-    public static void locationUploadFile(int locationId, String filePath, String dataType) {
+    public static void locationUploadFile(int locationId, String filePath, String dataType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?)}")) {
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
             cs.setString("in_data", filePath);
             cs.setString("in_data_type", dataType);
+            cs.setBoolean("in_external_media", externalMedia);
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -706,6 +707,7 @@ public class ModeratorProcedures {
                         MediaEdit media = new MediaEdit();
                         media.mediaURL = res.getString("data");
                         media.mediaType = res.getString("dataType");
+                        media.externalMedia = res.getBoolean("external_media");
                         clr.locations.media.add(media);
                     }
 

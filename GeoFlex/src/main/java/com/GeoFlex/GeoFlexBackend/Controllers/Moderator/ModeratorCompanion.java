@@ -236,7 +236,7 @@ public class ModeratorCompanion {
             for (int i = 0; i < rle.locationEdit.media.size(); i++) {
                 if(rle.locationEdit.media.get(i).mediaUrl != null && rle.locationEdit.media.get(i).mediaType != null){
                     ModeratorProcedures.locationUploadFile(Integer.parseInt(rle.locationEdit.locationId), rle.locationEdit.media.get(i).mediaUrl,
-                            rle.locationEdit.media.get(i).mediaType);
+                            rle.locationEdit.media.get(i).mediaType, true);
                     response = new ResponseEntity<>("", HttpStatus.OK);
                 }
             }
@@ -277,19 +277,19 @@ public class ModeratorCompanion {
             case "image/jpeg":
             case "image/png":
                 fh.createDirectoriesAndSaveFile(locationId, file, "locations");
-                ModeratorProcedures.locationUploadFile(locationId, path, "image");
+                ModeratorProcedures.locationUploadFile(locationId, path, "image", false);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             case "video/mp4":
             case "video/quicktime":
                 fh.createDirectoriesAndSaveFile(locationId, file, "locations");
-                ModeratorProcedures.locationUploadFile(locationId, path, "video");
+                ModeratorProcedures.locationUploadFile(locationId, path, "video", false);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             case "image/heic":
                 fh.createDirectoriesAndSaveFile(locationId, file, "locations");
                 fh.heicToPng(locationId, file, "locations");
-                ModeratorProcedures.locationUploadFile(locationId, path.replace("heic", "png"), "image");
+                ModeratorProcedures.locationUploadFile(locationId, path.replace("heic", "png"), "image", false);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             default:
