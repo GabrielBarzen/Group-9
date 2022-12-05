@@ -9,9 +9,7 @@ export default function Location(props) {
      * all properties and functions is mapped through props.
      */
     const [titleValue, setTitleValue] = useState(props.data.name)
-  
     
-
     const currentValue = props.data;
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;

@@ -29,9 +29,9 @@ export default class LocationForm extends Component {
             locationName: props.currentData.name,
             locationInfo: props.currentData.text_info,
             locationID: props.currentData.location_id,
-            locationMediaUrl: props.currentData.media[0].mediaUrl,
-            locationMediaType: "",
-            locationMediaExternal: false,
+            locationMediaUrl: props.currentData.media[0].mediaURL,
+            locationMediaType: props.currentData.media[0].mediaType,
+            locationMediaExternal: props.currentData.media[0].externalMedia,
             locationUseQR: props.currentData.qr,
             locationDirections: props.currentData.directions,
             locationLongitude: props.currentData.x_coords,
@@ -57,9 +57,6 @@ export default class LocationForm extends Component {
             locationContentID5: "",
             locationCorrect5: ""
         };
-        console.log("KOLLAHIT")
-        console.log(props.currentData.media[0].mediaType)
-
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
         this.handleRemoveAnswer = this.handleRemoveAnswer.bind(this);
@@ -71,16 +68,7 @@ export default class LocationForm extends Component {
     }
     componentDidMount() {
 
-        //console.log(this.props.currentData.content[0].answer)
         let contentLength = this.props.currentData.content.length
-        //console.log("LENGTH")
-        //console.log(contentLength)
-        if (this.props.currentData.media[0].mediaType === "video") {
-            this.setState({ locationMediaType: false })
-        } else if (this.props.currentData.media[0].mediaType === "image") {
-            this.setState({ locationMediaType: true })
-        }
-
         if (this.props.currentData.content.length !== 0) {
 
             switch (contentLength) {

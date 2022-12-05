@@ -57,8 +57,8 @@ export default function ModEdit() {
         const dummyLocations = [
           {
             "location_id": "116465",
-            "name": "1",
-            "text_info": "Replace me",
+            "name": "Denna ska ha bild",
+            "text_info": "External",
             "location_index": "3",
             "last_location": "false",
             "qr": false,
@@ -66,8 +66,9 @@ export default function ModEdit() {
             "y_coords": "",
             "directions": "Gå till vänster",
             "media": [{
-              "mediaURL": "https://www.nin.com/wp-content/uploads/2016/12/facebook.jpg",
-              "mediaType": true
+              "mediaURL": 'https://www.nin.com/wp-content/uploads/2016/12/facebook.jpg',
+              "mediaType": "image",
+              "externalMedia": true
               }],
             "content": [
               {
@@ -99,14 +100,15 @@ export default function ModEdit() {
             "directions": "",
             "media": [{
               "mediaURL": "",
-              "mediaType": false
+              "mediaType": "",
+              "externalMedia": false
               }],
             "content": [
             ]
           },
           {
             "location_id": "116467",
-            "name": "3",
+            "name": "Denna har youtube video",
             "text_info": "Replace me",
             "location_index": "2",
             "last_location": "false",
@@ -115,8 +117,9 @@ export default function ModEdit() {
             "y_coords": "1.0",
             "directions": "Stand still!",
             "media": [{
-              "mediaURL": "",
-              "mediaType": false
+              "mediaURL": "//www.youtube.com/embed/Q8TXgCzxEnw?rel=0",
+              "mediaType": "video",
+              "externalMedia": true
               }],
             "content": [
               {
@@ -153,7 +156,8 @@ export default function ModEdit() {
             "last_location": "true",
             "media": [{
               "mediaURL": "",
-              "mediaType": false
+              "mediaType": "",
+              "externalMedia": false
               }],
             "content": [
             ]
@@ -170,7 +174,8 @@ export default function ModEdit() {
             "directions": "Spring!",
             "media": [{
               "mediaURL": "",
-              "mediaType": false
+              "mediaType": "",
+              "externalMedia": false
               }],
             "content": [
             ]
@@ -358,7 +363,7 @@ export default function ModEdit() {
     /*
     returns html if routeLocationsData is populated
     each seperate location is handled in Location.js with references to data-array-object and functions
-    */
+    */   
     return (
       <div className="container white container-css">
         <ModEditForms
