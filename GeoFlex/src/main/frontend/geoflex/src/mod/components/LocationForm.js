@@ -30,8 +30,8 @@ export default class LocationForm extends Component {
             locationName: props.currentData.name,
             locationInfo: props.currentData.text_info,
             locationID: props.currentData.location_id,
-            locationImage: 'BILD URL HÄR',
-            locationVideo: 'Video URL HÄR',
+            locationMediaUrl: '',
+            locationMediaType: '',
             locationUseQR: props.currentData.qr,
             locationDirections: props.currentData.directions,
             locationLongitude: props.currentData.x_coords,
@@ -296,7 +296,12 @@ export default class LocationForm extends Component {
                             value={this.state.locationInfo}
                             onChange={this.handleInputChange} />
                     </label>
-                    <LocationFormMedia locationID={this.props.currentData.id} />
+                    <LocationFormMedia 
+                    locationID={this.props.currentData.id}
+                    locationMediaUrl={this.state.locationMediaUrl}
+                    locationMediaType={this.state.locationMediaType}
+                    handleInputChange={this.handleInputChange}
+                    />
 
                     <div className="switch row">
                         <label>

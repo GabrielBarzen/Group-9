@@ -6,6 +6,7 @@ import FormData from 'form-data';
 
 export default class LocationFormMedia extends Component {
     /**
+     * this.state.mediaType: false === video; true === img
      * Todo: 
      *          kommentera kod
      *          Fixa riktig knapp i html
@@ -14,14 +15,14 @@ export default class LocationFormMedia extends Component {
         super(props);
         this.state = {
             locationID: this.props.locationID,
-            selectedFile: null,
-            mediaUrl: null
+            mediaUrl: this.props.locationMediaUrl,
+            mediaType: false
         }
 
         this.handleSaveMediaLocation = this.handleSaveMediaLocation.bind(this);
         this.handleGetMediaLocation = this.handleGetMediaLocation.bind(this);
-
-
+        this.handleSwitch = this.handleSwitch.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
     }
 
     onFileChange = event => {
@@ -91,9 +92,71 @@ export default class LocationFormMedia extends Component {
             });
     }
 
+    handleSwitch(event){
+
+        let target = event.target;
+        let value = target.value;
+        let name = target.name;
+
+        this.setState({[name]: value})
+    }
+    onFieldChange(event) {
+        /**
+         * passing on the event to parent class method
+         *  */
+        this.props.handleInputChange(event);
+    }
+
+    
+
     render() {
         return (
             <fieldset>
+                <div className="switch row">
+                    <span>Media</span>
+                        <label>
+                            
+                        Ladda upp egen media
+                            <input type="checkbox"
+                                name="externalMediaUrl"
+                                checked={this.state.externalMediaUrl}
+                                onChange={this.handleSwitch}
+                            />
+                            <span className="lever"></span>
+                            Använd extern källa
+
+                        </label>
+                    </div>
+                <div className="switch row">
+                    <span>Media typ:</span>
+                        <label>
+                            
+                            Video
+                            <input type="checkbox"
+                                name="locationMediaType"
+                                checked={this.state.mediaType}
+                                onChange={this.onFieldChange}
+                            />
+                            <span className="lever"></span>
+                            Bild
+
+                        </label>
+                    </div>
+                {(() => {
+                        if ("X") {
+
+                            return (<>
+                            </>
+                                
+                            )
+                        } else if ("X") {
+
+                            return (
+                                <>
+                                </>
+                            )
+                        }
+                    })()}
                 <label>
                     Lägg till bild
 
@@ -109,7 +172,6 @@ export default class LocationFormMedia extends Component {
                             <input className="file-path validate" type="text" />
                         </div>
                         <img src={this.state.mediaUrl} alt={this.state.mediaUrl}/>
-
 
                     </div>
                     <p onClick={this.handleSaveMediaLocation}>Spara bild</p>
