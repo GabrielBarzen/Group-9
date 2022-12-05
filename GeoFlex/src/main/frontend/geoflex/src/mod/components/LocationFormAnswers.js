@@ -10,8 +10,6 @@ export default class LocationFormAnswers extends Component {
             content: [],
             status: true
         }
-        console.log("CHILD")
-        console.log(this.props.content)
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
         this.handleRemoveAnswer = this.handleRemoveAnswer.bind(this);
@@ -27,7 +25,7 @@ export default class LocationFormAnswers extends Component {
     }
 
     fetchUpdatedAnswerArray(locationID) {
-        console.log("FETCHING UPDATED ANSWER ARRAY")
+        
         /**
          * API-call to fetch an updated array of answers 
          */
@@ -70,8 +68,7 @@ export default class LocationFormAnswers extends Component {
         /**
      * API-call to add 1 answer 
      */
-        console.log("ADDANSWER")
-        console.log(locationID)
+
         var data = JSON.stringify(
             {
                 "location-update": {
@@ -145,8 +142,7 @@ export default class LocationFormAnswers extends Component {
     }
 
     render() {
-        console.log("ANSWER RENDER")
-        console.log(this.state.content)
+
         let toReturn;
         let toReturnArray = [];
         if (this.state.content.length !== 0) {
@@ -160,8 +156,7 @@ export default class LocationFormAnswers extends Component {
                 let checkboxValue = this.props.data[checkboxName];
                 let setChecked = "checked";
                 let contentID = item["content-id"];
-                console.log("CONTENT ID HÄR")
-                console.log(contentID)
+
 
                 if (checkboxValue !== true) {
                     setChecked = ""

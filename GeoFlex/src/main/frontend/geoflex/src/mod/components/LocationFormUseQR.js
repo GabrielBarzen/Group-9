@@ -39,7 +39,7 @@ generateQR(segs){
     QRCode.toDataURL(segs, (err, url) => {
         if (err) return console.error(err)
 
-        console.log(url)
+        
         this.setState({qrCode: url})
     })
 }

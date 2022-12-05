@@ -30,7 +30,7 @@ export default function ModEditForms(props) {
       if (item.location_index === locIndex) {
         idFrom = item.location_id;
       } else if (item.location_index === idToIndex.toString()) {
-        console.log("IF ELSE")
+        
         idTo = item.location_id
       }
     });
@@ -55,7 +55,7 @@ export default function ModEditForms(props) {
       if (item.location_index === locIndex) {
         idFrom = item.location_id;
       } else if (item.location_index === idToIndex.toString()) {
-        console.log("IF ELSE")
+        
         idTo = item.location_id
       }
     });
@@ -84,9 +84,7 @@ export default function ModEditForms(props) {
   })
 
 
-  console.log("ID")
-  console.log(props.locationsData)
-  console.log(props.mainData.id);
+ 
 
   return (
     <>

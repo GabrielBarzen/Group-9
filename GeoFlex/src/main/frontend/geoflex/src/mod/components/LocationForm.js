@@ -22,8 +22,6 @@ import ModGeolocate from './ModGeolocate';
 export default class LocationForm extends Component {
     constructor(props) {
         super(props);
-        console.log("CURRENTDATA - LOCATION FORM")
-        console.log(this.props.currentData);
         //Här definierar vi alla förifyllda värden baserat på props
 
         this.state = {
@@ -57,8 +55,7 @@ export default class LocationForm extends Component {
             locationContentID5: "",
             locationCorrect5: ""
         };
-        console.log("TITTA")
-        console.log(this.props.currentData.location_id)
+
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
         this.handleRemoveAnswer = this.handleRemoveAnswer.bind(this);
@@ -69,14 +66,13 @@ export default class LocationForm extends Component {
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
     }
     componentDidMount() {
-        console.log("COMPONENT DID MOUNT")
-        console.log(this.props.currentData.content[1])
+
         //console.log(this.props.currentData.content[0].answer)
         let contentLength = this.props.currentData.content.length
         //console.log("LENGTH")
         //console.log(contentLength)
         if (this.props.currentData.content.length !== 0) {
-            console.log("DIDMOUNT IF")
+
             switch (contentLength) {
                 case 1:
                     this.setState({
@@ -190,13 +186,6 @@ export default class LocationForm extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         //const value = target.value;
         const name = target.name;
-
-        console.log("Target")
-        console.log(target)
-        console.log("Value")
-        console.log(value)
-        console.log("Name")
-        console.log(name)
 
         this.setState({
             [name]: value
