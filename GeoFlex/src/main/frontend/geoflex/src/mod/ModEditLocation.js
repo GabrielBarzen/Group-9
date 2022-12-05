@@ -116,6 +116,7 @@ export default function ModEditLocation(props) {
       <LocationForm
         currentData={props.data}
         locationContent={props.locationContent}
+        routeID={props.routeID}
         callUpdateLocation={updateLocation}
         callAddAnswer={addAnswer}
         callRemoveAnswer={removeAnswer}
