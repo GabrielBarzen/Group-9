@@ -216,7 +216,8 @@ public class ModeratorCompanion {
             ModeratorProcedures.locationUpdateTextInfo(rle.locationEdit.locationId, rle.locationEdit.textInfo);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.qr != null && !rle.locationEdit.qr.isEmpty()){
+        if(rle.locationEdit.qr != null){
+            ModeratorProcedures.setQr(rle.locationEdit.locationId, rle.locationEdit.qr);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(rle.locationEdit.xCoords != null && !rle.locationEdit.xCoords.isEmpty()){

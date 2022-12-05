@@ -3,7 +3,7 @@ import Location from './Location';
 import M from 'materialize-css'
 
 export default function ModEditForms(props) {
-  
+
   let titleRef = useRef();
   let descriptionRef = useRef();
 
@@ -29,7 +29,7 @@ export default function ModEditForms(props) {
       console.log(item.location_index + "   " + idToIndex);
       if (item.location_index === locIndex) {
         idFrom = item.location_id;
-      } else if(item.location_index === idToIndex.toString()){
+      } else if (item.location_index === idToIndex.toString()) {
         console.log("IF ELSE")
         idTo = item.location_id
       }
@@ -38,7 +38,7 @@ export default function ModEditForms(props) {
   }
 
   function swapLocationsDown(locIndex) {
-   
+
     /*
     onClick function to move a location-object down
     receives the ID from a specific location
@@ -54,7 +54,7 @@ export default function ModEditForms(props) {
       console.log(item.location_index + "   " + idToIndex);
       if (item.location_index === locIndex) {
         idFrom = item.location_id;
-      } else if(item.location_index === idToIndex.toString()){
+      } else if (item.location_index === idToIndex.toString()) {
         console.log("IF ELSE")
         idTo = item.location_id
       }
@@ -87,6 +87,7 @@ export default function ModEditForms(props) {
   console.log("ID")
   console.log(props.locationsData)
   console.log(props.mainData.id);
+
   return (
     <>
       <div className="row">
@@ -96,7 +97,6 @@ export default function ModEditForms(props) {
               <i className="material-icons prefix">label</i>
               <label>Titel</label>
               <input
-                placeholder='tjo'
                 id="title"
                 type="text"
                 defaultValue={props.mainData.title}
@@ -121,10 +121,10 @@ export default function ModEditForms(props) {
 
             <div>
               <ul className="collapsible z-depth-0" style={{ 'border': '0' }}>
-                {[...props.locationsData].map((location) => (                  
+                {[...props.locationsData].map((location) => (
                   <Location
                     key={location.location_id}
-                    route={props.mainData.id}
+                    routeID={props.mainData.location_id}
                     data={location}
                     deleteLocation={handleDelete}
                     swapLocationsUp={swapLocationsUp}

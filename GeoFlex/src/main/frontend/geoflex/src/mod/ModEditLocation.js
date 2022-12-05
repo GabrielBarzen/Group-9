@@ -107,15 +107,20 @@ export default function ModEditLocation(props) {
         console.log(error);
       });
   }
+  function handleChange(value){
+    props.handleChange(value)
+  }
 
   return (
     <>
       <LocationForm
         currentData={props.data}
         locationContent={props.locationContent}
+        routeID={props.routeID}
         callUpdateLocation={updateLocation}
         callAddAnswer={addAnswer}
         callRemoveAnswer={removeAnswer}
+        handleChange={handleChange}
       />
     </>
   )

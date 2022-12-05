@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LocationFormAnswers from './LocationFormAnswers';
 import LocationFormMedia from './LocationFormMedia';
+import LocationFormUseQR from './LocationFormUseQR';
 import ModGeolocate from './ModGeolocate';
 //import axios from 'axios';
 
@@ -31,9 +32,10 @@ export default class LocationForm extends Component {
             locationID: props.currentData.location_id,
             locationImage: 'BILD URL HÄR',
             locationVideo: 'Video URL HÄR',
-            locationDirections: 'Go left then turn back',
-            locationLongitude: 'Longitud här',
-            locationLatitude: 'Latitud här',
+            locationUseQR: props.currentData.qr,
+            locationDirections: props.currentData.directions,
+            locationLongitude: props.currentData.x_coords,
+            locationLatitude: props.currentData.y_coords,
 
             locationAnswer1: "",
             locationContentID1: "",
@@ -63,6 +65,7 @@ export default class LocationForm extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGeoLocation = this.handleGeoLocation.bind(this);
+        this.handleContentIDState = this.handleContentIDState.bind(this);
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
     }
     componentDidMount() {
@@ -145,17 +148,15 @@ export default class LocationForm extends Component {
                     break;
             }
         }
-        if ((this.props.currentData.x_coords !== undefined) && (this.props.currentData.y_coords !== undefined)) {
-            this.setState({
-                locationLongitude: this.props.currentData.x_coords,
-                locationLatitude: this.props.currentData.y_coords
-            })
-        }
-        if (this.props.currentData.directions !== undefined) {
-            this.setState({
-                locationDirections: this.props.currentData.directions
-            })
-        }
+    }
+    handleContentIDState(content) {
+        let i = 1;
+       
+        content.forEach(item => {
+            let stateKey = "locationContentID" + i.toString();
+            this.setState({ [stateKey]: item["content-id"] })
+            i++
+        });
 
     }
 
@@ -163,10 +164,10 @@ export default class LocationForm extends Component {
         /**
          * Add a new question
          */
-        
+
         this.props.callAddAnswer(locationID);
     }
-    handleRemoveAnswer(locationID, contentID){
+    handleRemoveAnswer(locationID, contentID) {
         this.props.callRemoveAnswer(locationID, contentID)
     }
 
@@ -200,6 +201,9 @@ export default class LocationForm extends Component {
         this.setState({
             [name]: value
         });
+        if(name === "locationName"){
+            this.props.handleChange(value)
+        }
     }
 
     handleSubmit(event) {
@@ -210,6 +214,12 @@ export default class LocationForm extends Component {
         och anropar sedan funktionen där API-anropet ligger och skickar med objektet
         just nu får man bara en alert med de värden man fyllt i
         */
+        if (this.state.locationUseQR === false) {
+            this.setState({ locationDirections: "" })
+        } else if (this.state.locationUseQR === true) {
+            this.setState({ locationLatitude: "", locationLongitude: "" })
+        }
+
         let tempContentArray = [{
             "content-id": this.state.locationContentID1,
             "answer": this.state.locationAnswer1,
@@ -237,7 +247,7 @@ export default class LocationForm extends Component {
         }]
         let contentArray = []
         tempContentArray.forEach(item => {
-            if(item["content-id"]){
+            if (item["content-id"]) {
                 contentArray.push(item);
             }
         });
@@ -246,17 +256,18 @@ export default class LocationForm extends Component {
                 "location-id": this.props.currentData.location_id,
                 "name": this.state.locationName,
                 "text_info": this.state.locationInfo,
-                "qr": "",
+                "qr": this.state.locationUseQR,
                 "x_coords": this.state.locationLongitude,
                 "y_coords": this.state.locationLatitude,
                 "directions": this.state.locationDirections,
                 "content": contentArray
             }
         }
-        //this.props.callUpdateLocation(data);
+        console.log("CONTENTARRAY")
+        console.log(data)
+        this.props.callUpdateLocation(data);
 
         //alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections + ' AND: ' + this.state.locationAnswer1 + ' AND: ' + this.state.locationAnswer2 + ' AND: ' + this.state.locationAnswer3);
-        alert('DATA OBJEKT: ' + data["location-update"]["location-id"] + ' AND: ' + data["location-update"].name + ' AND: ' + data["location-update"].text_info + ' AND: ' + data["location-update"].x_coords + ' AND: ' + data["location-update"].y_coords + ' AND: ' + data["location-update"].directions + ' AND: ' + data["location-update"].content[4].answer);
     }
 
 
@@ -272,7 +283,9 @@ export default class LocationForm extends Component {
                             className='blue lighten-4'
                             name="locationName" type="text"
                             value={this.state.locationName}
-                            onChange={this.handleInputChange} />
+                            onChange={this.handleInputChange}
+                           
+                             />
                     </label>
 
                     <label>
@@ -284,45 +297,52 @@ export default class LocationForm extends Component {
                             onChange={this.handleInputChange} />
                     </label>
                     <LocationFormMedia locationID={this.props.currentData.id} />
-                    <label>
-                        Vägbeskrivning
-                        <input
-                            className='blue lighten-4'
-                            name="locationDirections" type="text"
-                            value={this.state.locationDirections}
-                            onChange={this.handleInputChange} />
 
-                    </label>
-                    <fieldset>
+                    <div className="switch row">
                         <label>
-                            Longitud
-                            <input
-                                className='blue lighten-4'
-                                name="locationLongitude" type="text"
-                                value={this.state.locationLongitude}
-                                onChange={this.handleInputChange} />
-                        </label>
-                        <label>
-                            Latitud
-                            <input
-                                className='blue lighten-4'
-                                name="locationLatitude" type="text"
-                                value={this.state.locationLatitude}
-                                onChange={this.handleInputChange} />
-                        </label>
-                        <ModGeolocate handleGeoLocation={this.handleGeoLocation} />
+                            Använd koordinater
+                            <input type="checkbox"
+                                name="locationUseQR"
+                                checked={this.state.locationUseQR}
+                                onChange={this.handleInputChange}
+                            />
+                            <span className="lever"></span>
+                            Använd QR
 
-                    </fieldset>
+                        </label>
+                    </div>
+
+                    {(() => {
+                        if (this.state.locationUseQR === true) {
+
+                            return (
+                                <LocationFormUseQR
+                                    data={this.state}
+                                    routeID={this.props.routeID}
+                                    handleInputChange={this.handleInputChange}
+                                />
+                            )
+                        } else if (this.state.locationUseQR === false) {
+
+                            return (
+                                <ModGeolocate
+                                    data={this.state}
+                                    handleGeoLocation={this.handleGeoLocation}
+                                    handleInputChange={this.handleInputChange} />
+                            )
+                        }
+                    })()}
                     <fieldset>
                         <div className=''>
-                        <LocationFormAnswers
-                            data={this.state}
-                            content={this.props.currentData.content}
-                            handleInputChange={this.handleInputChange} 
-                            handleAddAnswer={this.handleAddAnswer}
-                            handleRemoveAnswer={this.handleRemoveAnswer}/>
+                            <LocationFormAnswers
+                                data={this.state}
+                                content={this.props.currentData.content}
+                                handleInputChange={this.handleInputChange}
+                                handleAddAnswer={this.handleAddAnswer}
+                                handleRemoveAnswer={this.handleRemoveAnswer}
+                                handleContentIDState={this.handleContentIDState} />
                         </div>
-                        
+
                     </fieldset>
                     <input type="submit" value="Submit" />
                 </form>
@@ -330,10 +350,3 @@ export default class LocationForm extends Component {
         )
     }
 }
-/*
-<div className='row'>
-                            <span onClick={this.handleAddAnswer}>
-                                Lägg till svar
-                            </span>
-                        </div>
-*/

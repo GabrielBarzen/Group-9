@@ -694,6 +694,7 @@ public class ModeratorProcedures {
                     clr.locations.locationId = res.getString("id");
                     clr.locations.locationIndex = res.getString("location_index");
                     clr.locations.lastLocation = String.valueOf(res.getBoolean("last_location"));
+                    clr.locations.qr = String.valueOf(res.getBoolean("qr"));
                     clr.locations.xCoords = res.getString("x_coordinate");
                     clr.locations.yCoords = res.getString("y_coordinate");
                     clr.locations.directions = res.getString("directions");
@@ -725,6 +726,27 @@ public class ModeratorProcedures {
             throw new RuntimeException(e);
         }
         finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Sets the QR value in the database to true or false.
+     * @param useQr Determines if the user wants to use QR or not.
+     */
+    public static void setQr(String locationId, Boolean useQr) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_qr_bit(?, ?)}")) {
+            cs.setInt("in_location_id", Integer.parseInt(locationId));
+            cs.setBoolean("in_boolean", useQr);
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {
