@@ -31,7 +31,6 @@ componentDidMount(){
         { data: this.state.url.locationName, mode: 'alphanumerical'},
         { data: this.state.url.marker, mode: 'bool'}
       ]
-    let test = this.state.url.toString();
     this.generateQR(segs);
 }
     
