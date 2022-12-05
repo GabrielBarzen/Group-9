@@ -1,63 +1,76 @@
-import React, { useEffect, useState } from 'react';
-import QRCode from 'qrcode';
+import React, { Component } from 'react';
+import QRCode from'qrcode';
 
+export default class LocationFormUseQR extends Component {
 
-export default function LocationFormUseQR(props) {
-    /*const qrValue = {
-        "routeID": props.routeID,
-        "locationID": props.data.locationID,
-        "locationName": props.data.locationName,
-        "marker": true
-    }*/
-
-    const [url, setUrl] = useState('');
-    const [qrCode, setQrCode] = useState('');
-
-
-    useEffect(() => {
-        setUrl([{
-            "routeID": props.routeID,
-            "locationID": props.data.locationID,
-            "locationName": props.data.locationName,
-            "marker": true
-        }])
-
-        const generateQR = () => {
-            QRCode.toDataURL(url, (err, url) => {
-                if (err) return console.error(err)
-
-                console.log(url)
-                setQrCode(url)
-            })
+    constructor(props){
+        super(props)
+        this.state = {
+            qrCode: '',
+            url: {
+                "routeID": this.props.routeID,
+                "locationID": this.props.data.locationID,
+                "locationName": this.props.data.locationName,
+                "marker": true
+            }
         }
-        generateQR(url)
-    }, [url, setUrl, props.routeID, props.data.locationID, props.data.locationName]);
+        this.generateQR = this.generateQR.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
+    }
+componentDidMount(){
+    
+    this.setState({url: [{
+        "routeID": this.props.routeID,
+        "locationID": this.props.data.locationID,
+        "locationName": this.props.data.locationName,
+        "marker": true
+    }]})
+    var segs = [
+        { data: this.state.routeID, mode: 'numeric' },
+        { data: this.state.locationID, mode: 'numeric' },
+        { data: this.state.url.locationName, mode: 'alphanumerical'},
+        { data: this.state.url.marker, mode: 'bool'}
+      ]
+    let test = this.state.url.toString();
+    this.generateQR(segs);
+}
+    
+generateQR(segs){
+    
+    QRCode.toDataURL(segs, (err, url) => {
+        if (err) return console.error(err)
 
-    function onFieldChange(event) {
+        console.log(url)
+        this.setState({qrCode: url})
+    })
+}
+    onFieldChange(event) {
         /**
          * passing on the event to parent class method
          *  */
-        props.handleInputChange(event);
+        this.props.handleInputChange(event);
     }
 
-    return (<>
+  render() {
+    return (
+        <>
         <div className='row'>
             <label className='col s9 left'>
                 Vägbeskrivning
                 <input
                     className='blue lighten-4'
                     name="locationDirections" type="text"
-                    value={props.data.locationDirections}
-                    onChange={onFieldChange} />
+                    value={this.props.data.locationDirections}
+                    onChange={this.onFieldChange} />
 
             </label>
+        </div>
+        <div className='row'>
+            <div className='col s3'>
+                <img src={this.state.qrCode} alt='QR Code' />
             </div>
-            <div className='row'>
-                <div className='col s3'>
-                    <img src={qrCode} alt='QR Code' />
-                </div>
-            </div>
-            </>
-
+        </div>
+    </>
     )
+  }
 }
