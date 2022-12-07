@@ -11,7 +11,7 @@ export default function StartQuiz() {
                 <Logo />
             </div>
             <div className="row">
-                <div className="col s10 offset-s2"> 
+                <div className="col s12"> 
                     <div className="row">
                         <Codebox />
                     </div>
