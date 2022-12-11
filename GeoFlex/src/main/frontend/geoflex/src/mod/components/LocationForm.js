@@ -64,6 +64,7 @@ export default class LocationForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGeoLocation = this.handleGeoLocation.bind(this);
         this.handleContentIDState = this.handleContentIDState.bind(this);
+        this.handleMediaOptions = this.handleMediaOptions.bind(this);
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
     }
     componentDidMount() {
@@ -143,6 +144,13 @@ export default class LocationForm extends Component {
             }
         }
     }
+
+    handleMediaOptions(mediaType, externalMedia){
+        console.log("HANDLE MEDIA OPTIONS")
+        this.setState({locationMediaType: mediaType,
+        locationMediaExternal: externalMedia})
+    }
+
     handleContentIDState(content) {
         let i = 1;
 
@@ -193,6 +201,11 @@ export default class LocationForm extends Component {
         }
     }
 
+    setParentMediaUrl(mediaPath){
+        console.log("PARENTMEDIAURL")
+        this.setState({locationMediaUrl : mediaPath})
+    }
+
     handleSubmit(event) {
         event.preventDefault();
 
@@ -208,10 +221,13 @@ export default class LocationForm extends Component {
         }
 
         let mediaType;
+        
         if(this.state.locationMediaType === false){
             mediaType = "video"
         } else if(this.state.locationMediaType === true){
             mediaType = "image"
+        } else {
+            mediaType = this.state.locationMediaType
         }
 
         let tempContentArray = [{
@@ -255,7 +271,7 @@ export default class LocationForm extends Component {
                 "y_coords": this.state.locationLatitude,
                 "directions": this.state.locationDirections,
                 "media": [{
-                    "mediaUrl": this.state.mediaUrl,
+                    "mediaURL": this.state.locationMediaUrl,
                     "mediaType": mediaType,
                     "externalMedia": this.state.locationMediaExternal
                 }],
@@ -265,10 +281,11 @@ export default class LocationForm extends Component {
         console.log("CONTENTARRAY")
         console.log(data)
         this.props.callUpdateLocation(data);
-
+        alert('A value was submitted: ' + this.state.locationMediaUrl + ' AND: ' + this.state.locationMediaType + ' AND: ' + this.state.locationMediaExternal)
+        alert("from the data object: " + data["location-update"].media[0].mediaUrl + ' AND: ' + data["location-update"].media[0].mediaType + ' AND: ' + data["location-update"].media[0].externalMedia)
         //alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections + ' AND: ' + this.state.locationAnswer1 + ' AND: ' + this.state.locationAnswer2 + ' AND: ' + this.state.locationAnswer3);
     }
-
+    
 
 
     render() {
@@ -301,6 +318,8 @@ export default class LocationForm extends Component {
                         locationMediaType={this.state.locationMediaType}
                         locationMediaExternal={this.state.locationMediaExternal}
                         handleInputChange={this.handleInputChange}
+                        handleMediaOptions={this.handleMediaOptions}
+                        setParentMediaUrl={this.setParentMediaUrl}
                     />
 
                     <div className="switch row">
