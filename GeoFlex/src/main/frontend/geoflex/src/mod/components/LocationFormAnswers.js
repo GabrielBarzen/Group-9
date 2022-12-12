@@ -60,6 +60,9 @@ export default class LocationFormAnswers extends Component {
         /**
          * passing on the event to parent class method
          *  */
+        console.log("ONFIELDCHANGE")
+        console.log(event.target.name)
+        console.log(event.target.value)
         this.props.handleInputChange(event);
     }
     handleAddAnswer(locationID) {
@@ -142,7 +145,8 @@ export default class LocationFormAnswers extends Component {
     }
 
     render() {
-
+        console.log("ANSWER RENDER")
+        console.log(this.props.data)
         let toReturn;
         let toReturnArray = [];
         if (this.state.content.length !== 0) {
@@ -154,13 +158,7 @@ export default class LocationFormAnswers extends Component {
                 let inputValue = this.props.data[inputName];
                 let checkboxName = "locationCorrect" + j.toString();
                 let checkboxValue = this.props.data[checkboxName];
-                let setChecked = "checked";
                 let contentID = item["content-id"];
-
-
-                if (checkboxValue !== true) {
-                    setChecked = ""
-                }
 
                 toReturn = (
                     <div key={contentID} className="row">
@@ -172,15 +170,11 @@ export default class LocationFormAnswers extends Component {
                                 value={inputValue}
                                 onChange={this.onFieldChange.bind(this)} />
                         </label>
-                        <label className='col s2' htmlFor={checkboxName}>
-
-
-                            <input className='text-black'
-                                id={checkboxName}
+                        <label className='col s2'>
+                            <input className='text-black'                                
                                 name={checkboxName}
                                 checked={checkboxValue}
                                 type="checkbox"
-
                                 onChange={this.onFieldChange.bind(this)} />
                             <span>Rätt svar</span>
                         </label>
@@ -197,6 +191,7 @@ export default class LocationFormAnswers extends Component {
         return (<>
             {[...toReturnArray].map((answer) => (
                 answer
+                
             ))}
             {(() => {
                 if (this.state.content.length <= 4) {

@@ -222,6 +222,9 @@ export default class LocationForm extends Component {
         if (name === "locationName") {
             this.props.handleChange(value)
         }
+        console.log("INPUTCHANGE")
+        console.log(name)
+        console.log(value)
         //converts the image url in case faulty when url is copied from the internet
         if (name === "locationMediaUrl") {
             if (this.state.locationMediaExternal === true) {
