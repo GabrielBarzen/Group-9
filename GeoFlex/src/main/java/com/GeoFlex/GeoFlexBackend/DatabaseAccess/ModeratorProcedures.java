@@ -675,7 +675,7 @@ public class ModeratorProcedures {
     }
 
     public static void main(String[] args) {
-        getRouteLocationsExperimental(String.valueOf(96));
+        getRouteLocationsExperimental(String.valueOf(103));
     }
     public static String getRouteLocationsExperimental(String routeID) {
         DatabaseConnection dc = new DatabaseConnection();
@@ -703,13 +703,18 @@ public class ModeratorProcedures {
                     clr.locations.media = new ArrayList<>();
                     list.add(clr.locations);
 
-                    if(res.getString("data") != null){
-                        MediaEdit media = new MediaEdit();
+                    MediaEdit media = new MediaEdit();
+                    if(res.getString("data") == null){
+                        media.mediaURL = "";
+                        media.mediaType = "";
+                        media.externalMedia = false;
+                    }
+                    else {
                         media.mediaURL = res.getString("data");
                         media.mediaType = res.getString("dataType");
                         media.externalMedia = res.getBoolean("external_media");
-                        clr.locations.media.add(media);
                     }
+                    clr.locations.media.add(media);
 
                 }
 
