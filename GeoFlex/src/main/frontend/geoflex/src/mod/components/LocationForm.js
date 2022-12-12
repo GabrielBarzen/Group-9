@@ -205,6 +205,25 @@ export default class LocationForm extends Component {
     }
 
     handleInputChange(event) {
+        function youtubeUrlToEmbedUrl(youtubeUrl) {
+            // First, check if the URL is a valid YouTube URL
+            var youtubeRegex = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.be)\/.+$/;
+            if (!youtubeRegex.test(youtubeUrl)) {
+                return false;
+            }
+
+            // If the URL is a valid YouTube URL, then extract the video ID
+            var videoId = youtubeUrl.split("v=")[1];
+            var ampersandIndex = videoId.indexOf("&");
+            if (ampersandIndex !== -1) {
+                videoId = videoId.substring(0, ampersandIndex);
+            }
+
+            // Use the video ID to create the embed URL
+            var embedUrl = "https://www.youtube.com/embed/" + videoId;
+
+            return embedUrl;
+        }
         console.log("HANDLE INPUT CHANGE I LocationForm.js")
         //här lyssnar vi på förändring [name] anpassar sig till name i varje inputfält. 
         //Lite annorlunda om man använder annat än type="text/number" men går att lösa förstås
@@ -222,6 +241,17 @@ export default class LocationForm extends Component {
         if (name === "locationName") {
             this.props.handleChange(value)
         }
+        if (name === "locationMediaUrl") {
+            if (this.state.locationMediaExternal === true) {
+                if (this.state.locationMediaType === false) {
+                    let youtubeURL = youtubeUrlToEmbedUrl(value)
+                    if (youtubeURL !== false) {
+                        this.setState({ [name]: youtubeURL })
+                    }
+                }
+            }
+        }
+
         console.log("INPUTCHANGE")
         console.log(name)
         console.log(value)
@@ -295,7 +325,7 @@ export default class LocationForm extends Component {
                 contentArray.push(item);
             }
         });
-        
+
         let data = {
             "location-update": {
                 "location-id": this.props.currentData.location_id,
@@ -324,7 +354,7 @@ export default class LocationForm extends Component {
 
 
     render() {
-  
+
         return (
             <div className='container col s12'>
                 <h3>Plats 1</h3>
@@ -348,7 +378,7 @@ export default class LocationForm extends Component {
                             value={this.state.locationInfo}
                             onChange={this.handleInputChange} />
                     </label>
-                    <LocationFormMedia                        
+                    <LocationFormMedia
                         locationID={this.props.currentData.location_id}
                         locationMediaUrl={this.state.locationMediaUrl}
                         locationMediaType={this.state.locationMediaType}

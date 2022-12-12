@@ -117,10 +117,11 @@ export default class LocationFormMedia extends Component {
                 console.log(error);
                 //fetchMediaURL();
             });
-
+/*
         const fetchMediaURL = () => {
             this.handleGetMediaLocation();
         }
+        */
     }
     /*
         handleMediaOriginSwitch(event) {
