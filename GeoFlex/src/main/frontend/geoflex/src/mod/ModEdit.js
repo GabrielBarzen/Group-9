@@ -90,7 +90,7 @@ export default function ModEdit() {
           },
           {
             "location_id": "116466",
-            "name": "2",
+            "name": "testa på denna",
             "text_info": "Replace me",
             "location_index": "1",
             "last_location": "false",

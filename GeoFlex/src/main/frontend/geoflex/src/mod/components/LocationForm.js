@@ -30,7 +30,7 @@ export default class LocationForm extends Component {
             locationInfo: props.currentData.text_info,
             locationID: props.currentData.location_id,
             locationMediaUrl: props.currentData.media[0].mediaURL,
-            locationMediaType: props.currentData.media[0].mediaType,
+            locationMediaType: "",
             locationMediaExternal: props.currentData.media[0].externalMedia,
             locationUseQR: props.currentData.qr,
             locationDirections: props.currentData.directions,
@@ -69,6 +69,22 @@ export default class LocationForm extends Component {
         this.setParentMediaUrl = this.setParentMediaUrl.bind(this);
     }
     componentDidMount() {
+
+        if (this.props.currentData.media[0].mediaType === "video"){
+            this.setState({locationMediaType : false})
+        } else if (this.props.currentData.media[0].mediaType === "image"){
+            this.setState({locationMediaType : true})
+        } else {
+            this.setState({locationMediaType : false})
+        }
+        
+        if (this.props.currentData.media[0].externalMedia === false){
+            
+            this.setState({locationMediaExternal : false })
+        } else if (this.props.currentData.media[0].externalMedia === true){
+            this.setState({locationMediaExternal : true })
+        }
+
 
 
         let contentLength = this.props.currentData.content.length
@@ -200,6 +216,9 @@ export default class LocationForm extends Component {
         this.setState({
             [name]: value
         });
+        if ((name === "locationMediaExternal") || (name === "locationMediaType")){
+            this.setState({locationMediaUrl : ""})
+        }
         if (name === "locationName") {
             this.props.handleChange(value)
         }
@@ -221,9 +240,7 @@ export default class LocationForm extends Component {
         och anropar sedan funktionen där API-anropet ligger och skickar med objektet
         just nu får man bara en alert med de värden man fyllt i
         */
-        if (this.state.locationMediaType === ""){
-            this.setState({locationMediaType : "video"})
-        }
+        
 
         if (this.state.locationUseQR === false) {
                 this.setState({ locationDirections: "" })
@@ -232,13 +249,15 @@ export default class LocationForm extends Component {
             }
 
         let mediaType;
-
+        console.log("MEDIATYPE")
+        console.log(this.state.locationMediaUrl.length)
         if (this.state.locationMediaType === false) {
             mediaType = "video"
         } else if (this.state.locationMediaType === true) {
             mediaType = "image"
-        } else {
-            mediaType = this.state.locationMediaType
+        } 
+        if (this.state.locationMediaUrl.length === 0){
+            mediaType = "";
         }
 
         let tempContentArray = [{
