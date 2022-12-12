@@ -18,7 +18,8 @@ export default class LocationFormMedia extends Component {
             mediaExternal: props.locationMediaExternal,
             mediaUrl: props.locationMediaUrl,
             mediaType: props.locationMediaType,
-            selectedFile: ""
+            selectedFile: "",
+            preview: false
             //addMedia: false
         }
 
@@ -44,7 +45,7 @@ export default class LocationFormMedia extends Component {
 
     };
 
-    setParentMediaUrl(fileUrl){
+    setParentMediaUrl(fileUrl) {
         //Send the media file url to parent component method
         this.props.setParentMediaUrl(fileUrl)
     }
@@ -78,15 +79,15 @@ export default class LocationFormMedia extends Component {
 
             }.bind(this));
 
-       // function setImage(imagePath) {
+        // function setImage(imagePath) {
         //    console.log("SETIMAGE")
         //    console.log(imagePath)
         //   this.props.setParentMediaUrl(imagePath);
-            //this.setState({ mediaUrl: imagePath });
+        //this.setState({ mediaUrl: imagePath });
 
         //}
     }
- 
+
     handleSaveMediaLocation(event) {
         //API-call to upload a media file to the server
         console.log("TITTA HIUIIITI")
@@ -121,15 +122,15 @@ export default class LocationFormMedia extends Component {
             this.handleGetMediaLocation();
         }
     }
-/*
-    handleMediaOriginSwitch(event) {
-        
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-
-        this.setState({ mediaExternal: value })
-    }
-    */
+    /*
+        handleMediaOriginSwitch(event) {
+            
+            const target = event.target;
+            const value = target.type === 'checkbox' ? target.checked : target.value;
+    
+            this.setState({ mediaExternal: value })
+        }
+        */
     onFieldChange(event) {
         /**
          * passing on the event to parent class method
@@ -139,12 +140,38 @@ export default class LocationFormMedia extends Component {
         this.props.handleInputChange(event);
     }
 
+    handlePreview(event){
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        if(value === true){
+            if (this.props.locationMediaExternal === false) {                
+                this.handleGetMediaLocation();
+                this.setState({preview : value})
+            } else {
+                this.setState({preview : value})
+            }
+        } else if (value === false){
+            this.setState({preview : value})
+        }
+    
+    }
 
+    render() {
 
-    render() {      
         console.log("ASDFASDF ASFAS")
-        console.log(this.props.locationID)  
+        console.log(this.props.locationID)
         //html for upload media files
+        let previewMedia = (<>
+            <label className='col s2'>
+                <input className='text-black'
+                    name="preview"
+                    checked={this.state.preview}
+                    type="checkbox"
+                    onChange={this.handlePreview.bind(this)} 
+                    />
+                <span>Förhandsgranska media</span>
+            </label>
+        </>)
         let uploadMedia = (<>
             <label>
                 Lägg till media
@@ -158,17 +185,17 @@ export default class LocationFormMedia extends Component {
                         />
                     </div>
                     <div className="file-path-wrapper">
-                        <input className="file-path validate" 
+                        <input className="file-path validate"
                             type="text"
                             name='locationMediaUrl'
                             value={this.props.locationMediaUrl}
                             onChange={this.onFieldChange} />
                     </div>
                 </div>
-                <p onClick={this.handleSaveMediaLocation}>Spara bild</p>
+                <p onClick={this.handleGetMediaLocation}>Spara bild</p>
             </label>
         </>)
-        
+
         //html to add external mediaURL
         let externalMedia = (<>
             <label>
@@ -191,7 +218,7 @@ export default class LocationFormMedia extends Component {
                     alt="uppladdad bild" />
             </div>
         </>)
-//fixa src så den stämmer
+        //fixa src så den stämmer
         //html to preview an externally added video
         let renderExternalVideo = (<>
             <div className="">
@@ -203,7 +230,7 @@ export default class LocationFormMedia extends Component {
                         height={480}
                         src={this.props.locationMediaUrl}
                         frameBorder="0"
-                        allowFullScreen 
+                        allowFullScreen
                         sandbox="allow-scripts allow-same-origin">
                     </iframe>
                 </div>
@@ -224,7 +251,7 @@ export default class LocationFormMedia extends Component {
         let noMedia = (<>
             <p>Det finns ingen media kopplad till detta quiz.</p>
         </>)
-        
+
         /* 
          * Depending on the location object settings for externally added or upploaded media and/or video/image,
          * renderInput and renderMediaPreview is assigned appropriate html to render.
@@ -265,7 +292,7 @@ export default class LocationFormMedia extends Component {
                 renderMediaPreview = noMedia;
             }*/
         }
-        if (this.props.locationMediaUrl.length === 0){
+        if (this.props.locationMediaUrl.length === 0) {
             renderMediaPreview = noMedia
         }
 
@@ -300,10 +327,17 @@ export default class LocationFormMedia extends Component {
                 </label>
             </div>
         </>)
-        
-        return (<>            
+        if(this.state.preview === false){
+            return(<>
             {mediaSettings}
             {renderInput}
+            {previewMedia}
+            </>)
+        } else if (this.state.preview === true)
+        return (<>
+            {mediaSettings}
+            {renderInput}
+            {previewMedia}
             {renderMediaPreview}
         </>)
 
