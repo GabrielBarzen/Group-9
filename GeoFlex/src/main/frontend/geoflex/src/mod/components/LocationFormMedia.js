@@ -93,11 +93,11 @@ export default class LocationFormMedia extends Component {
         console.log("TITTA HIUIIITI")
         console.log(this.props.locationID)
         event.preventDefault();
-        alert("HANDLESAVE MEDIA  " + this.state.selectedFile)
+        alert("HANDLESAVE MEDIA  " + event.target.files[0].name)
 
         var data = new FormData();
 
-        data.append('file', this.state.selectedFile);
+        data.append('file', event.target.files[0]);
 
         var config = {
             method: 'post',
@@ -115,7 +115,7 @@ export default class LocationFormMedia extends Component {
             })
             .catch(function (error) {
                 console.log(error);
-                fetchMediaURL();
+                //fetchMediaURL();
             });
 
         const fetchMediaURL = () => {
@@ -231,7 +231,7 @@ export default class LocationFormMedia extends Component {
                         src={this.props.locationMediaUrl}
                         frameBorder="0"
                         allowFullScreen
-                        sandbox="allow-scripts allow-same-origin">
+                        sandbox="allow-scripts allow-same-origin allow-presentation">
                     </iframe>
                 </div>
             </div>
