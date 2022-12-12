@@ -17,7 +17,8 @@ export default class LocationFormMedia extends Component {
             locationID: props.locationID,
             mediaExternal: props.locationMediaExternal,
             mediaUrl: props.locationMediaUrl,
-            mediaType: props.locationMediaType
+            mediaType: props.locationMediaType,
+            selectedFile: ""
             //addMedia: false
         }
 
@@ -64,7 +65,7 @@ export default class LocationFormMedia extends Component {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 alert("GETMEDIA: " + response.data)
-                myData = "http://localhost:8080/" + response.data
+                myData = response.data
                 //setImage(myData)
                 this.props.setParentMediaUrl(myData);
             }.bind(this))
@@ -109,7 +110,7 @@ export default class LocationFormMedia extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                fetchMediaURL();
+                //fetchMediaURL();
             })
             .catch(function (error) {
                 console.log(error);

@@ -226,26 +226,6 @@ export default class LocationForm extends Component {
         console.log(name)
         console.log(value)
         //converts the image url in case faulty when url is copied from the internet
-        if (name === "locationMediaUrl") {
-            if (this.state.locationMediaExternal === true) {
-                if (this.state.locationMediaType === true) {
-                    const regex = /(.*?(?:jpg|png|jpeg))|.*/gm;
-
-                    const str = this.state.locationMediaUrl;
-                    const subst = `$1`;
-
-                    // The substituted value will be contained in the result variable
-                    const result = str.replace(regex, subst);
-                    this.setState({ locationMediaUrl: result })
-                }
-            }
-        } else if(name === "locationMediaUrl"){
-            if ( this.state.locationMediaExternal === false){
-                if (this.state.locationMediaType === true){
-                    const addPrefix = "http://localhost:8080/" + this.state.locationMediaUrl
-                }
-            }
-        }
     }
 
     setParentMediaUrl(mediaPath) {

@@ -542,6 +542,9 @@ public class ModeratorProcedures {
      */
     public static void locationUploadFile(int locationId, String filePath, String dataType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
+        if(!externalMedia){
+            filePath = "http://localhost:8080/"+filePath;
+        }
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
             cs.setString("in_data", filePath);
