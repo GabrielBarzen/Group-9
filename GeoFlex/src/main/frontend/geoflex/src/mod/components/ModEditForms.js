@@ -6,6 +6,8 @@ export default function ModEditForms(props) {
 
   let titleRef = useRef();
   let descriptionRef = useRef();
+  console.log("ÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖ")
+  console.log(props.mainData.id)
 
   useEffect(() => {
     M.AutoInit();
@@ -122,7 +124,7 @@ export default function ModEditForms(props) {
                 {[...props.locationsData].map((location) => (
                   <Location
                     key={location.location_id}
-                    routeID={props.mainData.location_id}
+                    routeID={props.mainData.id}
                     data={location}
                     deleteLocation={handleDelete}
                     swapLocationsUp={swapLocationsUp}

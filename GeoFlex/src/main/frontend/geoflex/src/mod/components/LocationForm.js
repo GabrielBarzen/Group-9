@@ -304,6 +304,7 @@ export default class LocationForm extends Component {
                 contentArray.push(item);
             }
         });
+        
         let data = {
             "location-update": {
                 "location-id": this.props.currentData.location_id,
@@ -332,6 +333,7 @@ export default class LocationForm extends Component {
 
 
     render() {
+  
         return (
             <div className='container col s12'>
                 <h3>Plats 1</h3>
@@ -355,8 +357,8 @@ export default class LocationForm extends Component {
                             value={this.state.locationInfo}
                             onChange={this.handleInputChange} />
                     </label>
-                    <LocationFormMedia
-                        locationID={this.props.currentData.id}
+                    <LocationFormMedia                        
+                        locationID={this.props.currentData.location_id}
                         locationMediaUrl={this.state.locationMediaUrl}
                         locationMediaType={this.state.locationMediaType}
                         locationMediaExternal={this.state.locationMediaExternal}

@@ -66,7 +66,7 @@ export default class LocationFormMedia extends Component {
                 alert("GETMEDIA: " + response.data)
                 myData = "http://localhost:8080/" + response.data
                 //setImage(myData)
-
+                this.props.setParentMediaUrl(myData);
             }.bind(this))
             .catch(function (error) {
                 console.log(error);
@@ -88,6 +88,8 @@ export default class LocationFormMedia extends Component {
  
     handleSaveMediaLocation(event) {
         //API-call to upload a media file to the server
+        console.log("TITTA HIUIIITI")
+        console.log(this.props.locationID)
         event.preventDefault();
         alert("HANDLESAVE MEDIA  " + this.state.selectedFile)
 
@@ -138,7 +140,9 @@ export default class LocationFormMedia extends Component {
 
 
 
-    render() {        
+    render() {      
+        console.log("ASDFASDF ASFAS")
+        console.log(this.props.locationID)  
         //html for upload media files
         let uploadMedia = (<>
             <label>

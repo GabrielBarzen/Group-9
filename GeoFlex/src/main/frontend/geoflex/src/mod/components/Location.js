@@ -13,6 +13,8 @@ export default function Location(props) {
     const currentValue = props.data;
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
+    console.log("ASDFÖO AJASÖLDKFJ ASÖLKDFJASÖL KDFJÖASL KJ")
+    console.log(props.routeID)
     
     function handleChange(value) {
      
