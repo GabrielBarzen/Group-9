@@ -10,7 +10,7 @@ export default function ModEditForms(props) {
   useEffect(() => {
     M.AutoInit();
     M.updateTextFields();
-
+    
   }, []);
 
   function swapLocationsUp(locIndex) {

@@ -58,23 +58,51 @@ export default class LocationFormMedia extends Component {
                 console.log(JSON.stringify(response.data));
                 alert("GETMEDIA: " + response.data)
                 myData = "http://localhost:8080/" + response.data
-                setImage(myData)
+                //setImage(myData)
 
-            })
+            }.bind(this))
             .catch(function (error) {
                 console.log(error);
                 console.log("GETMEDIAURL ERROR");
                 myData = "https://m.media-amazon.com/images/M/MV5BNGJmMWEzOGQtMWZkNS00MGNiLTk5NGEtYzg1YzAyZTgzZTZmXkEyXkFqcGdeQXVyMTE1MTYxNDAw._V1_.jpg";
-                setImage(myData)
+                //setImage(myData)
+                this.props.setParentMediaUrl(myData);
 
-            });
+            }.bind(this));
 
-        function setImage(imagePath) {
-            this.setParentMediaUrl(imagePath);
+       // function setImage(imagePath) {
+        //    console.log("SETIMAGE")
+        //    console.log(imagePath)
+        //   this.props.setParentMediaUrl(imagePath);
             //this.setState({ mediaUrl: imagePath });
 
-        }
+        //}
     }
+    /*
+  var myData;
+  var config = {
+      method: 'get',
+      url: '/moderator/location/file/retrieve?locationId=' + this.state.locationID,
+      headers: {}
+  };
+
+  axios(config)
+      .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          alert("GETMEDIA: " + response.data)
+          myData = "http://localhost:8080/" + response.data
+          setImage(myData)
+
+      }.bind(this)) // Bind the value of "this" to the function
+      .catch(function (error) {
+          console.log(error);
+          console.log("GETMEDIAURL ERROR");
+          myData = "https://m.media-amazon.com/images/M/MV5BNGJmMWEzOGQtMWZkNS00MGNiLTk5NGEtYzg1YzAyZTgzZTZmXkEyXkFqcGdeQXVyMTE1MTYxNDAw._V1_.jpg";
+          setImage(myData)
+
+      });
+
+    */
 
 
 
@@ -159,7 +187,7 @@ export default class LocationFormMedia extends Component {
                         <input className="file-path validate" 
                             type="text"
                             name='locationMediaUrl'
-                            value="TJOLAHEJ"
+                            value={this.props.locationMediaUrl}
                             onChange={this.onFieldChange} />
                     </div>
 

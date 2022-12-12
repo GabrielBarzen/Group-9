@@ -66,8 +66,10 @@ export default class LocationForm extends Component {
         this.handleContentIDState = this.handleContentIDState.bind(this);
         this.handleMediaOptions = this.handleMediaOptions.bind(this);
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
+        this.setParentMediaUrl = this.setParentMediaUrl.bind(this);
     }
     componentDidMount() {
+
 
         let contentLength = this.props.currentData.content.length
         if (this.props.currentData.content.length !== 0) {
@@ -145,10 +147,12 @@ export default class LocationForm extends Component {
         }
     }
 
-    handleMediaOptions(mediaType, externalMedia){
+    handleMediaOptions(mediaType, externalMedia) {
         console.log("HANDLE MEDIA OPTIONS")
-        this.setState({locationMediaType: mediaType,
-        locationMediaExternal: externalMedia})
+        this.setState({
+            locationMediaType: mediaType,
+            locationMediaExternal: externalMedia
+        })
     }
 
     handleContentIDState(content) {
@@ -201,9 +205,12 @@ export default class LocationForm extends Component {
         }
     }
 
-    setParentMediaUrl(mediaPath){
+    setParentMediaUrl(mediaPath) {
         console.log("PARENTMEDIAURL")
-        this.setState({locationMediaUrl : mediaPath})
+        if (this.state.locationMediaUrl === "") {
+            this.setState({ locationMediaType: "video" })
+        }
+        this.setState({ locationMediaUrl: mediaPath })
     }
 
     handleSubmit(event) {
@@ -214,17 +221,21 @@ export default class LocationForm extends Component {
         och anropar sedan funktionen där API-anropet ligger och skickar med objektet
         just nu får man bara en alert med de värden man fyllt i
         */
-        if (this.state.locationUseQR === false) {
-            this.setState({ locationDirections: "" })
-        } else if (this.state.locationUseQR === true) {
-            this.setState({ locationLatitude: "", locationLongitude: "" })
+        if (this.state.locationMediaType === ""){
+            this.setState({locationMediaType : "video"})
         }
 
+        if (this.state.locationUseQR === false) {
+                this.setState({ locationDirections: "" })
+            } else if (this.state.locationUseQR === true) {
+                this.setState({ locationLatitude: "", locationLongitude: "" })
+            }
+
         let mediaType;
-        
-        if(this.state.locationMediaType === false){
+
+        if (this.state.locationMediaType === false) {
             mediaType = "video"
-        } else if(this.state.locationMediaType === true){
+        } else if (this.state.locationMediaType === true) {
             mediaType = "image"
         } else {
             mediaType = this.state.locationMediaType
@@ -285,7 +296,7 @@ export default class LocationForm extends Component {
         alert("from the data object: " + data["location-update"].media[0].mediaUrl + ' AND: ' + data["location-update"].media[0].mediaType + ' AND: ' + data["location-update"].media[0].externalMedia)
         //alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections + ' AND: ' + this.state.locationAnswer1 + ' AND: ' + this.state.locationAnswer2 + ' AND: ' + this.state.locationAnswer3);
     }
-    
+
 
 
     render() {
