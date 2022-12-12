@@ -182,7 +182,7 @@ export default class LocationFormMedia extends Component {
             <div className="">
                 <p>Förhandsvy Media</p>
                 <img className="responsive-img"
-                    src={this.state.mediaUrl}
+                    src={this.props.locationMediaUrl}
                     alt="uppladdad bild" />
             </div>
         </>)
@@ -196,7 +196,7 @@ export default class LocationFormMedia extends Component {
                         title="external"
                         width={853}
                         height={480}
-                        src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0"
+                        src={this.props.locationMediaUrl}
                         frameBorder="0"
                         allowFullScreen 
                         sandbox="allow-scripts allow-same-origin">

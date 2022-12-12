@@ -70,19 +70,19 @@ export default class LocationForm extends Component {
     }
     componentDidMount() {
 
-        if (this.props.currentData.media[0].mediaType === "video"){
-            this.setState({locationMediaType : false})
-        } else if (this.props.currentData.media[0].mediaType === "image"){
-            this.setState({locationMediaType : true})
+        if (this.props.currentData.media[0].mediaType === "video") {
+            this.setState({ locationMediaType: false })
+        } else if (this.props.currentData.media[0].mediaType === "image") {
+            this.setState({ locationMediaType: true })
         } else {
-            this.setState({locationMediaType : false})
+            this.setState({ locationMediaType: false })
         }
-        
-        if (this.props.currentData.media[0].externalMedia === false){
-            
-            this.setState({locationMediaExternal : false })
-        } else if (this.props.currentData.media[0].externalMedia === true){
-            this.setState({locationMediaExternal : true })
+
+        if (this.props.currentData.media[0].externalMedia === false) {
+
+            this.setState({ locationMediaExternal: false })
+        } else if (this.props.currentData.media[0].externalMedia === true) {
+            this.setState({ locationMediaExternal: true })
         }
 
 
@@ -216,11 +216,24 @@ export default class LocationForm extends Component {
         this.setState({
             [name]: value
         });
-        if ((name === "locationMediaExternal") || (name === "locationMediaType")){
-            this.setState({locationMediaUrl : ""})
+        if ((name === "locationMediaExternal") || (name === "locationMediaType")) {
+            this.setState({ locationMediaUrl: "" })
         }
         if (name === "locationName") {
             this.props.handleChange(value)
+        }
+        //converts the image url in case faulty when url is copied from the internet
+        if (name === "locationMediaUrl") {
+            if (this.state.locationMediaType === true) {
+                const regex = /(.*?(?:jpg|png|jpeg))|.*/gm;
+                
+                const str = this.state.locationMediaUrl;
+                const subst = `$1`;
+
+                // The substituted value will be contained in the result variable
+                const result = str.replace(regex, subst);
+                this.setState({locationMediaUrl : result})
+            }
         }
     }
 
@@ -240,13 +253,13 @@ export default class LocationForm extends Component {
         och anropar sedan funktionen där API-anropet ligger och skickar med objektet
         just nu får man bara en alert med de värden man fyllt i
         */
-        
+
 
         if (this.state.locationUseQR === false) {
-                this.setState({ locationDirections: "" })
-            } else if (this.state.locationUseQR === true) {
-                this.setState({ locationLatitude: "", locationLongitude: "" })
-            }
+            this.setState({ locationDirections: "" })
+        } else if (this.state.locationUseQR === true) {
+            this.setState({ locationLatitude: "", locationLongitude: "" })
+        }
 
         let mediaType;
         console.log("MEDIATYPE")
@@ -255,8 +268,8 @@ export default class LocationForm extends Component {
             mediaType = "video"
         } else if (this.state.locationMediaType === true) {
             mediaType = "image"
-        } 
-        if (this.state.locationMediaUrl.length === 0){
+        }
+        if (this.state.locationMediaUrl.length === 0) {
             mediaType = "";
         }
 
