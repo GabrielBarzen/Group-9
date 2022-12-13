@@ -125,7 +125,7 @@ export default function ModEditForms(props) {
                   <Location
                     key={location.location_id}
                     routeID={props.mainData.id}
-                    data={location}
+                    data={location}                                
                     deleteLocation={handleDelete}
                     swapLocationsUp={swapLocationsUp}
                     swapLocationsDown={swapLocationsDown}

@@ -55,7 +55,7 @@ export default class LocationForm extends Component {
 
             locationAnswer5: "",
             locationContentID5: "",
-            locationCorrect5: ""
+            locationCorrect5: ""            
         };
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
@@ -68,7 +68,7 @@ export default class LocationForm extends Component {
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
         this.setParentMediaUrl = this.setParentMediaUrl.bind(this);
     }
-    componentDidMount() {
+    componentDidMount() {        
 
         if (this.props.currentData.media[0].mediaType === "video") {
             this.setState({ locationMediaType: false })

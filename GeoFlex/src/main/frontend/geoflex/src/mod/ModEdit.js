@@ -16,7 +16,6 @@ export default function ModEdit() {
   //location recieves data from Link
   const location = useLocation();
   const routeData = location.state.data;
-
   const [routeLocationsData, setRouteLocationsData] = useState([]);
   const [status, setStatus] = useState(false);
 
@@ -112,7 +111,7 @@ export default function ModEdit() {
             "text_info": "Replace me",
             "location_index": "2",
             "last_location": "false",
-            "qr": false,
+            "qr": true,
             "x_coords": "1.0",
             "y_coords": "1.0",
             "directions": "Stand still!",
@@ -368,7 +367,7 @@ export default function ModEdit() {
       <div className="container white container-css">
         <ModEditForms
           mainData={routeData}
-          locationsData={routeLocationsData}
+          locationsData={routeLocationsData} 
           callSaveRoute={handleSave}
           callMoveLocation={updateLocation}
           callNewLocation={addLocation}

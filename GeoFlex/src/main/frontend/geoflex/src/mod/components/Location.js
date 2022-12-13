@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ModEditLocation from '../ModEditLocation';
+import LastLocationForm from './LastLocationForm';
 
 
 export default function Location(props) {
@@ -57,7 +58,7 @@ export default function Location(props) {
                         <div className='collapsible-body col s10'>
                             <ModEditLocation 
                             routeID={props.routeID}
-                            data={currentValue}
+                            data={currentValue}                            
                             handleChange={handleChange} />
                         </div>
                         <div className="divider col s10 offset-s1"></div>    
@@ -103,7 +104,7 @@ export default function Location(props) {
                     <div className='collapsible-body col s12'>
                         <ModEditLocation 
                         routeID={props.routeID}
-                        data={currentValue}
+                        data={currentValue}                        
                         handleChange={handleChange} />
                     </div>
                     <div className="divider col s10 offset-s1"></div>
@@ -140,7 +141,7 @@ export default function Location(props) {
                     <section className='collapsible-body col s12'>
                         <ModEditLocation 
                         routeID={props.routeID}
-                        data={currentValue}
+                        data={currentValue}                        
                         handleChange={handleChange} />
                     </section>
                 </li>
@@ -170,8 +171,10 @@ export default function Location(props) {
 
                 </div>
                 <div className='collapsible-body col s12'>
-                    <ModEditLocation data={currentValue} 
-                    routeID={props.routeID}
+                    <LastLocationForm 
+                    data={currentValue} 
+                    routeID={props.routeID}     
+                    lastLocation={lastLocation}               
                     handleChange={handleChange} />
                 </div>
                 <div className="divider col s10 offset-s1"></div>    
