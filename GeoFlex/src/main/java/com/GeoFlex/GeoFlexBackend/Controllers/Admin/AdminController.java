@@ -47,10 +47,10 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.POST)
-    public ResponseEntity<String> routePost(/*@RequestHeader Map<String, String> headers,
+    public ResponseEntity<String> routePost(
                                             @CookieValue(name = "authentication-token") String token,
-                                            @CookieValue(name = "user-id") String userID*/@RequestBody String body) {
-        AdminCompanion adminCompanion = getAdminCompanion("", "1");
+                                            @CookieValue(name = "user-id") String userID, @RequestBody String body) {
+        AdminCompanion adminCompanion = getAdminCompanion(token, userID);
         if (adminCompanion == null) {
             return new ResponseEntity<>("{\"error\" : \"forbidden, try logging in again\"}", HttpStatus.FORBIDDEN);
         }

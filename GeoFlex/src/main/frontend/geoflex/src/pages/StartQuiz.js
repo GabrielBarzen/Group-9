@@ -4,22 +4,22 @@ import QRscanner from "../shared/QR"
 
 
 
-export default function WelcomeTest() {
+export default function StartQuiz() {
     return (
         <div className="container">
             <div className="row">
                 <Logo />
             </div>
             <div className="row">
-                <div className="col s10 offset-s2"> 
+                <div className="col s12">
                     <div className="row">
                         <Codebox />
                     </div>
                     <div className="row">
                         <QRscanner />
-                </div>    
+                    </div>
+                </div>
             </div>
-            </div> 
         </div>
     )
 }

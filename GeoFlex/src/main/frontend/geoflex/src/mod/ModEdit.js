@@ -16,7 +16,6 @@ export default function ModEdit() {
   //location recieves data from Link
   const location = useLocation();
   const routeData = location.state.data;
-
   const [routeLocationsData, setRouteLocationsData] = useState([]);
   const [status, setStatus] = useState(false);
 
@@ -36,19 +35,170 @@ export default function ModEdit() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        let locations = [];
+        let last_location = null;
+
+        response.data.forEach(element => {
+          if (element.last_location === "false") {
+            locations.push(element)
+          } else if (element.last_location === "true") {
+            last_location = element
+          }
+        });
+        locations.sort((a, b) => (a.location_index > b.location_index ? 1 : -1));
+        locations.push(last_location);
+        setRouteLocationsData(locations);
         
-        //Moves the last_location: true-object to the end of the array.
-        response.data.route.location.push(response.data.route.location.shift());
-        setRouteLocationsData(response.data);
       })
       .catch(function (error) {
         console.log(error);
         //dev placeholder data
-        setRouteLocationsData({"route":{"location":[{"name":"1","text_info":"Replace me","id":"988","location_index":"1","last_location":"false"},{"name":"2","text_info":"Replace me","id":"989","location_index":"2","last_location":"false"},{"name":"3","text_info":"Replace me","id":"990","location_index":"3","last_location":"false"},{"name":"4","text_info":"Replace me","id":"991","location_index":"4","last_location":"false"},{"name":"5","text_info":"Replace me","id":"992","location_index":"5","last_location":"false"},{"name":"6","text_info":"Replace me","id":"993","location_index":"6","last_location":"false"},{"name":"7","text_info":"Replace me","id":"994","location_index":"7","last_location":"false"},{"name":"8","text_info":"Replace me","id":"995","location_index":"8","last_location":"false"},{"name":"9","text_info":"Replace me","id":"996","location_index":"9","last_location":"false"},{"name":"10","text_info":"Replace me","id":"997","location_index":"10","last_location":"false"},{"name":"Last location","text_info":"Replace me","id":"998","last_location":"true"}],"locations":0}})
+        const dummyLocations = [
+          {
+            "location_id": "116465",
+            "name": "Denna ska ha bild",
+            "text_info": "External",
+            "location_index": "3",
+            "last_location": "false",
+            "qr": false,
+            "x_coords": "",
+            "y_coords": "",
+            "directions": "Gå till vänster",
+            "media": [{
+              "mediaURL": 'https://www.nin.com/wp-content/uploads/2016/12/facebook.jpg',
+              "mediaType": "image",
+              "externalMedia": true
+              }],
+            "content": [
+              {
+                "content-id": "56",
+                "answer": "Moon",
+                "correct": true
+              },
+              {
+                "content-id": "57",
+                "answer": "Jupiter",
+                "correct": false
+              },
+              {
+                "content-id": "58",
+                "answer": "Mars",
+                "correct": false
+              }
+            ]
+          },
+          {
+            "location_id": "116466",
+            "name": "testa på denna",
+            "text_info": "Replace me",
+            "location_index": "1",
+            "last_location": "false",
+            "qr": false,
+            "x_coords": "2.0",
+            "y_coords": "2.0",
+            "directions": "",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": "",
+              "externalMedia": false
+              }],
+            "content": [
+            ]
+          },
+          {
+            "location_id": "116467",
+            "name": "Denna har youtube video",
+            "text_info": "Replace me",
+            "location_index": "2",
+            "last_location": "false",
+            "qr": true,
+            "x_coords": "1.0",
+            "y_coords": "1.0",
+            "directions": "Stand still!",
+            "media": [{
+              "mediaURL": "//www.youtube.com/embed/Q8TXgCzxEnw?rel=0",
+              "mediaType": "video",
+              "externalMedia": true
+              }],
+            "content": [
+              {
+                "content-id": "59",
+                "answer": "Abyssal Whip",
+                "correct": true
+              },
+              {
+                "content-id": "61",
+                "answer": "Dragon Defender",
+                "correct": false
+              },
+              {
+                "content-id": "62",
+                "answer": "Armadyl Godsword",
+                "correct": false
+              },
+              {
+                "content-id": "63",
+                "answer": "Rune Platebody",
+                "correct": true
+              },
+              {
+                "content-id": "01",
+                "answer": "Belsebub",
+                "correct": false
+              }
+            ]
+          },
+          {
+            "location_id": "116468",
+            "name": "Last location",
+            "text_info": "Replace me",
+            "last_location": "true",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": "",
+              "externalMedia": false
+              }],
+            "content": [
+            ]
+          },
+          {
+            "location_id": "116469",
+            "name": "4",
+            "text_info": "replace me",
+            "location_index": "4",
+            "last_location": "false",
+            "qr": false,
+            "x_coords": "22.5",
+            "y_coords": "55.5",
+            "directions": "Spring!",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": "",
+              "externalMedia": false
+              }],
+            "content": [
+            ]
+          }
+        ];
+
+        let locations = [];
+        let last_location = null;
+
+        dummyLocations.forEach(element => {
+          if (element.last_location === "false") {
+            locations.push(element)
+          } else if (element.last_location === "true") {
+            last_location = element
+          }
+        });
+        locations.sort((a, b) => (a.location_index > b.location_index ? 1 : -1));
+        locations.push(last_location);
+        setRouteLocationsData(locations);
       });
+      
   }, [status, routeData.id]);
 
-  function deleteLocation(routeID, id) {    
+  function deleteLocation(routeID, id) {
     /**
     *API call DELETE and passes an ID to delete a specific location inside a tour.
     *routeData.id specifies the tour and id specifies the location id.
@@ -89,7 +239,7 @@ export default function ModEdit() {
       });
   }
 
-function addLocation(id) {  
+  function addLocation(id) {
     /**
     *API call to PATCH to add a new location with default values
     *if response is OK 200 status changes state to trigger useEffect
@@ -170,7 +320,7 @@ function addLocation(id) {
       });
   }
 
-const handleSave = (id, title, description) => {
+  const handleSave = (id, title, description) => {
     /**
     *API call PATCH to save and update all form-data to database
     *if OK 200 redirect user by replacing URL through navigate
@@ -212,18 +362,18 @@ const handleSave = (id, title, description) => {
     /*
     returns html if routeLocationsData is populated
     each seperate location is handled in Location.js with references to data-array-object and functions
-    */
+    */   
     return (
       <div className="container white container-css">
-        <ModEditForms 
+        <ModEditForms
           mainData={routeData}
           locationsData={routeLocationsData} 
-          callSaveRoute={handleSave} 
+          callSaveRoute={handleSave}
           callMoveLocation={updateLocation}
           callNewLocation={addLocation}
           callDeleteLocation={deleteLocation}
-          />
-        
+        />
+
       </div>
     );
   } else {

@@ -132,7 +132,8 @@ public class ModeratorCompanion {
             response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         else {
-            String json = ModeratorProcedures.getRouteLocations(routeID);
+            //String json = ModeratorProcedures.getRouteLocations(routeID);
+            String json = ModeratorProcedures.getRouteLocationsExperimental(routeID);
             response = new ResponseEntity<>(json, HttpStatus.OK);
         }
         return response;
@@ -207,30 +208,40 @@ public class ModeratorCompanion {
         if(rle.locationEdit.locationId == null){
             return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
         }
-        if(rle.locationEdit.name != null){
+        if(rle.locationEdit.name != null && !rle.locationEdit.name.isEmpty()){
             ModeratorProcedures.locationUpdateName(rle.locationEdit.locationId, rle.locationEdit.name);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.textInfo != null){
+        if(rle.locationEdit.textInfo != null && !rle.locationEdit.textInfo.isEmpty()){
             ModeratorProcedures.locationUpdateTextInfo(rle.locationEdit.locationId, rle.locationEdit.textInfo);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(rle.locationEdit.qr != null){
+            ModeratorProcedures.setQr(rle.locationEdit.locationId, rle.locationEdit.qr);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.xCoords != null){
+        if(rle.locationEdit.xCoords != null && !rle.locationEdit.xCoords.isEmpty()){
             ModeratorProcedures.locationPositionUpdateXcoords(rle.locationEdit.locationId, rle.locationEdit.xCoords);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.yCoords != null){
+        if(rle.locationEdit.yCoords != null && !rle.locationEdit.yCoords.isEmpty()){
             ModeratorProcedures.locationPositionUpdateYcoords(rle.locationEdit.locationId, rle.locationEdit.yCoords);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.directions != null){
+        if(rle.locationEdit.directions != null && !rle.locationEdit.directions.isEmpty()){
             ModeratorProcedures.locationPositionUpdateDirections(rle.locationEdit.locationId, rle.locationEdit.directions);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
-        if(rle.locationEdit.content != null){
+        if(rle.locationEdit.media != null && !rle.locationEdit.media.isEmpty()){
+            for (int i = 0; i < rle.locationEdit.media.size(); i++) {
+                if(rle.locationEdit.media.get(i).mediaUrl != null && rle.locationEdit.media.get(i).mediaType != null){
+                    ModeratorProcedures.locationUploadFile(Integer.parseInt(rle.locationEdit.locationId), rle.locationEdit.media.get(i).mediaUrl,
+                            rle.locationEdit.media.get(i).mediaType, true);
+                    response = new ResponseEntity<>("", HttpStatus.OK);
+                }
+            }
+        }
+        if(rle.locationEdit.content != null && !rle.locationEdit.content.isEmpty()){
             for (int i = 0; i < rle.locationEdit.content.size(); i++) {
                 if(rle.locationEdit.content.get(i).answer != null && rle.locationEdit.content.get(i).correct != null){
                     ModeratorProcedures.createContent(rle.locationEdit.locationId, rle.locationEdit.content.get(i).answer,
@@ -265,16 +276,20 @@ public class ModeratorCompanion {
         switch(fileType){
             case "image/jpeg":
             case "image/png":
+                fh.createDirectoriesAndSaveFile(locationId, file, "locations");
+                ModeratorProcedures.locationUploadFile(locationId, path, "image", false);
+                response = new ResponseEntity<>("", HttpStatus.OK);
+                break;
             case "video/mp4":
             case "video/quicktime":
                 fh.createDirectoriesAndSaveFile(locationId, file, "locations");
-                ModeratorProcedures.locationUploadFile(locationId, path);
+                ModeratorProcedures.locationUploadFile(locationId, path, "video", false);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             case "image/heic":
                 fh.createDirectoriesAndSaveFile(locationId, file, "locations");
                 fh.heicToPng(locationId, file, "locations");
-                ModeratorProcedures.locationUploadFile(locationId, path.replace("heic", "png"));
+                ModeratorProcedures.locationUploadFile(locationId, path.replace("heic", "png"), "image", false);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             default:

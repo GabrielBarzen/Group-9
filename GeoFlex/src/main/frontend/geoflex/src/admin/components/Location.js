@@ -21,7 +21,7 @@ export default function Location(props) {
                         </div>
                         <div className='col s8'>
                             <span className=''>
-                                {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                                {props.data.name}
                             </span> 
                         </div>  
                         <div className='col s2'>
@@ -52,7 +52,7 @@ export default function Location(props) {
                </div>
                <div className='col s8'>
                    <span className=''>
-                       {props.data.name} END LOCATION Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                       {props.data.name}
                    </span> 
                </div>  
                <div className='col s2'>
@@ -85,7 +85,7 @@ export default function Location(props) {
                </div>
                <div className='col s8'>
                    <span className=''>
-                       {props.data.name}Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                       {props.data.name}
                    </span> 
                </div>  
                <div className='col s2'>
@@ -119,7 +119,7 @@ export default function Location(props) {
                     </div>
                     <div className='col s8'>
                         <span className=''>
-                            {props.data.name} Här hamnar titeln på en location. vi kan flytta en location upp eller ner samt ta bort.
+                            {props.data.name}
                         </span> 
                     </div>  
                     <div className='col s2'>

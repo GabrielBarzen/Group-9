@@ -1,5 +1,5 @@
 
-package com.GeoFlex.GeoFlexBackend.PoJo.LocationUpdate;
+package com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation;
 
 import java.util.List;
 import javax.annotation.Generated;
@@ -7,9 +7,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("jsonschema2pojo")
-public class LocationEdit {
+public class Locations {
 
-    @SerializedName("location-id")
+    @SerializedName("location_id")
     @Expose
     public String locationId;
     @SerializedName("name")
@@ -20,7 +20,13 @@ public class LocationEdit {
     public String textInfo;
     @SerializedName("qr")
     @Expose
-    public Boolean qr;
+    public String qr;
+    @SerializedName("location_index")
+    @Expose
+    public String locationIndex;
+    @SerializedName("last_location")
+    @Expose
+    public String lastLocation;
     @SerializedName("x_coords")
     @Expose
     public String xCoords;
@@ -32,8 +38,9 @@ public class LocationEdit {
     public String directions;
     @SerializedName("content")
     @Expose
-    public List<ContentUpdate> content = null;
+    public List<ContentEdit> content = null;
     @SerializedName("media")
     @Expose
-    public List<MediaUpdate> media = null;
+    public List<MediaEdit> media = null;
+
 }

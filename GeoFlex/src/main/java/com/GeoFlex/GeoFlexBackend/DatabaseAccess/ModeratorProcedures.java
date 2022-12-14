@@ -1,6 +1,9 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
-import com.GeoFlex.GeoFlexBackend.PoJo.LocationUpdate.LocationEdit;
+import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.CompleteLocationRoot;
+import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.ContentEdit;
+import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.Locations;
+import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.MediaEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
@@ -10,14 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ModeratorProcedures {
 
@@ -542,11 +540,16 @@ public class ModeratorProcedures {
      * @param locationId The id of the route.
      * @param filePath The path to save in the database.
      */
-    public static void locationUploadFile(int locationId, String filePath) {
+    public static void locationUploadFile(int locationId, String filePath, String dataType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?)}")) {
+        if(!externalMedia){
+            filePath = "http://localhost:8080/"+filePath;
+        }
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
             cs.setString("in_data", filePath);
+            cs.setString("in_data_type", dataType);
+            cs.setBoolean("in_external_media", externalMedia);
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -574,8 +577,7 @@ public class ModeratorProcedures {
             while(res.next()){
                 filepath = res.getString("data");
             }
-            Gson gson = new Gson();
-            return gson.toJson(filepath);
+            return filepath;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -664,6 +666,94 @@ public class ModeratorProcedures {
                 e.printStackTrace();
             }
             return jsonObject.toString();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        getRouteLocationsExperimental(String.valueOf(103));
+    }
+    public static String getRouteLocationsExperimental(String routeID) {
+        DatabaseConnection dc = new DatabaseConnection();
+        CompleteLocationRoot clr = new CompleteLocationRoot();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_location_for_route_test_experimental(?)}")) {
+            cs.setInt("in_route_id", Integer.parseInt(routeID));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            String currentLocationId = "0";
+            List<Locations> list = new ArrayList<>();
+            while(res.next()) {
+                if (!currentLocationId.equals(res.getString("id"))) {
+                    currentLocationId = res.getString("id");
+                    clr.locations = new Locations();
+                    clr.locations.name = res.getString("name");
+                    clr.locations.textInfo = res.getString("text_info");
+                    clr.locations.locationId = res.getString("id");
+                    clr.locations.locationIndex = res.getString("location_index");
+                    clr.locations.lastLocation = String.valueOf(res.getBoolean("last_location"));
+                    clr.locations.qr = String.valueOf(res.getBoolean("qr"));
+                    clr.locations.xCoords = res.getString("x_coordinate");
+                    clr.locations.yCoords = res.getString("y_coordinate");
+                    clr.locations.directions = res.getString("directions");
+                    clr.locations.content = new ArrayList<>();
+                    clr.locations.media = new ArrayList<>();
+                    list.add(clr.locations);
+
+                    MediaEdit media = new MediaEdit();
+                    if(res.getString("data") == null){
+                        media.mediaURL = "";
+                        media.mediaType = "";
+                        media.externalMedia = false;
+                    }
+                    else {
+                        media.mediaURL = res.getString("data");
+                        media.mediaType = res.getString("dataType");
+                        media.externalMedia = res.getBoolean("external_media");
+                    }
+                    clr.locations.media.add(media);
+
+                }
+
+                if(res.getString("content_id") != null){
+                    ContentEdit content = new ContentEdit();
+                    content.answer = res.getString("answer");
+                    content.correct = res.getBoolean("correct");
+                    content.contentId = res.getString("content_id");
+                    clr.locations.content.add(content);
+                }
+            }
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(list));
+            return gson.toJson(list);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Sets the QR value in the database to true or false.
+     * @param useQr Determines if the user wants to use QR or not.
+     */
+    public static void setQr(String locationId, Boolean useQr) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_qr_bit(?, ?)}")) {
+            cs.setInt("in_location_id", Integer.parseInt(locationId));
+            cs.setBoolean("in_boolean", useQr);
+            cs.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
