@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ModEditLocation from '../ModEditLocation';
+import LastLocationForm from './LastLocationForm';
 
 
 export default function Location(props) {
@@ -9,12 +10,12 @@ export default function Location(props) {
      * all properties and functions is mapped through props.
      */
     const [titleValue, setTitleValue] = useState(props.data.name)
-  
     
-
     const currentValue = props.data;
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
+    console.log("ASDFÖO AJASÖLDKFJ ASÖLKDFJASÖL KDFJÖASL KJ")
+    console.log(props.routeID)
     
     function handleChange(value) {
      
@@ -57,7 +58,7 @@ export default function Location(props) {
                         <div className='collapsible-body col s10'>
                             <ModEditLocation 
                             routeID={props.routeID}
-                            data={currentValue}
+                            data={currentValue}                            
                             handleChange={handleChange} />
                         </div>
                         <div className="divider col s10 offset-s1"></div>    
@@ -103,7 +104,7 @@ export default function Location(props) {
                     <div className='collapsible-body col s12'>
                         <ModEditLocation 
                         routeID={props.routeID}
-                        data={currentValue}
+                        data={currentValue}                        
                         handleChange={handleChange} />
                     </div>
                     <div className="divider col s10 offset-s1"></div>
@@ -140,7 +141,7 @@ export default function Location(props) {
                     <section className='collapsible-body col s12'>
                         <ModEditLocation 
                         routeID={props.routeID}
-                        data={currentValue}
+                        data={currentValue}                        
                         handleChange={handleChange} />
                     </section>
                 </li>
@@ -170,8 +171,10 @@ export default function Location(props) {
 
                 </div>
                 <div className='collapsible-body col s12'>
-                    <ModEditLocation data={currentValue} 
-                    routeID={props.routeID}
+                    <LastLocationForm 
+                    data={currentValue} 
+                    routeID={props.routeID}     
+                    lastLocation={lastLocation}               
                     handleChange={handleChange} />
                 </div>
                 <div className="divider col s10 offset-s1"></div>    

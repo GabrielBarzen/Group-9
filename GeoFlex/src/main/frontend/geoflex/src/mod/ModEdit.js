@@ -16,7 +16,6 @@ export default function ModEdit() {
   //location recieves data from Link
   const location = useLocation();
   const routeData = location.state.data;
-
   const [routeLocationsData, setRouteLocationsData] = useState([]);
   const [status, setStatus] = useState(false);
 
@@ -57,14 +56,19 @@ export default function ModEdit() {
         const dummyLocations = [
           {
             "location_id": "116465",
-            "name": "1",
-            "text_info": "Replace me",
+            "name": "Denna ska ha bild",
+            "text_info": "External",
             "location_index": "3",
             "last_location": "false",
             "qr": false,
             "x_coords": "",
             "y_coords": "",
             "directions": "Gå till vänster",
+            "media": [{
+              "mediaURL": 'https://www.nin.com/wp-content/uploads/2016/12/facebook.jpg',
+              "mediaType": "image",
+              "externalMedia": true
+              }],
             "content": [
               {
                 "content-id": "56",
@@ -85,7 +89,7 @@ export default function ModEdit() {
           },
           {
             "location_id": "116466",
-            "name": "2",
+            "name": "testa på denna",
             "text_info": "Replace me",
             "location_index": "1",
             "last_location": "false",
@@ -93,19 +97,29 @@ export default function ModEdit() {
             "x_coords": "2.0",
             "y_coords": "2.0",
             "directions": "",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": "",
+              "externalMedia": false
+              }],
             "content": [
             ]
           },
           {
             "location_id": "116467",
-            "name": "3",
+            "name": "Denna har youtube video",
             "text_info": "Replace me",
             "location_index": "2",
             "last_location": "false",
-            "qr": false,
+            "qr": true,
             "x_coords": "1.0",
             "y_coords": "1.0",
             "directions": "Stand still!",
+            "media": [{
+              "mediaURL": "//www.youtube.com/embed/Q8TXgCzxEnw?rel=0",
+              "mediaType": "video",
+              "externalMedia": true
+              }],
             "content": [
               {
                 "content-id": "59",
@@ -139,6 +153,11 @@ export default function ModEdit() {
             "name": "Last location",
             "text_info": "Replace me",
             "last_location": "true",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": "",
+              "externalMedia": false
+              }],
             "content": [
             ]
           },
@@ -152,6 +171,11 @@ export default function ModEdit() {
             "x_coords": "22.5",
             "y_coords": "55.5",
             "directions": "Spring!",
+            "media": [{
+              "mediaURL": "",
+              "mediaType": "",
+              "externalMedia": false
+              }],
             "content": [
             ]
           }
@@ -338,12 +362,12 @@ export default function ModEdit() {
     /*
     returns html if routeLocationsData is populated
     each seperate location is handled in Location.js with references to data-array-object and functions
-    */
+    */   
     return (
       <div className="container white container-css">
         <ModEditForms
           mainData={routeData}
-          locationsData={routeLocationsData}
+          locationsData={routeLocationsData} 
           callSaveRoute={handleSave}
           callMoveLocation={updateLocation}
           callNewLocation={addLocation}

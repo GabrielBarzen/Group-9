@@ -15,7 +15,8 @@ public class UserCompanion {
     public ResponseEntity<String> routeGet(String routeCode) {
         ResponseEntity<String> response;
         HttpStatus responseStatus = HttpStatus.OK;
-        String json = UserProcedures.getRouteFromDatabase("0", routeCode);
+        //String json = UserProcedures.getRouteFromDatabase("0", routeCode);
+        String json = UserProcedures.getFullRouteFromDatabase(routeCode);
         if (json == null) {
             json = "{\"error\" : \"Internal server error, contact administrator\"}";
             responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;

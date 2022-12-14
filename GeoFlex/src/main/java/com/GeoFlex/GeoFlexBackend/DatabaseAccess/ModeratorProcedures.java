@@ -540,12 +540,16 @@ public class ModeratorProcedures {
      * @param locationId The id of the route.
      * @param filePath The path to save in the database.
      */
-    public static void locationUploadFile(int locationId, String filePath, String dataType) {
+    public static void locationUploadFile(int locationId, String filePath, String dataType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?)}")) {
+        if(!externalMedia){
+            filePath = "http://localhost:8080/"+filePath;
+        }
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
             cs.setString("in_data", filePath);
             cs.setString("in_data_type", dataType);
+            cs.setBoolean("in_external_media", externalMedia);
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -674,7 +678,7 @@ public class ModeratorProcedures {
     }
 
     public static void main(String[] args) {
-        getRouteLocationsExperimental(String.valueOf(96));
+        getRouteLocationsExperimental(String.valueOf(103));
     }
     public static String getRouteLocationsExperimental(String routeID) {
         DatabaseConnection dc = new DatabaseConnection();
@@ -702,12 +706,18 @@ public class ModeratorProcedures {
                     clr.locations.media = new ArrayList<>();
                     list.add(clr.locations);
 
-                    if(res.getString("data") != null){
-                        MediaEdit media = new MediaEdit();
+                    MediaEdit media = new MediaEdit();
+                    if(res.getString("data") == null){
+                        media.mediaURL = "";
+                        media.mediaType = "";
+                        media.externalMedia = false;
+                    }
+                    else {
                         media.mediaURL = res.getString("data");
                         media.mediaType = res.getString("dataType");
-                        clr.locations.media.add(media);
+                        media.externalMedia = res.getBoolean("external_media");
                     }
+                    clr.locations.media.add(media);
 
                 }
 

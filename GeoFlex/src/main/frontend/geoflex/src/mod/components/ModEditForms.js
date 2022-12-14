@@ -6,11 +6,13 @@ export default function ModEditForms(props) {
 
   let titleRef = useRef();
   let descriptionRef = useRef();
+  console.log("ÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖ")
+  console.log(props.mainData.id)
 
   useEffect(() => {
     M.AutoInit();
     M.updateTextFields();
-
+    
   }, []);
 
   function swapLocationsUp(locIndex) {
@@ -30,7 +32,7 @@ export default function ModEditForms(props) {
       if (item.location_index === locIndex) {
         idFrom = item.location_id;
       } else if (item.location_index === idToIndex.toString()) {
-        console.log("IF ELSE")
+        
         idTo = item.location_id
       }
     });
@@ -55,7 +57,7 @@ export default function ModEditForms(props) {
       if (item.location_index === locIndex) {
         idFrom = item.location_id;
       } else if (item.location_index === idToIndex.toString()) {
-        console.log("IF ELSE")
+        
         idTo = item.location_id
       }
     });
@@ -84,9 +86,7 @@ export default function ModEditForms(props) {
   })
 
 
-  console.log("ID")
-  console.log(props.locationsData)
-  console.log(props.mainData.id);
+ 
 
   return (
     <>
@@ -124,8 +124,8 @@ export default function ModEditForms(props) {
                 {[...props.locationsData].map((location) => (
                   <Location
                     key={location.location_id}
-                    routeID={props.mainData.location_id}
-                    data={location}
+                    routeID={props.mainData.id}
+                    data={location}                                
                     deleteLocation={handleDelete}
                     swapLocationsUp={swapLocationsUp}
                     swapLocationsDown={swapLocationsDown}
