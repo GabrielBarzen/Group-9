@@ -26,16 +26,16 @@ export default class LocationForm extends Component {
 
 
         this.state = {
-            locationName: props.currentData.name,
-            locationInfo: props.currentData.text_info,
-            locationID: props.currentData.location_id,
-            locationMediaUrl: props.currentData.media[0].mediaURL,
+            locationName: this.props.currentData.name,
+            locationInfo: this.props.currentData.text_info,
+            locationID: this.props.currentData.location_id,
+            locationMediaUrl: this.props.currentData.media[0].mediaURL,
             locationMediaType: "",
-            locationMediaExternal: props.currentData.media[0].externalMedia,
-            locationUseQR: props.currentData.qr,
-            locationDirections: props.currentData.directions,
-            locationLongitude: props.currentData.x_coords,
-            locationLatitude: props.currentData.y_coords,
+            locationMediaExternal: this.props.currentData.media[0].externalMedia,
+            locationUseQR: this.props.currentData.qr,
+            locationDirections: this.props.currentData.directions,
+            locationLongitude: this.props.currentData.x_coords,
+            locationLatitude: this.props.currentData.y_coords,
 
             locationAnswer1: "",
             locationContentID1: "",

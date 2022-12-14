@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import LastLocationUpdate from './LastLocationUpdate';
 import LocationFormMedia from './LocationFormMedia';
 
 export default class LastLocationForm extends Component {
@@ -8,16 +9,22 @@ export default class LastLocationForm extends Component {
     this.state = {
       title: this.props.data.name,
       description: this.props.data.text_info,
-      locationMediaUrl: props.data.media[0].mediaURL,
+      locationMediaUrl: this.props.data.media[0].mediaURL,
       locationMediaType: "",
-      locationMediaExternal: props.data.media[0].externalMedia,
+      locationMediaExternal: this.props.data.media[0].externalMedia,
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMediaOptions = this.handleMediaOptions.bind(this);
     this.setParentMediaUrl = this.setParentMediaUrl.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+    console.log("LAST LOCATION FORM PROPS DATA")
+    console.log(this.props.data)
+    console.log(this.props.data.name)
+    console.log(this.props.data.text_info)
+
 
     if (this.props.data.media[0].mediaType === "video") {
       this.setState({ locationMediaType: false })
@@ -76,6 +83,9 @@ export default class LastLocationForm extends Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
     this.setState({ [name]: value });
+    if (name === "title") {
+      this.props.handleChange(value)
+  }
 
     if ((name === "locationMediaExternal") || (name === "locationMediaType")) {
       this.setState({ locationMediaUrl: "" })
@@ -92,34 +102,70 @@ export default class LastLocationForm extends Component {
     }
 
   }
+  handleSubmit(event) {
+    event.preventDefault();
+    let mediaType;
+
+    if (this.state.locationMediaType === false) {
+      mediaType = "video"
+    } else if (this.state.locationMediaType === true) {
+      mediaType = "image"
+    }
+    if (this.state.locationMediaUrl.length === 0) {
+      mediaType = "";
+    }
+
+    let data = {
+      "location-update": {
+        "location-id": this.props.data.location_id,
+        "name": this.state.title,
+        "text_info": this.state.description,
+        "media": [{
+          "mediaURL": this.state.locationMediaUrl,
+          "mediaType": mediaType,
+          "externalMedia": this.state.locationMediaExternal
+        }],
+        "content": []
+      }
+    }
+
+    LastLocationUpdate(data);
+
+  }
 
   render() {
     return (<>
-      <label>
-        Rubrik
-        <input
-          className='blue lighten-4'
-          name={this.state.name} type="text"
-          value={this.state.name}
-          onChange={this.handleInputChange} />
-      </label>
-      <label>
-        Innehåll
-        <input
-          className='blue lighten-4'
-          name={this.state.text_info} type="text"
-          value={this.state.text_info}
-          onChange={this.handleInputChange} />
-      </label>
-      <LocationFormMedia
-        locationID={this.props.data.location_id}
-        locationMediaUrl={this.state.locationMediaUrl}
-        locationMediaType={this.state.locationMediaType}
-        locationMediaExternal={this.state.locationMediaExternal}
-        handleInputChange={this.handleInputChange}
-        handleMediaOptions={this.handleMediaOptions}
-        setParentMediaUrl={this.setParentMediaUrl}
-      />
+      <form onSubmit={this.handleSubmit}>
+        <fieldset>
+
+          <label>
+            Rubrik
+            <input
+              className='blue lighten-4'
+              name="title" type="text"
+              value={this.state.title}
+              onChange={this.handleInputChange} />
+          </label>
+          <label>
+            Innehåll
+            <input
+              className='blue lighten-4'
+              name="description" type="text"
+              value={this.state.description}
+              onChange={this.handleInputChange} />
+          </label>
+          <LocationFormMedia
+            locationID={this.props.data.location_id}
+            locationMediaUrl={this.state.locationMediaUrl}
+            locationMediaType={this.state.locationMediaType}
+            locationMediaExternal={this.state.locationMediaExternal}
+            handleInputChange={this.handleInputChange}
+            handleMediaOptions={this.handleMediaOptions}
+            setParentMediaUrl={this.setParentMediaUrl}
+          />
+        </fieldset>
+        <input type="submit" value="Submit" />
+      </form>
     </>
     )
   }
