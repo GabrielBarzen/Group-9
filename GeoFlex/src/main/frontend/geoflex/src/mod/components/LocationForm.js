@@ -372,9 +372,9 @@ export default class LocationForm extends Component {
 
                     <label>
                         Innehåll
-                        <input
-                            className='blue lighten-4'
-                            name="locationInfo" type="text"
+                        <textarea
+                            className='blue lighten-4 materialize-textarea'
+                            name="locationInfo" 
                             value={this.state.locationInfo}
                             onChange={this.handleInputChange} />
                     </label>

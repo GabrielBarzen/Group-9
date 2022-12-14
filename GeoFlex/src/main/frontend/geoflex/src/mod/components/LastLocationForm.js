@@ -148,9 +148,9 @@ export default class LastLocationForm extends Component {
           </label>
           <label>
             Innehåll
-            <input
-              className='blue lighten-4'
-              name="description" type="text"
+            <textarea 
+              className='blue lighten-4 materialize-textarea'
+              name="description" 
               value={this.state.description}
               onChange={this.handleInputChange} />
           </label>
