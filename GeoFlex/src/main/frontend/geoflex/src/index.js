@@ -9,7 +9,6 @@ import AdminAddNew from './admin/AdminAddNew';
 import AdminEdit from './admin/AdminEdit';
 import ModOverview from './mod/ModOverview';
 import ModEditLocation from './mod/ModEditLocation';
-import GameWelcome from './game/GameWelcome';
 import GameNavigation from './game/GameNavigation';
 import GameItem from './game/GameItem';
 import GameFinish from './game/GameFinish';
@@ -24,6 +23,7 @@ import AdminModeratorRegister from './admin/components/AdminModeratorRegister';
 import Loginpage from './pages/Loginpage';
 import AdminModeratorOverview from './admin/AdminModeratorOverview';
 import StartQuiz from './pages/StartQuiz';
+import GameLoader from './game/GameLoader';
 
 
 export default function App() {
@@ -48,7 +48,7 @@ export default function App() {
                     
 
                     <Route path='/game/start' element={<StartQuiz />} />
-                    <Route path='/game/:id/welcome' element={<GameWelcome />} />
+                    <Route path='/game/:id/welcome' element={<GameLoader />} />
                     <Route path='/game/:id/navigation' element={<GameNavigation />} />
                     <Route path='/game/route/:id/location/:id' element={<GameItem />} />
                     <Route path='/game/:id/finish' element={<GameFinish />} />
