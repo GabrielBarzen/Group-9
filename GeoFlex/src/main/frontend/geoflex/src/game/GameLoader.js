@@ -1,26 +1,38 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import GameManager from './GameManager';
+import GameWelcome from './GameWelcome';
 
-export default class GameLoader extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            data: ""
-        }
-    }
-    componentDidMount() {
+
+export default function GameLoader() {
+    const [data, setData] = useState(null);
+    const [questions, setQuestions] = useState(null);
+    const [gameStart, setGameStart] = useState(false)
+    const [status, setStatus] = useState(false);
+
+
+    useEffect(() => {
         var config = {
             method: 'get',
-            url: '127.0.0.1:8080/user/route?routeCode=1234',
+            url: '/user/route?routeCode=1234',
             headers: {}
         };
 
         axios(config)
-            .then(function (response) {
+            .then(async response => {
                 console.log(JSON.stringify(response.data));
-                this.setState({data: response.data})
-            }.bind(this))
-            .catch(function (error) {
+                await localStorage.setItem('quizData', JSON.stringify(response.data));
+                await setData({
+                    title: response.data[0].title,
+                    description: response.data[0].description,
+                    type: response.data[0].type,
+                    id: response.data[0].id,
+                    code: response.data[0].code,
+                })
+                await setQuestions(response.data[0].location)
+
+            })
+            .catch(async error => {
                 console.log(error);
                 const dummyData = [
                     {
@@ -204,18 +216,44 @@ export default class GameLoader extends Component {
                             }
                         ]
                     }
-                ]         
-                this.setState({data: dummyData})       
-            }.bind(this));
-    }    
+                ]
+                await localStorage.setItem('quizData', JSON.stringify(dummyData[0]));
+                await setData({
+                    title: dummyData[0].title,
+                    description: dummyData[0].description,
+                    type: dummyData[0].type,
+                    id: dummyData[0].id,
+                    code: dummyData[0].code,
+                })
+                await setQuestions(dummyData[0].location)
+                await setStatus(true)
+            });
 
-    render() {
+    }, [])
+
+
+    if (status === false) {
+        return <p>Loading data...</p>;
+    } else if ((status === true) && (gameStart === false)) {
         return (
             <>
-                <GameManager 
-                    data={this.state.data}
+            <GameWelcome 
+                welcomeData={data}
+                setGameStart={setGameStart}
+                />
+            </>            
+        );
+    } else if ((status === true) && (gameStart === true)){
+        return (
+            <>
+            <GameManager
+                questions={questions}
                 />
             </>
         )
     }
 }
+/*
+<pre>{JSON.stringify(data, null, 2)}</pre>
+          <pre>{JSON.stringify(questions, null, 2)}</pre>
+*/

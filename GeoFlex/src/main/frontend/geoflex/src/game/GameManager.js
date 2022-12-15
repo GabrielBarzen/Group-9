@@ -1,102 +1,64 @@
-import React, { Component } from 'react';
-import GameWelcome from './GameWelcome';
+import React, { useState } from 'react';
 
-export default class GameManager extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            quizData: this.props.data,
-            quizID: "",
-            welcome: true,
-            finished: false,
-            currentQuestion: {
-                questionID: "",
-                longitude: "",
-                latitude: "",
-                title: "",
-                question: "",
+export default function GameManager(props) {
+    const [index, setIndex] = useState(0);
 
-                answer1: {
-                    id: "",
-                    content: "",
-                    correct: ""
-                },
-                answer2: {
-                    id: "",
-                    content: "",
-                    correct: ""
-                },
-                answer3: {
-                    id: "",
-                    content: "",
-                    correct: ""
-                },
-                answer4: {
-                    id: "",
-                    content: "",
-                    correct: ""
-                },
-                answer5: {
-                    id: "",
-                    content: "",
-                    correct: ""
-                }
-            },
+    const currentQuestion = props.questions[index];
 
-        }
-
-        this.saveToLocalStorage = this.saveToLocalStorage.bind(this);
-        this.getLocations = this.getLocations.bind(this);
+    const handleNext = () => {
+        // Check if the current question has been answered
+        //if (currentQuestion.isAnswered) {
+            // Move on to the next question
+            setIndex(prevIndex => prevIndex + 1);
+        //}
     }
+    const saveDataToLocalStorage = (dataKey, data) => {
+        // Get the data to be saved
+       
+      
+        // Save the data to localStorage using the provided dataKey as the key
+        localStorage.setItem(dataKey, data);
+      }
 
-    async saveToLocalStorage(dataKey, data) {
+    return (
+        <div>
+            {index === props.questions.length - 1 ? (
+                <div>
+                    <h1>{currentQuestion.name}</h1>
+                    <p>{currentQuestion.text_info}</p>
 
-        try {
+                    {currentQuestion.media.map(media => (
+                        <div key={media.mediaURL}>
+                            {media.mediaType === 'video' && (
+                                <video src={media.mediaURL} />
+                            )}
+                            {media.mediaType === 'image' && (
+                                <img src={media.mediaURL} />
+                            )}
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div>
+                    <h1>{currentQuestion.name}</h1>
+                    <p>{currentQuestion.text_info}</p>
 
-            if (localStorage.length === 0) {
+                    {currentQuestion.media.map(media => (
+                        <div key={media.mediaURL}>
+                            {media.mediaType === 'video' && (
+                                <video src={media.mediaURL} />
+                            )}
+                            {media.mediaType === 'image' && (
+                                <img src={media.mediaURL} />
+                            )}
+                        </div>
+                    ))}
 
-                await localStorage.setItem(dataKey, JSON.stringify(data));
-            } else {
-
-                let savedObject = JSON.parse(await localStorage.getItem(dataKey));
-
-
-                if (savedObject.id !== data.id) {
-
-                    await localStorage.clear();
-
-                    await localStorage.setItem(dataKey, JSON.stringify(data));
-                }
-            }
-        } catch (error) {
-
-            console.error(error);
-        }
-    }
-
-    fetchFromLocalStorage(dataKey) {
-        try {
-
-            let savedObject = JSON.parse(localStorage.getItem(dataKey));
-
-            return savedObject;
-        } catch (error) {
-
-            console.error(error);
-
-            return null;
-        }
-    }
-
-    render() {
-        let output;
-        if (this.state.welcome === true) {
-            output = <><GameWelcome /></>
-        }
-
-
-        return (<>
-        {output}
-        </>)
-    }
+                    {index < props.questions.length - 1 && (
+                        <button onClick={handleNext}>Next</button>
+                    )}
+                </div>
+            )}
+        </div>
+    );
 }
