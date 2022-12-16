@@ -32,9 +32,9 @@ export default function Static() {
     })
     return (
         <>
-        
+        <div className="row">
             <Outlet />
-            
+        </div>    
             <ul>
                 <li><Link className="white-text" to="/">Start</Link></li>
                 <li><Link className="white-text" to="/moderator">Mod</Link></li>

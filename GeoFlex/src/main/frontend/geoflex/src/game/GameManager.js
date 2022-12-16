@@ -7,18 +7,14 @@ export default function GameManager(props) {
 
     const handleNext = () => {
         // Check if the current question has been answered
-        //if (currentQuestion.isAnswered) {
-            // Move on to the next question
-            setIndex(prevIndex => prevIndex + 1);
-        //}
+
+        setIndex(prevIndex => prevIndex + 1);
+
     }
     const saveDataToLocalStorage = (dataKey, data) => {
-        // Get the data to be saved
-       
-      
-        // Save the data to localStorage using the provided dataKey as the key
+
         localStorage.setItem(dataKey, data);
-      }
+    }
 
     return (
         <div>
