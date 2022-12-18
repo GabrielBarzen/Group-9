@@ -247,6 +247,7 @@ export default function GameLoader() {
         return (
             <>
             <GameManager
+                control={data}
                 questions={questions}
                 />
             </>

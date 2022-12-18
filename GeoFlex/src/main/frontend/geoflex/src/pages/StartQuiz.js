@@ -1,6 +1,6 @@
 import Codebox from "../shared/Codebox"
 import Logo from "../shared/Logo"
-import QRscanner from "../shared/QR"
+import QRscanner from "../shared/QRScanner"
 
 
 
