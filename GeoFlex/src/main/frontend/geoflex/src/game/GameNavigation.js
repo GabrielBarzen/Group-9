@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../shared/Button'
 import QRscanner from '../shared/QR'
+import Basicmaps from './Basicmaps'
 
 
 
@@ -25,9 +26,7 @@ export default function GameNavigation() {
                   </div>
                   <div className='row'>
                     <div className='col s12'>
-                      <p>
-                        Navigationstips! För att hitta till frågan ....
-                      </p>
+                      <Basicmaps />
                     </div>
                   </div>  
                 </div>
