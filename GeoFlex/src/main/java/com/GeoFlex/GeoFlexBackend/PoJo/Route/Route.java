@@ -1,4 +1,5 @@
 package com.GeoFlex.GeoFlexBackend.PoJo.Route;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,7 @@ public class Route{
     public String type;
     public String id;
     public String code;
+    public ArrayList<Media> media;
     public ArrayList<Location> location;
     public int locations;
 }

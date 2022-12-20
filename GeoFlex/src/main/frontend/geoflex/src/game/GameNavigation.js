@@ -3,10 +3,13 @@ import Button from '../shared/Button'
 import QRscanner from '../shared/QR'
 import Basicmaps from './Basicmaps'
 import TestMap from './TestMap'
+export default function GameNavigation(props) {
 
 
+  function handleClick(){
+    props.setQRScanner(true)
+  }
 
-export default function GameNavigation() {
   return (
     <>
     <div className='row'>
@@ -36,7 +39,7 @@ export default function GameNavigation() {
     </div>
     <div className="row">
       <div className='container'>
-        <QRscanner />
+      <Button text="Scanna QR" css="col s12" click={handleClick} icon={<i className="small material-icons right">qr_code_scanner</i>}/>
       </div> 
     </div>  
     </>

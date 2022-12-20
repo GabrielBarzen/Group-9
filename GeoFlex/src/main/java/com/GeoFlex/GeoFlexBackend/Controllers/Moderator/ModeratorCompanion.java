@@ -83,6 +83,13 @@ public class ModeratorCompanion {
             System.out.println(ru.routeUpdate.image);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
+        if(ru.routeUpdate.routeMedia != null){
+            for (int i = 0; i < ru.routeUpdate.routeMedia.size(); i++) {
+                if(ru.routeUpdate.routeMedia.get(i).mediaUrl != null){
+                    ModeratorProcedures.routeUploadFile(Integer.parseInt(ru.routeUpdate.routeId), ru.routeUpdate.routeMedia.get(i).mediaUrl, ru.routeUpdate.routeMedia.get(i).mediaType, true);
+                }
+            }
+        }
         if(ru.routeUpdate.location != null){
             for (int i = 0; i < ru.routeUpdate.location.size(); i++) {
                 if(ru.routeUpdate.location.get(i).to != null){
@@ -160,13 +167,13 @@ public class ModeratorCompanion {
             case "video/mp4":
             case "video/quicktime":
                 fh.createDirectoriesAndSaveFile(routeId, file, "routes");
-                ModeratorProcedures.routeUploadFile(routeId, path);
+                ModeratorProcedures.routeUploadFile(routeId, path, "video", false);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             case "image/heic":
                 fh.createDirectoriesAndSaveFile(routeId, file, "routes");
                 fh.heicToPng(routeId, file, "routes");
-                ModeratorProcedures.routeUploadFile(routeId, path.replace("heic", "png"));
+                ModeratorProcedures.routeUploadFile(routeId, path.replace("heic", "png"), "image", false);
                 response = new ResponseEntity<>("", HttpStatus.OK);
                 break;
             default:
