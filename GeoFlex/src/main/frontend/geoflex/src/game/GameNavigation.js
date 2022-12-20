@@ -1,6 +1,10 @@
 import React from 'react'
 import Button from '../shared/Button'
+import QRscanner from '../shared/QR'
+import Basicmaps from './Basicmaps'
+import TestMap from './TestMap'
 export default function GameNavigation(props) {
+
 
   function handleClick(){
     props.setQRScanner(true)
@@ -26,9 +30,7 @@ export default function GameNavigation(props) {
                   </div>
                   <div className='row'>
                     <div className='col s12'>
-                      <p>
-                        Navigationstips! För att hitta till frågan ....
-                      </p>
+                      <TestMap />
                     </div>
                   </div>  
                 </div>
