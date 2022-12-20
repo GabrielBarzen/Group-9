@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../shared/Button'
 import QRscanner from '../shared/QR'
 import Basicmaps from './Basicmaps'
+import TestMap from './TestMap'
 
 
 
@@ -26,7 +27,7 @@ export default function GameNavigation() {
                   </div>
                   <div className='row'>
                     <div className='col s12'>
-                      <Basicmaps />
+                      <TestMap />
                     </div>
                   </div>  
                 </div>
