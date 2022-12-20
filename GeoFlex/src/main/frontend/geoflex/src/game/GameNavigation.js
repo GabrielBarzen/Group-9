@@ -1,13 +1,13 @@
 import React from 'react'
 import Button from '../shared/Button'
-import QRscanner from '../shared/QR'
-import Basicmaps from './Basicmaps'
-import TestMap from './TestMap'
+// import QRscanner from '../shared/QR'
+import Leafletmap from './LeafletMap'
 export default function GameNavigation(props) {
 
 
   function handleClick(){
-    props.setQRScanner(true)
+    // props.setQRScanner(true)
+
   }
 
   return (
@@ -30,7 +30,7 @@ export default function GameNavigation(props) {
                   </div>
                   <div className='row'>
                     <div className='col s12'>
-                      <TestMap />
+                      <Leafletmap />
                     </div>
                   </div>  
                 </div>

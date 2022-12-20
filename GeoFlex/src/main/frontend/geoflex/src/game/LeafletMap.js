@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import visitorIcon from "./Constants";
 import CurrentPosIcon from "./Map-Pin.png"
 
 
 
 
 const Maps = () => {
-  // visitor geoLocalisation on the Map
   function LocationMarker() {
     const [position, setPosition] = useState(null);
 
@@ -41,6 +39,14 @@ const Maps = () => {
     Här måste vi läsa in koordinater från API till frågan.
     Koordinaterna sätts in i position.
     */
+    var L = window.L;
+    let visitorIcon = L.icon({
+      iconSize: [25, 41],
+      iconAnchor: [10, 41],
+      popupAnchor: [2, -40],
+      iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
+      shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
+    });
     return (
         <Marker position={[55.681922, 12.999577]} icon={visitorIcon}>
           <Popup>Fråga 1</Popup>
