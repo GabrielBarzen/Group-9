@@ -4,22 +4,23 @@ import "leaflet/dist/leaflet.css";
 import CurrentPosIcon from "./Map-Pin.png"
 
 const Maps = (props) => {
-  const [position, setPosition] = useState(null);
-
+  
+/*
   function arrivedAtLocation(){
     let lat = position.lat
     let lng = position.lng
     props.setUserArrived(lat, lng)
   }
+  */
   console.log(props.destination)
   function LocationMarker() {
-    
+    const [position, setPosition] = useState(null);
 
     const map = useMap();
 
-    useEffect(async () => {
-      await map.locate().on("locationfound", async function (e) {
-        await setPosition(e.latlng);
+    useEffect( () => {
+      map.locate().on("locationfound",  function (e) {
+        setPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
       });
     }, []);
