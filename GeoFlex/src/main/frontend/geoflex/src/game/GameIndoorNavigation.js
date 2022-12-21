@@ -6,8 +6,6 @@ export default function GameIndoorNavigation(props) {
     const [QRScanner, setQRScanner] = useState(false);
 
     function setUserArrivedHelper(result){
-      console.log("INDOORNAV")
-      console.log(result)
       props.setUserArrived(result);
     }    
 

@@ -4,15 +4,22 @@ import "leaflet/dist/leaflet.css";
 import CurrentPosIcon from "./Map-Pin.png"
 
 const Maps = (props) => {
+  const [position, setPosition] = useState(null);
+
+  function arrivedAtLocation(){
+    let lat = position.lat
+    let lng = position.lng
+    props.setUserArrived(lat, lng)
+  }
   console.log(props.destination)
   function LocationMarker() {
-    const [position, setPosition] = useState(null);
+    
 
     const map = useMap();
 
-    useEffect(() => {
-      map.locate().on("locationfound", function (e) {
-        setPosition(e.latlng);
+    useEffect(async () => {
+      await map.locate().on("locationfound", async function (e) {
+        await setPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
       });
     }, []);
@@ -59,7 +66,7 @@ const Maps = (props) => {
       center={[props.destination[0], props.destination[1]]}
       zoom={14}
       scrollWheelZoom
-      style={{ height: "50vh" }}
+      style={{ height: "50vh" }}      
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

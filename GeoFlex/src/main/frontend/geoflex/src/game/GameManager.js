@@ -13,7 +13,6 @@ export default function GameManager(props) {
      */
     const [index, setIndex] = useState(0);
     const [clickedIds, setClickedIds] = useState({});
-    const [destination, setDestination] = useState([])
     const [userArrived, setUserArrived] = useState(false);
 
     const currentQuestion = props.questions[index];
@@ -93,6 +92,7 @@ export default function GameManager(props) {
         let latitude = parseFloat(currentQuestion.y_coords);
         destination.push(latitude);
         destination.push(longitude);
+        
         console.log(destination[0])
         console.log(destination[1])
         
