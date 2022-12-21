@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import CurrentPosIcon from "./Map-Pin.png"
 
 const Maps = (props) => {
-  
-/*
-  function arrivedAtLocation(){
-    let lat = position.lat
-    let lng = position.lng
-    props.setUserArrived(lat, lng)
-  }
-  */
   console.log(props.destination)
   function LocationMarker() {
     const [position, setPosition] = useState(null);
@@ -22,6 +14,18 @@ const Maps = (props) => {
       map.locate().on("locationfound",  function (e) {
         setPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
+
+        // Make a latln geo object of question coords.
+        var questionLatlng = L.latLng(props.destination[0], props.destination[1])
+        // Compare user coords with question coords. 
+        var distanceQandU = e.latlng.distanceTo(questionLatlng)
+        // If distance between question and user is less than 30 m. Trigger function from parent.
+        if (distanceQandU < 30) {
+          props.setUserArrived()
+        } else {
+          return
+        }
+      
       });
     }, []);
     var L = window.L;
@@ -60,8 +64,6 @@ const Maps = (props) => {
         </Marker>
     )
   }
-
-  
   return (
     <MapContainer
       center={[props.destination[0], props.destination[1]]}
@@ -73,7 +75,6 @@ const Maps = (props) => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
       <LocationMarker />
       <QuestionMarker />      
     </MapContainer>
