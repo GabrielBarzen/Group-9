@@ -95,6 +95,13 @@ export default function ModEditForms(props) {
     <>
       <div className="row">
         <div className="col s12">
+          <div className='row'>
+            <div className='col s3 right'>
+            <Link style={{cursor: 'pointer', 'fontSize': '1rem', 'color': 'black'}} to={QRURL} state={{ data: props.locationsData }} >
+                Visa QR Koder <i className="material-icons prefix">qr_code_scanner</i>
+              </Link>
+            </div>
+          </div>
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">label</i>
@@ -139,9 +146,7 @@ export default function ModEditForms(props) {
                 add_location
               </i>
               <button onClick={handleSave}>Spara</button>
-              <Link style={{cursor: 'pointer', 'fontSize': '1rem', 'color': 'black'}} to={QRURL} state={{ data: props.locationsData }} >
-                Visa QR Koder
-              </Link>
+              
             </div>
           </div>
         </div>
