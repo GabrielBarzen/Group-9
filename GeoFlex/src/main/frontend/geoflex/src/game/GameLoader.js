@@ -43,6 +43,40 @@ export default function GameLoader() {
                         "code": "1234",
                         "location": [
                             {
+                                "location_id": "136495",
+                                "name": "Car models",
+                                "text_info": "Which type of car is this?",
+                                "qr": "false",
+                                "location_index": "1",
+                                "last_location": "false",
+                                "x_coords": "13.598689",
+                                "y_coords": "56.153022",
+                                "content": [
+                                    {
+                                        "content-id": "128",
+                                        "answer": "BMW",
+                                        "correct": false
+                                    },
+                                    {
+                                        "content-id": "129",
+                                        "answer": "Mercedes",
+                                        "correct": true
+                                    },
+                                    {
+                                        "content-id": "130",
+                                        "answer": "Audi",
+                                        "correct": false
+                                    }
+                                ],
+                                "media": [
+                                    {
+                                        "mediaURL": "https://www.youtube.com/embed/AtXiFTw_hbU",
+                                        "mediaType": "video",
+                                        "externalMedia": true
+                                    }
+                                ]
+                            },
+                            {
                                 "location_id": "126497",
                                 "name": "Car engines",
                                 "text_info": "Which engine does this car belong to?",

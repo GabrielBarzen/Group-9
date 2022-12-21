@@ -5,7 +5,6 @@ import QRScanner from '../shared/QRScanner'
 
 export default function GameNavigation(props) {
 
-
   function QRScannerON(){
     props.setQRScanner(true)
   }
@@ -14,17 +13,12 @@ export default function GameNavigation(props) {
     props.setQRScanner(false)
   }
   function handleResult(result){
-    console.log("handleResult")
-    console.log(result.text)
+    /**
+     * Handles the result from the QRScanner to pass true-value to userArrived in GameManager.js if the result returns the same ID as the currentQuestion
+     */
     if(result.text === props.currentQuestion.location_id){
-      console.log("IF")
-      console.log(typeof result.text);
-      console.log(props.currentQuestion.location_id)
       props.setUserArrived(true)
     }
-    console.log("else")
-      console.log(typeof result.text);
-      console.log(props.currentQuestion.location_id)
   }
 
   if(props.QRScanner === false){
@@ -45,12 +39,7 @@ export default function GameNavigation(props) {
                           {props.currentQuestion.directions}
                       </p>
                     </div>
-                  </div>
-                  <div className='row'>
-                    <div className='col s12'>
-                      
-                    </div>
-                  </div>  
+                  </div>                  
                 </div>
             </div>
         </div>

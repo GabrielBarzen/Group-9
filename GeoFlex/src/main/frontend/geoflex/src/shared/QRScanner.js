@@ -35,7 +35,7 @@ export default function QRScanner(props) {
         facingMode: 'environment'
     }}
 			/>
-			<div className={"test"}>{data}</div>		
+					
 		</div>
 	);
 }
