@@ -25,18 +25,19 @@ componentDidMount(){
         "locationName": this.props.data.locationName,
         "marker": true
     }]})
-    var segs = [
-        { data: this.state.routeID, mode: 'numeric' },
+    var data = this.props.data.locationID.toString();
+/*        [
+        { data: this.state.routeID, mode: 'alphanumerical' },
         { data: this.state.locationID, mode: 'numeric' },
         { data: this.state.url.locationName, mode: 'alphanumerical'},
         { data: this.state.url.marker, mode: 'bool'}
-      ]
-    this.generateQR(segs);
+      ]*/
+    this.generateQR(data);
 }
     
-generateQR(segs){
+generateQR(data){
     
-    QRCode.toDataURL(segs, (err, url) => {
+    QRCode.toDataURL(data, (err, url) => {
         if (err) return console.error(err)
 
         
