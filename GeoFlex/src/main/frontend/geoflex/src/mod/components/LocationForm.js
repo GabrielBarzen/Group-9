@@ -51,11 +51,7 @@ export default class LocationForm extends Component {
 
             locationAnswer4: "",
             locationContentID4: "",
-            locationCorrect4: "",
-
-            locationAnswer5: "",
-            locationContentID5: "",
-            locationCorrect5: ""            
+            locationCorrect4: ""         
         };
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
@@ -137,25 +133,7 @@ export default class LocationForm extends Component {
                         locationCorrect4: this.props.currentData.content[3].correct
                     })
                     break;
-                case 5:
-                    this.setState({
-                        locationAnswer1: this.props.currentData.content[0].answer,
-                        locationContentID1: this.props.currentData.content[0]["content-id"],
-                        locationCorrect1: this.props.currentData.content[0].correct,
-                        locationAnswer2: this.props.currentData.content[1].answer,
-                        locationContentID2: this.props.currentData.content[1]["content-id"],
-                        locationCorrect2: this.props.currentData.content[1].correct,
-                        locationAnswer3: this.props.currentData.content[2].answer,
-                        locationContentID3: this.props.currentData.content[2]["content-id"],
-                        locationCorrect3: this.props.currentData.content[2].correct,
-                        locationAnswer4: this.props.currentData.content[3].answer,
-                        locationContentID4: this.props.currentData.content[3]["content-id"],
-                        locationCorrect4: this.props.currentData.content[3].correct,
-                        locationAnswer5: this.props.currentData.content[4].answer,
-                        locationContentID5: this.props.currentData.content[4]["content-id"],
-                        locationCorrect5: this.props.currentData.content[4].correct
-                    })
-                    break;
+                
                 default:
                     console.log("Case not found");
                     break;
@@ -313,12 +291,8 @@ export default class LocationForm extends Component {
             "content-id": this.state.locationContentID4,
             "answer": this.state.locationAnswer4,
             "correct": this.state.locationCorrect4
-        },
-        {
-            "content-id": this.state.locationContentID5,
-            "answer": this.state.locationAnswer5,
-            "correct": this.state.locationCorrect5
-        }]
+        }
+        ]
         let contentArray = []
         tempContentArray.forEach(item => {
             if (item["content-id"]) {
