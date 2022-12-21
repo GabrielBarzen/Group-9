@@ -24,6 +24,7 @@ import Loginpage from './pages/Loginpage';
 import AdminModeratorOverview from './admin/AdminModeratorOverview';
 import StartQuiz from './pages/StartQuiz';
 import GameLoader from './game/GameLoader';
+import ModQrCodes from './mod/ModQrCodes';
 
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
                     <Route path='/moderator/overview' element={<ModOverview />} />
                     <Route path='/moderator/edit/:id' element={<ModEdit />} />
                     <Route path='/moderator/edit/:id/location/:id' element={<ModEditLocation />} />
+                    <Route path='/moderator/qr-codes/:id' element={<ModQrCodes />} />
                     
                     
 
