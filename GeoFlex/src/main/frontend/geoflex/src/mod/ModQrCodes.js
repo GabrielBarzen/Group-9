@@ -12,19 +12,23 @@ export default function ModQrCodes() {
   const questions = [];
 
   data.forEach(item => {
-    const newObj = {};
-    newObj.location_id = item.location_id;
-    newObj.name = item.name;    
-    questions.push(newObj);
+    if (item.last_location !== "true") {      
+      const newObj = {};
+      newObj.location_id = item.location_id;
+      newObj.name = item.name;
+      questions.push(newObj);
+    }
   });
+
 
 
 
   return (<>
     <div>ModQrCodes</div>
     {[...questions].map((question) => (
-                <ModQrCode key={question.location_id} data={question}/>
-              ))}
-    </>
+
+      <ModQrCode key={question.location_id} data={question} />
+    ))}
+  </>
   )
 }

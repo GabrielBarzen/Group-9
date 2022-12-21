@@ -194,7 +194,7 @@ export default class LocationFormAnswers extends Component {
                 
             ))}
             {(() => {
-                if (this.state.content.length <= 4) {
+                if (this.state.content.length <= 3) {
                     return (
                         <div onClick={() => this.handleAddAnswer(this.state.locationID)}>Lägga till här</div>
                     )
@@ -204,87 +204,3 @@ export default class LocationFormAnswers extends Component {
         )
     }
 }
-
-/*
-
- {[...andThis].map((html) => (
-                                    html
-                                ))}
-{
-                (() => {
-                    if (this.state.content !== undefined) {
-                        let contentLength = this.state.content.length
-                        if ((this.state.content.length !== 0) && (this.state.content.length <= contentLength)) {
-                            let i = 0;
-                            let renderThis = null;
-                            let andThis = []
-                            console.log("RENDERFUNKTIONEN FÖRSTA");
-                            console.log(this.props.content.length)
-                            this.state.content.forEach(element => {
-                                //måste rensa arrayen här på tomma objekt innan rendering
-                                console.log("RENDER LOOP")
-                                console.log(element)
-                                //if (element !== undefined) {
-                                    i++;
-                                    let inputName = "locationAnswer" + i.toString();
-                                    let inputValue = this.props.data[inputName];
-                                    let checkboxName = "locationCorrect" + i.toString();
-                                    let getCheckboxValue = this.props.data[checkboxName];
-                                    let setChecked = "checked";
-                                    let contentID = "locationContentID" + i.toString();
-                                    console.log("RENDERFUNKTIONEN");
-                                    console.log(this.props.data[contentID]);
-                                    if (getCheckboxValue !== true) {
-                                        setChecked = ""
-                                    }
-                                    if (element["content-id"] !== "") {
-                                        renderThis = (
-                                            <div key={this.props.data[contentID]} className="row">
-                                                <label className='col s9'>
-                                                    Fråga
-                                                    <input className="blue lighten-4"
-                                                        name={inputName}
-                                                        type="text"
-                                                        value={inputValue}
-                                                        onChange={this.onFieldChange.bind(this)} />
-                                                </label>
-                                                <label className='col s2' htmlFor={checkboxName}>
-
-
-                                                    <input className='text-black'
-                                                        id={checkboxName}
-                                                        name={checkboxName}
-                                                        checked={setChecked}
-                                                        type="checkbox"
-
-                                                        onChange={this.onFieldChange.bind(this)} />
-                                                    <span>Rätt svar</span>
-                                                </label>
-                                                <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.props.data[contentID])}> <i className="material-icons">delete_forever</i></span>
-                                            </div>
-                                        )
-                                        andThis.push(renderThis);
-                                    }
-                                //}
-                            });
-                            return (<>
-                                {[...andThis].map((html) => (
-                                    html
-                                ))}
-                            </>
-                            )
-                        }
-                    }
-                })()
-            }
-            {
-                (() => {
-                    if (this.props.content.length <= 4) {
-                        //försökte få till knappen här men ska nog lägga den i en egen if sats helt enkelt.
-                        return (
-                            <div className='row' onClick={this.handleAddAnswer}><p>Lägg till ett svarsalternativ</p></div>
-                        )
-                    }
-                })()
-            }
-            */
