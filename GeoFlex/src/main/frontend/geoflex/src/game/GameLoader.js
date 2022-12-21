@@ -49,8 +49,8 @@ export default function GameLoader() {
                                 "qr": "false",
                                 "location_index": "1",
                                 "last_location": "false",
-                                "x_coords": "13.055918",
-                                "y_coords": "55.58222",
+                                "x_coords": "13.598689",
+                                "y_coords": "56.153022",
                                 "content": [
                                     {
                                         "content-id": "128",

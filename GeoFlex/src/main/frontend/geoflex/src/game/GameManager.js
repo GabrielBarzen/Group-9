@@ -13,6 +13,7 @@ export default function GameManager(props) {
      */
     const [index, setIndex] = useState(0);
     const [clickedIds, setClickedIds] = useState({});
+    const [destination, setDestination] = useState([])
     const [userArrived, setUserArrived] = useState(false);
 
     const currentQuestion = props.questions[index];
@@ -76,15 +77,28 @@ export default function GameManager(props) {
             </div>
         );
     } else if (currentQuestion.qr === "false"){
+        console.log("KOLLA HÄR")
+        console.log(currentQuestion.x_coords)
+        console.log(currentQuestion.y_coords)
+        
+        const destination = []
+        let longitude = parseFloat(currentQuestion.x_coords);
+        let latitude = parseFloat(currentQuestion.y_coords);
+        destination.push(latitude);
+        destination.push(longitude);
+        console.log(destination[0])
+        console.log(destination[1])
+        
+
         return (
             <div>
                 {index === props.questions.length - 1 ? (
                     <div>
-                        {userArrived ? <GameItem currentQuestion={currentQuestion} /> : <GameOutdoorNavigation currentQuestion={currentQuestion} setUserArrived={setUserArrived}/>}
+                        {userArrived ? <GameItem currentQuestion={currentQuestion} /> : <GameOutdoorNavigation />}
                     </div>
                 ) : (
                     <div>
-                        {userArrived ? <GameItem currentQuestion={currentQuestion} clickedIds={clickedIds} setClickedIds={setClickedIds} /> : <GameIndoorNavigation />}
+                        {userArrived ? <GameItem currentQuestion={currentQuestion} clickedIds={clickedIds} setClickedIds={setClickedIds} /> : <GameOutdoorNavigation currentQuestion={currentQuestion} destination={destination} setUserArrived={setUserArrived}/>}
                         {userArrived && (
                             <div className='row'>
                                 <div className='container'>

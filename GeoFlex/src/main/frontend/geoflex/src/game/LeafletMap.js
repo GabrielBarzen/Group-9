@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import CurrentPosIcon from "./Map-Pin.png"
 
-
-
-
-const Maps = () => {
+const Maps = (props) => {
+  console.log(props.destination)
   function LocationMarker() {
     const [position, setPosition] = useState(null);
 
@@ -26,6 +24,7 @@ const Maps = () => {
         popupAnchor: [10, -44],
         iconSize: [35, 40],
       });
+      
 
     return position === null ? null : (
       <Marker position={position} icon={posIcon} autoClose={false}>
@@ -48,17 +47,17 @@ const Maps = () => {
       shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
     });
     return (
-        <Marker position={[55.681922, 12.999577]} icon={visitorIcon}>
+        <Marker position={[props.destination[0], props.destination[1]]} icon={visitorIcon} autoClose={false}>
           <Popup>Fråga 1</Popup>
         </Marker>
     )
   }
 
-
+  
   return (
     <MapContainer
-      center={[55.604981, 13.003822000000014]}
-      zoom={13}
+      center={[props.destination[0], props.destination[1]]}
+      zoom={14}
       scrollWheelZoom
       style={{ height: "50vh" }}
     >
@@ -68,10 +67,11 @@ const Maps = () => {
       />
 
       <LocationMarker />
-      <QuestionMarker />
+      <QuestionMarker />      
     </MapContainer>
     
   );
 };
 
 export default Maps;
+
