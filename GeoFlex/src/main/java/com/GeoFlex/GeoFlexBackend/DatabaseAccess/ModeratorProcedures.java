@@ -4,10 +4,7 @@ import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.CompleteLocationRoot;
 import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.ContentEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.Locations;
 import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.MediaEdit;
-import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
-import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
-import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
-import com.GeoFlex.GeoFlexBackend.PoJo.Route.Route;
+import com.GeoFlex.GeoFlexBackend.PoJo.Route.*;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +40,14 @@ public class ModeratorProcedures {
                 route.description = res.getString("description");
                 route.type = res.getString("type");
                 route.code = res.getString("code");
+
+                route.media = new ArrayList<>();
+                Media media = new Media();
+                media.mediaUrl = res.getString("media");
+                media.mediaType = res.getString("mediaType");
+                media.externalMedia = res.getBoolean("external_media");
+                route.media.add(media);
+
                 route.locations = res.getInt("locations");
                 routes.add(route);
             }
@@ -328,11 +333,16 @@ public class ModeratorProcedures {
      * @param routeId The id of the route.
      * @param filePath The path to save in the database.
      */
-    public static void routeUploadFile(int routeId, String filePath) {
+    public static void routeUploadFile(int routeId, String filePath, String mediaType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_image(?, ?)}")) {
+        if(!externalMedia){
+            filePath = "http://localhost:8080/"+filePath;
+        }
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_image(?, ?, ?, ?)}")) {
             cs.setInt("in_route_id", routeId);
-            cs.setString("in_image", filePath);
+            cs.setString("in_media", filePath);
+            cs.setString("in_media_type", mediaType);
+            cs.setBoolean("in_external_media", externalMedia);
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -358,7 +368,7 @@ public class ModeratorProcedures {
             cs.execute();
             ResultSet res = cs.getResultSet();
             while(res.next()){
-                 filepath = res.getString("image");
+                 filepath = res.getString("media");
             }
             Gson gson = new Gson();
             return gson.toJson(filepath);

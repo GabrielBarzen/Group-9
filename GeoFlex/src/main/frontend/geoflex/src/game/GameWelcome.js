@@ -1,7 +1,12 @@
-import React from 'react'
-import Button from '../shared/Button'
+import React from 'react';
+import Button from '../shared/Button';
 
-export default function GameWelcome() {
+export default function GameWelcome(props) {
+
+  const handleGameStart = () =>{
+    props.setGameStart(true)
+  }
+
   return (
     <>
     <div className='row'>
@@ -12,7 +17,7 @@ export default function GameWelcome() {
                     <div className='col s12'>
                       <h2 className='center align'>Välkommen</h2>
                       <p>
-                        Till Runes runstensquiz
+                        {props.welcomeData.title}
                       </p>
                     </div>
                   </div>
@@ -26,7 +31,7 @@ export default function GameWelcome() {
                   <div className='row'>
                     <div className='col s12'>
                       <p>
-                        Här lägger moderatorn in sin text om rundan
+                        {props.welcomeData.description}
                       </p>
                     </div>
                   </div>  
@@ -36,7 +41,7 @@ export default function GameWelcome() {
     </div>
     <div className="row">
       <div className='container'>
-        <Button text="Kör igång" css="col s12" icon={<i className="small material-icons right">arrow_forward</i>}/>
+        <Button text="Kör igång" css="col s12" click={handleGameStart} icon={<i className="small material-icons right">arrow_forward</i>}/>
       </div> 
     </div>  
     </>

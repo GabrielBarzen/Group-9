@@ -27,5 +27,8 @@ public class RouteUpdate {
     @SerializedName("location")
     @Expose
     public List<LocationUpdate> location = null;
+    @SerializedName("routeMedia")
+    @Expose
+    public List<MediaUpdate> routeMedia = null;
 
 }

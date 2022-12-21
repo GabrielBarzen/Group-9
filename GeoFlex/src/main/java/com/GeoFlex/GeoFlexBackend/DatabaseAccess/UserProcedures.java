@@ -82,7 +82,7 @@ public class UserProcedures {
     }
 
     public static void main(String[] args) {
-        getFullRouteFromDatabase("6960");
+        getFullRouteFromDatabase("1234");
     }
 
     public static String getFullRouteFromDatabase(String routeCode) {
@@ -106,6 +106,12 @@ public class UserProcedures {
                     r.route.title = res.getString("title");
                     r.route.description = res.getString("description");
                     r.route.type = res.getString("type");
+                    r.route.routeMedia = new ArrayList<>();
+                    MediaFullRouteUser routeMedia = new MediaFullRouteUser();
+                    routeMedia.mediaURL = res.getString("routeMedia");
+                    routeMedia.mediaType = res.getString("routeMediaType");
+                    routeMedia.externalMedia = res.getBoolean("routeExternalMedia");
+                    r.route.routeMedia.add(routeMedia);
                     r.route.location = new ArrayList<>();
                     list.add(r.route);
                 }

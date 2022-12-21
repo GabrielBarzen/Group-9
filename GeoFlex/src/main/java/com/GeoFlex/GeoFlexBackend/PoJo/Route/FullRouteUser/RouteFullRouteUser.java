@@ -1,6 +1,7 @@
 
 package com.GeoFlex.GeoFlexBackend.PoJo.Route.FullRouteUser;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
@@ -27,5 +28,7 @@ public class RouteFullRouteUser {
     @SerializedName("location")
     @Expose
     public List<LocationFullRouteUser> location = null;
-
+    @SerializedName("routeMedia")
+    @Expose
+    public ArrayList<MediaFullRouteUser> routeMedia;
 }
