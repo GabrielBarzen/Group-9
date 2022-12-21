@@ -54,6 +54,13 @@ export default function GameManager(props) {
         setUserArrived(false);
         handleNext();
     };
+    function handleUserArrivedStatus(result){
+        if(result === true){
+            console.log("GAMEMANAGER")
+        setUserArrived(true)
+        console.log(userArrived)
+        }
+    }
 
     if (currentQuestion.qr === "true") {
         return (
@@ -64,7 +71,7 @@ export default function GameManager(props) {
                     </div>
                 ) : (
                     <div>
-                        {userArrived ? <GameItem currentQuestion={currentQuestion} clickedIds={clickedIds} setClickedIds={setClickedIds} /> : <GameIndoorNavigation currentQuestion={currentQuestion} setUserArrived={setUserArrived}/>}
+                        {userArrived ? <GameItem currentQuestion={currentQuestion} clickedIds={clickedIds} setClickedIds={setClickedIds} /> : <GameIndoorNavigation currentQuestion={currentQuestion} setUserArrived={handleUserArrivedStatus}/>}
                         {userArrived && (
                             <div className='row'>
                                 <div className='container'>

@@ -43,6 +43,39 @@ export default function GameLoader() {
                         "code": "1234",
                         "location": [
                             {
+                                "location_id": "126497",
+                                "name": "Car engines",
+                                "text_info": "Which engine does this car belong to?",
+                                "qr": "true",
+                                "location_index": "3",
+                                "last_location": "false",
+                                "directions": "Följ vägen.",
+                                "content": [
+                                    {
+                                        "content-id": "135",
+                                        "answer": "Lamborghini",
+                                        "correct": true
+                                    },
+                                    {
+                                        "content-id": "136",
+                                        "answer": "Bugatti",
+                                        "correct": false
+                                    },
+                                    {
+                                        "content-id": "137",
+                                        "answer": "Ford",
+                                        "correct": false
+                                    }
+                                ],
+                                "media": [
+                                    {
+                                        "mediaURL": "http://localhost:8080/files/locations/116497/Lamborghini-Aventador-V12-engine_o.jpg",
+                                        "mediaType": "image",
+                                        "externalMedia": true
+                                    }
+                                ]
+                            },
+                            {
                                 "location_id": "116495",
                                 "name": "Car models",
                                 "text_info": "Which type of car is this?",
