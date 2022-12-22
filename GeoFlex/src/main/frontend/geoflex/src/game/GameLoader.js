@@ -46,7 +46,7 @@ export default function GameLoader() {
                                 "location_id": "136495",
                                 "name": "Car models",
                                 "text_info": "Which type of car is this?",
-                                "qr": "false",
+                                "qr": "true",
                                 "location_index": "1",
                                 "last_location": "false",
                                 "x_coords": "13.598689",

@@ -43,7 +43,10 @@ export default function GameItem(props) {
 
               <div className='row'>
                 <div className='col s12 grey lighten-3' style={{ "borderRadius": "5px", "padding": '2rem' }}>
-                  <p>{data.name}</p>
+                  <div className='row'>
+                  <h2>{data.name}</h2>
+                  <p>{data.text_info}</p>
+                  </div>
                 </div>
               </div>
               {data.content.map((item, index) => (
