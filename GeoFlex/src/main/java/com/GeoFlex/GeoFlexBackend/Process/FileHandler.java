@@ -18,14 +18,20 @@ public class FileHandler {
      * @param dirName The directory name where the file is going to be saved. Should be routes or locations.
      */
     public void createDirectoriesAndSaveFile(int id, MultipartFile file, String dirName){
+        //Create the initial directory in the C drive.
+        File mainDir = new File("C://files");
+        if (!mainDir.exists()){
+            mainDir.mkdirs();
+        }
+
         //Create file directory.
-        File dir = new File("src/main/resources/static/files/"+dirName);
+        File dir = new File("C://files/"+dirName);
         if (!dir.exists()){
             dir.mkdirs();
         }
 
         //Create a directory for a route or location.
-        File routeDir = new File("src/main/resources/static/files/"+dirName+"/" + id);
+        File routeDir = new File("C://files/"+dirName+"/" + id);
         if (!routeDir.exists()){
             routeDir.mkdirs();
         }
@@ -52,7 +58,7 @@ public class FileHandler {
      * @param dirName The directory name where the file is going to be saved. Should be routes or locations.
      */
     public void deleteFileDirectory(int id, String dirName){
-        File dirToDelete = new File("src/main/resources/static/files/"+dirName+"/" + id);
+        File dirToDelete = new File("C://files/"+dirName+"/" + id);
         try {
             FileUtils.deleteDirectory(dirToDelete);
         } catch (IOException e) {
@@ -67,8 +73,8 @@ public class FileHandler {
      * @param dirName The directory name where the file is going to be saved. Should be routes or locations.
      */
     public void heicToPng(int id, MultipartFile file, String dirName){
-        String filePath = "src/main/resources/static/files/"+dirName+"/"+id+"/"+file.getOriginalFilename();
-        String filePathNewFormat = "src/main/resources/static/files/"+dirName+"/"+id+"/"+file.getOriginalFilename().replace("heic", "png");
+        String filePath = "C://files/"+dirName+"/"+id+"/"+file.getOriginalFilename();
+        String filePathNewFormat = "C://files/"+dirName+"/"+id+"/"+file.getOriginalFilename().replace("heic", "png");
         String [] cmd = new String[3];
         cmd[0] = "src/main/java/com/GeoFlex/GeoFlexBackend/Process/ImageMagick/convert.exe";
         cmd[1] = filePath;
