@@ -14,4 +14,5 @@ public class Route{
     public ArrayList<Media> media;
     public ArrayList<Location> location;
     public int locations;
+    public String timesFinished;
 }

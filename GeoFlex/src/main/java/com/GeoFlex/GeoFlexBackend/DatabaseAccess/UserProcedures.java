@@ -1,8 +1,5 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
-import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.ContentEdit;
-import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.Locations;
-import com.GeoFlex.GeoFlexBackend.PoJo.CompleteLocation.MediaEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Content;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.FullRouteUser.*;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
@@ -85,6 +82,11 @@ public class UserProcedures {
         getFullRouteFromDatabase("1234");
     }
 
+    /**
+     * Retrieves a complete route from the database that contains everything needed to start a game.
+     * @param routeCode The code of the route.
+     * @return Json object containing everything needed ti start a game.
+     */
     public static String getFullRouteFromDatabase(String routeCode) {
         DatabaseConnection dc = new DatabaseConnection();
         RootFullRouteUser r = new RootFullRouteUser();
@@ -160,5 +162,20 @@ public class UserProcedures {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    /**
+     * Updates that the route has been completed.
+     * @param routeId The id of the route that was completed.
+     */
+    public static void updateRouteStatsFinished(String routeId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_finished(?)}")) {
+            cs.setInt("in_route_id", Integer.parseInt(routeId));
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
