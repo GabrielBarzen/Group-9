@@ -40,6 +40,7 @@ public class ModeratorProcedures {
                 route.description = res.getString("description");
                 route.type = res.getString("type");
                 route.code = res.getString("code");
+                route.timesFinished = res.getString("finished_times");
 
                 route.media = new ArrayList<>();
                 Media media = new Media();

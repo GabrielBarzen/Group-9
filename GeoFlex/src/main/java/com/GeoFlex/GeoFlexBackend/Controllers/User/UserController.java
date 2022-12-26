@@ -25,4 +25,18 @@ public class UserController {
         return userCompanion.routeGet(routeCode);
     }
 
+    /**
+     * Increments the route finished variable in the database by one.
+     * @param token The user token.
+     * @param userID The user ID.
+     * @param routeId The route ID.
+     * @return
+     */
+    @RequestMapping(value = "/route/stats/finished", method = RequestMethod.GET)
+    public ResponseEntity<String> updateRouteStatsFinished(@CookieValue(name = "authentication-token") String token,
+                                           @CookieValue(name = "user-id") String userID, @RequestParam String routeId) {
+        UserCompanion userCompanion = new UserCompanion();
+        return userCompanion.updateRouteStatsFinished(routeId);
+    }
+
 }

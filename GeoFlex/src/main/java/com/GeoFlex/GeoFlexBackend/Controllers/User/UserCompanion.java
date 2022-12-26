@@ -27,4 +27,20 @@ public class UserCompanion {
         response = new ResponseEntity<>(json, responseStatus);
         return response;
     }
+
+    /**
+     * Saves to the database that the route has been completed.
+     * @param routeId The id of the route that was completed.
+     * @return OK httpstatus.
+     */
+    public ResponseEntity<String> updateRouteStatsFinished(String routeId) {
+        ResponseEntity<String> response = null;
+        HttpStatus responseStatus;
+        if(!routeId.isEmpty()){
+            UserProcedures.updateRouteStatsFinished(routeId);
+            responseStatus = HttpStatus.OK;
+            response = new ResponseEntity<>("OK", responseStatus);
+        }
+        return response;
+    }
 }
