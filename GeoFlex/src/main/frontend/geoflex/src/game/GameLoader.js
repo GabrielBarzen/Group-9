@@ -41,6 +41,7 @@ export default function GameLoader() {
                         "type": "INFO",
                         "id": "103",
                         "code": "1234",
+                        "image": "imageURL",
                         "location": [
                             {
                                 "location_id": "136495",
