@@ -71,7 +71,7 @@ export default function ModOverview() {
     return (
       <div className="container white container-css">
         <div className="row">
-          <div className="col s12 m4 l8">
+          <div className="col s12">
             <h2>Översikt</h2>
             <ul className="collection">
               {[...tours].map((tour) => (
