@@ -30,7 +30,7 @@ export default function GameLoader() {
                     code: response.data[0].code,
                 })
                 await setQuestions(response.data[0].location)
-
+                await setStatus(true);
             })
             .catch(async error => {
                 console.log(error);

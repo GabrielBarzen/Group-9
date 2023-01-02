@@ -49,11 +49,6 @@ export default function GameItem(props) {
                   </div>
                 </div>
               </div>
-              <div className='row'>
-                <div className='col s12 grey lighten-3' style={{ "borderRadius": "5px", "padding": '2rem' }}>
-                  <p>{data.text_info}</p>
-                </div>
-              </div>
               {data.content.map((item, index) => (
                 <div className='row' key={item['content-id']} onClick={() => handleClick(item['content-id'])}>
                   {/* Add a conditional statement to render the appropriate icon and color based on the value of clickedIds[item['content-id']] */}
