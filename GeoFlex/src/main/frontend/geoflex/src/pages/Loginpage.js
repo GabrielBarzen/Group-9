@@ -37,7 +37,7 @@ export default function Loginpage() {
         .then(function (response) {
         console.log(JSON.stringify(response.data));
         if(response.data.path == "/admin/overview"){
-            cookies.set('role', 'admim', { path: '/' });
+            cookies.set('role', 'admin', { path: '/' });
         }
         else if(response.data.path == "/moderator/overview"){
             cookies.set('role', 'moderator', { path: '/' });
