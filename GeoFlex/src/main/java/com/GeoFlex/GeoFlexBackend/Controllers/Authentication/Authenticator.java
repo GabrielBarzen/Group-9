@@ -62,7 +62,7 @@ public class Authenticator {
     public boolean auth(String userId, Token authToken, int accessLevel) {
         Token storedToken = userIdTokenMap.get(userId);
         LocalDate ld = LocalDate.now();
-        System.out.println("get token : " + storedToken);
+        /*System.out.println("get token : " + storedToken);
         // Return false if user is logged out or session expired.
         System.out.println("=========CHECK TOKEN=========");
         System.out.println("Token is time valid : " + ld.isBefore(storedToken.getExpiery()) + ",\n client : " + ld + ",\n server : " + storedToken.getExpiery());
@@ -70,11 +70,11 @@ public class Authenticator {
         System.out.println("Token matches : " + authToken.getToken().equals(storedToken.getToken()) + ",\n client : " + authToken.getToken() + ",\n server : " + storedToken.getToken());
         System.out.println();
         System.out.println("Access level granted : " + (ap.getAccesLevel(userId) == accessLevel) + ",\n db access level : " + ap.getAccesLevel(userId) + ",\n request access level : " + accessLevel );
-        System.out.println("==========COMPLETED==========");
+        System.out.println("==========COMPLETED==========");*/
         return ld.isBefore(storedToken.getExpiery()) && authToken.getToken().equals(storedToken.getToken()) && ap.getAccesLevel(userId) >= accessLevel; // Return true if user is logged in and session has not expired.
     }
     public void putToken(String id, Token token){
         userIdTokenMap.put(id,token);
-        System.out.println("put token : " + token);
+        //System.out.println("put token : " + token);
     }
 }

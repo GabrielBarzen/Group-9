@@ -21,7 +21,7 @@ public class UserProcedures {
      * @param routeCode The code of the route.
      * @return Json object with route information.
      */
-    public static String getRouteFromDatabase(String routeId, String routeCode){
+    public String getRouteFromDatabase(String routeId, String routeCode){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo(?, ?)}")){
             cs.setInt("in_route_id", Integer.parseInt(routeId));
@@ -78,16 +78,12 @@ public class UserProcedures {
         return null;
     }
 
-    public static void main(String[] args) {
-        getFullRouteFromDatabase("1234");
-    }
-
     /**
      * Retrieves a complete route from the database that contains everything needed to start a game.
      * @param routeCode The code of the route.
      * @return Json object containing everything needed ti start a game.
      */
-    public static String getFullRouteFromDatabase(String routeCode) {
+    public String getFullRouteFromDatabase(String routeCode) {
         DatabaseConnection dc = new DatabaseConnection();
         RootFullRouteUser r = new RootFullRouteUser();
         try(CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_for_user(?)}")){
@@ -150,7 +146,6 @@ public class UserProcedures {
                 }
             }
             Gson gson = new Gson();
-            System.out.println(gson.toJson(list));
             return gson.toJson(list);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -168,7 +163,7 @@ public class UserProcedures {
      * Updates that the route has been completed.
      * @param routeId The id of the route that was completed.
      */
-    public static void updateRouteStatsFinished(String routeId) {
+    public void updateRouteStatsFinished(String routeId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_finished(?)}")) {
             cs.setInt("in_route_id", Integer.parseInt(routeId));

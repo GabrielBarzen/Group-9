@@ -5,6 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AuthenticationProcedures {
+
+    /**
+     * Returns salt number from the database.
+     * @param userId The id of the user.
+     * @return Salt number.
+     */
     public String getSalt(String userId) {
         DatabaseConnection dc = new DatabaseConnection();
         String salt = "-1";
@@ -28,6 +34,11 @@ public class AuthenticationProcedures {
         return salt;
     }
 
+    /**
+     * Deletes a user from the database.
+     * @param userId The id of the user.
+     * @return Boolean with the status of the request.
+     */
     public boolean deleteUser(String userId) {
         DatabaseConnection dc = new DatabaseConnection();
         boolean success = false;
@@ -51,6 +62,11 @@ public class AuthenticationProcedures {
         return success;
     }
 
+    /**
+     * Gets the access level from the database.
+     * @param userid The id of the user.
+     * @return The access level.
+     */
     public int getAccesLevel(String userid) {
         DatabaseConnection dc = new DatabaseConnection();
         int accessLevel = -1;
@@ -74,6 +90,11 @@ public class AuthenticationProcedures {
         return accessLevel;
     }
 
+    /**
+     * Gets a user id from the database.
+     * @param userName The name of the user.
+     * @return The userid.
+     */
     public String getUserId(String userName) {
         DatabaseConnection dc = new DatabaseConnection();
         String userid = "-2";
@@ -83,7 +104,6 @@ public class AuthenticationProcedures {
             ResultSet res = cs.getResultSet();
             while(res.next()){
                 userid = res.getString("id");
-                System.out.println("gotten user id " + userid);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -98,6 +118,12 @@ public class AuthenticationProcedures {
         return userid;
     }
 
+    /**
+     * Checks login information in the database.
+     * @param id The id of the user.
+     * @param passwordhash The password used to log in.
+     * @return Boolean with the status of the request.
+     */
     public boolean login(String id, String passwordhash) {
         DatabaseConnection dc = new DatabaseConnection();
         boolean success = false;
@@ -123,6 +149,14 @@ public class AuthenticationProcedures {
         return success;
     }
 
+    /**
+     * Procedure to create an account.
+     * @param username The username of the account.
+     * @param email The email of the account.
+     * @param salt The salt number of the account.
+     * @param hashedPassword The password of the account.
+     * @return The user id of the account.
+     */
     public String createUser(String username, String email, String salt, String hashedPassword) {
         DatabaseConnection dc = new DatabaseConnection();
         String userid = null;
@@ -149,6 +183,12 @@ public class AuthenticationProcedures {
         return userid;
     }
 
+    /**
+     * Sets acceslevel for a user.
+     * @param id The if of the user.
+     * @param accessLevelInput The accesslevel to set.
+     * @return Boolean with the status of the request.
+     */
     public boolean setAccessLevelForUser(String id, String accessLevelInput) {
         DatabaseConnection dc = new DatabaseConnection();
         int accessLevel = Integer.parseInt(accessLevelInput);
@@ -174,6 +214,12 @@ public class AuthenticationProcedures {
         }
         return success;
     }
+
+    /**
+     * Returns the accesslevel of a user.
+     * @param id The id of the user.
+     * @return Role(accesslevel) of the user.
+     */
     public int getAccessLevelForUser(String id) {
         DatabaseConnection dc = new DatabaseConnection();
         int role = -1;
@@ -197,6 +243,12 @@ public class AuthenticationProcedures {
         return role;
     }
 
+    /**
+     * Assigns a route to a user.
+     * @param userId The id of the user.
+     * @param assign NOT USED.
+     * @return Boolean with the status of the request.
+     */
     public boolean assignRoute(String userId, String assign) {
         DatabaseConnection dc = new DatabaseConnection();
         boolean success = false;
@@ -220,6 +272,12 @@ public class AuthenticationProcedures {
         return success;
     }
 
+    /**
+     * Un-assigns a route to a user.
+     * @param userId The id of the user.
+     * @param assign NOT USED.
+     * @return Boolean with the status of the request.
+     */
     public boolean unAssignRoute(String userId, String assign) {
         DatabaseConnection dc = new DatabaseConnection();
         boolean success = false;

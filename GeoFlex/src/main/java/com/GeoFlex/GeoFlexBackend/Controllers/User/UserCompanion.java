@@ -13,10 +13,11 @@ public class UserCompanion {
      * @return Json of the route to be edited or Error json if not found.
      */
     public ResponseEntity<String> routeGet(String routeCode) {
+        UserProcedures up = new UserProcedures();
         ResponseEntity<String> response;
         HttpStatus responseStatus = HttpStatus.OK;
         //String json = UserProcedures.getRouteFromDatabase("0", routeCode);
-        String json = UserProcedures.getFullRouteFromDatabase(routeCode);
+        String json = up.getFullRouteFromDatabase(routeCode);
         if (json == null) {
             json = "{\"error\" : \"Internal server error, contact administrator\"}";
             responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -34,10 +35,11 @@ public class UserCompanion {
      * @return OK httpstatus.
      */
     public ResponseEntity<String> updateRouteStatsFinished(String routeId) {
+        UserProcedures up = new UserProcedures();
         ResponseEntity<String> response = null;
         HttpStatus responseStatus;
         if(!routeId.isEmpty()){
-            UserProcedures.updateRouteStatsFinished(routeId);
+            up.updateRouteStatsFinished(routeId);
             responseStatus = HttpStatus.OK;
             response = new ResponseEntity<>("OK", responseStatus);
         }

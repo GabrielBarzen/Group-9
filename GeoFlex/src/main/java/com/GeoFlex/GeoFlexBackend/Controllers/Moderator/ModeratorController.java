@@ -242,8 +242,8 @@ public class ModeratorController {
      * @return Authentication.
      */
     private ModeratorCompanion getModeratorCompanion(String token, String userID) {
-        System.out.println("Moderator Auth Token : " + token);
-        System.out.println("Moderator Auth UserId : " + userID);
+        //System.out.println("Moderator Auth Token : " + token);
+        //System.out.println("Moderator Auth UserId : " + userID);
 
         if (AuthenticationController.authenticator.auth(userID,new Token(token),MODERATOR_ACCESS_LEVEL)) {
             return new ModeratorCompanion(userID);

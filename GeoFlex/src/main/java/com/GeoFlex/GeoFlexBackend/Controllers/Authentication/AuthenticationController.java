@@ -27,10 +27,15 @@ public class AuthenticationController {
     private final int USER_ACCESS_LEVEL = 0;
 
 
-
+    /**
+     * Endpoint for a user to login.
+     * @param response Adds cookies to the response.
+     * @param body Json body the with relevant data for logging in.
+     * @return Message with status of request.
+     */
     @RequestMapping(method = RequestMethod.POST, value = "login")
     public ResponseEntity<String> login(HttpServletResponse response, @RequestBody String body) {
-        System.out.println("body : " + body);
+        //System.out.println("body : " + body);
         Gson gson = new Gson();
         Login login = gson.fromJson(body, Login.class);
         AuthenticationProcedures ap = new AuthenticationProcedures();
@@ -88,6 +93,13 @@ public class AuthenticationController {
         }
         return new ResponseEntity<>("{\"OK\" : \"Authentication unsucessfull, please retry\"}", HttpStatus.FORBIDDEN);
     }
+
+    /**
+     * Endpoint for a user to register an account.
+     * @param response Adds cookies to the response.
+     * @param body Json body containing data for the account creation.
+     * @return Message containing status of the request.
+     */
     @RequestMapping(method = RequestMethod.POST, value = "register")
     public ResponseEntity<String> register(HttpServletResponse response,@RequestBody String body) {
         AuthenticationCompanion authenticationCompanion = new AuthenticationCompanion();
@@ -112,6 +124,14 @@ public class AuthenticationController {
         return new ResponseEntity<>("{\"success\" : \"registred user : "+register.userName+"\"}", HttpStatus.OK);
     }
 
+    /**
+     * Updates user access for a route.
+     * @param response NOT USED.
+     * @param body Json body containing user information.
+     * @param token The user token sent as a cookie.
+     * @param userID The uer id sent as a cookie.
+     * @return Message with the status of the request.
+     */
     @RequestMapping(method = RequestMethod.PATCH, value = "user")
     public ResponseEntity<String> updateUser(HttpServletResponse response,@RequestBody String body,
                                              @CookieValue(name = "authentication-token") String token,

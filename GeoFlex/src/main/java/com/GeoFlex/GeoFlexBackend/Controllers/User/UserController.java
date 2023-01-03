@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     /**
      * Returns a complete route with locations and content by its code or id. (/user/route) GET
      * @return Response entity containing json the route.
      */
-
     @RequestMapping(value = "/route", method = RequestMethod.GET)
     public ResponseEntity<String> routeGet(@CookieValue(name = "authentication-token") String token,
                                            @CookieValue(name = "user-id") String userID, @RequestParam String routeCode) {
