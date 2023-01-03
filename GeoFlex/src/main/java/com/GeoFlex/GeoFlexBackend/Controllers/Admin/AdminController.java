@@ -1,6 +1,7 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 
 
+import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.AccessLevel;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.AuthenticationController;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.Model.Token;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final int ADMIN_ACCESS_LEVEL = 2;
+
     Authenticator authenticator = AuthenticationController.authenticator;
 
     /**
@@ -235,7 +236,7 @@ public class AdminController {
         //System.out.println("Admin Auth Token : " + token);
         //System.out.println("Admin Auth UserId : " + userID);
 
-        if (AuthenticationController.authenticator.auth(userID, new Token(token), ADMIN_ACCESS_LEVEL)) {
+        if (AuthenticationController.authenticator.auth(userID, new Token(token), AccessLevel.ADMIN.getLevel())) {
             return new AdminCompanion(userID);
         } else {
             return null;

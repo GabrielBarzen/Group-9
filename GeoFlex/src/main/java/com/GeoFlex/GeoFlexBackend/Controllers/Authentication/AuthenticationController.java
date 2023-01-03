@@ -22,11 +22,6 @@ public class AuthenticationController {
 
     public static Authenticator authenticator = new Authenticator();
 
-    private final int ADMIN_ACCESS_LEVEL = 2;
-    private final int MODERATOR_ACCESS_LEVEL = 1;
-    private final int USER_ACCESS_LEVEL = 0;
-
-
     /**
      * Endpoint for a user to login.
      * @param response Adds cookies to the response.
@@ -68,21 +63,19 @@ public class AuthenticationController {
 
             response.addCookie(tokenString);
 
-
-            //TODO clean code, only for reference.
             String path = "";
             int accesslevel = ap.getAccessLevelForUser(id);
-            if (accesslevel == ADMIN_ACCESS_LEVEL) {
+            if (accesslevel == AccessLevel.ADMIN.getLevel()) {
                 path =  "/admin/overview";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
                                 "\"path\":\"" + path + "\"}", HttpStatus.OK);
-            } else if (accesslevel == MODERATOR_ACCESS_LEVEL) {
+            } else if (accesslevel == AccessLevel.MODERATOR.getLevel()) {
                 path =  "/moderator/overview";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
                                 "\"path\":\"" + path + "\"}", HttpStatus.OK);
-            } else if (accesslevel == USER_ACCESS_LEVEL) {
+            } else if (accesslevel == AccessLevel.USER.getLevel()) {
                 path =  "/user/overview";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
@@ -138,7 +131,7 @@ public class AuthenticationController {
                                              @CookieValue(name = "user-id") String userID) {
         AuthenticationCompanion authenticationCompanion = new AuthenticationCompanion();
         try {
-            if (authenticator.auth(userID, new Token(token), ADMIN_ACCESS_LEVEL)) {
+            if (authenticator.auth(userID, new Token(token), AccessLevel.ADMIN.getLevel())) {
                 return authenticationCompanion.updateUser(body);
             } else if (userID == null || token == null) {
                 return new ResponseEntity<>("{\"error\" : \"bad request\"}", HttpStatus.BAD_REQUEST);
