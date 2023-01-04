@@ -146,7 +146,7 @@ export default function ModEditForms(props) {
 			<div className='row'>
 				<div className='col s6 l6 m6 offset-l1 offset-m1'>
 					<a class="waves-effect waves-light btn green lighten-1" onClick={handleNewLocation}><i className="material-icons col s1" onClick={handleNewLocation}>
-						add_location
+						save
 					</i> Spara</a>
 				</div>
 				<div className='col s6 l4 m4'>

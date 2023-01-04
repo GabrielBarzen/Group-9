@@ -22,13 +22,27 @@ export default function AdminModeratorOverviewList(props) {
     return (<>
 
         <li className='collection-item row'>
+            <div className='row'>
+                <div className='col s1 offset-s1'>
+                    <i className="material-icons col s1">person</i>
+                </div>
+                <div className='col s4 offset-s1'>
+                    <Link className="left" style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }} to={url} state={{ data: props.data }}>
+                        {props.data.name}
+                    </Link>
+                </div>
+                <div className='col s4'>
+                    <a className="waves-effect waves-light btn  red lighten-1 btn-small right" id={props.data["user-id"]} onClick={handleDeleteModerator}>
+                        <i className="material-icons col s1" id="icon-small-screen">
+                            delete_forever
+                        </i> Radera</a>
+                </div>
 
-            <i className="material-icons col s1">person</i>
-            <Link className="left" style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }} to={url} state={{ data: props.data }}>
-                {props.data.name}
-            </Link>
-            <span className='col s1 right' style={{ cursor: 'pointer', 'fontSize': '2rem' }}><i className='material-icons right black-text' id={props.data["user-id"]} onClick={handleDeleteModerator}>delete_forever</i></span>
 
+            </div>
+            <div className='row'>
+                <div className="divider col s10 offset-s1"></div>
+            </div>
         </li>
 
     </>
