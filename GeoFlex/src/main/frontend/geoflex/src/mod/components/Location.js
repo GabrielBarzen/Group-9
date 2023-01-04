@@ -42,7 +42,7 @@ export default function Location(props) {
                             </div>
                         </div>
                         <div className='row'>
-                            <div className='col s3 m3 offset-s1 offset-m2 offset-l1 collapsible-header' style={{ 'borderBottom': '0' }}>
+                            <div className='col s3 m3 l2 offset-s1 offset-m2 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
                                 <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
                                     <i className="material-icons col s1" id="icon-small-screen">
                                         edit
@@ -104,20 +104,20 @@ export default function Location(props) {
                             </div>
                         </div>
                         <div className='row'>
-                            <div className='col s3 m3 offset-s1 offset-m2 offset-m1 offset-l1 collapsible-header' style={{ 'borderBottom': '0' }}>
+                            <div className='col s3 m3 l2 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
                                 <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
                                     <i className="material-icons col s1" id="icon-small-screen">
                                         edit
                                     </i> Ändra</a>
                             </div>
-                            <div className='col s3 m3'>
+                            <div className='col s3 m3 l2'>
                                 <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.location_id) }} id="btn-small-screen">
                                     <i className="material-icons col s1" id="icon-small-screen">
                                         delete_forever
                                     </i> Radera</a>
                             </div>
 
-                            <div className='col s1 offset-s3 offset-m2 offset-l3'>
+                            <div className='col s1 offset-s3 offset-m2 offset-l4'>
                                 <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
                                     className='material-icons right black-text large'
                                     onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
@@ -194,7 +194,7 @@ export default function Location(props) {
 
                         </div>
                         <div className='row'>
-                            <div className='col s3 m3 offset-s1 offset-m2 offset-m1 offset-l1 collapsible-header' style={{ 'borderBottom': '0' }}>
+                            <div className='col s3 m3 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
                                 <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
                                     <i className="material-icons col s1" id="icon-small-screen">
                                         edit

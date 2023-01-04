@@ -38,7 +38,6 @@ export default function ModGeolocate(props) {
         <i className="material-icons col s1" id="icon-small-screen">
           gps_fixed
         </i> Hämta koordinater</a>
-
     </fieldset>
   )
 }
