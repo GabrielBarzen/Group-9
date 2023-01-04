@@ -56,9 +56,9 @@ export default function AdminModeratorOverview() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                if(!status){
+                if (!status) {
                     setStatus(true);
-                } else if(status){
+                } else if (status) {
                     setStatus(false);
                 }
             })
@@ -86,14 +86,14 @@ export default function AdminModeratorOverview() {
         <div className='container white container-css'>
             <div className="row center-align">
                 <div className="col s12">
-                    <h2 className="center align">Översikt på moderatorer</h2>
+                    <h5 className="center align">Översikt på moderatorer</h5>
                     <ul>
                         {[...moderators].map((moderator) => (
                             <AdminModeratorOverviewList
                                 key={moderator["user-id"]}
-                                data={moderator} 
+                                data={moderator}
                                 deleteModerator={deleteModerator}
-                                />
+                            />
                         ))}
                     </ul>
                 </div>
