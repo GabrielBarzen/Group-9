@@ -143,7 +143,7 @@ export default function AdminEditForms(props) {
                                         save
                                     </i> Spara</a>
                                 </div>
-                                <div className='col 7 offset-s1 offset-m5' onClick={handleNewLocation}>
+                                <div className='col 7 offset-s1 offset-m5 offset-l7' onClick={handleNewLocation}>
                                     <a class="waves-effect waves-light btn yellow lighten-3 black-text" ><i className="material-icons col s1">
                                         add_circle_outline
                                     </i> Lägg till</a>
