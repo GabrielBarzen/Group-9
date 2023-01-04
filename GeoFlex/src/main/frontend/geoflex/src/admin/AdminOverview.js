@@ -73,9 +73,12 @@ export default function AdminOverview() {
         return (
             <div className="container white container-css">
                 <div className="row">
+
                     <div className="col s12">
                         <h5 className="center align">Översikt</h5>
                     </div>
+                </div>
+                <div className="row">
                     <div className="col s12">
                         <ul className="collection">
                             {[...tours].map((tour) => (

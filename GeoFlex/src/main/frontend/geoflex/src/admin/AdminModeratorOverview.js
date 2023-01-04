@@ -87,6 +87,7 @@ export default function AdminModeratorOverview() {
             <div className="row center-align">
                 <div className="col s12">
                     <h5 className="center align">Översikt på moderatorer</h5>
+                    <br />
                     <ul>
                         {[...moderators].map((moderator) => (
                             <AdminModeratorOverviewList
