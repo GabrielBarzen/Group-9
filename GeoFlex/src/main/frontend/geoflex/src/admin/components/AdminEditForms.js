@@ -10,7 +10,7 @@ export default function AdminEditForms(props) {
   useEffect(() => {
     M.AutoInit();
     M.updateTextFields();
-    
+
   }, []);
 
   const dataLength = props.locationsData.route.location.length;
@@ -94,7 +94,11 @@ export default function AdminEditForms(props) {
       <div className="row">
         <div className="col s12">
           <div className="row">
-            <div className="input-field col s12">
+            <div className='col s12 m10 l10 offset-l1 offset-m1'>
+              <h5 className="center align">Redigering</h5>
+            </div>
+
+            <div className="input-field col s12 m10 l10 offset-l1 offset-m1">
               <i className="material-icons prefix">label</i>
               <label htmlFor="title">Titel</label>
               <input
@@ -106,7 +110,7 @@ export default function AdminEditForms(props) {
             </div>
           </div>
           <div className="row">
-            <div className="input-field col s12">
+            <div className="input-field col s12 m10 l10 offset-l1 offset-m1">
               <i className="material-icons prefix">mode_edit</i>
               <label htmlFor="description">Beskrivning</label>
               <textarea
@@ -133,15 +137,15 @@ export default function AdminEditForms(props) {
                   />
                 ))}
               </ul>
-              <div className='col s12 yellow lighten-3 center-align btn-css icon-css z-depth-2' onClick={handleNewLocation} style={{'margin-bottom': '1rem'}}>
-                  <i className="material-icons black-text" style={{'padding': '1rem'}} >
-                      add_circle_outline
-                  </i>
+              <div className='col s12 yellow lighten-3 center-align btn-css icon-css z-depth-2' onClick={handleNewLocation} style={{ 'margin-bottom': '1rem' }}>
+                <i className="material-icons black-text" style={{ 'padding': '1rem' }} >
+                  add_circle_outline
+                </i>
               </div>
               <div className='col s12 green lighten-1 center-align btn-css icon-css z-depth-2' onClick={handleSave}>
-                  <i className="material-icons white-text" style={{'padding': '1rem'}} >
-                      save
-                  </i>
+                <i className="material-icons white-text" style={{ 'padding': '1rem' }} >
+                  save
+                </i>
               </div>
             </div>
           </div>
