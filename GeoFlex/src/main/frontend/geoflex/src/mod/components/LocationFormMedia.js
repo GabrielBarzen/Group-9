@@ -117,11 +117,11 @@ export default class LocationFormMedia extends Component {
                 console.log(error);
                 //fetchMediaURL();
             });
-/*
-        const fetchMediaURL = () => {
-            this.handleGetMediaLocation();
-        }
-        */
+        /*
+                const fetchMediaURL = () => {
+                    this.handleGetMediaLocation();
+                }
+                */
     }
     /*
         handleMediaOriginSwitch(event) {
@@ -141,20 +141,20 @@ export default class LocationFormMedia extends Component {
         this.props.handleInputChange(event);
     }
 
-    handlePreview(event){
+    handlePreview(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
-        if(value === true){
-            if (this.props.locationMediaExternal === false) {                
+        if (value === true) {
+            if (this.props.locationMediaExternal === false) {
                 this.handleGetMediaLocation();
-                this.setState({preview : value})
+                this.setState({ preview: value })
             } else {
-                this.setState({preview : value})
+                this.setState({ preview: value })
             }
-        } else if (value === false){
-            this.setState({preview : value})
+        } else if (value === false) {
+            this.setState({ preview: value })
         }
-    
+
     }
 
     render() {
@@ -168,8 +168,8 @@ export default class LocationFormMedia extends Component {
                     name="preview"
                     checked={this.state.preview}
                     type="checkbox"
-                    onChange={this.handlePreview.bind(this)} 
-                    />
+                    onChange={this.handlePreview.bind(this)}
+                />
                 <span>Förhandsgranska media</span>
             </label>
         </>)
@@ -202,7 +202,7 @@ export default class LocationFormMedia extends Component {
             <label>
                 Titel
                 <input
-                    className='blue lighten-4'
+                    className='grey lighten-3'
                     name="locationMediaUrl" type="text"
                     value={this.props.locationMediaUrl}
                     onChange={this.onFieldChange}
@@ -213,7 +213,9 @@ export default class LocationFormMedia extends Component {
         //html to preview an image uploaded or externally added
         let renderImage = (<>
             <div className="">
-                <p>Förhandsvy Media</p>
+                <br />
+                <br />
+                <br />
                 <img className="responsive-img"
                     src={this.props.locationMediaUrl}
                     alt="uppladdad bild" />
@@ -223,7 +225,9 @@ export default class LocationFormMedia extends Component {
         //html to preview an externally added video
         let renderExternalVideo = (<>
             <div className="">
-                <p>Förhandsvy Media</p>
+                <br />
+                <br />
+                <br />
                 <div className="video-container">
                     <iframe
                         title="external"
@@ -239,8 +243,10 @@ export default class LocationFormMedia extends Component {
         </>);
 
         //html to preview an uploaded video
-        let renderInternalVideo = (<><div className="">
-            <p>Förhandsvy Media</p>
+        let renderInternalVideo = (<><div className="col 12">
+            <br />
+            <br />
+            <br />
             <video className="responsive-video" controls>
                 <p>Förhandsvy Media</p>
                 <source src={this.state.mediaUrl} type="video/mp4" />
@@ -299,48 +305,63 @@ export default class LocationFormMedia extends Component {
 
         //html to render media settings; lets the moderator choose between uploading a video/image file or add an external video/image file
         let mediaSettings = (<>
-            <div className="switch row">
-                <span>Media</span>
-                <label>
+            <div className='row' style={{ 'margin-left': '0rem' }}>
+                <div className='container'>
+                    <div className="switch row">
+                        <h5>Media</h5>
 
-                    Ladda upp egen media
-                    <input type="checkbox"
-                        name="locationMediaExternal"
-                        checked={this.props.locationMediaExternal}
-                        onChange={this.onFieldChange}
-                    />
-                    <span className="lever"></span>
-                    Använd extern källa
+                        <i>Välj att ladda upp ett eget klipp/bild, eller hämta från extern källa</i>
+                        <br />
+                        <br />
+                        <label>
 
-                </label>
+                            Egen
+                            <input type="checkbox"
+                                name="locationMediaExternal"
+                                checked={this.props.locationMediaExternal}
+                                onChange={this.onFieldChange}
+                            />
+                            <span className="lever"></span>
+                            Extern
+
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div className="switch row">
-                <span>Media typ:</span>
-                <label>
-                    Video
-                    <input type="checkbox"
-                        name="locationMediaType"
-                        checked={this.props.locationMediaType}
-                        onChange={this.onFieldChange}
-                    />
-                    <span className="lever"></span>
-                    Bild
-                </label>
+            <div className='row' style={{ 'margin-left': '0rem' }}>
+                <div className='col 10'>
+                    <div className="switch row">
+                        <i>Vilken typ av media är det?</i>
+                        <br />
+                        <label>
+                            Video
+                            <input type="checkbox"
+                                name="locationMediaType"
+                                checked={this.props.locationMediaType}
+                                onChange={this.onFieldChange}
+                            />
+                            <span className="lever"></span>
+                            Bild
+                        </label>
+                    </div>
+                </div>
+
             </div>
+
         </>)
-        if(this.state.preview === false){
-            return(<>
-            {mediaSettings}
-            {renderInput}
-            {previewMedia}
+        if (this.state.preview === false) {
+            return (<>
+                {mediaSettings}
+                {renderInput}
+                {previewMedia}
             </>)
         } else if (this.state.preview === true)
-        return (<>
-            {mediaSettings}
-            {renderInput}
-            {previewMedia}
-            {renderMediaPreview}
-        </>)
+            return (<>
+                {mediaSettings}
+                {renderInput}
+                {previewMedia}
+                {renderMediaPreview}
+            </>)
 
     }
 }
