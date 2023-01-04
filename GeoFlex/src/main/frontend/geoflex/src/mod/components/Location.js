@@ -60,13 +60,14 @@ export default function Location(props) {
                                     className='material-icons right black-text large'
                                     onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                             </div>
-                            <div className='collapsible-body col s12'>
-                                <ModEditLocation
-                                    routeID={props.routeID}
-                                    data={currentValue}
-                                    handleChange={handleChange} />
-                            </div>
                         </div>
+                        <div className='collapsible-body col s12'>
+                            <ModEditLocation
+                                routeID={props.routeID}
+                                data={currentValue}
+                                handleChange={handleChange} />
+                        </div>
+
                         <div className='row'>
                             <div className="divider col s10 offset-s1"></div>
                         </div>
@@ -121,13 +122,14 @@ export default function Location(props) {
                                     className='material-icons right black-text large'
                                     onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                             </div>
-                            <div className='collapsible-body col s12'>
-                                <ModEditLocation
-                                    routeID={props.routeID}
-                                    data={currentValue}
-                                    handleChange={handleChange} />
-                            </div>
                         </div>
+                        <div className='collapsible-body col s12'>
+                            <ModEditLocation
+                                routeID={props.routeID}
+                                data={currentValue}
+                                handleChange={handleChange} />
+                        </div>
+
                         <div className='row'>
                             <div className="divider col s10 offset-s1"></div>
                         </div>
@@ -198,13 +200,14 @@ export default function Location(props) {
                                         edit
                                     </i> Ändra</a>
                             </div>
-                            <div className='collapsible-body col s12'>
-                                <ModEditLocation
-                                    routeID={props.routeID}
-                                    data={currentValue}
-                                    handleChange={handleChange} />
-                            </div>
                         </div>
+                        <div className='collapsible-body col s12'>
+                            <ModEditLocation
+                                routeID={props.routeID}
+                                data={currentValue}
+                                handleChange={handleChange} />
+                        </div>
+
                         <div className='row'>
                             <div className="divider col s10 offset-s1"></div>
                         </div>
