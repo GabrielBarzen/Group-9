@@ -25,7 +25,7 @@ export default class LocationFormAnswers extends Component {
     }
 
     fetchUpdatedAnswerArray(locationID) {
-        
+
         /**
          * API-call to fetch an updated array of answers 
          */
@@ -42,18 +42,18 @@ export default class LocationFormAnswers extends Component {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 update(response.data.content);
-                
+
 
             })
             .catch(function (error) {
                 console.log(error);
             });
 
-            const update = (data) => {
-                this.setState({ content: data })
-                this.props.handleContentIDState(data)
-                this.forceUpdate()
-            }
+        const update = (data) => {
+            this.setState({ content: data })
+            this.props.handleContentIDState(data)
+            this.forceUpdate()
+        }
     }
 
     onFieldChange(event) {
@@ -104,44 +104,45 @@ export default class LocationFormAnswers extends Component {
                 console.log(error);
             });
 
-            const fetchNewContent = (locationID) => {
-                this.fetchUpdatedAnswerArray(locationID)
-            }
+        const fetchNewContent = (locationID) => {
+            this.fetchUpdatedAnswerArray(locationID)
+        }
 
     }
 
     handleRemoveAnswer(locationID, contentID) {
         var data = JSON.stringify(
-            {"location-update":{
-              "location-id": locationID,
-              "content" :[{
-                  "delete" : contentID
-                }]
+            {
+                "location-update": {
+                    "location-id": locationID,
+                    "content": [{
+                        "delete": contentID
+                    }]
+                }
             }
-            }
-          );
-      
-          var config = {
+        );
+
+        var config = {
             method: "patch",
             url: "/moderator/location",
             headers: {
-              "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             data: data,
-          };
-      
-          axios(config)
+        };
+
+        axios(config)
             .then(function (response) {
-              console.log(JSON.stringify(response.data));
+                console.log(JSON.stringify(response.data));
                 fetchNewContent(locationID);
             })
             .catch(function (error) {
-              console.log(error);
+                console.log(error);
             });
 
-            const fetchNewContent = (locationID) => {
-                this.fetchUpdatedAnswerArray(locationID)
-            }
+        const fetchNewContent = (locationID) => {
+            this.fetchUpdatedAnswerArray(locationID)
+        }
     }
 
     render() {
@@ -164,21 +165,21 @@ export default class LocationFormAnswers extends Component {
                     <div key={contentID} className="row">
                         <label className='col s9'>
                             Fråga
-                            <input className="blue lighten-4"
+                            <input className="grey lighten-3"
                                 name={inputName}
                                 type="text"
                                 value={inputValue}
                                 onChange={this.onFieldChange.bind(this)} />
                         </label>
-                        <label className='col s2'>
-                            <input className='text-black'                                
+                        <label className='col s1' style={{ 'margin-top': '1rem' }}>
+                            <input className='text-black'
                                 name={checkboxName}
                                 checked={checkboxValue}
                                 type="checkbox"
                                 onChange={this.onFieldChange.bind(this)} />
                             <span>Rätt svar</span>
                         </label>
-                        <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.state.locationID, contentID)}> <i className="material-icons">delete_forever</i></span>
+                        <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.state.locationID, contentID)} style={{ 'margin-top': '1rem' }}> <i className="material-icons">delete_forever</i></span>
                     </div>
                 );
                 toReturnArray.push(toReturn);
@@ -191,7 +192,7 @@ export default class LocationFormAnswers extends Component {
         return (<>
             {[...toReturnArray].map((answer) => (
                 answer
-                
+
             ))}
             {(() => {
                 if (this.state.content.length <= 3) {

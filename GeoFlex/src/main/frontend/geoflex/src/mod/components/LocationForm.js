@@ -364,7 +364,7 @@ export default class LocationForm extends Component {
                     <div className='row'>
                         <div className='col 12'>
                             <br />
-                            <i>Hur ska deltagarna hitta till frågan? Ska en QR-kod läsas in
+                            <i>Hur ska deltagarna hitta till platsen? Ska en QR-kod läsas in
                                 eller ska deltagarna ta sig till en plats baserat på kordinater?
                             </i>
                             <br />
@@ -410,7 +410,7 @@ export default class LocationForm extends Component {
                             )
                         }
                     })()}
-                    <fieldset>
+                    <fieldset style={{ 'border': '0px', 'margin': '0px', 'padding': '0px' }}>
                         <div className=''>
                             <LocationFormAnswers
                                 data={this.state}
@@ -422,7 +422,7 @@ export default class LocationForm extends Component {
                         </div>
 
                     </fieldset>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Spara" className="waves-effect waves-light btn green lighten-1" style={{ 'margin-bottom': '1rem' }} />
                 </form>
             </div>
         )

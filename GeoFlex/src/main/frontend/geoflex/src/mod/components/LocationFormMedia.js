@@ -306,7 +306,7 @@ export default class LocationFormMedia extends Component {
         //html to render media settings; lets the moderator choose between uploading a video/image file or add an external video/image file
         let mediaSettings = (<>
             <div className='row' style={{ 'margin-left': '0rem' }}>
-                <div className='container'>
+                <div className='col 10'>
                     <div className="switch row">
                         <h5>Media</h5>
 
