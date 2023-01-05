@@ -163,7 +163,7 @@ export default class LocationFormAnswers extends Component {
 
                 toReturn = (
                     <div key={contentID} className="row">
-                        <label className='col s9'>
+                        <label className='col s8 m9'>
                             Fråga
                             <input className="grey lighten-3"
                                 name={inputName}

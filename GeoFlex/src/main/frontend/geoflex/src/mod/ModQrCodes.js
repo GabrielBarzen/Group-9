@@ -38,13 +38,13 @@ export default function ModQrCodes() {
 
         <div className='row' id="hideWhenPrint">
           <a href="javascript:history.back()" style={{ 'color': 'black' }}>
-            <div className='col s5 m8 l2'>
+            <div className='col s5 l2'>
               <i className="material-icons col s1 left">
                 keyboard_backspace
               </i> Gå tillbaka
             </div>
           </a>
-          <div className='col offset-s1  offset-m2 offset-l2' style={{ 'borderBottom': '0' }} onClick={() => window.print()}>
+          <div className='col m5 l3 offset-s1 offset-m2  offset-l7' style={{ 'borderBottom': '0' }} onClick={() => window.print()}>
             <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
               <i className="material-icons col s1" id="icon-small-screen">
                 print
