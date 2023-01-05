@@ -72,7 +72,7 @@ export default function ModOverview() {
       <div className="container white container-css">
         <div className="row">
           <div className="col s12">
-            <h2>Översikt</h2>
+            <h5 className="center-align">Översikt</h5>
             <ul className="collection">
               {[...tours].map((tour) => (
                 <Tour key={tour.id} data={tour} deleteItem={deleteItem} />

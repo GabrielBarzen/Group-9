@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import M from 'materialize-css';
+import Navbar from "../shared/Navbar";
 
 export default function AdminAddNew() {
     /*
@@ -12,7 +13,7 @@ export default function AdminAddNew() {
     const [rangeVal, setRangeval] = useState(null);
     const titleRef = useRef();
     const descriptionRef = useRef();
-    
+
 
     const navigate = useNavigate();
 
@@ -56,11 +57,12 @@ export default function AdminAddNew() {
         M.AutoInit();
     }, []);
 
-    
 
-    return (
+
+    return (<>
+        <Navbar type={'admin'} />
         <div className="container white container-css">
-            <h2 className="center-align">Skapa nytt</h2>
+            <h5 className="center-align">Skapa nytt</h5>
             <div className="row">
                 <form className="col s12">
                     <div className="row">
@@ -83,29 +85,30 @@ export default function AdminAddNew() {
                         </div>
                     </div>
                     <div className="row">
-                    <div className="input-field col s12">
-                        
-                        <br />
-                        <br />
-                        <br />
-                        <i className="material-icons prefix">add_location</i>
-                        <input type="range" id="locations" className="custom-range" min="0" max="20" onChange={(event) => setRangeval(event.target.value)} />
-                        <label htmlFor="locations">Ange antal platser: <b>{rangeVal}</b> </label>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                    </div>
-                    
-                        
+                        <div className="input-field col s12">
+
+                            <br />
+                            <br />
+                            <br />
+                            <i className="material-icons prefix">add_location</i>
+                            <input type="range" id="locations" className="custom-range" min="0" max="20" onChange={(event) => setRangeval(event.target.value)} />
+                            <label htmlFor="locations">Ange antal platser: <b>{rangeVal}</b> </label>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+
+
                     </div>
                     <div className='col s12 green lighten-1 center-align btn-css icon-css z-depth-2' onClick={handleAddNew}>
-                        <i className="material-icons white-text" style={{'padding': '1rem'}}>
+                        <i className="material-icons white-text" style={{ 'padding': '1rem' }}>
                             save
                         </i>
                     </div>
                 </form>
             </div>
         </div>
+    </>
     );
 }

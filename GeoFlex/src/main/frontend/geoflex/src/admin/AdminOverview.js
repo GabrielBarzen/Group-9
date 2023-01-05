@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Tour from "./components/Tour";
 import Button from "../shared/Button";
 import axios from "axios";
+import Navbar from "../shared/Navbar";
 
 /*
 placeholder while developing - clean this
@@ -71,58 +72,64 @@ export default function AdminOverview() {
         else: a loading circle will render while waiting for tours to be populated
         */
         return (
-            <div className="container white container-css">
-                <div className="row">
+            <>
+                <Navbar type={'admin'} />
+                <div className="container white container-css">
+                    <div className="row">
 
-                    <div className="col s12">
-                        <h5 className="center align">Översikt</h5>
+                        <div className="col s12">
+                            <h5 className="center align">Översikt</h5>
+                        </div>
+
                     </div>
+                    <div className="row">
+                        <div className="col s12">
+                            <ul className="collection">
+                                {[...tours].map((tour) => (
+                                    <Tour key={tour.id} data={tour} deleteItem={deleteItem} />
+                                ))}
+                            </ul>
+                        </div>
 
-                </div>
-                <div className="row">
-                    <div className="col s12">
-                        <ul className="collection">
-                            {[...tours].map((tour) => (
-                                <Tour key={tour.id} data={tour} deleteItem={deleteItem} />
-                            ))}
-                        </ul>
                     </div>
+                    <div className="row">
+                        <div className="center-align">
+                            <Link to="/admin/new/">
+                                <Button
+                                    css=" s12 green lighten-1"
 
-                </div>
-                <div className="row">
-                    <div className="center-align">
-                        <Link to="/admin/new/">
-                            <Button
-                                css=" s12 green yellow lighten-3"
-
-                                icon={
-                                    <i className="material-icons black-text">
-                                        add_circle_outline
-                                    </i>
-                                }
-                            />
-                        </Link>
+                                    icon={
+                                        <i className="material-icons black-text">
+                                            add_circle_outline
+                                        </i>
+                                    }
+                                />
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     } else {
         return (
-            <section className="container center-align">
-                <div className="preloader-wrapper big active">
-                    <div className="spinner-layer spinner-red-only">
-                        <div className="circle-clipper left">
-                            <div className="circle"></div>
-                        </div>
-                        <div className="gap-patch">
-                            <div className="circle"></div>
-                        </div>
-                        <div className="circle-clipper right">
-                            <div className="circle"></div>
+            <>
+                <Navbar type={'admin'} />
+                <section className="container center-align">
+                    <div className="preloader-wrapper big active">
+                        <div className="spinner-layer spinner-red-only">
+                            <div className="circle-clipper left">
+                                <div className="circle"></div>
+                            </div>
+                            <div className="gap-patch">
+                                <div className="circle"></div>
+                            </div>
+                            <div className="circle-clipper right">
+                                <div className="circle"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </>
         );
     }
 }
