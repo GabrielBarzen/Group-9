@@ -239,8 +239,8 @@ export default function AdminModeratorEdit() {
 
             <Link to={"/admin/moderator/overview"} style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }}>
                 <div className='row'>
-                    <div className='col s9'>
-                        <i className="material-icons col s1" id="icon-small-screen">
+                    <div className='col s9 m8 l2'>
+                        <i className="material-icons col s1 left">
                             keyboard_backspace
                         </i> Gå tillbaka
                     </div>

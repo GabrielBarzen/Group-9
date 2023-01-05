@@ -26,12 +26,12 @@ export default function AdminModeratorOverviewList(props) {
                 <div className='col s1 offset-s1'>
                     <i className="material-icons col s1">person</i>
                 </div>
-                <div className='col s4 offset-s1'>
+                <div className='col s3 offset-s1'>
                     <Link className="left" style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }} to={url} state={{ data: props.data }}>
                         {props.data.name}
                     </Link>
                 </div>
-                <div className='col s4'>
+                <div className='col s5'>
                     <a className="waves-effect waves-light btn  red lighten-1 btn-small right" id={props.data["user-id"]} onClick={handleDeleteModerator}>
                         <i className="material-icons col s1" id="icon-small-screen">
                             delete_forever
