@@ -77,6 +77,7 @@ export default function AdminOverview() {
                     <div className="col s12">
                         <h5 className="center align">Översikt</h5>
                     </div>
+
                 </div>
                 <div className="row">
                     <div className="col s12">
