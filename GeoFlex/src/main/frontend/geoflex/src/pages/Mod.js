@@ -6,7 +6,6 @@ import Navbar from '../shared/Navbar';
 export default function Mod() {
     return (<>
         <section>
-            <Navbar type={'mod'} />
             <ModOverview />
         </section>
     </>

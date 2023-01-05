@@ -14,9 +14,9 @@ export default function Navbar(props) {
                         </div>
                         <div className='col l6 m8 s12 offset-l8 offset-m6'>
                             <ul id="nav-mobile" className="center-align">
-                                <li><a href="admin/moderator/overview" className="black-text col">Moderatorer</a></li>
-                                <li><a href="admin/overview" className="black-text">Översikt</a></li>
-                                <li><a href="admin/new/" className="black-text">Skapa moderator</a></li>
+                                <li><a href="/admin/moderator/overview" className="black-text col">Moderatorer</a></li>
+                                <li><a href="/admin/overview" className="black-text">Översikt</a></li>
+                                <li><a href="/admin/new/" className="black-text">Skapa en runda</a></li>
                             </ul>
                         </div>
                     </div>

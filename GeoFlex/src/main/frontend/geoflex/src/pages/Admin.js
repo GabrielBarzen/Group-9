@@ -1,6 +1,6 @@
 import React from 'react'
 import AdminOverview from "../admin/AdminOverview"
-import Navbar from '../shared/Navbar'
+
 
 export default function Admin() {
     /*
@@ -9,7 +9,6 @@ export default function Admin() {
 
     return (
         <div>
-            <Navbar type={'admin'} />
             <AdminOverview />
         </div>
 
