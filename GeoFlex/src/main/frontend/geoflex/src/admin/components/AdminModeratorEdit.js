@@ -206,7 +206,7 @@ export default function AdminModeratorEdit() {
                         från {moderator.name}.</i>
                 </div>
                 <div className='row'>
-                    <div className="divider col s10 offset-s1" style={{ 'margin-top': '1rem' }}></div>
+                    <div className="divider col s10 offset-s1" style={{ 'marginTop': '1rem' }}></div>
                 </div>
                 <div className='row'>
                     <div className='col s12'>

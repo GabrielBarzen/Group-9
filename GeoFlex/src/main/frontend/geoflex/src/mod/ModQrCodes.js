@@ -22,7 +22,6 @@ export default function ModQrCodes() {
     }
   });
 
-  console.log("DET HÄR ÄR" + data.location)
 
 
 
@@ -37,14 +36,21 @@ export default function ModQrCodes() {
         ))}
 
 
-        <div className='row'>
+        <div className='row' id="hideWhenPrint">
           <a href="javascript:history.back()" style={{ 'color': 'black' }}>
-            <div className='col s9 m8 l2'>
+            <div className='col s5 m8 l2'>
               <i className="material-icons col s1 left">
                 keyboard_backspace
               </i> Gå tillbaka
             </div>
           </a>
+          <div className='col offset-s1  offset-m2 offset-l2' style={{ 'borderBottom': '0' }} onClick={() => window.print()}>
+            <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
+              <i className="material-icons col s1" id="icon-small-screen">
+                print
+              </i> Skriv ut QR-koder</a>
+          </div>
+
         </div>
 
 

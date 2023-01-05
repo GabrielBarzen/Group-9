@@ -43,11 +43,11 @@ export default class LocationFormUseQR extends Component {
         return (
             <>
                 <div className='row'>
-                    <div className='col s10 offset-s1 center-align'>
+                    <div className='col s10 offset-s1 center-align' id='printQR'>
                         <i>Plats: <p>{this.state.name}</p></i>
-                        <img src={this.state.qrCode} alt='QR Code' />
+                        <img src={this.state.qrCode} alt='QR Code' id='PrintReadyQR' />
                     </div>
-                    <div className="divider col s10 offset-s1" style={{ 'margin-top': '1rem' }}></div>
+                    <div className="divider col s10 offset-s1" style={{ 'marginTop': '1rem' }}></div>
                 </div>
 
 

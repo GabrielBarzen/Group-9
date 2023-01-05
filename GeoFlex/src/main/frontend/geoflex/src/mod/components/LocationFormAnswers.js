@@ -171,7 +171,7 @@ export default class LocationFormAnswers extends Component {
                                 value={inputValue}
                                 onChange={this.onFieldChange.bind(this)} />
                         </label>
-                        <label className='col s1' style={{ 'margin-top': '1rem' }}>
+                        <label className='col s1' style={{ 'marginTop': '1rem' }}>
                             <input className='text-black'
                                 name={checkboxName}
                                 checked={checkboxValue}
@@ -179,7 +179,7 @@ export default class LocationFormAnswers extends Component {
                                 onChange={this.onFieldChange.bind(this)} />
                             <span>Rätt svar</span>
                         </label>
-                        <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.state.locationID, contentID)} style={{ 'margin-top': '1rem' }}> <i className="material-icons">delete_forever</i></span>
+                        <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.state.locationID, contentID)} style={{ 'marginTop': '1rem' }}> <i className="material-icons">delete_forever</i></span>
                     </div>
                 );
                 toReturnArray.push(toReturn);
