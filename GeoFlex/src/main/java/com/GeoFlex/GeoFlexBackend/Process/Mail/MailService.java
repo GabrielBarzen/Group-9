@@ -62,7 +62,7 @@ public class MailService {
                         "Användarnamn:" + username + "\n" +
                         "Lösenord:" + password +"\n" +
                         "\n" +
-                        "Https://länk-till-webb-appen-här";
+                        "https://geoflex.vardspel.se/";
                 message.setText(txt);
             }
             else if(accountType == AccountTypes.USER){
@@ -74,7 +74,7 @@ public class MailService {
                         "Användarnamn:" + username + "\n" +
                         "Lösenord:" + password +"\n" +
                         "\n" +
-                        "Https://länk-till-webb-appen-här";
+                        "https://geoflex.vardspel.se/";
                 message.setText(txt);
             }
             Transport.send(message);
