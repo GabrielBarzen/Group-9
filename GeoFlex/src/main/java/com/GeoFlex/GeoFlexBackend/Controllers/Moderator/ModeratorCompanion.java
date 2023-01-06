@@ -1,5 +1,6 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
 import com.GeoFlex.GeoFlexBackend.PoJo.LocationUpdate.RootLocationEdit;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
@@ -355,6 +356,25 @@ public class ModeratorCompanion {
         }
         else {
             response = new ResponseEntity<>(json, HttpStatus.OK);
+        }
+        return response;
+    }
+
+    /**
+     * Delete route if exists. (/moderator/route) DELETE
+     * @param routeID ID for route to be deleted.
+     * @return OK if deleted, Error if not found.
+     */
+    public ResponseEntity<String> routeDelete(String routeID) {
+        ResponseEntity<String> response;
+        if(routeID.isEmpty() || routeID == null){
+            response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else {
+            response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
+            AdminProcedures.deleteRoute(routeID);
+            FileHandler fh = new FileHandler();
+            fh.deleteFileDirectory(Integer.parseInt(routeID), "routes");
         }
         return response;
     }

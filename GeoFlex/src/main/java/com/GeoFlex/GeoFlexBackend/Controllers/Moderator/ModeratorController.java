@@ -218,6 +218,24 @@ public class ModeratorController {
     }
 
     /**
+     * Endpoint to delete a route.
+     * @param routeID The id of the route delete.
+     * @param token The user token sent as a cookie.
+     * @param userID The user id sent as a cookie.
+     * @return Response determined in the ModeratorCompanion.
+     */
+    @RequestMapping(value = "/route", method = RequestMethod.DELETE)
+    public ResponseEntity<String> routeDelete(@RequestParam("route-id") String routeID,
+                                              @CookieValue(name = "authentication-token") String token,
+                                              @CookieValue(name = "user-id") String userID) {
+        ModeratorCompanion moderatorCompanion = getModeratorCompanion(token,userID);
+        if (moderatorCompanion == null) {
+            return new ResponseEntity<>("{\"error\" : \"forbidden, try logging in again\"}", HttpStatus.FORBIDDEN);
+        }
+        return moderatorCompanion.routeDelete(routeID);
+    }
+
+    /**
      * Function to authenticate the moderator.
      * @param token The token  sent as a cookie.
      * @param userID The user id sent as a cookie.

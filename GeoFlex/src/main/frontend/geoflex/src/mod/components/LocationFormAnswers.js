@@ -60,9 +60,7 @@ export default class LocationFormAnswers extends Component {
         /**
          * passing on the event to parent class method
          *  */
-        console.log("ONFIELDCHANGE")
-        console.log(event.target.name)
-        console.log(event.target.value)
+
         this.props.handleInputChange(event);
     }
     handleAddAnswer(locationID) {
@@ -146,8 +144,7 @@ export default class LocationFormAnswers extends Component {
     }
 
     render() {
-        console.log("ANSWER RENDER")
-        console.log(this.props.data)
+
         let toReturn;
         let toReturnArray = [];
         if (this.state.content.length !== 0) {

@@ -9,9 +9,7 @@ export default class LocationFormMedia extends Component {
      *          kommentera kod
      *          Fixa riktig knapp i html
      */
-    constructor(props) {
-        console.log("HÄÄÄÄÄÄÄÄR")
-        console.log(props.locationMediaExternal)
+    constructor(props) {        
         super(props);
         this.state = {
             locationID: props.locationID,
@@ -40,7 +38,7 @@ export default class LocationFormMedia extends Component {
     onFileChange = event => {
         // Update the state
         this.setState({ selectedFile: event.target.files[0] });
-        alert("SETSTATE" + event.target.files[0].name)
+        
         this.handleSaveMediaLocation(event);
 
     };
@@ -53,7 +51,7 @@ export default class LocationFormMedia extends Component {
     handleGetMediaLocation() {
         //API-call to GET the url for an uploaded media file
         //Note that binding to is done inside the axios call in order to access "this".
-        console.log("getMediaURL");
+        
 
         var myData;
         var config = {
@@ -65,7 +63,7 @@ export default class LocationFormMedia extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                alert("GETMEDIA: " + response.data)
+                
                 myData = response.data
                 //setImage(myData)
                 this.props.setParentMediaUrl(myData);
@@ -73,9 +71,9 @@ export default class LocationFormMedia extends Component {
             .catch(function (error) {
                 console.log(error);
                 console.log("GETMEDIAURL ERROR");
-                myData = "https://m.media-amazon.com/images/M/MV5BNGJmMWEzOGQtMWZkNS00MGNiLTk5NGEtYzg1YzAyZTgzZTZmXkEyXkFqcGdeQXVyMTE1MTYxNDAw._V1_.jpg";
+                //myData = "https://m.media-amazon.com/images/M/MV5BNGJmMWEzOGQtMWZkNS00MGNiLTk5NGEtYzg1YzAyZTgzZTZmXkEyXkFqcGdeQXVyMTE1MTYxNDAw._V1_.jpg";
                 //setImage(myData)
-                this.props.setParentMediaUrl(myData);
+                //this.props.setParentMediaUrl(myData);
 
             }.bind(this));
 
@@ -90,10 +88,9 @@ export default class LocationFormMedia extends Component {
 
     handleSaveMediaLocation(event) {
         //API-call to upload a media file to the server
-        console.log("TITTA HIUIIITI")
-        console.log(this.props.locationID)
+        
         event.preventDefault();
-        alert("HANDLESAVE MEDIA  " + event.target.files[0].name)
+        
 
         var data = new FormData();
 
@@ -136,8 +133,7 @@ export default class LocationFormMedia extends Component {
         /**
          * passing on the event to parent class method
          *  */
-        console.log("INFIELDCHANGE")
-        console.log(event.target.name)
+
         this.props.handleInputChange(event);
     }
 
@@ -159,8 +155,7 @@ export default class LocationFormMedia extends Component {
 
     render() {
 
-        console.log("ASDFASDF ASFAS")
-        console.log(this.props.locationID)
+        
         //html for upload media files
         let previewMedia = (<>
             <label className='col s2'>
@@ -268,12 +263,12 @@ export default class LocationFormMedia extends Component {
 
         if (this.props.locationMediaExternal === true) {
             if (this.props.locationMediaType === true) {
-                console.log("IF: EXTERNAL IMAGE")
+                
                 renderInput = externalMedia;
                 renderMediaPreview = renderImage;
 
             } else if (this.props.locationMediaType === false) {
-                console.log("IF: EXTERNAL VIDEO")
+                
                 renderInput = externalMedia;
                 renderMediaPreview = renderExternalVideo;
 
@@ -284,12 +279,12 @@ export default class LocationFormMedia extends Component {
             }*/
         } else if (this.props.locationMediaExternal === false) {
             if (this.props.locationMediaType === true) {
-                console.log("IF ELSE: INTERNAL IMAGE")
+                
                 renderInput = uploadMedia;
                 renderMediaPreview = renderImage
 
             } else if (this.props.locationMediaType === false) {
-                console.log("IF ELSE: INTERNAL VIDEO")
+                
                 renderInput = uploadMedia;
                 renderMediaPreview = renderInternalVideo
 

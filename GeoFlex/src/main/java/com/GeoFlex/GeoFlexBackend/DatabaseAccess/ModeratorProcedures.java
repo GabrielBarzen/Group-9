@@ -337,7 +337,7 @@ public class ModeratorProcedures {
     public static void routeUploadFile(int routeId, String filePath, String mediaType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
         if(!externalMedia){
-            filePath = "http://localhost:8080/"+filePath;
+            filePath = "http://geoflex.westeurope.cloudapp.azure.com/"+filePath;
         }
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_image(?, ?, ?, ?)}")) {
             cs.setInt("in_route_id", routeId);
@@ -554,7 +554,7 @@ public class ModeratorProcedures {
     public static void locationUploadFile(int locationId, String filePath, String dataType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
         if(!externalMedia){
-            filePath = "http://localhost:8080/"+filePath;
+            filePath = "http://geoflex.westeurope.cloudapp.azure.com/"+filePath;
         }
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
@@ -768,6 +768,27 @@ public class ModeratorProcedures {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Deletes a route and all related location/content from the database.
+     * @param routeId The ID of the route to be deleted.
+     */
+    public static void deleteRoute(String routeId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_route_with_id(?)}")) {
+            cs.setInt(1, Integer.parseInt(routeId));
+            cs.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {

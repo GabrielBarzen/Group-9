@@ -142,7 +142,7 @@ export default class LocationForm extends Component {
     }
 
     handleMediaOptions(mediaType, externalMedia) {
-        console.log("HANDLE MEDIA OPTIONS")
+
         this.setState({
             locationMediaType: mediaType,
             locationMediaExternal: externalMedia
@@ -179,7 +179,7 @@ export default class LocationForm extends Component {
             locationLongitude: long,
             locationLatitude: lat
         });
-        console.log("Denna knapp ska trigga hämtning av geodata");
+
     }
 
     handleInputChange(event) {
@@ -202,7 +202,7 @@ export default class LocationForm extends Component {
 
             return embedUrl;
         }
-        console.log("HANDLE INPUT CHANGE I LocationForm.js")
+
         //här lyssnar vi på förändring [name] anpassar sig till name i varje inputfält. 
         //Lite annorlunda om man använder annat än type="text/number" men går att lösa förstås
         const target = event.target;
@@ -230,9 +230,7 @@ export default class LocationForm extends Component {
             }
         }
 
-        console.log("INPUTCHANGE")
-        console.log(name)
-        console.log(value)
+
         //converts the image url in case faulty when url is copied from the internet
     }
 
@@ -261,8 +259,7 @@ export default class LocationForm extends Component {
         }
 
         let mediaType;
-        console.log("MEDIATYPE")
-        console.log(this.state.locationMediaUrl.length)
+
         if (this.state.locationMediaType === false) {
             mediaType = "video"
         } else if (this.state.locationMediaType === true) {
@@ -317,12 +314,8 @@ export default class LocationForm extends Component {
                 "content": contentArray
             }
         }
-        console.log("CONTENTARRAY")
-        console.log(data)
-        this.props.callUpdateLocation(data);
-        alert('A value was submitted: ' + this.state.locationMediaUrl + ' AND: ' + this.state.locationMediaType + ' AND: ' + this.state.locationMediaExternal)
-        alert("from the data object: " + data["location-update"].media[0].mediaUrl + ' AND: ' + data["location-update"].media[0].mediaType + ' AND: ' + data["location-update"].media[0].externalMedia)
-        //alert('A value was submitted: ' + this.state.locationName + ' AND: ' + this.state.locationInfo + ' AND: ' + this.state.locationImage + ' AND: ' + this.state.locationVideo + ' AND: ' + this.state.locationLongitude + ' AND: ' + this.state.locationLatitude + ' AND: ' + this.state.locationDirections + ' AND: ' + this.state.locationAnswer1 + ' AND: ' + this.state.locationAnswer2 + ' AND: ' + this.state.locationAnswer3);
+        
+        this.props.callUpdateLocation(data);        
     }
 
 

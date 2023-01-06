@@ -15,7 +15,7 @@ export default function Location(props) {
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
     console.log("ASDFÖO AJASÖLDKFJ ASÖLKDFJASÖL KDFJÖASL KJ")
-    console.log(props.routeID)
+    console.log(end)
 
     function handleChange(value) {
 
@@ -27,6 +27,7 @@ export default function Location(props) {
         /**
          * renders html for the first location.
          */
+        console.log("FIRST")
         return (
             <>
                 <>
@@ -84,6 +85,7 @@ export default function Location(props) {
         /**
          * renders html for all locations between the "first location" and the "end location"
          */
+        console.log("MID")
         return (
             <>
                 <>
@@ -143,6 +145,8 @@ export default function Location(props) {
         /**
          * renders hmtl for the end location
          */
+        console.log("END END END END END END")
+
         return (
             <>
                 <li className='row'>
@@ -178,42 +182,35 @@ export default function Location(props) {
         /**
          * returns html for the last location
          */
-        return (
-            <>
-                <>
-                    <li className='row'>
-                        <div className='row'>
-                            <div className='col s1 offset-s1'>
-                                <i className="material-icons col s1">place</i>
-                            </div>
-                            <div className='col s7'>
-                                <span className=''>
-                                    <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
-                                </span>
-                            </div>
 
-                        </div>
-                        <div className='row'>
-                            <div className='col s3 m3 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
-                                <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        edit
-                                    </i> Ändra</a>
-                            </div>
-                        </div>
-                        <div className='collapsible-body col s12'>
-                            <ModEditLocation
-                                routeID={props.routeID}
-                                data={currentValue}
-                                handleChange={handleChange} />
-                        </div>
+        return (<>
+            <li className='row'>
+                <div className='col s2'>
+                    <i className="material-icons col s1">place</i>
+                </div>
+                <div className='col s8'>
+                    <span className=''>
+                        {titleValue}
+                    </span>
+                </div>
+                <div className='col s7 offset-s1'>
+                    <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'borderBottom': '0', 'padding': '1rem' }}
+                        className='material-icons black-text collapsible-header col s1'>edit</i>
+                </div>
+                <div className='col s1'>
 
-                        <div className='row'>
-                            <div className="divider col s10 offset-s1"></div>
-                        </div>
-                    </li>
-                </>
-            </>)
+                </div>
+                <div className='collapsible-body col s12'>
+                    <LastLocationForm
+                        data={currentValue}
+                        routeID={props.routeID}
+                        lastLocation={lastLocation}
+                        handleChange={handleChange} />
+                </div>
+                <div className="divider col s10 offset-s1"></div>
+            </li>
+        </>)
+
     }
 
     if (currentIndex === "1") {
