@@ -1,4 +1,48 @@
+import React, { Component } from 'react'
 
+export default class Codebox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          number1: '',
+          number2: '',
+          number3: '',
+          number4: ''
+        };
+        this.inputs = {};
+      }
+    
+      handleChange = event => {
+        const { name, value } = event.target;
+        if (/^\d$/.test(value)) {
+          this.setState({ [name]: value });
+          if (this.inputs[name].nextSibling) {
+            this.inputs[name].nextSibling.focus();
+          }
+        }
+      }      
+    
+      render() {
+        return (<>
+                     
+                          
+              <input type="text" name="number1" className="col s1 left white " ref={(input) => { this.inputs.number1 = input; }} value={this.state.number1} onChange={this.handleChange} />
+            
+              <input type="text" name="number2" className="col s1 white " ref={(input) => { this.inputs.number2 = input; }} value={this.state.number2} onChange={this.handleChange} />
+            
+              <input type="text" name="number3" className="col s1 white " ref={(input) => { this.inputs.number3 = input; }} value={this.state.number3} onChange={this.handleChange} />
+            
+              <input type="text" name="number4" className="col s1   white " ref={(input) => { this.inputs.number4 = input; }} value={this.state.number4} onChange={this.handleChange} />
+            
+              </>
+        );
+      }
+    }
+
+
+
+
+/*
 export default function Codebox() {
     return (
         <div className="row valign-wrapper">
@@ -8,4 +52,4 @@ export default function Codebox() {
             <div className="col s3 codebox"><p className="center-align">1</p></div>
         </div>
     )
-} 
+} */
