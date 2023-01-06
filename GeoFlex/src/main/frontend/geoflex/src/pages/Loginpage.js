@@ -4,8 +4,9 @@ import Login from "../shared/Login"
 import Button from "../shared/Button"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from 'universal-cookie';
 
-
+const cookies = new Cookies();
 
 export default function Loginpage() {
     const navigate = useNavigate();
@@ -35,7 +36,16 @@ export default function Loginpage() {
         axios(config)
         .then(function (response) {
         console.log(JSON.stringify(response.data));
-        navigate(response.data.path, { replace: true });
+        if(response.data.path == "/admin/overview"){
+            cookies.set('role', 'admin', { path: '/' });
+        }
+        else if(response.data.path == "/moderator/overview"){
+            cookies.set('role', 'moderator', { path: '/' });
+        }
+        else if(response.data.path == "/user/overview"){
+            cookies.set('role', 'user', { path: '/' });
+        }
+        navigate(response.data.path, { replace: true })
         })
         .catch(function (error) {
         console.log(error.response.data);

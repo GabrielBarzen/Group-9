@@ -15,7 +15,7 @@ export default function ModEditForms(props) {
   useEffect(() => {
     M.AutoInit();
     M.updateTextFields();
-    
+
   }, []);
 
   function swapLocationsUp(locIndex) {
@@ -35,7 +35,7 @@ export default function ModEditForms(props) {
       if (item.location_index === locIndex) {
         idFrom = item.location_id;
       } else if (item.location_index === idToIndex.toString()) {
-        
+
         idTo = item.location_id
       }
     });
@@ -60,7 +60,7 @@ export default function ModEditForms(props) {
       if (item.location_index === locIndex) {
         idFrom = item.location_id;
       } else if (item.location_index === idToIndex.toString()) {
-        
+
         idTo = item.location_id
       }
     });
@@ -89,18 +89,14 @@ export default function ModEditForms(props) {
   })
 
 
- 
+
 
   return (
     <>
       <div className="row">
         <div className="col s12">
           <div className='row'>
-            <div className='col s3 right'>
-            <Link style={{cursor: 'pointer', 'fontSize': '1rem', 'color': 'black'}} to={QRURL} state={{ data: props.locationsData }} >
-                Visa QR Koder <i className="material-icons prefix">qr_code_scanner</i>
-              </Link>
-            </div>
+
           </div>
           <div className="row">
             <div className="input-field col s12">
@@ -135,22 +131,33 @@ export default function ModEditForms(props) {
                   <Location
                     key={location.location_id}
                     routeID={props.mainData.id}
-                    data={location}                                
+                    data={location}
                     deleteLocation={handleDelete}
                     swapLocationsUp={swapLocationsUp}
                     swapLocationsDown={swapLocationsDown}
                   />
                 ))}
               </ul>
-              <i className="material-icons col s1" onClick={handleNewLocation}>
-                add_location
-              </i>
-              <button onClick={handleSave}>Spara</button>
-              
             </div>
           </div>
         </div>
+        <div className='row'>
+          <div className='col s6'>
+
+            <a class="waves-effect waves-light btn green lighten-1" onClick={handleSave}><i className="material-icons col s1" onClick={handleNewLocation}>
+              add_location
+            </i> Spara</a>
+          </div>
+          <div className='col s6'>
+            <Link to={QRURL} state={{ data: props.locationsData }}>
+              <a class="waves-effect waves-light btn grey darken-3 right" ><i className="material-icons col s1">
+                qr_code_scanner
+              </i> Visa QR </a>
+            </Link>
+          </div>
+        </div>
       </div>
+
     </>
   )
 }
