@@ -11,7 +11,7 @@ export default function ModEditForms(props) {
   console.log(props.locationsData)
   let QRURL = '/moderator/qr-codes/' + props.mainData.id
   const dataLength = props.locationsData.length;
-  
+
 
   useEffect(() => {
     M.AutoInit();
@@ -19,7 +19,7 @@ export default function ModEditForms(props) {
 
   }, []);
 
-  
+
 
   function swapLocationsUp(locIndex) {
     /*
@@ -146,25 +146,25 @@ export default function ModEditForms(props) {
           </div>
         </div>
         <div className='col s6 l6 m6 offset-l1 offset-m1'>
-				<div className="waves-effect waves-light btn yellow lighten-1" style={{ cursor: 'pointer', 'font-size': '2rem' }} onClick={handleNewLocation}><i className="material-icons col s1">
-					add_location
-				</i> Ny plats</div>
-			</div>
-			<div className='row'>
-				<div className='col s6 l6 m6 offset-l1 offset-m1'>
-					<div className="waves-effect waves-light btn green lighten-1" style={{ cursor: 'pointer', 'font-size': '2rem' }} onClick={handleNewLocation}><i className="material-icons col s1">
-						save
-					</i> Spara</div>
-				</div>
-				<div className='col s6 l4 m4'>
-					<Link to={QRURL} state={{ data: props.locationsData }}>
-						<div className="waves-effect waves-light btn grey darken-3 right" style={{ cursor: 'pointer', 'font-size': '2rem' }}><i className="material-icons col s1">
-							qr_code_scanner
-						</i> Visa QR </div>
-					</Link>
-				</div>
-			</div>
-
+          <div className="waves-effect waves-light btn yellow lighten-1" style={{ cursor: 'pointer', 'font-size': '2rem' }} onClick={handleNewLocation}><i className="material-icons col s1">
+            add_location
+          </i> Ny plats</div>
+        </div>
+        <div className='row'>
+          <div className='col s6 l6 m6 offset-l1 offset-m1'>
+            <div className="waves-effect waves-light btn green lighten-1" style={{ cursor: 'pointer', 'font-size': '2rem' }} onClick={handleNewLocation}><i className="material-icons col s1">
+              save
+            </i> Spara</div>
+          </div>
+          <div className='col s6 l4 m4'>
+            <Link to={QRURL} state={{ data: props.locationsData }}>
+              <div className="waves-effect waves-light btn grey darken-3 right" style={{ cursor: 'pointer', 'font-size': '2rem' }}><i className="material-icons col s1">
+                qr_code_scanner
+              </i> Visa QR </div>
+            </Link>
+          </div>
+        </div>
+      </div>
     </>
   )
 
