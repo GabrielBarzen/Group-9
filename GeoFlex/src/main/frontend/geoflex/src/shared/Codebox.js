@@ -16,19 +16,27 @@ export default class Codebox extends Component {
         const { name, value } = event.target;
         if (/^\d$/.test(value)) {
           this.setState({ [name]: value });
-          if (this.inputs[name].nextSibling) {
-            this.inputs[name].nextSibling.focus();
+          const nextInputField = this.inputs[name].nextSibling;
+          if (nextInputField) {
+            nextInputField.focus();
           }
-        }
-      }      
-
-      handleKeyDown = event => {
-        if (event.key === 'Backspace' && event.target.value === '') {
-          event.preventDefault();
-          this.setState({ [event.target.name]: '' });
-          event.target.focus();
+        } else {
+          this.setState({ [name]: value.slice(0, 1) });
         }
       }
+
+      handleKeyDown = event => {
+        if ((event.key === 'Backspace' || event.key === 'Delete') && event.target.value === '') {
+          event.preventDefault();
+          const { name } = event.target;
+          const prevInputField = this.inputs[name].previousSibling;
+          if (prevInputField) {
+            this.setState({ [name]: '' });
+            prevInputField.focus();
+          }
+        }
+      }
+      
     
       render() {
         return (<>
