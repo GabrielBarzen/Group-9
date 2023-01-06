@@ -25,15 +25,15 @@ export default class Codebox extends Component {
       render() {
         return (<>
                      
-                          
-              <input type="text" name="number1" className="col s1 left white " ref={(input) => { this.inputs.number1 = input; }} value={this.state.number1} onChange={this.handleChange} />
+            <div className='container'>
+              <input type="text" name="number1" className="col s2 offset-2 white " ref={(input) => { this.inputs.number1 = input; }} value={this.state.number1} onChange={this.handleChange} />
             
-              <input type="text" name="number2" className="col s1 white " ref={(input) => { this.inputs.number2 = input; }} value={this.state.number2} onChange={this.handleChange} />
+              <input type="text" name="number2" className="col s2 white " ref={(input) => { this.inputs.number2 = input; }} value={this.state.number2} onChange={this.handleChange} />
             
-              <input type="text" name="number3" className="col s1 white " ref={(input) => { this.inputs.number3 = input; }} value={this.state.number3} onChange={this.handleChange} />
+              <input type="text" name="number3" className="col s2 white " ref={(input) => { this.inputs.number3 = input; }} value={this.state.number3} onChange={this.handleChange} />
             
-              <input type="text" name="number4" className="col s1   white " ref={(input) => { this.inputs.number4 = input; }} value={this.state.number4} onChange={this.handleChange} />
-            
+              <input type="text" name="number4" className="col s2 white " ref={(input) => { this.inputs.number4 = input; }} value={this.state.number4} onChange={this.handleChange} />
+            </div>
               </>
         );
       }
