@@ -40,7 +40,8 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
 
     public String getIp() {
-        return ip;
+        if (ip != null) return ip;
+        return "127.0.0.1";
     }
 
     public void setIp(String ip) {
@@ -48,7 +49,8 @@ public class DatabaseConfiguration implements EnvironmentAware {
     }
 
     public String getPort() {
-        return port;
+        if (port != null) return port;
+        return "33306";
     }
 
     public void setPort(String port) {
