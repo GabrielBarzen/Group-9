@@ -22,6 +22,11 @@ public class DatabaseConfiguration implements EnvironmentAware {
     private String port;
     private String username;
     private String password;
+    private static DatabaseConfiguration databaseConfiguration;
+
+    public static DatabaseConfiguration getConfig() {
+        return databaseConfiguration;
+    }
 
     @Override
     public void setEnvironment(final Environment environment) {
@@ -34,12 +39,15 @@ public class DatabaseConfiguration implements EnvironmentAware {
         username =  env.getProperty("database.username");
         password = env.getProperty("database.password");
         port = env.getProperty("database.port");
+        System.out.println("ip :" + ip);
         CLIDataBaseController.cliDataBaseController.registerCLIDatabaseConfigurator(this);
+        DatabaseConfiguration.databaseConfiguration = this;
     }
 
 
 
     public String getIp() {
+        System.out.println("get ip is " + ip);
         if (ip != null) return ip;
         return "127.0.0.1";
     }

@@ -18,7 +18,7 @@ public class DatabaseConnection  {
     /**
      * Declare variables.
      */
-    DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
+    DatabaseConfiguration databaseConfiguration = DatabaseConfiguration.getConfig();
 
     String ip;
     String username;
@@ -39,7 +39,7 @@ public class DatabaseConnection  {
 
         try {
             //Connect to database.
-            conn = DriverManager.getConnection("jdbc:mariadb://"+ip+port+"/GeoFlex?user="+username+"&password="+password);
+            conn = DriverManager.getConnection("jdbc:mariadb://"+ip+":"+port+"/GeoFlex?user="+username+"&password="+password);
             //System.out.println("Connected to database.");
         } catch (SQLException e) {
             System.out.println("Failed to connect to database.");
