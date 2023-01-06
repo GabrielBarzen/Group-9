@@ -8,15 +8,18 @@ export default function ModEditForms(props) {
   let titleRef = useRef();
   let descriptionRef = useRef();
   console.log("ÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖ")
-  console.log(props.mainData.id)
+  console.log(props.locationsData)
   let QRURL = '/moderator/qr-codes/' + props.mainData.id
-
+  const dataLength = props.locationsData.length;
+  
 
   useEffect(() => {
     M.AutoInit();
     M.updateTextFields();
 
   }, []);
+
+  
 
   function swapLocationsUp(locIndex) {
     /*
@@ -132,6 +135,7 @@ export default function ModEditForms(props) {
                     key={location.location_id}
                     routeID={props.mainData.id}
                     data={location}
+                    dataLength={dataLength}
                     deleteLocation={handleDelete}
                     swapLocationsUp={swapLocationsUp}
                     swapLocationsDown={swapLocationsDown}
@@ -144,15 +148,15 @@ export default function ModEditForms(props) {
         <div className='row'>
           <div className='col s6'>
 
-            <a class="waves-effect waves-light btn green lighten-1" onClick={handleSave}><i className="material-icons col s1" onClick={handleNewLocation}>
+            <a className="waves-effect waves-light btn green lighten-1" onClick={handleSave}><i className="material-icons col s1" onClick={handleNewLocation}>
               add_location
             </i> Spara</a>
           </div>
           <div className='col s6'>
             <Link to={QRURL} state={{ data: props.locationsData }}>
-              <a class="waves-effect waves-light btn grey darken-3 right" ><i className="material-icons col s1">
+              <div className="waves-effect waves-light btn grey darken-3 right" ><i className="material-icons col s1">
                 qr_code_scanner
-              </i> Visa QR </a>
+              </i> Visa QR </div>
             </Link>
           </div>
         </div>

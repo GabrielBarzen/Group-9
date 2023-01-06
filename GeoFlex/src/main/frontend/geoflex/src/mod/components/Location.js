@@ -15,7 +15,7 @@ export default function Location(props) {
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
     console.log("ASDFÖO AJASÖLDKFJ ASÖLKDFJASÖL KDFJÖASL KJ")
-    console.log(props.routeID)
+    console.log(end)
 
     function handleChange(value) {
 
@@ -27,6 +27,7 @@ export default function Location(props) {
         /**
          * renders html for the first location.
          */
+        console.log("FIRST")
         return (
             <>
                 <>
@@ -73,6 +74,7 @@ export default function Location(props) {
         /**
          * renders html for all locations between the "first location" and the "end location"
          */
+        console.log("MID")
         return (
             <>
                 <li className='row'>
@@ -120,6 +122,8 @@ export default function Location(props) {
         /**
          * renders hmtl for the end location
          */
+        console.log("END END END END END END")
+
         return (
             <>
                 <li className='row'>
@@ -155,6 +159,7 @@ export default function Location(props) {
         /**
          * returns html for the last location
          */
+        console.log("LAST")
         return (<>
             <li className='row'>
                 <div className='col s2'>
