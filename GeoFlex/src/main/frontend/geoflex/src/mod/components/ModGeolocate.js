@@ -17,11 +17,11 @@ export default function ModGeolocate(props) {
     props.handleInputChange(event);
   }
   return (
-    <fieldset>
+    <fieldset style={{ 'border': '0px', 'margin': '0px', 'padding': '0px' }}>
       <label>
         Longitud
         <input
-          className='blue lighten-4'
+          className='grey lighten-3'
           name="locationLongitude" type="text"
           value={props.data.locationLongitude}
           onChange={onFieldChange} />
@@ -29,12 +29,15 @@ export default function ModGeolocate(props) {
       <label>
         Latitud
         <input
-          className='blue lighten-4'
+          className='grey lighten-3'
           name="locationLatitude" type="text"
           value={props.data.locationLatitude}
           onChange={onFieldChange} />
       </label>
-      <span className="button" onClick={getGeolocation}>Hämta koordinater</span>
+      <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen" onClick={getGeolocation}>
+        <i className="material-icons col s1" id="icon-small-screen">
+          gps_fixed
+        </i> Hämta koordinater</a>
     </fieldset>
   )
 }

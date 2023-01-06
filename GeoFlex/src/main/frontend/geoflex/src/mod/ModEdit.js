@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ModEditForms from "./components/ModEditForms";
+import Navbar from "../shared/Navbar";
 //import AdminEditForms from "./components/AdminEditForms";
 
 export default function ModEdit() {
@@ -48,7 +49,7 @@ export default function ModEdit() {
         locations.sort((a, b) => (a.location_index > b.location_index ? 1 : -1));
         locations.push(last_location);
         setRouteLocationsData(locations);
-        
+
       })
       .catch(function (error) {
         console.log(error);
@@ -68,7 +69,7 @@ export default function ModEdit() {
               "mediaURL": 'https://www.nin.com/wp-content/uploads/2016/12/facebook.jpg',
               "mediaType": "image",
               "externalMedia": true
-              }],
+            }],
             "content": [
               {
                 "content-id": "56",
@@ -101,7 +102,7 @@ export default function ModEdit() {
               "mediaURL": "",
               "mediaType": "",
               "externalMedia": false
-              }],
+            }],
             "content": [
             ]
           },
@@ -119,7 +120,7 @@ export default function ModEdit() {
               "mediaURL": "//www.youtube.com/embed/Q8TXgCzxEnw?rel=0",
               "mediaType": "video",
               "externalMedia": true
-              }],
+            }],
             "content": [
               {
                 "content-id": "59",
@@ -157,7 +158,7 @@ export default function ModEdit() {
               "mediaURL": "",
               "mediaType": "",
               "externalMedia": false
-              }],
+            }],
             "content": [
             ]
           },
@@ -175,7 +176,7 @@ export default function ModEdit() {
               "mediaURL": "",
               "mediaType": "",
               "externalMedia": false
-              }],
+            }],
             "content": [
             ]
           }
@@ -195,7 +196,7 @@ export default function ModEdit() {
         locations.push(last_location);
         setRouteLocationsData(locations);
       });
-      
+
   }, [status, routeData.id]);
 
   function deleteLocation(routeID, id) {
@@ -362,12 +363,13 @@ export default function ModEdit() {
     /*
     returns html if routeLocationsData is populated
     each seperate location is handled in Location.js with references to data-array-object and functions
-    */   
-    return (
+    */
+    return (<>
+      <Navbar type={'admin'} />
       <div className="container white container-css">
         <ModEditForms
           mainData={routeData}
-          locationsData={routeLocationsData} 
+          locationsData={routeLocationsData}
           callSaveRoute={handleSave}
           callMoveLocation={updateLocation}
           callNewLocation={addLocation}
@@ -375,6 +377,7 @@ export default function ModEdit() {
         />
 
       </div>
+    </>
     );
   } else {
     return (

@@ -51,7 +51,7 @@ export default class LocationForm extends Component {
 
             locationAnswer4: "",
             locationContentID4: "",
-            locationCorrect4: ""         
+            locationCorrect4: ""
         };
 
         this.handleAddAnswer = this.handleAddAnswer.bind(this);
@@ -64,7 +64,7 @@ export default class LocationForm extends Component {
         //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
         this.setParentMediaUrl = this.setParentMediaUrl.bind(this);
     }
-    componentDidMount() {        
+    componentDidMount() {
 
         if (this.props.currentData.media[0].mediaType === "video") {
             this.setState({ locationMediaType: false })
@@ -133,7 +133,7 @@ export default class LocationForm extends Component {
                         locationCorrect4: this.props.currentData.content[3].correct
                     })
                     break;
-                
+
                 default:
                     console.log("Case not found");
                     break;
@@ -323,13 +323,13 @@ export default class LocationForm extends Component {
     render() {
 
         return (
-            <div className='container col s12'>
-                <h3>Redigera plats</h3>
+            <div className='col s12'>
+                <h5>Redigera plats</h5>
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Titel
                         <input
-                            className='blue lighten-4'
+                            className='grey lighten-3'
                             name="locationName" type="text"
                             value={this.state.locationName}
                             onChange={this.handleInputChange}
@@ -338,10 +338,10 @@ export default class LocationForm extends Component {
                     </label>
 
                     <label>
-                        Innehåll
+                        Platsinformation
                         <textarea
-                            className='blue lighten-4 materialize-textarea'
-                            name="locationInfo" 
+                            className='grey lighten-3 materialize-textarea'
+                            name="locationInfo"
                             value={this.state.locationInfo}
                             onChange={this.handleInputChange} />
                     </label>
@@ -354,20 +354,34 @@ export default class LocationForm extends Component {
                         handleMediaOptions={this.handleMediaOptions}
                         setParentMediaUrl={this.setParentMediaUrl}
                     />
+                    <div className='row'>
+                        <div className='col 12'>
+                            <br />
+                            <i>Hur ska deltagarna hitta till platsen? Ska en QR-kod läsas in
+                                eller ska deltagarna ta sig till en plats baserat på kordinater?
+                            </i>
+                            <br />
+                            <br />
+                            <div className="switch row">
+                                <div className='col 12'>
+                                    <label>
+                                        Kordinater
+                                        <input type="checkbox"
+                                            name="locationUseQR"
+                                            checked={this.state.locationUseQR}
+                                            onChange={this.handleInputChange}
+                                        />
+                                        <span className="lever"></span>
+                                        QR
 
-                    <div className="switch row">
-                        <label>
-                            Använd koordinater
-                            <input type="checkbox"
-                                name="locationUseQR"
-                                checked={this.state.locationUseQR}
-                                onChange={this.handleInputChange}
-                            />
-                            <span className="lever"></span>
-                            Använd QR
+                                    </label>
+                                </div>
 
-                        </label>
+                            </div>
+                        </div>
+
                     </div>
+
 
                     {(() => {
                         if (this.state.locationUseQR === true) {
@@ -389,7 +403,7 @@ export default class LocationForm extends Component {
                             )
                         }
                     })()}
-                    <fieldset>
+                    <fieldset style={{ 'border': '0px', 'margin': '0px', 'padding': '0px' }}>
                         <div className=''>
                             <LocationFormAnswers
                                 data={this.state}
@@ -401,7 +415,7 @@ export default class LocationForm extends Component {
                         </div>
 
                     </fieldset>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Spara" className="waves-effect waves-light btn green lighten-1" style={{ 'margin-bottom': '1rem' }} />
                 </form>
             </div>
         )
