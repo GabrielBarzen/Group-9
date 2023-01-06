@@ -2,6 +2,7 @@ package com.GeoFlex.GeoFlexBackend.Process.Mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -15,9 +16,9 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:/config.properties")
-public class MailService {
+public class MailService implements EnvironmentAware {
 
-    @Autowired
+
     private Environment env;
     private static String sender;
     private static String senderPassword;
@@ -83,6 +84,11 @@ public class MailService {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.env = environment;
     }
 }
 
