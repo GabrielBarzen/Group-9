@@ -7,11 +7,11 @@ export default function Firstpage() {
     const navigate = useNavigate();
 
     function navigateToLogin(){
-        navigate('/Loginpage', { replace: true });
+        navigate('/Loginpage', { replace: false });
     }
 
     function navigateToRegister(){
-        navigate('/Register', { replace: true });
+        navigate('/Register', { replace: false });
     }
 
     return (
