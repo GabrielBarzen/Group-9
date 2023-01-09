@@ -1,10 +1,23 @@
+import { useNavigate } from "react-router"
 import Codebox from "../shared/Codebox"
 import Logo from "../shared/Logo"
-import QRscanner from "../shared/QRScanner"
+
+
 
 
 
 export default function StartQuiz() {
+    const navigate = useNavigate();
+
+    function handleNavigate(url, code, id){
+        navigate(url, {
+            replace: true,
+            state: { id: id,
+                    routeCode : code
+            }
+        });
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -13,11 +26,9 @@ export default function StartQuiz() {
             <div className="row">
                 <div className="col s12">
                 <form className="row valign-wrapper"> 
-                        <Codebox />
+                        <Codebox handleNavigate={handleNavigate}/>
                     </form>
-                    <div className="row">
-                        <QRscanner />
-                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -14,6 +14,10 @@ export default function Firstpage() {
         navigate('/Register', { replace: false });
     }
 
+    function navigateToStart(){
+        navigate('/game/start', {replace: false})
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -28,7 +32,7 @@ export default function Firstpage() {
                         <Button text="Logga in" css="col s12" icon={<i className="small material-icons right">person</i>} click={navigateToLogin}/>
                     </div>
                     <div className="row">
-                        <Button text="Starta direkt" css="col s12" icon={<i className="small material-icons right">arrow_forward</i>}/>
+                        <Button text="Starta direkt" css="col s12" icon={<i className="small material-icons right">arrow_forward</i>} click={navigateToStart}/>
                     </div>    
                 </div>
             </div> 
