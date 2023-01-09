@@ -24,11 +24,13 @@ export default function StartQuiz() {
                 <Logo />
             </div>
             <div className="row">
-                <div className="col s12">
-                <form className="row valign-wrapper"> 
+
+                <div className="container white container-css">
+                
                         <Codebox handleNavigate={handleNavigate}/>
-                    </form>
+                 
                     
+
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 export default class Codebox extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -108,71 +109,57 @@ export default class Codebox extends Component {
         }
     }
 
-    render() {
-        return (<>
+  render() {
+    return (<>
+      <div className='row'>
+        <div className='col'>
+          <b>Skriv in din fyrsiffriga kod eller scanna QR-kod för att gå med i rundan.</b>
+          <p>{this.state.status}</p>
+        </div>
+      </div>
 
-            <div id="inputs" className='container'>
-                <input
-                    type="text"
-                    name="number1"
-                    className="col s2 offset-2 white "
-                    ref={(input) => { this.inputs.number1 = input; }}
-                    value={this.state.number1}
-                    onChange={this.handleChange}
-                    onKeyDown={this.handleKeyDown}
-                />
+      <div className='row'>
+        <input
+          type="text"
+          name="number1"
+          className="col s1 white offset-s1"
+          ref={(input) => { this.inputs.number1 = input; }}
+          value={this.state.number1}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown} />
 
-                <input
-                    type="text"
-                    name="number2"
-                    className="col s2 white "
-                    ref={(input) => { this.inputs.number2 = input; }}
-                    value={this.state.number2}
-                    onChange={this.handleChange}
-                    onKeyDown={this.handleKeyDown}
-                />
+        <input
+          type="text"
+          name="number2"
+          className="col s1 white offset-s2"
+          ref={(input) => { this.inputs.number2 = input; }}
+          value={this.state.number2}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown} />
 
-                <input
-                    type="text"
-                    name="number3"
-                    className="col s2 white "
-                    ref={(input) => { this.inputs.number3 = input; }}
-                    value={this.state.number3}
-                    onChange={this.handleChange}
-                    onKeyDown={this.handleKeyDown}
-                />
+        <input
+          type="text"
+          name="number3"
+          className="col s1 white offset-s2"
+          ref={(input) => { this.inputs.number3 = input; }}
+          value={this.state.number3}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown} />
 
-                <input
-                    type="text"
-                    name="number4"
-                    className="col s2 white "
-                    ref={(input) => { this.inputs.number4 = input; }}
-                    value={this.state.number4}
-                    onChange={this.handleChange}
-                    onKeyDown={this.handleKeyDown}
-                />
-                
-            </div>
-            <div className='row'>
+        <input
+          type="text"
+          name="number4"
+          className="col s1 white offset-s2"
+          ref={(input) => { this.inputs.number4 = input; }}
+          value={this.state.number4}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown} />
+      </div>
+      <div className='row'>
                 <p>{this.state.status}</p>
             </div>
-            
-        </>
-        );
-    }
+    </>
+    );
+  }
+
 }
-
-
-
-
-/*
-export default function Codebox() {
-    return (
-        <div className="row valign-wrapper">
-            <div className="col s3 codebox"><p className="center-align">4</p></div>
-            <div className="col s3 codebox"><p className="center-align">5</p></div>
-            <div className="col s3 codebox"><p className="center-align">3</p></div>
-            <div className="col s3 codebox"><p className="center-align">1</p></div>
-        </div>
-    )
-} */
