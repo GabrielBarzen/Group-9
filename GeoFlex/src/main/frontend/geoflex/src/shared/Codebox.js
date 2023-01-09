@@ -151,10 +151,12 @@ export default class Codebox extends Component {
                     onChange={this.handleChange}
                     onKeyDown={this.handleKeyDown}
                 />
+                
             </div>
-            <div>
-                <p>{this.status}</p>
+            <div className='row'>
+                <p>{this.state.status}</p>
             </div>
+            
         </>
         );
     }
