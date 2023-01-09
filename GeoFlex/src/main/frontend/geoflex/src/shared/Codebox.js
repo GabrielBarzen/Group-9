@@ -36,6 +36,20 @@ export default class Codebox extends Component {
           }
         }
       }
+
+      checkRoute = () => {
+        const { number1, number2, number3, number4 } = this.state;
+        if (number1 && number2 && number3 && number4) {
+          const routeCode = `${number1}${number2}${number3}${number4}`;
+          axios.get(`http://localhost:3000/user/checkRoute?routeCode=${routeCode}`)
+            .then(response => {
+              // do something with the response
+            })
+            .catch(error => {
+              // handle error
+            });
+        }
+      }
       
     
       render() {
@@ -49,7 +63,8 @@ export default class Codebox extends Component {
               ref={(input) => { this.inputs.number1 = input; }} 
               value={this.state.number1} 
               onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown} />
+              onKeyDown={this.handleKeyDown} 
+              onInput={this.checkRoute}/>
             
               <input 
               type="text" 
@@ -58,7 +73,8 @@ export default class Codebox extends Component {
               ref={(input) => { this.inputs.number2 = input; }} 
               value={this.state.number2} 
               onChange={this.handleChange} 
-              onKeyDown={this.handleKeyDown}/>
+              onKeyDown={this.handleKeyDown}
+              onInput={this.checkRoute}/>
             
               <input 
               type="text" 
@@ -67,7 +83,8 @@ export default class Codebox extends Component {
               ref={(input) => { this.inputs.number3 = input; }} 
               value={this.state.number3} 
               onChange={this.handleChange} 
-              onKeyDown={this.handleKeyDown}/>
+              onKeyDown={this.handleKeyDown}
+              onInput={this.checkRoute}/>
             
               <input 
               type="text" 
@@ -76,7 +93,8 @@ export default class Codebox extends Component {
               ref={(input) => { this.inputs.number4 = input; }} 
               value={this.state.number4} 
               onChange={this.handleChange} 
-              onKeyDown={this.handleKeyDown}/>
+              onKeyDown={this.handleKeyDown}
+              onInput={this.checkRoute}/>
             </div>
               </>
         );
