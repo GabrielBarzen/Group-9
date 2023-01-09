@@ -83,6 +83,8 @@ export default class Codebox extends Component {
                             number3: '',
                             number4: ''
                         })
+                        const inputs = document.getElementById("inputs");
+                        inputs.firstElementChild.focus();
                     }
                 })
                 .catch(error => {
@@ -92,6 +94,17 @@ export default class Codebox extends Component {
                         this.props.handleNavigate(url, "3956", "2039" );
                     */
                 });
+        } else {
+            this.setState({ status: "Fel kod, försök igen." })
+            this.inputNumbers = []
+            this.setState({
+                number1: '',
+                number2: '',
+                number3: '',
+                number4: ''
+            })
+            const inputs = document.getElementById("inputs");
+            inputs.firstElementChild.focus();
         }
     }
 
@@ -138,6 +151,9 @@ export default class Codebox extends Component {
                     onChange={this.handleChange}
                     onKeyDown={this.handleKeyDown}
                 />
+            </div>
+            <div>
+                <p>{this.status}</p>
             </div>
         </>
         );
