@@ -88,6 +88,7 @@ public class ModeratorCompanion {
             for (int i = 0; i < ru.routeUpdate.routeMedia.size(); i++) {
                 if(ru.routeUpdate.routeMedia.get(i).mediaUrl != null){
                     ModeratorProcedures.routeUploadFile(Integer.parseInt(ru.routeUpdate.routeId), ru.routeUpdate.routeMedia.get(i).mediaUrl, ru.routeUpdate.routeMedia.get(i).mediaType, true);
+                    response = new ResponseEntity<>("", HttpStatus.OK);
                 }
             }
         }
