@@ -6,7 +6,7 @@ export default function GameResults(props) {
 
     const currentQuestion = props.questions[index]
     const currentAnswer = props.answers[index]
-    const lastIndex = answers.length
+    const lastIndex = props.answers.length
 
 
     const handleNext = () => {        
