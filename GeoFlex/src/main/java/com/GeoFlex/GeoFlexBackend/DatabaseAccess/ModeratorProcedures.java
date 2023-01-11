@@ -44,6 +44,11 @@ public class ModeratorProcedures {
                 media.mediaUrl = res.getString("media");
                 media.mediaType = res.getString("mediaType");
                 media.externalMedia = res.getBoolean("external_media");
+                if(res.getString("media") == null){
+                    //If media from database is null, insert "" as the default value.
+                    media.mediaUrl = "";
+                    media.mediaType = "";
+                }
                 route.media.add(media);
 
                 route.locations = res.getInt("locations");
