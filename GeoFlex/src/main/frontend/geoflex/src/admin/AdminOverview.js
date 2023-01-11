@@ -110,22 +110,52 @@ export default function AdminOverview() {
         );
     } else {
         return (
+
             <>
-                <section className="container center-align">
-                    <div className="preloader-wrapper big active">
-                        <div className="spinner-layer spinner-red-only">
-                            <div className="circle-clipper left">
-                                <div className="circle"></div>
-                            </div>
-                            <div className="gap-patch">
-                                <div className="circle"></div>
-                            </div>
-                            <div className="circle-clipper right">
-                                <div className="circle"></div>
-                            </div>
+                <div className="container white container-css">
+                    <div className="row">
+
+                        <div className="col s12">
+                            <h5 className="center align">Översikt</h5>
+                        </div>
+
+                    </div>
+                    <div className="row">
+                        <div className="col s12">
+                            <section className="container center-align">
+                                <div className="preloader-wrapper big active">
+                                    <div className="spinner-layer spinner-red-only">
+                                        <div className="circle-clipper left">
+                                            <div className="circle"></div>
+                                        </div>
+                                        <div className="gap-patch">
+                                            <div className="circle"></div>
+                                        </div>
+                                        <div className="circle-clipper right">
+                                            <div className="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                    </div>
+                    <div className="row">
+                        <div className="center-align">
+                            <Link to="/admin/new/">
+                                <Button
+                                    css=" s12 green lighten-1"
+
+                                    icon={
+                                        <i className="material-icons black-text">
+                                            add_circle_outline
+                                        </i>
+                                    }
+                                />
+                            </Link>
                         </div>
                     </div>
-                </section>
+                </div>
             </>
         );
     }
