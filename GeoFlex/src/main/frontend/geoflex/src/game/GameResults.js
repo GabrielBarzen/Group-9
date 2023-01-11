@@ -95,18 +95,19 @@ export default function GameResults(props) {
                     [...renderUserAnswers].map((answers) => <p
                         key={answers["content-id"]}> {answers.answer}</p>
                     )
-                }
-                <button className="btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2"
+                }<div className='row'>
+                <button className="col s6 btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2"
                     onClick={handlePrev}
                     disabled={index === 0}>
                     Föregående
                 </button>
                 <button
-                    className="btn  waves-teal btn col btn-large btn-css icon-css z-depth-2"
+                    className="btn col s6 waves-teal btn col btn-large btn-css icon-css z-depth-2"
                     onClick={handleNext}
                     disabled={index === lastIndex - 1}>
                     Nästa
                 </button>
+                </div>
             </div>
         )
     } else {
