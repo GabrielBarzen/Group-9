@@ -79,6 +79,27 @@ public class UserProcedures {
     }
 
     /**
+     * Returns the route ID from the route code.
+     * @param routeCode The code of the route.
+     * @return Route ID.
+     */
+    public String getRouteIdFromCode(String routeCode){
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_route_id_from_code(?)}")) {
+            cs.setInt("in_route_code", Integer.parseInt(routeCode));
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            String id = "-1"; //Default value, stays -1 if query doesn't return anything.
+            while(res.next()){
+                id = res.getString("id");
+            }
+            return id;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Retrieves a complete route from the database that contains everything needed to start a game.
      * @param routeCode The code of the route.
      * @return Json object containing everything needed ti start a game.

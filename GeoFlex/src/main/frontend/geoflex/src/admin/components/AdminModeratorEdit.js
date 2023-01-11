@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AdminModRoutes from './AdminModRoutes';
 import AdminModAssignRoutes from './AdminModAssignRoutes'
 import M from 'materialize-css';
+import Navbar from '../../shared/Navbar';
 
 export default function AdminModeratorEdit() {
     const [moderatorRoutes, setModeratorRoutes] = useState([]);
@@ -42,12 +43,12 @@ export default function AdminModeratorEdit() {
                 setSelectItems(availableRoutes);
         */
         setSelectItems(leftUsers)
-        if(!status){
+        if (!status) {
             setStatus(true);
-        } else if(status){
+        } else if (status) {
             setStatus(false);
         }
-        
+
     }
     useEffect(() => {
         M.AutoInit();
@@ -119,107 +120,135 @@ export default function AdminModeratorEdit() {
         getAllRoutes();
     }, [status, moderator])
 
-    function assignRouteToMod(routeID, moderatorID){
+    function assignRouteToMod(routeID, moderatorID) {
         var data = JSON.stringify(
             {
-              "user-id": moderatorID,
-              "access-level": 1,
-              "route": [
-                  {
-                      "assign" : routeID
-                  }
-              ] 
-          }
-          )
-  
-          var config = {
+                "user-id": moderatorID,
+                "access-level": 1,
+                "route": [
+                    {
+                        "assign": routeID
+                    }
+                ]
+            }
+        )
+
+        var config = {
             method: 'patch',
             url: '/admin/route/moderator',
-            headers: { 
-              'Content-Type': 'text/plain', 
+            headers: {
+                'Content-Type': 'text/plain',
             },
-            data : data
-          };
-  
-          axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            if(!status){
-                setStatus(true);
-            } else if(status){
-                setStatus(false);
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                if (!status) {
+                    setStatus(true);
+                } else if (status) {
+                    setStatus(false);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
-    function unassignRouteFromMod(routeID, moderatorID){
+    function unassignRouteFromMod(routeID, moderatorID) {
         var data = JSON.stringify(
             {
-              "user-id": moderatorID,
-              "access-level": 1,
-              "route": [
-                  {
-                      "un-assign" : routeID
-                  }
-              ]
-          }
-          )
-      
-          var config = {
+                "user-id": moderatorID,
+                "access-level": 1,
+                "route": [
+                    {
+                        "un-assign": routeID
+                    }
+                ]
+            }
+        )
+
+        var config = {
             method: 'patch',
             url: '/admin/route/moderator',
-            headers: { 
-              'Content-Type': 'text/plain', 
+            headers: {
+                'Content-Type': 'text/plain',
             },
-            data : data
-          };
-      
-          axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            if(!status){
-                setStatus(true);
-            } else if(status){
-                setStatus(false);
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                if (!status) {
+                    setStatus(true);
+                } else if (status) {
+                    setStatus(false);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
 
-    return (
-        <div className='container white'>
-            <h1>{moderator.name}</h1>
-                <ul>
-                    {[...moderatorRoutes].map((route) => (
+    return (<>
+        <Navbar type={'admin'} />
+        <div className='container white container-css'>
+            <div className='row'>
+                <div className='col s12'>
+                    <h5 className="center align">Redigering av moderator: {moderator.name}</h5>
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col s11 offset-s1'>
+                    <i>Nedanför listas rundor som {moderator.name} modererar.
+                        Här kan du tilldela en rutt eller ta bort en befintlig rutt
+                        från {moderator.name}.</i>
+                </div>
+                <div className='row'>
+                    <div className="divider col s10 offset-s1" style={{ 'marginTop': '1rem' }}></div>
+                </div>
+                <div className='row'>
+                    <div className='col s12'>
+                        <ul>
+                            {[...moderatorRoutes].map((route) => (
 
-                        <AdminModRoutes
-                            key={route.id}
-                            moderator={moderator}
-                            unassignRouteFromMod={unassignRouteFromMod}
-                            route={route} />
-                    ))}
-                </ul>
-                <ul className="collapsible">
-                    <li>
-                        <div className="collapsible-header" onClick={handleSelectOptions}>Tilldela rutt</div>
-                        <div className="collapsible-body">{[...selectItems].map((item) => (<AdminModAssignRoutes
-                            key={item.id}
-                            selectItem={item} 
-                            moderatorID={moderator["user-id"]}
-                            assignRouteToMod={assignRouteToMod}
-                            />
-                        ))}</div>
-                    </li>
-                </ul>
-                <Link to={"/admin/moderator/overview"}>
-                <h2>Gå tillbaka</h2>
-                </Link>
+                                <AdminModRoutes
+                                    key={route.id}
+                                    moderator={moderator}
+                                    unassignRouteFromMod={unassignRouteFromMod}
+                                    route={route} />
+                            ))}
+                        </ul>
+                        <ul className="collapsible col m10 offset-s1 offset-m1">
+                            <li>
+                                <div className="collapsible-header" onClick={handleSelectOptions}>Klicka här för att tilldela rutt</div>
+                                <div className="collapsible-body">{[...selectItems].map((item) => (<AdminModAssignRoutes
+                                    key={item.id}
+                                    selectItem={item}
+                                    moderatorID={moderator["user-id"]}
+                                    assignRouteToMod={assignRouteToMod}
+                                />
+                                ))}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <Link to={"/admin/moderator/overview"} style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }}>
+                <div className='row'>
+                    <div className='col s9 m8 l2'>
+                        <i className="material-icons col s1 left">
+                            keyboard_backspace
+                        </i> Gå tillbaka
+                    </div>
+                </div>
+            </Link>
         </div>
+    </>
     )
 }

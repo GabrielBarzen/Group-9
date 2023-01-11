@@ -1,6 +1,7 @@
 import React from 'react'
 import AdminOverview from "../admin/AdminOverview"
 
+
 export default function Admin() {
     /*
     main outlet for the admin-related pages
@@ -8,7 +9,7 @@ export default function Admin() {
 
     return (
         <div>
-            <AdminOverview />            
+            <AdminOverview />
         </div>
 
     )

@@ -45,4 +45,21 @@ public class UserCompanion {
         }
         return response;
     }
+
+    /**
+     * Gets a route id from its code if it exists in the database.
+     * @param routeCode The code of the route.
+     * @return Route ID if it exists.
+     */
+    public ResponseEntity<String> routeGetIdFromCode(String routeCode) {
+        UserProcedures up = new UserProcedures();
+        ResponseEntity<String> response = null;
+        HttpStatus responseStatus;
+        if(!routeCode.isEmpty()){
+            String id = up.getRouteIdFromCode(routeCode);
+            responseStatus = HttpStatus.OK;
+            response = new ResponseEntity<>(id, responseStatus);
+        }
+        return response;
+    }
 }

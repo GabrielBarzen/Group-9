@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Tour(props) {  
+export default function Tour(props) {
   console.log(props.data.title)
   /*
   Tour handles and renders each single tour passed on from AdminOverview.js
@@ -17,15 +17,15 @@ export default function Tour(props) {
     if additional data needs to follow to the new URL this is setup in its state like this: state={{ data: myData }}
     */
     <>
-    <li className='collection-item row'>
-      
+      <li className='collection-item row'>
+
         <i className="material-icons col s1">location_on</i>
-          <Link className="col s9 offset-s1" style={{cursor: 'pointer', 'fontSize': '1rem', 'color': 'black'}} to={url} state={{ data: props.data }}>
-            {props.data.title}
-          </Link>
-          <span className='col s1 right' style={{cursor: 'pointer', 'fontSize': '2rem'}}><i className='material-icons right black-text' id={props.data.id} onClick={() => { props.deleteItem(props.data.id) }}>delete_forever</i></span>
-        
-    </li>
+        <Link className="col s9 offset-s1" style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }} to={url} state={{ data: props.data }}>
+          {props.data.title}
+        </Link>
+        <span className='col s1 right' style={{ cursor: 'pointer', 'fontSize': '2rem' }}><i className='material-icons right black-text' id={props.data.id} onClick={() => { props.deleteItem(props.data.id) }}>delete_forever</i></span>
+
+      </li>
     </>
   );
 }

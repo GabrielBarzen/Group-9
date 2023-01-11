@@ -12,9 +12,9 @@ export default function StartQuiz() {
             </div>
             <div className="row">
                 <div className="col s12">
-                    <div className="row">
+                <form className="row valign-wrapper"> 
                         <Codebox />
-                    </div>
+                    </form>
                     <div className="row">
                         <QRscanner />
                     </div>

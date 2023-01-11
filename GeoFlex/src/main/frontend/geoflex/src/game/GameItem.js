@@ -20,7 +20,7 @@ export default function GameItem(props) {
     props.setClickedIds(newClickedIds); // update the clickedIds state
     console.log(props.clickedIds)
   };
-  
+
   return (
     <>
       <div className='row'>
@@ -44,8 +44,8 @@ export default function GameItem(props) {
               <div className='row'>
                 <div className='col s12 grey lighten-3' style={{ "borderRadius": "5px", "padding": '2rem' }}>
                   <div className='row'>
-                  <h2>{data.name}</h2>
-                  <p>{data.text_info}</p>
+                    <h5>{data.name}</h5>
+                    <p>{data.text_info}</p>
                   </div>
                 </div>
               </div>
