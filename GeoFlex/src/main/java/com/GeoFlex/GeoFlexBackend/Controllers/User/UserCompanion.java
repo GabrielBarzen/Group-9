@@ -1,6 +1,7 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.User;
 
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
+import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.UserProcedures;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,26 @@ public class UserCompanion {
             responseStatus = HttpStatus.OK;
             response = new ResponseEntity<>(id, responseStatus);
         }
+        return response;
+    }
+
+    /**
+     * Returns all routes in the database for a specific user. (/user/routes) GET
+     * @return Response entity containing json of all routes.
+     */
+    public ResponseEntity<String> routesGet(String userID) {
+        ModeratorProcedures mp = new ModeratorProcedures();
+        ResponseEntity<String> response;
+        HttpStatus responseStatus = HttpStatus.OK;
+        String json = mp.getRoutes(userID);
+        if (json == null) {
+            json = "{\"error\" : \"Internal server error, contact administrator\"}";
+            responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        } else if (json.equals("{}")) {
+            json = "{\"no routes\" : \"No routes in system\"}";
+            responseStatus = HttpStatus.NO_CONTENT;
+        }
+        response = new ResponseEntity<>(json, responseStatus);
         return response;
     }
 }
