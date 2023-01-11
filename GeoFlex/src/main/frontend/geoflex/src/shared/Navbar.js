@@ -17,6 +17,18 @@ export default function Navbar(props) {
         window.location.reload(false);
     }
 
+    function handleNavigateModerators(){
+        navigate('/admin/moderator/overview/', { replace: false });
+    }
+
+    function handleNavigateAdminOverview(){
+        navigate('/admin', { replace: false });
+    }
+
+    function handleNavigateModeratorOverview(){
+        navigate('/moderator', { replace: false });
+    }
+
 
     if (props.type === 'admin') {
         return (<>
@@ -26,8 +38,8 @@ export default function Navbar(props) {
                 </div>
                 <div class="nav-content white">
                     <ul class="tabs tabs-transparent">
-                        <li className="tab"><a href="/admin/moderator/overview/" className="black-text">Moderatorer</a></li>
-                        <li className="tab"><a href="/admin/overview/" className="black-text">Översikt</a></li>
+                        <li className="tab"><a href="/admin/moderator/overview/" className="black-text" onClick={handleNavigateModerators}>Moderatorer</a></li>
+                        <li className="tab"><a href="/admin/overview/" className="black-text" onClick={handleNavigateAdminOverview}>Översikt</a></li>
                         <li className="tab"><a className="active black-text" href="/" onClick={handleLogOut}>Logga ut</a></li>
                     </ul>
                 </div>
@@ -43,7 +55,7 @@ export default function Navbar(props) {
                     </div>
                     <div className="nav-content white">
                         <ul className="tabs tabs-transparent">
-                            <li className="tab"><a href="/moderator/" className="black-text">Översikt</a></li>
+                            <li className="tab"><a href="/moderator" className="black-text" onClick={handleNavigateModeratorOverview}>Översikt</a></li>
                             <li className="tab"><a className="active black-text" href="/" onClick={handleLogOut}>Logga ut</a></li>
                         </ul>
                     </div>
