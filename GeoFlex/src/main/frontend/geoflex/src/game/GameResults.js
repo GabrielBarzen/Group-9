@@ -32,7 +32,7 @@ export default function GameResults(props) {
         //collects and sets current answer and question
         const currentAnswer = props.answers[index]
         const currentQuestion = props.questions[index]
-        if (currentQuestion.length !== 0) {
+        if (props.questions.length !== 0) {
             setCurrentAnswer(currentAnswer)
             setCurrentQuestion(currentQuestion)
 

@@ -28,7 +28,7 @@ export default function GameLoader() {
             .then(async response => {
                 console.log(JSON.stringify(response.data));
                 await localStorage.clear();
-                await localStorage.setItem('quizData', JSON.stringify(response.data));
+                await localStorage.setItem('quizData', JSON.stringify(response.data[0]));
                 await setData({
                     title: response.data[0].title,
                     description: response.data[0].description,
