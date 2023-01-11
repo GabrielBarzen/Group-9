@@ -2,6 +2,9 @@ import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import axios from 'axios';
 import logo from './GeoFlexSmall.png'
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 
 export default function Static() {
@@ -28,6 +31,7 @@ export default function Static() {
         })
         .catch(function (error) {
           console.log(error);
+          cookies.set('role', 'moderator', { path: '/', expires: new Date(Date.now()+86400)});
         });
     })
     return (

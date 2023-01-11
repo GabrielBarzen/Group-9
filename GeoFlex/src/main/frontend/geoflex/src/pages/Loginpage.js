@@ -37,13 +37,13 @@ export default function Loginpage() {
         .then(function (response) {
         console.log(JSON.stringify(response.data));
         if(response.data.path == "/admin/overview"){
-            cookies.set('role', 'admin', { path: '/' });
+            cookies.set('role', 'admin', { path: '/' , expires: new Date(Date.now()+86400)});
         }
         else if(response.data.path == "/moderator/overview"){
-            cookies.set('role', 'moderator', { path: '/' });
+            cookies.set('role', 'moderator', { path: '/', expires: new Date(Date.now()+86400)});
         }
         else if(response.data.path == "/user/overview"){
-            cookies.set('role', 'user', { path: '/' });
+            cookies.set('role', 'user', { path: '/', expires: new Date(Date.now()+86400)});
         }
         navigate(response.data.path, { replace: true })
         })
