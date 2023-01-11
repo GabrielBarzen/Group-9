@@ -45,9 +45,7 @@ export default function App() {
                     <Route path='/moderator/overview' element={<ModOverview />} />
                     <Route path='/moderator/edit/:id' element={<ModEdit />} />
                     <Route path='/moderator/edit/:id/location/:id' element={<ModEditLocation />} />
-                    <Route path='/moderator/qr-codes/:id' element={<ModQrCodes />} />
-                    
-                    
+                    <Route path='/moderator/qr-codes/:id' element={<ModQrCodes />} />                    
 
                     <Route path='/game/start' element={<StartQuiz />} />
                     <Route path='/game/:id/welcome' element={<GameLoader />} />
@@ -60,6 +58,7 @@ export default function App() {
                     <Route path='/Loginpage' element={<Loginpage />} />
                     <Route path='/Register' element={<Register />} />
                     <Route path='/TempUser' element={<TempUser />} />
+                    
                 </Route>
             </Routes>
         </BrowserRouter>

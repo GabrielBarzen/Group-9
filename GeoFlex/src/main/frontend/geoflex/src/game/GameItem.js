@@ -21,6 +21,19 @@ export default function GameItem(props) {
     console.log(props.clickedIds)
   };
 
+/*
+const handleClick = (id) => {
+  let newClickedIds = { ...props.clickedIds };
+
+  const exists = newClickedIds.answers.find(ans => ans.id === id);
+  if (exists){
+    newClickedIds.answers = newClickedIds.answers.filter(ans => ans.id !== id)
+  } else {
+    newClickedIds.answers = newClickedIds.answers.concat({id:id})
+  }
+  props.setClickedIds(newClickedIds);
+};
+*/
   return (
     <>
       <div className='row'>
