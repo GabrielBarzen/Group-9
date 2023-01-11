@@ -9,7 +9,7 @@ export default function ModEditForms(props) {
 
 	let titleRef = useRef();
 	let descriptionRef = useRef();
-	const [mediaObject, setMediaObject] = useState([])
+	const [mediaObject, setMediaObject] = useState({})
 	console.log("ÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖ")
 	console.log(props.mainData.media[0])
 	let QRURL = '/moderator/qr-codes/' + props.mainData.id

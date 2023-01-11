@@ -339,7 +339,8 @@ export default function ModEdit() {
         ]
       }
     }
-
+    console.log("DATA OBJEKT")
+    console.log(data)
     var config = {
       method: 'patch',
       url: '/moderator/route/',
