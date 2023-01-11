@@ -333,7 +333,7 @@ export default function ModEdit() {
         "route-id": id,
         "title": title,
         "description": description,
-        "routeMedia": [mediaObject],
+        "media": [mediaObject],
         "type": "INFO",
         "location": [
         ]

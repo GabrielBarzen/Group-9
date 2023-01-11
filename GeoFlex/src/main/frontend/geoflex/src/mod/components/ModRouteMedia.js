@@ -99,8 +99,23 @@ export default class ModRouteMedia extends Component {
               }
             }
           }
+        }       
+        let mediaType;
+
+        if (this.state.locationMediaType === false) {
+            mediaType = "video"
+        } else if (this.state.locationMediaType === true) {
+            mediaType = "image"
         }
-    
+        if (this.state.locationMediaUrl.length === 0) {
+            mediaType = "";
+        }
+        let mediaObject = {
+            "mediaUrl": this.state.locationMediaUrl,
+            "mediaType": mediaType,
+            "externalMedia": this.state.locationMediaExternal
+        }
+        this.props.setMediaObject(mediaObject)
       }
 
   render() {
