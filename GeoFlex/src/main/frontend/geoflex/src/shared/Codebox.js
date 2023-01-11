@@ -118,7 +118,7 @@ export default class Codebox extends Component {
         </div>
       </div>
 
-      <div className='row'>
+      <div id="inputs" className='row'>
         <input
           type="text"
           name="number1"
