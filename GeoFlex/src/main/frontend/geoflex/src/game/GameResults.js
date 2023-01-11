@@ -3,15 +3,15 @@ import Button from '../shared/Button';
 
 export default function GameResults(props) {
 
-    console.log("send this questions to game result:" + props.questions)      
-    console.log("send this answers to game result:" + props.answers)  
+    console.log("send this questions to game result:" + props.questions)
+    console.log("send this answers to game result:" + props.answers)
 
     const [index, setIndex] = useState(0);
     const [correctAnswers, setCorrectAnswers] = useState([]);
-    const [renderUserAnswers, setRenderUserAnswers] = useState([])
+    const [renderUserAnswers, setRenderUserAnswers] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState("");
     const [currentAnswer, setCurrentAnswer] = useState("");
-    const [quizType, setQuizType] = useState("")
+    const [quizType, setQuizType] = useState("");
 
     const lastIndex = props.answers.length
     /*
@@ -78,32 +78,41 @@ export default function GameResults(props) {
         setIndex(prevIndex => prevIndex - 1);
     }
 
-    if(quizType === "quiz"){
-    return (
-        <div>
-            <h2>{currentQuestion.name}</h2>
-            <p>{currentQuestion.text_info}</p>
-            <h3>Rätt svar</h3>
-            {
-                [...correctAnswers].map((answer) => (<p
-                    key={answer["content-id"]}
-                > {answer.answer}</p>
+    if (quizType === "quiz") {
+        return (
+            <div>
+                <h2>{currentQuestion.name}</h2>
+                <p>{currentQuestion.text_info}</p>
+                <h3>Rätt svar</h3>
+                {
+                    [...correctAnswers].map((answer) => (<p
+                        key={answer["content-id"]}
+                    > {answer.answer}</p>
 
-                ))}
-            <h3>Ditt svar</h3>
-            {
-                [...renderUserAnswers].map((answers) => <p
-                    key={answers["content-id"]}> {answers.answer}</p>
-                )
-            }
-           
-            <Button click={handlePrev} text={"Föregående"}/>
-            <Button click={handleNext} text={"Nästa"}/>
-        </div>
-    )} else {
-        return(
+                    ))}
+                <h3>Ditt svar</h3>
+                {
+                    [...renderUserAnswers].map((answers) => <p
+                        key={answers["content-id"]}> {answers.answer}</p>
+                    )
+                }
+                <button className="btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2"
+                    onClick={handlePrev}
+                    disabled={index === 0}>
+                    Föregående
+                </button>
+                <button
+                    className="btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2"
+                    onClick={handleNext}
+                    disabled={index === lastIndex - 1}>
+                    Nästa
+                </button>
+            </div>
+        )
+    } else {
+        return (
             <>
-            
+
             </>
         )
     }
