@@ -26,7 +26,7 @@ const handleClick = (id) => {
 
   const exists = newClickedIds.answers.find(ans => ans.id === id);
   if (exists){
-    newClickedIds.answers = newClickedId.answers.filter(ans => ans.id !== id)
+    newClickedIds.answers = newClickedIds.answers.filter(ans => ans.id !== id)
   } else {
     newClickedIds.answers = newClickedIds.answers.concat({id:id})
   }
