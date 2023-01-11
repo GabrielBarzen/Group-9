@@ -19,7 +19,7 @@ This feture or fix should have a decriptive name alongsite the specification req
 If the feture is missing a requirement in the specification one should be created.
 
 If a working branch concerns more than one requirement from the specification, it should be specified in the pull request.
-## The config needs to be placed in resources.
+## The config properties needs to be placed in the [resource](https://github.com/GabrielModin/Group-9/tree/Dev/GeoFlex/src/main/resources) directory BEFORE BUILDING.
 ### config.properties
 ```
 domain.email=domain email
