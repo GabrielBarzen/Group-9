@@ -96,7 +96,7 @@ export default function GameResults(props) {
                         key={answers["content-id"]}> {answers.answer}</p>
                     )
                 }<div className='row'>
-                <button className="col s6 btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2"
+                <button className="col s6 btn waves-teal btn col btn-large btn-css icon-css z-depth-2"
                     onClick={handlePrev}
                     disabled={index === 0}>
                     Föregående
