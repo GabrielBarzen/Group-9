@@ -61,7 +61,7 @@ export default function AdminAddNew() {
 
     return (<>
         <div className="container white container-css">
-            <h5 className="center-align">Skapa nytt</h5>
+            <h5 className="center-align">Skapa ny runda</h5>
             <div className="row">
                 <form className="col s12">
                     <div className="row">
