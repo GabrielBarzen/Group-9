@@ -109,7 +109,7 @@ export default class ModRouteMedia extends Component {
         
         <div className='container'>
       <LocationFormMedia
-            locationID={this.state.routeID}
+            routeID={this.state.routeID}
             locationMediaUrl={this.state.locationMediaUrl}
             locationMediaType={this.state.locationMediaType}
             locationMediaExternal={this.state.locationMediaExternal}
