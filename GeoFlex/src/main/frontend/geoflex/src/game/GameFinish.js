@@ -11,15 +11,15 @@ export default function GameFinish(props) {
         const loadQuizData = JSON.parse(localStorage.getItem("quizData"));
         const quizData = loadQuizData.location;
         console.log("QUIZDATA")
-        console.log(quizData[0])
+        console.log(quizData)
 
         const loadAnswers = JSON.parse(localStorage.getItem("userAnswers")) || "";
         console.log("ANSWERS")
         console.log(loadAnswers)
       setQuestions(quizData);
-      setAnswers(loadAnswers);             
+      setAnswers(loadAnswers);         
     }, [setQuestions, setAnswers])
-
+  if((questions.length !== 0) && (answers.length) !== 0){
   return (
     <>
       <div className='row'>
@@ -60,5 +60,10 @@ export default function GameFinish(props) {
         </div>
       </div>
     </>
-  )
+  )  }
+  else {
+    return(<>
+    <p>Laddar svar...</p>
+    </>)
+  }
 }

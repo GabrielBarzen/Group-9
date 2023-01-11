@@ -3,6 +3,9 @@ import Button from '../shared/Button';
 
 export default function GameResults(props) {
 
+    console.log("send this questions to game result:" + props.questions)      
+    console.log("send this answers to game result:" + props.answers)  
+
     const [index, setIndex] = useState(0);
     const [correctAnswers, setCorrectAnswers] = useState([]);
     const [renderUserAnswers, setRenderUserAnswers] = useState([])
@@ -29,10 +32,14 @@ export default function GameResults(props) {
 
     useEffect(() => {
 
-        //collects and sets current answer and question
+        //collects and sets current answer and question  
         const currentAnswer = props.answers[index]
         const currentQuestion = props.questions[index]
+        console.log("before if PROPS.Q.LENGTH IF")
+        console.log(props.questions)
+        console.log(props.questions.length)
         if (props.questions.length !== 0) {
+            console.log("INSIDE PROPS.Q.LENGTH IF")
             setCurrentAnswer(currentAnswer)
             setCurrentQuestion(currentQuestion)
 
