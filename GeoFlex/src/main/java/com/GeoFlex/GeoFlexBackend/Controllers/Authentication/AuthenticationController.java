@@ -66,17 +66,17 @@ public class AuthenticationController {
             String path = "";
             int accesslevel = ap.getAccessLevelForUser(id);
             if (accesslevel == AccessLevel.ADMIN.getLevel()) {
-                path =  "/admin/overview";
+                path =  "/admin";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
                                 "\"path\":\"" + path + "\"}", HttpStatus.OK);
             } else if (accesslevel == AccessLevel.MODERATOR.getLevel()) {
-                path =  "/moderator/overview";
+                path =  "/moderator";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
                                 "\"path\":\"" + path + "\"}", HttpStatus.OK);
             } else if (accesslevel == AccessLevel.USER.getLevel()) {
-                path =  "/user/overview";
+                path =  "/user";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
                                 "\"path\":\"" + path + "\"}", HttpStatus.OK);
