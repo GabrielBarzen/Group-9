@@ -11,7 +11,7 @@ export default function GameFinish(props) {
         const loadQuizData = JSON.parse(localStorage.getItem("quizData"));
         const quizData = loadQuizData.location;
         console.log("QUIZDATA")
-        console.log(quizData)
+        console.log(quizData[0])
 
         const loadAnswers = JSON.parse(localStorage.getItem("userAnswers")) || "";
         console.log("ANSWERS")
