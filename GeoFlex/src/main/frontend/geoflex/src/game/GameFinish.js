@@ -50,7 +50,7 @@ export default function GameFinish(props) {
     var data = JSON.stringify(
       {
         "user-id": id,
-        "access-level": 1,
+        "access-level": 0,
         "route": [
           {
             "assign": props.quizID
@@ -77,7 +77,7 @@ export default function GameFinish(props) {
         console.log(error);
       });
   }
-  
+
   //verify current user
   let hasCookie = checkCookie();
   console.log(hasCookie)
