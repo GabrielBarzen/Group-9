@@ -6,7 +6,7 @@ export default function Tour(props) {
   /*
   Tour handles and renders each single tour passed on from AdminOverview.js
   */
-  const url = "/admin/edit/" + props.data.id;
+  const url = "/moderator/edit/" + props.data.id;
   /*const editTo = {
         pathname: url,
         state: props.data

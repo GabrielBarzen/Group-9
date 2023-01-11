@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import GameManager from './GameManager';
 import GameWelcome from './GameWelcome';
+import { useLocation } from 'react-router';
 
 
 export default function GameLoader() {
@@ -10,17 +11,23 @@ export default function GameLoader() {
     const [gameStart, setGameStart] = useState(false)
     const [status, setStatus] = useState(false);
 
+    //location recieves data from Link
+    const location = useLocation();
+    const routeCode = location.state.routeCode;
+    const routeID = location.state.id;
+
 
     useEffect(() => {
         var config = {
             method: 'get',
-            url: '/user/route?routeCode=1234',
+            url: '/user/route?routeCode='+routeCode,
             headers: {}
         };
 
         axios(config)
             .then(async response => {
                 console.log(JSON.stringify(response.data));
+                await localStorage.clear();
                 await localStorage.setItem('quizData', JSON.stringify(response.data));
                 await setData({
                     title: response.data[0].title,
@@ -41,7 +48,7 @@ export default function GameLoader() {
                         "type": "INFO",
                         "id": "103",
                         "code": "1234",
-                        "location": [                            
+                        "location": [
                             {
                                 "location_id": "126497",
                                 "name": "Car engines",
@@ -270,18 +277,18 @@ export default function GameLoader() {
     } else if ((status === true) && (gameStart === false)) {
         return (
             <>
-            <GameWelcome 
-                welcomeData={data}
-                setGameStart={setGameStart}
+                <GameWelcome
+                    welcomeData={data}
+                    setGameStart={setGameStart}
                 />
-            </>            
+            </>
         );
-    } else if ((status === true) && (gameStart === true)){
+    } else if ((status === true) && (gameStart === true)) {
         return (
             <>
-            <GameManager
-                control={data}
-                questions={questions}
+                <GameManager
+                    control={data}
+                    questions={questions}
                 />
             </>
         )
