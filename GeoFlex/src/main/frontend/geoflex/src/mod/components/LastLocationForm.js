@@ -20,12 +20,7 @@ export default class LastLocationForm extends Component {
   }
 
   componentDidMount() {
-    console.log("LAST LOCATION FORM PROPS DATA")
-    console.log(this.props.data)
-    console.log(this.props.data.name)
-    console.log(this.props.data.text_info)
-
-
+    
     if (this.props.data.media[0].mediaType === "video") {
       this.setState({ locationMediaType: false })
     } else if (this.props.data.media[0].mediaType === "image") {

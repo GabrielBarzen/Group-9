@@ -9,7 +9,9 @@ export default function ModEditForms(props) {
 
 	let titleRef = useRef();
 	let descriptionRef = useRef();
-	const [mediaObject, setMediaObject] = useState({})
+	const [mediaUrl, setMediaUrl] = useState("")
+	const [mediaType, setMediaType] = useState("")
+	const [mediaExternal, setMediaExternal] = useState("")
 	console.log("ÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖ")
 	console.log(props.mainData.media[0])
 	let QRURL = '/moderator/qr-codes/' + props.mainData.id
@@ -85,13 +87,31 @@ export default function ModEditForms(props) {
 		props.callNewLocation(id);
 	})
 
-	const handleSave = (() => {
+	function handleSave(){
+
 		let routeID = props.mainData.id;
 		let title = titleRef.current.value;
 		let description = descriptionRef.current.value;
-		props.callSaveRoute(routeID, title, description, mediaObject);
+		
+		var data = {
+			"route-update": {
+			  "route-id": routeID,
+			  "title": title,
+			  "description": description,
+			  "routeMedia": [{
+				"mediaUrl": mediaUrl,
+				"mediaType": mediaType,
+				"externalMedia": mediaExternal
+			  }
+			  ],
+			  "type": "INFO",
+			  "location": [
+			  ]
+			}
+		  }
 
-	})
+		  props.callSaveRoute(data);
+	}
 
 
 
@@ -134,7 +154,9 @@ export default function ModEditForms(props) {
 						<ModRouteMedia
 							mediaData={props.mainData.media[0]}
 							routeID={props.mainData.id}
-							setMediaObject={setMediaObject}
+							setMediaUrl={setMediaUrl}
+							setMediaType={setMediaType}
+							setMediaExternal={setMediaExternal}
 						/>
 						
 						</div>
