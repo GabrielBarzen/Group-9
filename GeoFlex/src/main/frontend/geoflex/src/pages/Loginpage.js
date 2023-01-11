@@ -36,16 +36,17 @@ export default function Loginpage() {
         axios(config)
         .then(function (response) {
         console.log(JSON.stringify(response.data));
-        if(response.data.path === "/admin/overview"){
+        if(response.data.path === "/admin"){
             cookies.set('role', 'admin', { path: '/' , expires: new Date(Date.now()+86400)});
         }
-        else if(response.data.path === "/moderator/overview"){
+        else if(response.data.path === "/moderator"){
             cookies.set('role', 'moderator', { path: '/', expires: new Date(Date.now()+86400)});
         }
-        else if(response.data.path === "/user/overview"){
+        else if(response.data.path === "/user"){
             cookies.set('role', 'user', { path: '/', expires: new Date(Date.now()+86400)});
         }
         navigate(response.data.path, { replace: true })
+        window.location.reload(false);
         })
         .catch(function (error) {
         console.log(error.response.data);
