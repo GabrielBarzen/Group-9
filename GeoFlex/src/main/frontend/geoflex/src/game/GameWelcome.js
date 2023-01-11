@@ -7,6 +7,13 @@ export default function GameWelcome(props) {
     props.setGameStart(true)
   }
 
+
+
+    
+    
+  
+
+
   return (
     <>
     <div className='row'>

@@ -8,11 +8,12 @@ export default function GameFinish(props) {
   
 
     useEffect(() => {
-        const loadQuizData = localStorage.getItem("quizData");
+        const loadQuizData = JSON.parse(localStorage.getItem("quizData"));
         const quizData = loadQuizData.location;
         console.log("QUIZDATA")
         console.log(quizData)
-        const loadAnswers = localStorage.getItem("userAnswers");
+
+        const loadAnswers = JSON.parse(localStorage.getItem("userAnswers")) || "";
         console.log("ANSWERS")
         console.log(loadAnswers)
       setQuestions(quizData);
