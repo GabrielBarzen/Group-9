@@ -1,3 +1,0 @@
-Download FFMPEG from https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-essentials.7z
-Put the contents of the bin folder into the resources/FFMPEG folder in the project.
-Check that the paths in VideoManager are correct.
