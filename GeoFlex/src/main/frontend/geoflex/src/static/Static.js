@@ -1,7 +1,6 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import axios from 'axios';
-import logo from './GeoFlexSmall.png'
 import Cookies from 'universal-cookie';
 import Navbar from '../shared/Navbar'
 

@@ -18,7 +18,7 @@ export default function Tour(props) {
         <i className="material-icons col s1">location_on</i>
         <Link className="col s9 offset-s1" style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }} to={url} state={{ data: props.data }}>
           {props.data.title}
-          <p>Quiz ID: {props.data.code}</p>
+          <p>Quiz kod: {props.data.code}</p>
         </Link>
 
 
