@@ -123,7 +123,7 @@ export default function GameManager(props) {
     } else {
         return(
             <>
-            <GameFinish currentQuestion={currentQuestion}/>
+            <GameFinish currentQuestion={currentQuestion} quizID={props.control.id}/>
             </>
         )
     }

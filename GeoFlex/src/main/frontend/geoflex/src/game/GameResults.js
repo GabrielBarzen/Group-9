@@ -102,7 +102,7 @@ export default function GameResults(props) {
                     Föregående
                 </button>
                 <button
-                    className="btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2"
+                    className="btn  waves-teal btn col btn-large btn-css icon-css z-depth-2"
                     onClick={handleNext}
                     disabled={index === lastIndex - 1}>
                     Nästa
