@@ -9,13 +9,12 @@ export default function Navbar(props) {
             <nav className="nav-extended">
                 <div className="nav-wrapper white">
                     <a href="/admin/overview/" className="left brand-logo black-text"><img src={logo} width="30%" style={{ 'marginTop': '0.5rem' }} className="responsive-img" alt="logotype" /></a>
-                    <li className="tab"><a className="active black-text right" href="#LoggaUT">Logga ut</a></li>
                 </div>
                 <div class="nav-content white">
                     <ul class="tabs tabs-transparent">
                         <li className="tab"><a href="/admin/moderator/overview/" className="black-text">Moderatorer</a></li>
-                        <li className="tab"><a href="/admin/new/" className="black-text">Skapa en runda</a></li>
                         <li className="tab"><a href="/admin/overview/" className="black-text">Översikt</a></li>
+                        <li className="tab"><a className="active black-text" href="#LoggaUT">Logga ut</a></li>
                     </ul>
                 </div>
             </nav>
