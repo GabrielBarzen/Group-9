@@ -321,24 +321,14 @@ export default function ModEdit() {
       });
   }
 
-  const handleSave = (id, title, description, mediaObject) => {
+  const handleSave = (data) => {
     /**
     *API call PATCH to save and update all form-data to database
     *if OK 200 redirect user by replacing URL through navigate
     */
-    console.log("SAVE: ID" + id + "TITLE: " + title + "DESCRIPTION: " + description)
+    
 
-    var data = {
-      "route-update": {
-        "route-id": id,
-        "title": title,
-        "description": description,
-        "routeMedia": [mediaObject],
-        "type": "INFO",
-        "location": [
-        ]
-      }
-    }
+    
     console.log("DATA OBJEKT")
     console.log(data)
     var config = {

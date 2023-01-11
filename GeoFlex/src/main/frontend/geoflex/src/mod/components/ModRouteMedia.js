@@ -42,6 +42,8 @@ export default class ModRouteMedia extends Component {
         }
     }
 
+    
+
     handleMediaOptions(mediaType, externalMedia) {
         console.log("HANDLE MEDIA OPTIONS")
         this.setState({
@@ -83,6 +85,7 @@ export default class ModRouteMedia extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
     
         this.setState({ [name]: value });
+        
         if (name === "title") {
           this.props.handleChange(value)
         }
@@ -100,22 +103,21 @@ export default class ModRouteMedia extends Component {
             }
           }
         }       
-        let mediaType;
+        
 
         if (this.state.locationMediaType === false) {
-            mediaType = "video"
+            this.props.setMediaType("video")
         } else if (this.state.locationMediaType === true) {
-            mediaType = "image"
+            this.props.setMediaType("image")
         }
-        if (this.state.locationMediaUrl.length === 0) {
-            mediaType = "";
+        if(name === "locationMediaUrl"){
+            this.props.setMediaUrl(value)
         }
-        let mediaObject = {
-            "mediaUrl": this.state.locationMediaUrl,
-            "mediaType": mediaType,
-            "externalMedia": this.state.locationMediaExternal
+        if(name === "locationMediaExternal"){
+            this.props.setMediaExternal(value)
         }
-        this.props.setMediaObject(mediaObject)
+        
+        
       }
 
   render() {
