@@ -10,7 +10,7 @@ public class CLIUserController {
             case "password" -> {
                 AuthenticationProcedures ap = new AuthenticationProcedures();
                 if (inputSplitArray.length >= 3) {
-                    System.out.println("FEATURE NOT IMPLEMENTED");
+
                     System.out.println("enter new password");
                     Scanner scanner = new Scanner(System.in);
                     String password = scanner.nextLine();
@@ -18,12 +18,14 @@ public class CLIUserController {
                     String passwordConfirm = scanner.nextLine();
                     if (password.equals(passwordConfirm)) {
                         ap.setUserPassword(inputSplitArray[2], password);
+                    } else {
+                        System.out.println("Passwords not matching try again");
                     }
                 }
             }
             case "get" -> {
                 AuthenticationProcedures ap = new AuthenticationProcedures();
-                System.out.println("FEATURE NOT IMPLEMENTED");
+
 
                 ap.getAllUsers();
 

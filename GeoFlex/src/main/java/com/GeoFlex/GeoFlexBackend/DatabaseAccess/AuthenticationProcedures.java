@@ -261,12 +261,17 @@ public class AuthenticationProcedures {
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_user_password(?,?,?)}")) {
             cs.setInt("in_user_id", (userId));
             System.out.println("Not implemented in database");
+            cs.setString("in_new_password", (hashedPassword));
             cs.setString("in_user_salt", (salt));
-//            cs.executeQuery();
-//            ResultSet res = cs.getResultSet();
-//            while(res.next()){
-//                success = res.getBoolean("success");
-//            }
+            cs.executeQuery();
+
+            System.out.println("======SETTING PASSWORD======");
+            System.out.println("Password(hashed) :"+ hashedPassword );
+            System.out.println("Salt :"+ salt );
+            System.out.println("ID :"+ userId );
+            System.out.println("======SETTING PASSWORD======");
+            ResultSet res = cs.getResultSet();
+            success = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -283,14 +288,21 @@ public class AuthenticationProcedures {
     public boolean getAllUsers() {
         DatabaseConnection dc = new DatabaseConnection();
         boolean success = false;
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL get_all_users()}")) {
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_all_users()}")) {
 
             System.out.println("Not implemented in database");
-//            cs.executeQuery();
-//            ResultSet res = cs.getResultSet();
-//            while(res.next()){
-//                success = res.getBoolean("success");
-//            }
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            System.out.println("======USERS======");
+            while(res.next()){
+                String str = String.format("ID: %s, name: %s, email: %s.",
+                res.getString("id"),
+                res.getString("name"),
+                res.getString("email"));
+                System.out.println(str);
+            }
+            System.out.println("======USERS======");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
