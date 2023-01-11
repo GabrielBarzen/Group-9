@@ -25,6 +25,7 @@ import AdminModeratorOverview from './admin/AdminModeratorOverview';
 import StartQuiz from './pages/StartQuiz';
 import GameLoader from './game/GameLoader';
 import ModQrCodes from './mod/ModQrCodes';
+import GameStart from './game/GameStart';
 
 
 export default function App() {
@@ -45,13 +46,14 @@ export default function App() {
                     <Route path='/moderator/overview' element={<ModOverview />} />
                     <Route path='/moderator/edit/:id' element={<ModEdit />} />
                     <Route path='/moderator/edit/:id/location/:id' element={<ModEditLocation />} />
-                    <Route path='/moderator/qr-codes/:id' element={<ModQrCodes />} />                    
+                    <Route path='/moderator/qr-codes/:id' element={<ModQrCodes />} />
 
                     <Route path='/game/start' element={<StartQuiz />} />
                     <Route path='/game/:id/welcome' element={<GameLoader />} />
                     <Route path='/game/:id/navigation' element={<GameNavigation />} />
                     <Route path='/game/route/:id/location/:id' element={<GameItem />} />
                     <Route path='/game/:id/finish' element={<GameFinish />} />
+                    <Route path='/game/GameStart' element={<GameStart />} />
 
                     <Route path='/test' element={<TestComponents />} />
                     <Route path='/Firstpagetest' element={<FirstpageTest />} />
