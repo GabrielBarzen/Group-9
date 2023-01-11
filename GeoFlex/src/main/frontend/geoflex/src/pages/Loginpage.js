@@ -14,6 +14,7 @@ export default function Loginpage() {
     let passwordRef = useRef();
 
     function handleLogin(){
+        console.log("Logging in.")
         let message = document.querySelector("#message");
         var data = JSON.stringify
         (
@@ -81,7 +82,7 @@ export default function Loginpage() {
     </div>
         <div className="row">
             <div className="container">
-                <div className="col s12 btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2" click={handleLogin}>
+                <div className="col s12 btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2" onClick={handleLogin}>
                     <i className="small material-icons right">arrow_forward</i>Logga in
                 </div>
             </div>
