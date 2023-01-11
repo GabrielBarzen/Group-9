@@ -31,7 +31,7 @@ export default function GameWelcome(props) {
                   <div className='row'>
                     <div className='col s12'>
                       <p>
-                          Eventuell bild här
+                          {props.welcomeData.image}
                       </p>
                     </div>
                   </div>

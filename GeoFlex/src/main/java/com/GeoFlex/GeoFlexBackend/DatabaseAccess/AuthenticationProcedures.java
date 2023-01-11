@@ -1,5 +1,7 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
+import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
+
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -288,6 +290,77 @@ public class AuthenticationProcedures {
             while(res.next()){
                 success = res.getBoolean("success");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return success;
+    }
+
+    public boolean setUserPassword(String s,String password) {
+        int userId = -1;
+        try {
+            userId = Integer.parseInt(s);
+        } catch (NumberFormatException e){
+            System.out.println("Invalid format for user id : " + s );
+            return false;
+        }
+
+        String salt = Authenticator.generateSalt();
+        String hashedPassword = Authenticator.getHash(password,salt);
+        DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_user_password(?,?,?)}")) {
+            cs.setInt("in_user_id", (userId));
+            System.out.println("Not implemented in database");
+            cs.setString("in_new_password", (hashedPassword));
+            cs.setString("in_user_salt", (salt));
+            cs.executeQuery();
+
+            System.out.println("======SETTING PASSWORD======");
+            System.out.println("Password(hashed) :"+ hashedPassword );
+            System.out.println("Salt :"+ salt );
+            System.out.println("ID :"+ userId );
+            System.out.println("======SETTING PASSWORD======");
+            ResultSet res = cs.getResultSet();
+            success = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return success;
+    }
+
+    public boolean getAllUsers() {
+        DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_all_users()}")) {
+
+            System.out.println("Not implemented in database");
+            cs.executeQuery();
+            ResultSet res = cs.getResultSet();
+            System.out.println("======USERS======");
+            while(res.next()){
+                String str = String.format("ID: %s, name: %s, email: %s.",
+                res.getString("id"),
+                res.getString("name"),
+                res.getString("email"));
+                System.out.println(str);
+            }
+            System.out.println("======USERS======");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
