@@ -14,6 +14,7 @@ export default function Navbar(props) {
         cookies.remove("user-id");
         cookies.remove("authentication-token");
         navigate('/', { replace: true });
+        window.location.reload(false);
     }
 
 
