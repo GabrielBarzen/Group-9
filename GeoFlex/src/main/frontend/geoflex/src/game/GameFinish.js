@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GameResults from './GameResults';
 
 export default function GameFinish(props) {
-
+  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState([]);
   const data = props.currentQuestion;
+  
+
+    useEffect(() => {
+        const loadQuizData = localStorage.getItem("quizData");
+        const quizData = loadQuizData[0].location;
+        console.log("QUIZDATA")
+        console.log(quizData)
+        const loadAnswers = localStorage.getItem("userAnswers");
+        console.log("ANSWERS")
+        console.log(loadAnswers)
+      setQuestions(quizData);
+      setAnswers(loadAnswers);             
+    }, [setQuestions, setAnswers])
 
   return (
     <>
@@ -37,7 +51,7 @@ export default function GameFinish(props) {
             <div className='row'>
               <div className='col s12'>
                 <p>
-                  <GameResults />
+                  <GameResults questions={questions} answers={answers}/>
                 </p>
               </div>
             </div>
