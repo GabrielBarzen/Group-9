@@ -13,15 +13,22 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Authenticator {
+    /**
+     * Logged in users.
+     */
+    private HashMap<String,Token> userIdTokenMap = new HashMap<>();
+    /**
+     * Used to contact database.
+     */
+    private AuthenticationProcedures ap = new AuthenticationProcedures();
 
-    HashMap<String,Token> userIdTokenMap = new HashMap<>();
-    AuthenticationProcedures ap = new AuthenticationProcedures();
 
-
-    public Authenticator() {
-
-    }
-
+    /**
+     * Combines password with salt in order to create the complete hash.
+     * @param password input password.
+     * @param salt input salt.
+     * @return hashed&salted password. Stored in the database.
+     */
     public static String getHash(String password, String salt) {
         try {
             byte[] hashedArr = getSHA((password + salt));
@@ -31,16 +38,22 @@ public class Authenticator {
         }
     }
 
-
-    public static byte[] getSHA(String input) throws NoSuchAlgorithmException, NoSuchAlgorithmException {
-        // Static getInstance method is called with hashing SHA
+    /**
+     * Static method for hashing a string input.
+     * @param input string to be hashed using the SHA256 algorithm.
+     * @return returns a byte array containing the digest, used in conjunction with {@link com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator#toHexString(byte[] hash) toHexString} method to convert back into readable text.
+     * @throws NoSuchAlgorithmException Exception if the specified hashing algorithm not found, in this case "SHA-256"
+     */
+    public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-        // digest() method called
-        // to calculate message digest of an input
-        // and return array of byte
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
+
+    /**
+     * Converts hashed byte[] into a readable string.
+     * @param hash the byte[] containing the data.
+     * @return String converted from byte[] hash.
+     */
     public static String toHexString(byte[] hash) {
 
         BigInteger number = new BigInteger(1, hash);
@@ -55,26 +68,33 @@ public class Authenticator {
         return hexString.toString();
     }
 
+    /**
+     * Creates a random string, to be used as salt.
+     * @return random string.
+     */
     public static String generateSalt(){
         return RandomStringUtils.random(32, true, true);
     }
 
+    /**
+     * Method to validate the authenticity of a loggedin users.
+     * @param userId the user to be authenticated.
+     * @param authToken the token to compare with loggedin users.
+     * @param accessLevel the level at which the user attempts to authenticate.
+     * @return true if access is granted and token is stored.
+     */
     public boolean auth(String userId, Token authToken, int accessLevel) {
         Token storedToken = userIdTokenMap.get(userId);
         LocalDate ld = LocalDate.now();
-        System.out.println("get token : " + storedToken);
-        // Return false if user is logged out or session expired.
-        System.out.println("=========CHECK TOKEN=========");
-        System.out.println("Token is time valid : " + ld.isBefore(storedToken.getExpiery()) + ",\n client : " + ld + ",\n server : " + storedToken.getExpiery());
-        System.out.println();
-        System.out.println("Token matches : " + authToken.getToken().equals(storedToken.getToken()) + ",\n client : " + authToken.getToken() + ",\n server : " + storedToken.getToken());
-        System.out.println();
-        System.out.println("Access level granted : " + (ap.getAccesLevel(userId) == accessLevel) + ",\n db access level : " + ap.getAccesLevel(userId) + ",\n request access level : " + accessLevel );
-        System.out.println("==========COMPLETED==========");
         return ld.isBefore(storedToken.getExpiery()) && authToken.getToken().equals(storedToken.getToken()) && ap.getAccesLevel(userId) >= accessLevel; // Return true if user is logged in and session has not expired.
     }
+
+    /**
+     * Method to add a users token into the map of loggedin users.
+     * @param id the users id in order to fetch the token.
+     * @param token the user to put into the map.
+     */
     public void putToken(String id, Token token){
         userIdTokenMap.put(id,token);
-        System.out.println("put token : " + token);
     }
 }

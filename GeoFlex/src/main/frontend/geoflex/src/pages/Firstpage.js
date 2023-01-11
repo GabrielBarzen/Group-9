@@ -2,10 +2,33 @@ import Button from "../shared/Button"
 import Logo from "../shared/Logo"
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
+import Cookies from 'universal-cookie';
+import { useEffect } from "react";
 
+const cookies = new Cookies();
 
 export default function Firstpage() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        /**
+         * Check if the user logged in before and has a role cookie.
+         */
+        redirectIfLoggedIn();
+    })
+
+    function redirectIfLoggedIn() {
+        const role = cookies.get('role');
+        if (role === "user") {
+            navigate('/user', { replace: true });
+        }
+        else if (role === "moderator") {
+            navigate('/moderator', { replace: true });
+        }
+        else if (role === "admin") {
+            navigate('/admin', { replace: true });
+        }
+    }
 
     function navigateToLogin() {
         navigate('/Loginpage', { replace: false });

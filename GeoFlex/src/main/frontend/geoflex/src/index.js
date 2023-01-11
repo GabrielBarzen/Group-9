@@ -60,6 +60,7 @@ export default function App() {
                     <Route path='/Loginpage' element={<Loginpage />} />
                     <Route path='/Register' element={<Register />} />
                     <Route path='/TempUser' element={<TempUser />} />
+                    
                 </Route>
             </Routes>
         </BrowserRouter>

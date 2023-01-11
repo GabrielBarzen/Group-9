@@ -12,6 +12,11 @@ import org.springframework.http.ResponseEntity;
 
 public class AuthenticationCompanion {
 
+    /**
+     * Allows the creation of an account.
+     * @param register Register object.
+     * @return Response determined in Authenticator.
+     */
     public String register (Register register) {
         AuthenticationProcedures ap = new AuthenticationProcedures();
         String salt = Authenticator.generateSalt();
@@ -25,9 +30,14 @@ public class AuthenticationCompanion {
         );
     }
 
+    /**
+     * Updates user access for a route.
+     * @param body Json body containing relevant information.
+     * @return Message with status of request.
+     */
     public ResponseEntity<String> updateUser(String body) {
         AuthenticationProcedures ap = new AuthenticationProcedures();
-        System.out.println("updating users" + body);
+        //System.out.println("updating users" + body);
         Gson gson = new Gson();
         UpdateUser uu = gson.fromJson(body,UpdateUser.class);
         String userId = uu.userId;

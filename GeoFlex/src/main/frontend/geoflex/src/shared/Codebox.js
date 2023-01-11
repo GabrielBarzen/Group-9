@@ -116,6 +116,7 @@ export default class Codebox extends Component {
           <b>Skriv in din fyrsiffriga kod för att starta rundan.</b>
         </div>
       </div>
+      
       <div id="inputs" className='row'>
         <input
           type="text"

@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     /**
      * Returns a complete route with locations and content by its code or id. (/user/route) GET
      * @return Response entity containing json the route.
      */
-
     @RequestMapping(value = "/route", method = RequestMethod.GET)
     public ResponseEntity<String> routeGet(@RequestParam String routeCode) {
         UserCompanion userCompanion = new UserCompanion();
@@ -37,14 +37,11 @@ public class UserController {
 
     /**
      * Increments the route finished variable in the database by one.
-     * @param token The user token.
-     * @param userID The user ID.
      * @param routeId The route ID.
      * @return Message with status depending on outcome.
      */
     @RequestMapping(value = "/route/stats/finished", method = RequestMethod.GET)
-    public ResponseEntity<String> updateRouteStatsFinished(@CookieValue(name = "authentication-token") String token,
-                                           @CookieValue(name = "user-id") String userID, @RequestParam String routeId) {
+    public ResponseEntity<String> updateRouteStatsFinished(@RequestParam String routeId) {
         UserCompanion userCompanion = new UserCompanion();
         return userCompanion.updateRouteStatsFinished(routeId);
     }
