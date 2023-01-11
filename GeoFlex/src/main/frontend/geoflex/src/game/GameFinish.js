@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import GameResults from './GameResults';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 export default function GameFinish(props) {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const data = props.currentQuestion;
-
-
-
 
   useEffect(() => {
 
@@ -36,7 +34,55 @@ export default function GameFinish(props) {
     const loadAnswers = JSON.parse(localStorage.getItem("userAnswers")) || "";
     setQuestions(quizData);
     setAnswers(loadAnswers);
-  }, [setQuestions, setAnswers])
+
+    //verify current user
+    let hasCookie = checkCookie();
+    console.log(hasCookie)
+    if (hasCookie !== undefined) {
+      assignRouteToUser(hasCookie)
+    }
+
+  }, [setQuestions, setAnswers, assignRouteToUser, checkCookie])
+
+  function checkCookie() {
+    const cookies = new Cookies();
+    let cookieValue = cookies.get('user-id')
+    return cookieValue
+  }
+
+  function assignRouteToUser(id) {
+
+    var data = JSON.stringify(
+      {
+        "user-id": id,
+        "access-level": 1,
+        "route": [
+          {
+            "assign": props.quizID
+          }
+        ]
+      }
+    )
+
+    var config = {
+      method: 'patch',
+      url: '/user/route/assign',
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   if ((questions.length !== 0) && (answers.length) !== 0) {
     return (
       <>
