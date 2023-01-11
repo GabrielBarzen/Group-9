@@ -1,5 +1,7 @@
 package com.GeoFlex.GeoFlexBackend.DatabaseAccess;
 
+import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
+
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -241,5 +243,43 @@ public class AuthenticationProcedures {
             }
         }
         return success;
+    }
+
+    public boolean setUserPassword(String s,String password) {
+        int userId = -1;
+        try {
+            userId = Integer.parseInt(s);
+        } catch (NumberFormatException e){
+            System.out.println("Invalid format for user id : " + s );
+            return false;
+        }
+
+        String salt = getSalt(String.valueOf(userId));
+        String hashedPassword = Authenticator.getHash(password,salt);
+        DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_user_password(?,?)}")) {
+            cs.setInt("in_user_id", (userId));
+            cs.setString("in_user_password", (hashedPassword));
+            System.out.println("Not implemented in database");
+//            cs.executeQuery();
+//            ResultSet res = cs.getResultSet();
+//            while(res.next()){
+//                success = res.getBoolean("success");
+//            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return success;
+    }
+
+    public void getAllUsers(String s) {
     }
 }

@@ -136,6 +136,9 @@ public class CLIController {
 
 
                     }
+                    case "user" -> {
+                        new CLIUserController(inputSplitArray);
+                    }
                     default -> {
                         System.out.println("Help :");
                         System.out.println("Available commands :");
