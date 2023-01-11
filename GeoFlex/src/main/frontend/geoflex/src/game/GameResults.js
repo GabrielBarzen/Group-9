@@ -81,16 +81,16 @@ export default function GameResults(props) {
     if (quizType === "quiz") {
         return (
             <div>
-                <h2>{currentQuestion.name}</h2>
+                <h5>{currentQuestion.name}</h5>
                 <p>{currentQuestion.text_info}</p>
-                <h3>Rätt svar</h3>
+                <h6>Rätt svar</h6>
                 {
                     [...correctAnswers].map((answer) => (<p
                         key={answer["content-id"]}
                     > {answer.answer}</p>
 
                     ))}
-                <h3>Ditt svar</h3>
+                <h6>Ditt svar</h6>
                 {
                     [...renderUserAnswers].map((answers) => <p
                         key={answers["content-id"]}> {answers.answer}</p>
