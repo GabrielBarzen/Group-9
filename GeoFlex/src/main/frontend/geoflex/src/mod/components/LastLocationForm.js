@@ -85,7 +85,7 @@ export default class LastLocationForm extends Component {
     this.setState({ [name]: value });
     if (name === "title") {
       this.props.handleChange(value)
-  }
+    }
 
     if ((name === "locationMediaExternal") || (name === "locationMediaType")) {
       this.setState({ locationMediaUrl: "" })
@@ -148,9 +148,9 @@ export default class LastLocationForm extends Component {
           </label>
           <label>
             Innehåll
-            <textarea 
+            <textarea
               className='blue lighten-4 materialize-textarea'
-              name="description" 
+              name="description"
               value={this.state.description}
               onChange={this.handleInputChange} />
           </label>
