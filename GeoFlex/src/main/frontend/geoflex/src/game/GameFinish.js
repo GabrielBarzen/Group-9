@@ -35,14 +35,9 @@ export default function GameFinish(props) {
     setQuestions(quizData);
     setAnswers(loadAnswers);
 
-    //verify current user
-    let hasCookie = checkCookie();
-    console.log(hasCookie)
-    if (hasCookie !== undefined) {
-      assignRouteToUser(hasCookie)
-    }
+    
 
-  }, [setQuestions, setAnswers, assignRouteToUser, checkCookie])
+  }, [setQuestions, setAnswers])
 
   function checkCookie() {
     const cookies = new Cookies();
@@ -81,6 +76,13 @@ export default function GameFinish(props) {
       .catch(function (error) {
         console.log(error);
       });
+  }
+  
+  //verify current user
+  let hasCookie = checkCookie();
+  console.log(hasCookie)
+  if (hasCookie !== undefined) {
+    assignRouteToUser(hasCookie)
   }
 
   if ((questions.length !== 0) && (answers.length) !== 0) {
