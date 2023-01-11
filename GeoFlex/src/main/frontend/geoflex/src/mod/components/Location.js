@@ -221,9 +221,6 @@ export default function Location(props) {
                                         edit
                                     </i> Ändra</a>
                             </div>
-
-
-
                         </div>
                         <div className='collapsible-body col s12'>
                             <ModEditLocation
