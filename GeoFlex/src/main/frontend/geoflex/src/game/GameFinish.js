@@ -15,7 +15,7 @@ export default function GameFinish(props) {
     //API-call to update database that a user has finished a quiz
     var config = {
       method: "get",
-      url: "user/route/stats/finished?routeId=" + props.quizID,
+      url: "/user/route/stats/finished?routeId=" + props.quizID,
       headers: {
         "Content-Type": "application/json",
       },
