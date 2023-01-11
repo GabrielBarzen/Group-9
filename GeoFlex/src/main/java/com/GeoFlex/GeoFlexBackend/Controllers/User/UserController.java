@@ -60,4 +60,20 @@ public class UserController {
         return userCompanion.routesGet(userID);
     }
 
+    /**
+     * Endpoint to assign a moderator to a route.
+     * @param body Json body containing all relevant inforamtion.
+     * @param token The user token sent as a cookie.
+     * @param userID The uer id sent as a cookie.
+     * @return Response determined in the AdminCompanion.
+     */
+    @RequestMapping(value = "/route/assign", method = RequestMethod.PATCH)
+    public ResponseEntity<String> routeAssignModerator(@RequestBody String body,
+                                                       @CookieValue(name = "authentication-token") String token,
+                                                       @CookieValue(name = "user-id") String userID) {
+
+        UserCompanion userCompanion = new UserCompanion();
+        return userCompanion.routeChangeAccess(body);
+    }
+
 }

@@ -3,6 +3,9 @@ package com.GeoFlex.GeoFlexBackend.Controllers.User;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.ModeratorProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.UserProcedures;
+import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.ModeratorAssign;
+import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.Route;
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -82,5 +85,23 @@ public class UserCompanion {
         }
         response = new ResponseEntity<>(json, responseStatus);
         return response;
+    }
+
+    /**
+     * Allows changing whether a moderator has access to a route or not.
+     * @param body
+     * @return OK message body if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> routeChangeAccess(String body) {
+        Gson gson = new Gson();
+        AdminProcedures ap = new AdminProcedures();
+        ModeratorAssign ma = gson.fromJson(body, ModeratorAssign.class);
+        String id = ma.userId;
+        String accessLevel = ma.accessLevel;
+        for (Route route : ma.route) {
+            ap.changeUserAccess(id, route.assign != null ? route.assign : route.unAssign, accessLevel, route.unAssign != null);
+        }
+
+        return new ResponseEntity<>("OK", HttpStatus.OK); //TODO
     }
 }
