@@ -19,16 +19,34 @@ public class UserController {
      */
 
     @RequestMapping(value = "/route", method = RequestMethod.GET)
-    public ResponseEntity<String> routeGet(@CookieValue(name = "authentication-token") String token,
-                                           @CookieValue(name = "user-id") String userID, @RequestParam String routeCode) {
+    public ResponseEntity<String> routeGet(@RequestParam String routeCode) {
         UserCompanion userCompanion = new UserCompanion();
-        /*AdminCompanion adminCompanion = getAdminCompanion(token,userID);
-        UserCompanion userCompanion = getUserCompanion(token, userID);
-        if (adminCompanion == null) {
-            return new ResponseEntity<>("{\"error\" : \"forbidden\"}", HttpStatus.FORBIDDEN);
-        }*/
-
         return userCompanion.routeGet(routeCode);
+    }
+
+    /**
+     * *
+     * @param routeCode The route code.
+     * @return Message with status depending on outcome.
+     */
+    @RequestMapping(value = "/checkRoute", method = RequestMethod.GET)
+    public ResponseEntity<String> getRouteIdFromCode(@RequestParam String routeCode) {
+        UserCompanion userCompanion = new UserCompanion();
+        return userCompanion.routeGetIdFromCode(routeCode);
+    }
+
+    /**
+     * Increments the route finished variable in the database by one.
+     * @param token The user token.
+     * @param userID The user ID.
+     * @param routeId The route ID.
+     * @return Message with status depending on outcome.
+     */
+    @RequestMapping(value = "/route/stats/finished", method = RequestMethod.GET)
+    public ResponseEntity<String> updateRouteStatsFinished(@CookieValue(name = "authentication-token") String token,
+                                           @CookieValue(name = "user-id") String userID, @RequestParam String routeId) {
+        UserCompanion userCompanion = new UserCompanion();
+        return userCompanion.updateRouteStatsFinished(routeId);
     }
 
 }

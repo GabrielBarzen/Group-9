@@ -14,6 +14,7 @@ export default function AdminOverview() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
+    console.log("OVERVIEW USEEFFECT");
     /*
     useEffect renders every first load of the page and then every time the state of "status" changes.
     API call GET an overview-object of all tours (quiz or infotour) and changes the state of the "tours"-variable to contain the response object.
@@ -30,11 +31,14 @@ export default function AdminOverview() {
       })
       .catch(function (error) {
         console.log(error);
-        //setTours([{"title":"Test Quiz","description":"This quiz is for testing purposes.","type":"QUIZ","id":"1","code":"572748","locations":3},{"title":"Test Info","description":"This info for testing purposes.","type":"INFO","id":"2","code":"184471","locations":3},{"title":"Test 2","description":"More testing tests ","type":"INFO","id":"4","code":"295052","locations":0},{"title":"Num Location Test1","description":"test, remove","type":"INFO","id":"5","code":"447827","locations":0},{"title":"Num Location Test2","description":"test, remove","type":"INFO","id":"6","code":"625158","locations":3},{"title":"Num Location Test3","description":"test, remove","type":"INFO","id":"7","code":"782310","locations":4},{"title":"Test Quiz2E","description":"This quiz is for testing purposes.","type":"QUIZ","id":"8","code":"538027","locations":6},{"title":"Test Quizz","description":"This quiz is for testing purposes.","type":"QUIZ","id":"10","code":"983850","locations":6}]);
+
+        //Dev placeholderdata
+        setTours([{"title":"Test Quiz","description":"This quiz is for testing purposes.","type":"QUIZ","id":"1","code":"572748","locations":3},{"title":"Test Info","description":"This info for testing purposes.","type":"INFO","id":"2","code":"184471","locations":3},{"title":"Test 2","description":"More testing tests ","type":"INFO","id":"4","code":"295052","locations":0},{"title":"Num Location Test1","description":"test, remove","type":"INFO","id":"5","code":"447827","locations":0},{"title":"Num Location Test2","description":"test, remove","type":"INFO","id":"6","code":"625158","locations":3},{"title":"Num Location Test3","description":"test, remove","type":"INFO","id":"7","code":"782310","locations":4},{"title":"Test Quiz2E","description":"This quiz is for testing purposes.","type":"QUIZ","id":"8","code":"538027","locations":6},{"title":"Test Quizz","description":"This quiz is for testing purposes.","type":"QUIZ","id":"10","code":"983850","locations":6}]);
       });
   }, [status]);
 
   function deleteItem(id) {
+    console.log("OVERVIEW DELETE")
     /*
     API call DELETE to remove a single tour based on its ID
     */
@@ -61,7 +65,7 @@ export default function AdminOverview() {
       });
   }
 
-  if (tours) {
+  if (tours.length !== 0) {
     /*
     if: tours is populated we render the jsx HTML passing each tour into Tour.js along with all its data and the DELETE function.
     else: a loading circle will render while waiting for tours to be populated
@@ -80,10 +84,10 @@ export default function AdminOverview() {
           <div className="center-align">
             <Link to="/admin/new/">
               <Button
-                css=" s12 green lighten-4"
+                css=" s12 green green lighten-1"
                 
                 icon={
-                  <i className="material-icons green-text">
+                  <i className="material-icons white-text">
                     add_circle_outline
                   </i>
                 }

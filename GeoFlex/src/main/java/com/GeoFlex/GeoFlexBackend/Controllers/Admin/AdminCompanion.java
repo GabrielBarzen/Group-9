@@ -1,14 +1,21 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Admin;
 
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
-import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.LoginType;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AdminProcedures;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
+import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.ModeratorAssign;
+import com.GeoFlex.GeoFlexBackend.PoJo.ModeratorAssign.Route;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.RouteUpdate.RootUpdate;
+import com.GeoFlex.GeoFlexBackend.Process.FileHandler;
+import com.GeoFlex.GeoFlexBackend.Process.Mail.AccountTypes;
+import com.GeoFlex.GeoFlexBackend.Process.Mail.MailService;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.Objects;
 
 public class AdminCompanion {
 
@@ -21,20 +28,6 @@ public class AdminCompanion {
     public AdminCompanion(String userID) {
         this.userID = userID;
     }
-
-    public static AdminCompanion GetLoginCompanion(String identification, String password, LoginType type) {
-        //Take username or email
-        //try auth with pasword hashed with string via
-        String salt = AuthenticationProcedures.getSalt(identification, type);
-        String userid = AuthenticationProcedures.getID(identification,type);
-        String hash = Authenticator.getHash(password,salt);
-        if (hash == AuthenticationProcedures.getHashedPassword(userid)) {
-            return new AdminCompanion(userid);
-        } else {
-            return null;
-        }
-    }
-
 
     /**
      * Returns all routes in the system as user is admin. (/admin/routes) GET
@@ -106,6 +99,9 @@ public class AdminCompanion {
         response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         Gson gson = new Gson();
         RootUpdate ru = gson.fromJson(body, RootUpdate.class);
+        if(ru.routeUpdate.routeId == null){
+            return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        }
         if(ru.routeUpdate.title != null){
             AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
             response = new ResponseEntity<>("", HttpStatus.OK);
@@ -147,6 +143,8 @@ public class AdminCompanion {
                     try {
                         System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
                         AdminProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        FileHandler fh = new FileHandler();
+                        fh.deleteFileDirectory(Integer.parseInt(ru.routeUpdate.location.get(i).delete), "locations");
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
                         System.out.println("excepting delete");
@@ -171,6 +169,8 @@ public class AdminCompanion {
         else {
             response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
             AdminProcedures.deleteRoute(routeID);
+            FileHandler fh = new FileHandler();
+            fh.deleteFileDirectory(Integer.parseInt(routeID), "routes");
         }
         return response;
     }
@@ -187,6 +187,93 @@ public class AdminCompanion {
         }
         else {
             String json = AdminProcedures.getRouteLocations(routeID);
+            response = new ResponseEntity<>(json, HttpStatus.OK);
+        }
+        return response;
+    }
+
+
+    public ResponseEntity<String> routeChangeAccess(String body) {
+        Gson gson = new Gson();
+        AdminProcedures ap = new AdminProcedures();
+        ModeratorAssign ma = gson.fromJson(body, ModeratorAssign.class);
+        String id = ma.userId;
+        String accessLevel = ma.accessLevel;
+        for (Route route : ma.route) {
+            ap.changeUserAccess(id, route.assign != null ? route.assign : route.unAssign, accessLevel, route.unAssign != null);
+        }
+
+        return new ResponseEntity<>("OK", HttpStatus.OK); //TODO
+    }
+
+
+
+    /**
+     * Creates a moderator account.
+     * @param body Json with the account data.
+     * @return OK message body if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> createModerator(String body) {
+        ResponseEntity<String> response;
+        if(body.isEmpty() || body == null){
+            response = new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(body, JsonObject.class);
+            String name = jsonObject.get("create-moderator").getAsJsonObject().get("name").getAsString();
+            String email = jsonObject.get("create-moderator").getAsJsonObject().get("email").getAsString();
+            String unsaltedPassword = jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString();
+            String salt = Authenticator.generateSalt();
+            String password = Authenticator.getHash(jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString() ,salt);
+            AdminProcedures.createModerator(name, email, password, salt);
+            MailService ms = new MailService();
+            ms.sendEmailCreateAccount(email, name, unsaltedPassword, AccountTypes.MODERATOR);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        return response;
+    }
+
+    public ResponseEntity<String> deleteModerator(String userId) {
+        ResponseEntity<String> response;
+        if(userId != null){
+            AdminProcedures.deleteModerator(userId);
+            response = new ResponseEntity<>("", HttpStatus.OK);
+        }
+        else {
+            response = new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
+        }
+        return response;
+    }
+
+    /**
+     * Gets a list of all moderators.
+     * @return Returns a json filled with all moderators.
+     */
+    public ResponseEntity<String> getAllModerators() {
+        ResponseEntity<String> response;
+            String json = AdminProcedures.getAllModerators();
+            if(json.isEmpty()){
+                response = new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+            }
+            else {
+                response = new ResponseEntity<>(json, HttpStatus.OK);
+            }
+        return response;
+    }
+
+    /**
+     * Gets a list of all routes for a specific user.
+     * @param userId The ID of the user.
+     * @return OK message body if sucessfull, error with details if not.
+     */
+    public ResponseEntity<String> getRouteForUser(String userId) {
+        ResponseEntity<String> response;
+        String json = AdminProcedures.getRoutesForUser(Integer.parseInt(userId));
+        if(json.isEmpty()){
+            response = new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+        }
+        else {
             response = new ResponseEntity<>(json, HttpStatus.OK);
         }
         return response;

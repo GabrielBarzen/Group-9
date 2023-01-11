@@ -5,6 +5,9 @@ import com.GeoFlex.GeoFlexBackend.PoJo.Route.Location;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Root;
 import com.GeoFlex.GeoFlexBackend.PoJo.Route.Route;
 import com.google.gson.Gson;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -338,6 +341,144 @@ public class AdminProcedures {
             throw new RuntimeException(e);
         }
         finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public String changeUserAccess(String userId, String routeId, String accessLevel, boolean remove) {
+        String retval = "";
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_change_user_route_access(?, ? ,? ,?)}")) {
+            cs.setInt("in_user_id", Integer.parseInt(userId));
+            cs.setInt("in_route_id", Integer.parseInt(routeId));
+            cs.setInt("access_level", Integer.parseInt(accessLevel));
+            cs.setBoolean("remove", remove);
+            cs.execute();
+            retval = "Success";
+        } catch (SQLException e) {
+            retval = "Fail";
+        }
+        return retval;
+    }
+
+
+    public static void createModerator(String name, String email, String password, String salt) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_moderator(?, ?, ?, ?)}")) {
+            cs.setString("in_name", name);
+            cs.setString("in_email", email);
+            cs.setString("in_password_hashed", password);
+            cs.setString("in_salt", salt);
+
+            cs.execute();
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void deleteModerator(String userId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_moderator(?)}")) {
+            cs.setString("in_user_id", userId);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    public static String getAllModerators() {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_users_by_role(?)}")) {
+            cs.setInt("in_role", 1);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray array = new JSONArray();
+            while(res.next()){
+                JSONObject row = new JSONObject();
+                try {
+                    row.put("user-id", res.getInt("id"));
+                    row.put("name", res.getString("name"));
+                    array.put(row);
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            try {
+                jsonObject.put("moderators", array);
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+            return jsonObject.toString();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static String getRoutesForUser(int userId) {
+        DatabaseConnection dc = new DatabaseConnection();
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_all_routes_for_user(?)}")) {
+            cs.setInt("in_user_id", userId);
+            cs.execute();
+            ResultSet res = cs.getResultSet();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray array = new JSONArray();
+            if (res != null) {
+                while (res.next()) {
+                    JSONObject row = new JSONObject();
+                    try {
+                        row.put("id", res.getInt("id"));
+                        row.put("title", res.getString("title"));
+                        row.put("description", res.getString("description"));
+                        row.put("type", res.getString("type"));
+                        row.put("code", res.getInt("code"));
+                        row.put("locations", res.getInt("locations"));
+                        array.put(row);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    jsonObject.put("routes-for-user", array);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(jsonObject);
+                return jsonObject.toString();
+            } else {
+                return "Den här moderatorn har inget tilldelat.";
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
             try {
                 dc.getConnection().close();
             } catch (SQLException e) {
