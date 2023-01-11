@@ -79,8 +79,10 @@ export default function Loginpage() {
         </div>
     </div>
         <div className="row">
-            <div className="col s12 offset-s1"> 
-            <Button text="Logga in" css="col s10" icon={<i className="small material-icons right">arrow_forward</i>} click={handleLogin}/>
+            <div className="container">
+                <div className="col s12 btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2" click={handleLogin}>
+                    <i className="small material-icons right">arrow_forward</i>Logga in
+                </div>
             </div>
         </div>
         </>
