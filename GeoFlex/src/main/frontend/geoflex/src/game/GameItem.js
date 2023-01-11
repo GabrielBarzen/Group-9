@@ -6,7 +6,7 @@ export default function GameItem(props) {
   const colors = ['light-blue darken-3', 'grey darken-3', 'amber darken-4', 'purple darken-4', 'teal lighten-1'];
   const data = props.currentQuestion
 
-
+/*
   const handleClick = (id) => {
     // update clickedIds state here using props.setClickedIds
     const newClickedIds = { ...props.clickedIds }; // make a copy of the current clickedIds state
@@ -20,7 +20,18 @@ export default function GameItem(props) {
     props.setClickedIds(newClickedIds); // update the clickedIds state
     console.log(props.clickedIds)
   };
+*/
+const handleClick = (id) => {
+  let newClickedIds = { ...props.clickedIds };
 
+  const exists = newClickedIds.answers.find(ans => ans.id === id);
+  if (exists){
+    newClickedIds.answers = newClickedId.answers.filter(ans => ans.id !== id)
+  } else {
+    newClickedIds.answers = newClickedIds.answers.concat({id:id})
+  }
+  props.setClickedIds(newClickedIds);
+};
   return (
     <>
       <div className='row'>
