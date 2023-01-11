@@ -335,7 +335,7 @@ public class ModeratorProcedures {
     public void routeUploadFile(int routeId, String filePath, String mediaType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
         if(!externalMedia){
-            filePath = "http://geoflex.westeurope.cloudapp.azure.com/"+filePath;
+            filePath = "https://geoflex.vardspel.se/"+filePath;
         }
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_image(?, ?, ?, ?)}")) {
             cs.setInt("in_route_id", routeId);
@@ -552,7 +552,7 @@ public class ModeratorProcedures {
     public void locationUploadFile(int locationId, String filePath, String dataType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
         if(!externalMedia){
-            filePath = "http://geoflex.westeurope.cloudapp.azure.com/"+filePath;
+            filePath = "https://geoflex.vardspel.se/"+filePath;
         }
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
