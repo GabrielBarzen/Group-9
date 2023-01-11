@@ -113,7 +113,7 @@ export default class Codebox extends Component {
     return (<>
       <div className='row'>
         <div className='col center-align'>
-          <b>Skriv in din fyrsiffriga kod eller scanna QR-kod för att gå med i rundan.</b>
+          <b>Skriv in din fyrsiffriga kod för att starta rundan.</b>
         </div>
       </div>
       <div id="inputs" className='row'>
