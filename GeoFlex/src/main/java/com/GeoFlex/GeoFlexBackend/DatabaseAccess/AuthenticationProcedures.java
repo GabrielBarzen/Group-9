@@ -254,14 +254,14 @@ public class AuthenticationProcedures {
             return false;
         }
 
-        String salt = getSalt(String.valueOf(userId));
+        String salt = Authenticator.generateSalt();
         String hashedPassword = Authenticator.getHash(password,salt);
         DatabaseConnection dc = new DatabaseConnection();
         boolean success = false;
-        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_user_password(?,?)}")) {
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_user_password(?,?,?)}")) {
             cs.setInt("in_user_id", (userId));
-            cs.setString("in_user_password", (hashedPassword));
             System.out.println("Not implemented in database");
+            cs.setString("in_user_salt", (salt));
 //            cs.executeQuery();
 //            ResultSet res = cs.getResultSet();
 //            while(res.next()){
