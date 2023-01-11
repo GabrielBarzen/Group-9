@@ -101,21 +101,27 @@ export default function GameStart() {
     } else {
         return (
             <>
-                <section className="container center-align">
-                    <div className="preloader-wrapper big active">
-                        <div className="spinner-layer spinner-red-only">
-                            <div className="circle-clipper left">
-                                <div className="circle"></div>
-                            </div>
-                            <div className="gap-patch">
-                                <div className="circle"></div>
-                            </div>
-                            <div className="circle-clipper right">
-                                <div className="circle"></div>
-                            </div>
+                <div className="container white container-css">
+                    <div className="row">
+
+                        <div className="col s12">
+                            <h5 className="center-align">Översikt användare</h5>
+                        </div>
+
+                    </div>
+                    <div className="row">
+                        <div className="col s12">
+                            <ul className="collection">
+                                <li>Du har inte deltagit i några quiz ännu. När du gjort det kommer de listas här</li>
+                            </ul>
                         </div>
                     </div>
-                </section>
+                    <div className="container">
+                        <div className="row">
+                            <Button text="Starta spel" css="col s12" icon={<i className="small material-icons right">arrow_forward</i>} click={navigateToStart} />
+                        </div>
+                    </div>
+                </div>
             </>
         );
     }
