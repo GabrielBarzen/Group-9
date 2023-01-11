@@ -19,6 +19,7 @@ export default function Tour(props) {
         <Link className="col s9 offset-s1" style={{ cursor: 'pointer', 'fontSize': '1rem', 'color': 'black' }} to={url} state={{ data: props.data }}>
           {props.data.title}
           <p>Quiz kod: {props.data.code}</p>
+          <p>Avklarad: {props.data.timesFinished} gånger</p>
         </Link>
 
 
