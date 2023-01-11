@@ -1,6 +1,7 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.User;
 
 import com.GeoFlex.GeoFlexBackend.Controllers.Admin.AdminCompanion;
+import com.GeoFlex.GeoFlexBackend.Controllers.Moderator.ModeratorCompanion;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,35 @@ public class UserController {
     public ResponseEntity<String> updateRouteStatsFinished(@RequestParam String routeId) {
         UserCompanion userCompanion = new UserCompanion();
         return userCompanion.updateRouteStatsFinished(routeId);
+    }
+
+    /**
+     * Returns a list of all the routes from the database.
+     * @param token The user token sent as a cookie.
+     * @param userID The uer id sent as a cookie.
+     * @return Response determined in the ModeratorCompanion.
+     */
+    @RequestMapping(value = "/routes", method = RequestMethod.GET)
+    public ResponseEntity<String> routesGet(@CookieValue(name = "authentication-token") String token,
+                                            @CookieValue(name = "user-id") String userID) {
+        UserCompanion userCompanion = new UserCompanion();
+        return userCompanion.routesGet(userID);
+    }
+
+    /**
+     * Endpoint to assign a moderator to a route.
+     * @param body Json body containing all relevant inforamtion.
+     * @param token The user token sent as a cookie.
+     * @param userID The uer id sent as a cookie.
+     * @return Response determined in the AdminCompanion.
+     */
+    @RequestMapping(value = "/route/assign", method = RequestMethod.PATCH)
+    public ResponseEntity<String> routeAssignModerator(@RequestBody String body,
+                                                       @CookieValue(name = "authentication-token") String token,
+                                                       @CookieValue(name = "user-id") String userID) {
+
+        UserCompanion userCompanion = new UserCompanion();
+        return userCompanion.routeChangeAccess(body);
     }
 
 }

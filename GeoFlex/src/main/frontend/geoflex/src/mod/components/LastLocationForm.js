@@ -20,12 +20,7 @@ export default class LastLocationForm extends Component {
   }
 
   componentDidMount() {
-    console.log("LAST LOCATION FORM PROPS DATA")
-    console.log(this.props.data)
-    console.log(this.props.data.name)
-    console.log(this.props.data.text_info)
-
-
+    
     if (this.props.data.media[0].mediaType === "video") {
       this.setState({ locationMediaType: false })
     } else if (this.props.data.media[0].mediaType === "image") {
@@ -85,7 +80,7 @@ export default class LastLocationForm extends Component {
     this.setState({ [name]: value });
     if (name === "title") {
       this.props.handleChange(value)
-  }
+    }
 
     if ((name === "locationMediaExternal") || (name === "locationMediaType")) {
       this.setState({ locationMediaUrl: "" })
@@ -148,9 +143,9 @@ export default class LastLocationForm extends Component {
           </label>
           <label>
             Innehåll
-            <textarea 
+            <textarea
               className='blue lighten-4 materialize-textarea'
-              name="description" 
+              name="description"
               value={this.state.description}
               onChange={this.handleInputChange} />
           </label>

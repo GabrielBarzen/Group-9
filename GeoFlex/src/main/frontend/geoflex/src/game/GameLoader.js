@@ -35,6 +35,7 @@ export default function GameLoader() {
                     type: response.data[0].type,
                     id: response.data[0].id,
                     code: response.data[0].code,
+                    routeMedia: response.data[0].routeMedia[0]
                 })
                 await setQuestions(response.data[0].location)
                 await setStatus(true);

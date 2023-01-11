@@ -18,7 +18,8 @@ export default function ModEdit() {
   const routeData = location.state.data;
   const [routeLocationsData, setRouteLocationsData] = useState([]);
   const [status, setStatus] = useState(false);
-
+  console.log("ROUTEDATA")
+  console.log(routeData)
   useEffect(() => {
     /**
     *useEffect renders every first load of the page and then every time the state of "status" changes. routeData.id is also included at the en as a dependency
@@ -320,25 +321,16 @@ export default function ModEdit() {
       });
   }
 
-  const handleSave = (id, title, description) => {
+  const handleSave = (data) => {
     /**
     *API call PATCH to save and update all form-data to database
     *if OK 200 redirect user by replacing URL through navigate
     */
-    console.log("SAVE: ID" + id + "TITLE: " + title + "DESCRIPTION: " + description)
+    
 
-    var data = {
-      "route-update": {
-        "route-id": id,
-        "title": title,
-        "description": description,
-        "image": "",
-        "type": "INFO",
-        "location": [
-        ]
-      }
-    }
-
+    
+    console.log("DATA OBJEKT")
+    console.log(data)
     var config = {
       method: 'patch',
       url: '/moderator/route/',

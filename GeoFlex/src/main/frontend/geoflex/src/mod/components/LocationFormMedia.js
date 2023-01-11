@@ -11,8 +11,11 @@ export default class LocationFormMedia extends Component {
      */
     constructor(props) {        
         super(props);
+        console.log("MEDIAFORM")
+        console.log(props.routeID)
         this.state = {
             locationID: props.locationID,
+            routeID: props.routeID,
             mediaExternal: props.locationMediaExternal,
             mediaUrl: props.locationMediaUrl,
             mediaType: props.locationMediaType,
@@ -51,12 +54,18 @@ export default class LocationFormMedia extends Component {
     handleGetMediaLocation() {
         //API-call to GET the url for an uploaded media file
         //Note that binding to is done inside the axios call in order to access "this".
-        
+        let url;
+        if(this.state.routeID !== undefined){
+            url = '/moderator/route/file/retrieve?routeId=' + this.state.routeID
+        } else {
+            url = '/moderator/location/file/retrieve?locationId=' + this.state.locationID
+        }
+
 
         var myData;
         var config = {
             method: 'get',
-            url: '/moderator/location/file/retrieve?locationId=' + this.state.locationID,
+            url: url,
             headers: {}
         };
 
@@ -93,12 +102,18 @@ export default class LocationFormMedia extends Component {
         
 
         var data = new FormData();
+        let url;
+        if(this.state.routeID !== undefined){
+            url = '/moderator/route/file/upload?routeId=' + this.state.routeID
+        } else {
+            url = '/moderator/location/file/upload?locationId=' + this.state.locationID
+        }
 
         data.append('file', event.target.files[0]);
 
         var config = {
             method: 'post',
-            url: '/moderator/location/file/upload?locationId=' + this.state.locationID,
+            url: url,
             headers: {
                 "Content-Type": "multipart/form-data"
             },
@@ -300,7 +315,7 @@ export default class LocationFormMedia extends Component {
 
         //html to render media settings; lets the moderator choose between uploading a video/image file or add an external video/image file
         let mediaSettings = (<>
-            <div className='row' style={{ 'margin-left': '0rem' }}>
+            <div className='row' style={{ 'marginLeft': '0rem' }}>
                 <div className='col 10'>
                     <div className="switch row">
                         <h5>Media</h5>
@@ -323,7 +338,7 @@ export default class LocationFormMedia extends Component {
                     </div>
                 </div>
             </div>
-            <div className='row' style={{ 'margin-left': '0rem' }}>
+            <div className='row' style={{ 'marginLeft': '0rem' }}>
                 <div className='col 10'>
                     <div className="switch row">
                         <i>Vilken typ av media är det?</i>

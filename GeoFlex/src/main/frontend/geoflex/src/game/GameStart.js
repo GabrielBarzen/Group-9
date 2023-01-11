@@ -1,23 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../shared/Button";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import GameTour from './GameTour'
 
-/*
-placeholder while developing - clean this
-[{"title":"Test Quiz","description":"This quiz is for testing purposes.","type":"QUIZ","id":"1","code":"572748","locations":3},{"title":"Test Info","description":"This info for testing purposes.","type":"INFO","id":"2","code":"184471","locations":3},{"title":"Test 2","description":"More testing tests ","type":"INFO","id":"4","code":"295052","locations":0},{"title":"Num Location Test1","description":"test, remove","type":"INFO","id":"5","code":"447827","locations":0},{"title":"Num Location Test2","description":"test, remove","type":"INFO","id":"6","code":"625158","locations":3},{"title":"Num Location Test3","description":"test, remove","type":"INFO","id":"7","code":"782310","locations":4},{"title":"Test Quiz2E","description":"This quiz is for testing purposes.","type":"QUIZ","id":"8","code":"538027","locations":6},{"title":"Test Quizz","description":"This quiz is for testing purposes.","type":"QUIZ","id":"10","code":"983850","locations":6}]
-*/
 export default function GameStart() {
+    const [tours, setTours] = useState([]);
+    
+
+    useEffect(() => {
+
+        var config = {
+            method: "get",
+            url: "/user/routes",
+            headers: {},
+        };
+
+        axios(config)
+            .then(function (response) {
+                setTours(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+
+                //Dev placeholderdata
+                const placeholder = [{
+                    "title": "T",
+                    "description": "1",
+                    "type": "QUIZ",
+                    "id": "1552",
+                    "code": "8196",
+                    "media": [
+                        {
+                            "mediaUrl": "https://www.twitch.tv/odablock",
+                            "mediaType": "video",
+                            "externalMedia": true
+                        }
+                    ],
+                    "locations": 3,
+                    "timesFinished": "0"
+                }, {
+                    "title": "T",
+                    "description": "1",
+                    "type": "QUIZ",
+                    "id": "1554",
+                    "code": "8193",
+                    "media": [
+                        {
+                            "mediaUrl": "",
+                            "mediaType": "",
+                            "externalMedia": false
+                        }
+                    ],
+                    "locations": 3,
+                    "timesFinished": "0"
+                }];
+                placeholder.reverse();
+                setTours(placeholder);
+            });
+    }, [setTours]);
+
     const navigate = useNavigate();
 
     function navigateToStart() {
         navigate('/game/start', { replace: false });
     }
-    /*
-    Dummydata
-    */
-    const tours = 0
-
-
 
     if (tours.length !== 0) {
         /*
@@ -26,21 +73,27 @@ export default function GameStart() {
         */
         return (
             <>
-                <div className="row">
-                    <div className="container white container-css">
-                        <div className="row">
-                            <div className="col s12">
-                                <h5 className="center-align">Översikt användare</h5>
-                                <ul className="collection">
+                <div className="container white container-css">
+                    <div className="row">
 
-                                </ul>
-                            </div>
+                        <div className="col s12">
+                            <h5 className="center-align">Översikt användare</h5>
+                        </div>
+
+                    </div>
+                    <div className="row">
+                        <div className="col s12">
+                            <ul className="collection">
+                                {[...tours].map((tour) => (
+                                    <GameTour key={tour.id} data={tour}/>
+                                ))}
+                            </ul>
                         </div>
                     </div>
-                </div>
-                <div className="container">
-                    <div className="row">
-                        <Button text="Starta spel" css="col s12" icon={<i className="small material-icons right">arrow_forward</i>} click={navigateToStart} />
+                    <div className="container">
+                        <div className="row">
+                            <Button text="Starta spel" css="col s12" icon={<i className="small material-icons right">arrow_forward</i>} click={navigateToStart} />
+                        </div>
                     </div>
                 </div>
             </>
@@ -48,21 +101,27 @@ export default function GameStart() {
     } else {
         return (
             <>
-                <section className="container center-align">
-                    <div className="preloader-wrapper big active">
-                        <div className="spinner-layer spinner-red-only">
-                            <div className="circle-clipper left">
-                                <div className="circle"></div>
-                            </div>
-                            <div className="gap-patch">
-                                <div className="circle"></div>
-                            </div>
-                            <div className="circle-clipper right">
-                                <div className="circle"></div>
-                            </div>
+                <div className="container white container-css">
+                    <div className="row">
+
+                        <div className="col s12">
+                            <h5 className="center-align">Översikt användare</h5>
+                        </div>
+
+                    </div>
+                    <div className="row">
+                        <div className="col s12">
+                            <ul className="collection">
+                                <li>Du har inte deltagit i några quiz ännu. När du gjort det kommer de listas här</li>
+                            </ul>
                         </div>
                     </div>
-                </section>
+                    <div className="container">
+                        <div className="row">
+                            <Button text="Starta spel" css="col s12" icon={<i className="small material-icons right">arrow_forward</i>} click={navigateToStart} />
+                        </div>
+                    </div>
+                </div>
             </>
         );
     }

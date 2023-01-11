@@ -21,7 +21,7 @@ export default function AdminOverview() {
         */
         var config = {
             method: "get",
-            url: "/admin/routes",
+            url: "/moderator/routes",
             headers: {},
         };
 

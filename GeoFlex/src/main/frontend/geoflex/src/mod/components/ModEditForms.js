@@ -1,17 +1,21 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Location from './Location';
-import M from 'materialize-css'
+import M from 'materialize-css';
 import { Link } from 'react-router-dom';
+import ModRouteMedia from './ModRouteMedia';
+
 
 export default function ModEditForms(props) {
 
 	let titleRef = useRef();
 	let descriptionRef = useRef();
+	const [mediaUrl, setMediaUrl] = useState("")
+	const [mediaType, setMediaType] = useState("")
+	const [mediaExternal, setMediaExternal] = useState("")
 	console.log("ÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖ")
-	console.log(props.locationsData)
+	console.log(props.mainData.media[0])
 	let QRURL = '/moderator/qr-codes/' + props.mainData.id
 	const dataLength = props.locationsData.length;
-
 
 	useEffect(() => {
 		M.AutoInit();
@@ -83,13 +87,31 @@ export default function ModEditForms(props) {
 		props.callNewLocation(id);
 	})
 
-	const handleSave = (() => {
+	function handleSave(){
+
 		let routeID = props.mainData.id;
 		let title = titleRef.current.value;
 		let description = descriptionRef.current.value;
-		props.callSaveRoute(routeID, title, description);
+		
+		var data = {
+			"route-update": {
+			  "route-id": routeID,
+			  "title": title,
+			  "description": description,
+			  "routeMedia": [{
+				"mediaUrl": mediaUrl,
+				"mediaType": mediaType,
+				"externalMedia": mediaExternal
+			  }
+			  ],
+			  "type": "INFO",
+			  "location": [
+			  ]
+			}
+		  }
 
-	})
+		  props.callSaveRoute(data);
+	}
 
 
 
@@ -101,31 +123,44 @@ export default function ModEditForms(props) {
 					<div className='row'>
 
 					</div>
-					<div className="row">
-						<div className="input-field col s12">
-							<i className="material-icons prefix">label</i>
-							<label>Titel</label>
-							<input
-								id="title"
-								type="text"
-								defaultValue={props.mainData.title}
-								ref={titleRef}
-							/>
+					<fieldset>
+						<div className="row">
+							<div className="input-field col s12">
+								<i className="material-icons prefix">label</i>
+								<label>Titel</label>
+								<input
+									id="title"
+									type="text"
+									defaultValue={props.mainData.title}
+									ref={titleRef}
+								/>
+							</div>
 						</div>
-					</div>
-					<div className="row">
-						<div className="input-field col s12">
-							<i className="material-icons prefix">mode_edit</i>
-							<label htmlFor="description">Beskrivning</label>
-							<textarea
-								type="text"
-								className="materialize-textarea"
-								id="description"
-								defaultValue={props.mainData.description}
-								ref={descriptionRef}
-							/>
+						<div className="row">
+							<div className="input-field col s12">
+								<i className="material-icons prefix">mode_edit</i>
+								<label htmlFor="description">Beskrivning</label>
+								<textarea
+									type="text"
+									className="materialize-textarea"
+									id="description"
+									defaultValue={props.mainData.description}
+									ref={descriptionRef}
+								/>
+							</div>
 						</div>
-					</div>
+						<div className='row'>
+							
+						<ModRouteMedia
+							mediaData={props.mainData.media[0]}
+							routeID={props.mainData.id}
+							setMediaUrl={setMediaUrl}
+							setMediaType={setMediaType}
+							setMediaExternal={setMediaExternal}
+						/>
+						
+						</div>
+					</fieldset>
 					<div className="row">
 
 						<div>
