@@ -15,6 +15,7 @@ export default function GameManager(props) {
     const [clickedIds, setClickedIds] = useState({});
     const [userArrived, setUserArrived] = useState(false);
 
+
     const currentQuestion = props.questions[index];
 
     const handleNext = () => {
@@ -34,91 +35,98 @@ export default function GameManager(props) {
         }
 
         let userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
-        
+
         userAnswers = userAnswers || [];
-        
+
         const newAnswer = {
             questionID: currentQuestion.location_id,
             answers: clickedIds
         };
-        
+
         userAnswers.push(newAnswer);
-        
+
         await localStorage.setItem(
             'userAnswers',
             JSON.stringify(userAnswers)
         );
-        
+
         setClickedIds({});
         setUserArrived(false);
         handleNext();
     };
-    function handleUserArrivedStatus(result){
-        if(result === true){
+    function handleUserArrivedStatus(result) {
+        if (result === true) {
             console.log("GAMEMANAGER")
-        setUserArrived(true)
-        console.log(userArrived)
+            setUserArrived(true)
+            console.log(userArrived)
         }
     }
-
-    if (currentQuestion.qr === "true") {
-        return (
-            <div>
-                {index === props.questions.length - 1 ? (
-                    <div>
-                        {userArrived ? <GameItem currentQuestion={currentQuestion} /> : <GameIndoorNavigation />}
-                    </div>
-                ) : (
-                    <div>
-                        {userArrived ? <GameItem currentQuestion={currentQuestion} clickedIds={clickedIds} setClickedIds={setClickedIds} /> : <GameIndoorNavigation currentQuestion={currentQuestion} setUserArrived={handleUserArrivedStatus}/>}
-                        {userArrived && (
-                            <div className='row'>
-                                <div className='container'>
-                                    <Button text="Nästa fråga" css="col s12" click={handleSave} icon={<i className="small material-icons right">arrow_forward</i>} />
+    if (currentQuestion.last_location !== "true") {
+        if (currentQuestion.qr === "true") {
+            return (
+                <div>
+                    {index === props.questions.length - 1 ? (
+                        <div>
+                            {userArrived ? <GameItem currentQuestion={currentQuestion} /> : <GameIndoorNavigation />}
+                        </div>
+                    ) : (
+                        <div>
+                            {userArrived ? <GameItem currentQuestion={currentQuestion} clickedIds={clickedIds} setClickedIds={setClickedIds} /> : <GameIndoorNavigation currentQuestion={currentQuestion} setUserArrived={handleUserArrivedStatus} />}
+                            {userArrived && (
+                                <div className='row'>
+                                    <div className='container'>
+                                        <Button text="Nästa fråga" css="col s12" click={handleSave} icon={<i className="small material-icons right">arrow_forward</i>} />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
-        );
-    } else if (currentQuestion.qr === "false"){
-        console.log("KOLLA HÄR")
-        console.log(currentQuestion.x_coords)
-        console.log(currentQuestion.y_coords)
-        
-        const destination = []
-        let longitude = parseFloat(currentQuestion.x_coords);
-        let latitude = parseFloat(currentQuestion.y_coords);
-        destination.push(latitude);
-        destination.push(longitude);
-        
-        console.log(destination[0])
-        console.log(destination[1])
-        
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
+        } else if (currentQuestion.qr === "false") {
+            console.log("KOLLA HÄR")
+            console.log(currentQuestion.x_coords)
+            console.log(currentQuestion.y_coords)
 
-        return (
-            <div>
-                {index === props.questions.length - 1 ? (
-                    <div>
-                        {userArrived ? <GameItem currentQuestion={currentQuestion} /> : <GameOutdoorNavigation />}
-                    </div>
-                ) : (
-                    <div>
-                        {userArrived ? <GameItem currentQuestion={currentQuestion} clickedIds={clickedIds} setClickedIds={setClickedIds} /> : <GameOutdoorNavigation currentQuestion={currentQuestion} destination={destination} setUserArrived={setUserArrived}/>}
-                        {userArrived && (
-                            <div className='row'>
-                                <div className='container'>
-                                    <Button text="Nästa fråga" css="col s12" click={handleSave} icon={<i className="small material-icons right">arrow_forward</i>} />
+            const destination = []
+            let longitude = parseFloat(currentQuestion.x_coords);
+            let latitude = parseFloat(currentQuestion.y_coords);
+            destination.push(latitude);
+            destination.push(longitude);
+
+            console.log(destination[0])
+            console.log(destination[1])
+
+
+            return (
+                <div>
+                    {index === props.questions.length - 1 ? (
+                        <div>
+                            {userArrived ? <GameItem currentQuestion={currentQuestion} /> : <GameOutdoorNavigation />}
+                        </div>
+                    ) : (
+                        <div>
+                            {userArrived ? <GameItem currentQuestion={currentQuestion} clickedIds={clickedIds} setClickedIds={setClickedIds} /> : <GameOutdoorNavigation currentQuestion={currentQuestion} destination={destination} setUserArrived={setUserArrived} />}
+                            {userArrived && (
+                                <div className='row'>
+                                    <div className='container'>
+                                        <Button text="Nästa fråga" css="col s12" click={handleSave} icon={<i className="small material-icons right">arrow_forward</i>} />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
-        );
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+    } else {
+        return(
+            <>
+            <GameFinish currentQuestion={currentQuestion}/>
+            </>
+        )
     }
-      
+
 }
 /*
         <div>
