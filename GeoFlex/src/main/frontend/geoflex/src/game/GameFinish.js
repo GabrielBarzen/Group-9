@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GameResults from './GameResults';
 
 export default function GameFinish(props) {
