@@ -280,6 +280,27 @@ public class AuthenticationProcedures {
         return success;
     }
 
-    public void getAllUsers(String s) {
+    public boolean getAllUsers() {
+        DatabaseConnection dc = new DatabaseConnection();
+        boolean success = false;
+        try (CallableStatement cs = dc.getConnection().prepareCall("{CALL get_all_users()}")) {
+
+            System.out.println("Not implemented in database");
+//            cs.executeQuery();
+//            ResultSet res = cs.getResultSet();
+//            while(res.next()){
+//                success = res.getBoolean("success");
+//            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                dc.getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return success;
     }
 }

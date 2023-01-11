@@ -25,7 +25,7 @@ public class CLIUserController {
                 AuthenticationProcedures ap = new AuthenticationProcedures();
                 System.out.println("FEATURE NOT IMPLEMENTED");
 
-                ap.getAllUsers(inputSplitArray[2]);
+                ap.getAllUsers();
 
             }
         }
