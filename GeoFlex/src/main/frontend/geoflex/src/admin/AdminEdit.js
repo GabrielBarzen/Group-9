@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AdminEditForms from "./components/AdminEditForms";
-import Navbar from "../shared/Navbar";
+
 
 export default function AdminEdit() {
   /** 
@@ -214,7 +214,6 @@ export default function AdminEdit() {
     each seperate location is handled in Location.js with references to data-array-object and functions
     */
     return (<>
-      <Navbar type={'admin'} />
       <div className="container white container-css">
         <AdminEditForms
           mainData={routeData}
@@ -231,7 +230,6 @@ export default function AdminEdit() {
   } else {
     return (
       <>
-        <Navbar type={'admin'} />
         <p>Laddar</p>
       </>
     );

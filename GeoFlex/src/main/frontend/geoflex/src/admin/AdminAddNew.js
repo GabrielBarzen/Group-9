@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import M from 'materialize-css';
-import Navbar from "../shared/Navbar";
+
 
 export default function AdminAddNew() {
     /*
@@ -60,7 +60,6 @@ export default function AdminAddNew() {
 
 
     return (<>
-        <Navbar type={'admin'} />
         <div className="container white container-css">
             <h5 className="center-align">Skapa nytt</h5>
             <div className="row">

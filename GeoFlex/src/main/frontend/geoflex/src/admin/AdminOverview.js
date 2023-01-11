@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Tour from "./components/Tour";
 import Button from "../shared/Button";
 import axios from "axios";
-import Navbar from "../shared/Navbar";
 
 /*
 placeholder while developing - clean this
@@ -73,7 +72,6 @@ export default function AdminOverview() {
         */
         return (
             <>
-                <Navbar type={'admin'} />
                 <div className="container white container-css">
                     <div className="row">
 
@@ -113,7 +111,6 @@ export default function AdminOverview() {
     } else {
         return (
             <>
-                <Navbar type={'admin'} />
                 <section className="container center-align">
                     <div className="preloader-wrapper big active">
                         <div className="spinner-layer spinner-red-only">

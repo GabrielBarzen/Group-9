@@ -4,7 +4,7 @@ import M from 'materialize-css';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import Button from '../shared/Button';
-import Navbar from '../shared/Navbar';
+
 
 
 export default function AdminModeratorOverview() {
@@ -84,7 +84,6 @@ export default function AdminModeratorOverview() {
 
 
     return (<>
-        <Navbar type={'admin'} />
         <div className='container white container-css'>
             <div className="row center-align">
                 <div className="col s12">
