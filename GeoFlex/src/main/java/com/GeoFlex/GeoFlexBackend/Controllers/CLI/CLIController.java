@@ -12,20 +12,27 @@ public class CLIController {
     }
 
     class CLIThread implements Runnable {
+        private final String help =
+                "====Help====" + "\n"+
+                "Available commands :"+"\n"+
+                "database           , change&view database info"+ "\n"+
+                "user               , change&view user information"+ "\n"+
+                "exit               , close server"+ "\n"+
+                "============";
 
         private final String databaseHelp =
                 "==database==Help====" + "\n"+
-                        "Available commands :"+"\n"+
-                        "ip set {IP}           , set ip for current session"+ "\n"+
-                        "port set {PORT}       , set port for current session"+ "\n"+
-                        "username set {USER}   , set username for current session"+ "\n"+
-                        "password set {PASS}   , set password for current session"+ "\n"+
-                        "ip get                , get ip for current session"+ "\n"+
-                        "port get              , get port for current session"+ "\n"+
-                        "username get          , get username for current session"+ "\n"+
-                        "password get          , get password for current session"+ "\n"+
-                        "connection get        , get current db connection info"+ "\n"+
-                        "===================="+"\n";
+                "Available commands :"+"\n"+
+                "ip set {IP}           , set ip for current session"+ "\n"+
+                "port set {PORT}       , set port for current session"+ "\n"+
+                "username set {USER}   , set username for current session"+ "\n"+
+                "password set {PASS}   , set password for current session"+ "\n"+
+                "ip get                , get ip for current session"+ "\n"+
+                "port get              , get port for current session"+ "\n"+
+                "username get          , get username for current session"+ "\n"+
+                "password get          , get password for current session"+ "\n"+
+                "connection get        , get current db connection info"+ "\n"+
+                "====================";
 
         Scanner scanner = new Scanner(System.in);
 
@@ -140,10 +147,7 @@ public class CLIController {
                         new CLIUserController(inputSplitArray);
                     }
                     default -> {
-                        System.out.println("Help :");
-                        System.out.println("Available commands :");
-                        System.out.println("database");
-                        System.out.println("exit");
+                        System.out.println(help);
                     }
                 }
             }

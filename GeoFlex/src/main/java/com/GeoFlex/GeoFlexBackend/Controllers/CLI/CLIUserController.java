@@ -5,7 +5,18 @@ import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 import java.util.Scanner;
 
 public class CLIUserController {
+
+    private final String userHelp =
+            "==user==Help====" + "\n"+
+            "Available commands :"+"\n"+
+            "get                   , gets all users from database"+ "\n"+
+            "password {ID}         , sets the user password using id"+ "\n"+
+            "================";
     public CLIUserController(String[] inputSplitArray) {
+        if (inputSplitArray.length < 2) {
+            System.out.println(userHelp);
+            return;
+        }
         switch(inputSplitArray[1]) {
             case "password" -> {
                 AuthenticationProcedures ap = new AuthenticationProcedures();
@@ -30,6 +41,7 @@ public class CLIUserController {
                 ap.getAllUsers();
 
             }
+            default -> System.out.println(userHelp);
         }
     }
 }
