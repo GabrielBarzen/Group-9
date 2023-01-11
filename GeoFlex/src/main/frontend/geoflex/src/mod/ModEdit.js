@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ModEditForms from "./components/ModEditForms";
-import Navbar from "../shared/Navbar";
 //import AdminEditForms from "./components/AdminEditForms";
 
 export default function ModEdit() {
@@ -365,7 +364,6 @@ export default function ModEdit() {
     each seperate location is handled in Location.js with references to data-array-object and functions
     */
     return (<>
-      <Navbar type={'admin'} />
       <div className="container white container-css">
         <ModEditForms
           mainData={routeData}

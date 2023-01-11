@@ -117,16 +117,6 @@ export default function Location(props) {
                             </div>
                         </div>
                         <div className='row'>
-                            <div className='col s3 m3 l2 offset-s1 offset-m2 offset-l2'>
-                                <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.id) }} id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        delete_forever
-                                    </i> Radera</a>
-                            </div>
-                        </div>
-
-
-                        <div className='row'>
                             <div className="divider col s10 offset-s1"></div>
                         </div>
                     </li>

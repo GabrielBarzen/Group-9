@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AdminModRoutes from './AdminModRoutes';
 import AdminModAssignRoutes from './AdminModAssignRoutes'
 import M from 'materialize-css';
-import Navbar from '../../shared/Navbar';
 
 export default function AdminModeratorEdit() {
     const [moderatorRoutes, setModeratorRoutes] = useState([]);
@@ -194,7 +193,6 @@ export default function AdminModeratorEdit() {
 
 
     return (<>
-        <Navbar type={'admin'} />
         <div className='container white container-css'>
             <div className='row'>
                 <div className='col s12'>

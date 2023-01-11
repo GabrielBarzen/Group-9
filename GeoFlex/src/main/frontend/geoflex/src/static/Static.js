@@ -1,20 +1,30 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import axios from 'axios';
-import logo from './GeoFlexSmall.png'
 import Cookies from 'universal-cookie';
+import Navbar from '../shared/Navbar'
 
 const cookies = new Cookies();
 
-
 export default function Static() {
 
-    const login = (() => {
-        var data = JSON.stringify({
-            "user-name": "exampleUser1",
-            "password": "examplePassword1",
-            "expiery":"WEEK"
-          });
+  let status = cookies.get('role')
+  let content;
+  if (status === 'moderator') {
+    content = <Navbar type={'mod'} />
+  } else if (status === 'admin') {
+    content = <Navbar type={'admin'} />
+  } else {
+    content = ""
+  }
+
+  const login = (() => {
+    var data = JSON.stringify({
+      "user-name": "exampleUser1",
+      "password": "examplePassword1",
+      "expiery": "WEEK"
+    });
+
 
         var config = {
           method: 'post',
@@ -37,6 +47,7 @@ export default function Static() {
     return (
         <>
         <div className="row">
+            {content}
             <Outlet />
         </div>    
             <ul>

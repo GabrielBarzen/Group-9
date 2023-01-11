@@ -14,8 +14,7 @@ export default function Location(props) {
     const currentValue = props.data;
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
-    console.log("ASDFÖO AJASÖLDKFJ ASÖLKDFJASÖL KDFJÖASL KJ")
-    console.log(end)
+
 
     function handleChange(value) {
 
@@ -27,7 +26,6 @@ export default function Location(props) {
         /**
          * renders html for the first location.
          */
-        console.log("FIRST")
         return (
             <>
                 <>
@@ -85,7 +83,6 @@ export default function Location(props) {
         /**
          * renders html for all locations between the "first location" and the "end location"
          */
-        console.log("MID")
         return (
             <>
                 <>
@@ -145,7 +142,6 @@ export default function Location(props) {
         /**
          * renders hmtl for the end location
          */
-        console.log("END END END END END END")
 
         return (
             <>
@@ -225,14 +221,6 @@ export default function Location(props) {
                                         edit
                                     </i> Ändra</a>
                             </div>
-                            <div className='col s3 m3 l2'>
-                                <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.location_id) }} id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        delete_forever
-                                    </i> Radera</a>
-                            </div>
-
-
                         </div>
                         <div className='collapsible-body col s12'>
                             <ModEditLocation

@@ -1,6 +1,7 @@
 import Button from "../shared/Button"
 import Logo from "../shared/Logo"
 import { useNavigate } from "react-router-dom";
+import Navbar from "../shared/Navbar";
 import Cookies from 'universal-cookie';
 import { useEffect } from "react";
 
@@ -41,7 +42,7 @@ export default function Firstpage() {
         navigate('/game/start', { replace: false })
     }
 
-    return (
+    return (<>
         <div className="container">
             <div className="row">
                 <Logo />
@@ -60,5 +61,6 @@ export default function Firstpage() {
                 </div>
             </div>
         </div>
+    </>
     )
 }
