@@ -3,6 +3,7 @@ import Button from '../shared/Button';
 import GameItem from './GameItem';
 import GameIndoorNavigation from './GameIndoorNavigation';
 import GameOutdoorNavigation from './GameOutdoorNavigation';
+import GameFinish from './GameFinish';
 
 export default function GameManager(props) {
     /**
