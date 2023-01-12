@@ -12,7 +12,8 @@ public class CLIUserController {
             "get                   , gets all users from database"+ "\n"+
             "password {ID}         , sets the user password using id"+ "\n"+
             "================";
-    public CLIUserController(String[] inputSplitArray) {
+
+    public void runCommand(String[] inputSplitArray) {
         if (inputSplitArray.length < 2) {
             System.out.println(userHelp);
             return;
