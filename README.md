@@ -27,7 +27,7 @@ database port get              , get port for current session
 database username get          , get username for current session
 database password get          , get password for current session
 database connection get        , get current db connection info
-
+```
 
 # Group-9 - GeoFlex
 Student project for a location based application!
