@@ -1,3 +1,5 @@
+# Group-9 - GeoFlex
+Student project for a location based application.
 ## The config properties needs to be placed in the [resource](https://github.com/GabrielModin/Group-9/tree/Dev/GeoFlex/src/main/resources) directory BEFORE BUILDING.
 ### config.properties
 ```
@@ -28,9 +30,6 @@ database username get          , get username for current session
 database password get          , get password for current session
 database connection get        , get current db connection info
 ```
-
-# Group-9 - GeoFlex
-Student project for a location based application!
 
 ## Rules & process
 ### Main
