@@ -12,10 +12,10 @@ export default function AdminModeratorOverviewList(props) {
         console.log(props.data.name)
     }, []);
 
-    /**
- * Deletes a moderator.
- */
     function handleDeleteModerator() {
+        /**
+        * Deletes a moderator.
+        */
         props.deleteModerator(props.data["user-id"])
     }
 
@@ -37,8 +37,6 @@ export default function AdminModeratorOverviewList(props) {
                             delete_forever
                         </i> Radera</a>
                 </div>
-
-
             </div>
             <div className='row'>
                 <div className="divider col s10 offset-s1"></div>
@@ -48,21 +46,3 @@ export default function AdminModeratorOverviewList(props) {
     </>
     )
 }
-
-/*
-{[...selectItems].map((item) => (<AdminModAssignRoutes
-                            key={item.id}
-                            selectItem={item} />
-                        ))}
-
-
-
-                        {[...selectItems].map((item) => (<AdminModAssignRoutes
-                                key={item.id}
-                                selectItem={item} />
-                            ))}
-
-
-                            <div onClick={handleSelectOptions} >{props.data.name}</div>
-            
-*/

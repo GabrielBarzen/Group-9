@@ -3,9 +3,10 @@ import React, { useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
-
 export default function Register() {
+    /**
+     * functional component to handle and render user registration
+     */
     const navigate = useNavigate();
     let usernameRef = useRef();
     let emailRef = useRef();

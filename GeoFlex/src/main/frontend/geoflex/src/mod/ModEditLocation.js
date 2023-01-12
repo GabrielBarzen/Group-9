@@ -6,10 +6,7 @@ export default function ModEditLocation(props) {
 
   /**
    * ModEditLocation handles all API-calls needed to edit a location
-   *  
    */
-  console.log("EDITLOCATION")
-
 
   function updateLocation(data) {
     /**
@@ -39,8 +36,7 @@ export default function ModEditLocation(props) {
     /**
      * API-call to add 1 answer 
      */
-    console.log("ADDANSWER")
-    console.log(locationID)
+
     var data = JSON.stringify(
       {"location-update":{
         "location-id": locationID,
@@ -76,9 +72,7 @@ export default function ModEditLocation(props) {
     /**
      * API-call to remove 1 answer 
      */
-    console.log("REMOVE ANSWER");
-    console.log(locationID)
-    console.log(contentID)
+
     var data = JSON.stringify(
       {"location-update":{
         "location-id": locationID,

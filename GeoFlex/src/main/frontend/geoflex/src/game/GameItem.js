@@ -8,32 +8,24 @@ export default function GameItem(props) {
 
 
   const handleClick = (id) => {
-    // update clickedIds state here using props.setClickedIds
-    const newClickedIds = { ...props.clickedIds }; // make a copy of the current clickedIds state
+    /**
+     * Updates clickedIds from parent component by;
+     * 1. making a copy of the current clickedIds
+     * 2. check if ID exists, if it does it is removed else it is added as key with value "true"
+     * 3. call method from parent component to setClickedIds
+     */
+    const newClickedIds = { ...props.clickedIds }; 
     if (newClickedIds[id]) {
-      // If the id is present in the clickedIds object, remove it
+      
       delete newClickedIds[id];
     } else {
-      // If the id is not present in the clickedIds object, set it to true
+      
       newClickedIds[id] = true;
     }
-    props.setClickedIds(newClickedIds); // update the clickedIds state
+    props.setClickedIds(newClickedIds); 
     console.log(props.clickedIds)
   };
 
-/*
-const handleClick = (id) => {
-  let newClickedIds = { ...props.clickedIds };
-
-  const exists = newClickedIds.answers.find(ans => ans.id === id);
-  if (exists){
-    newClickedIds.answers = newClickedIds.answers.filter(ans => ans.id !== id)
-  } else {
-    newClickedIds.answers = newClickedIds.answers.concat({id:id})
-  }
-  props.setClickedIds(newClickedIds);
-};
-*/
   return (
     <>
       <div className='row'>
@@ -53,7 +45,6 @@ const handleClick = (id) => {
                   <img src={data.media[0].mediaURL} alt="questionImage" className='responsive-img' style={{ "borderRadius": "5px" }}></img>
                 )}
               </div>
-
               <div className='row'>
                 <div className='col s12 grey lighten-3' style={{ "borderRadius": "5px", "padding": '2rem' }}>
                   <div className='row'>

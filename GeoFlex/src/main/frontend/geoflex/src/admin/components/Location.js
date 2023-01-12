@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import M from 'materialize-css'
+import M from 'materialize-css';
 
 export default function Location(props) {
     /**
@@ -33,20 +33,15 @@ export default function Location(props) {
                                     delete_forever
                                 </i> Radera</a>
                         </div>
-
                         <div className='col s1 offset-s6 offset-m5 offset-l5'>
                             <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
                                 className='material-icons right black-text large'
                                 onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                         </div>
                     </div>
-
-
                     <div className='row'>
                         <div className="divider col s10 offset-s1"></div>
                     </div>
-
-
                 </li>
             </>
         )
@@ -82,8 +77,6 @@ export default function Location(props) {
                                     </i> Radera</a>
                             </div>
                         </div>
-
-
                         <div className='row'>
                             <div className="divider col s10 offset-s1"></div>
                         </div>
@@ -155,30 +148,24 @@ export default function Location(props) {
                                         delete_forever
                                     </i> Radera</a>
                             </div>
-
                             <div className='col s1 offset-s6 offset-m5 offset-l6'>
                                 <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
                                     className='material-icons right black-text large'
                                     onClick={() => { props.swapLocationsDown(props.data.id) }}>keyboard_arrow_down</i>
                             </div>
                         </div>
-
-
                         <div className='row'>
                             <div className="divider col s10 offset-s1"></div>
                         </div>
                     </li>
                 </>
             </>
-
         )
     }
 
     useEffect(() => {
         M.AutoInit();
-
     }, []);
-
 
     if (currentIndex === "1") {
         return (

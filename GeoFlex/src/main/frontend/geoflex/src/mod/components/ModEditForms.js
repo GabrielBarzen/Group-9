@@ -6,18 +6,23 @@ import ModRouteMedia from './ModRouteMedia';
 
 
 export default function ModEditForms(props) {
-
+	/**
+	 * functional component for the quiz form (also renders the component that handles editing for each location)
+	 */
 	let titleRef = useRef();
 	let descriptionRef = useRef();
 	const [mediaUrl, setMediaUrl] = useState("")
 	const [mediaType, setMediaType] = useState("")
 	const [mediaExternal, setMediaExternal] = useState("")
-	console.log("ÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖÅÄÖ")
-	console.log(props.mainData.media[0])
+	
 	let QRURL = '/moderator/qr-codes/' + props.mainData.id
 	const dataLength = props.locationsData.length;
 
 	useEffect(() => {
+		/**
+		 * react hook useEffect that runs when component loads or when the state of the object in the depency array changes (no dependencies in this case)
+		 * handles loading javascript for materialize css framework
+		 */
 		M.AutoInit();
 		M.updateTextFields();
 
@@ -76,8 +81,6 @@ export default function ModEditForms(props) {
 	}
 
 	function handleDelete(id) {
-		alert(id)
-
 		let routeID = props.mainData.id;
 		props.callDeleteLocation(routeID, id);
 	}
@@ -109,19 +112,14 @@ export default function ModEditForms(props) {
 			  ]
 			}
 		  }
-
 		  props.callSaveRoute(data);
 	}
-
-
-
 
 	return (
 		<>
 			<div className="row">
 				<div className="col s12">
 					<div className='row'>
-
 					</div>
 					<fieldset>
 						<div className="row">
@@ -149,20 +147,17 @@ export default function ModEditForms(props) {
 								/>
 							</div>
 						</div>
-						<div className='row'>
-							
+						<div className='row'>							
 						<ModRouteMedia
 							mediaData={props.mainData.media[0]}
 							routeID={props.mainData.id}
 							setMediaUrl={setMediaUrl}
 							setMediaType={setMediaType}
 							setMediaExternal={setMediaExternal}
-						/>
-						
+						/>						
 						</div>
 					</fieldset>
 					<div className="row">
-
 						<div>
 							<ul className="collapsible z-depth-0" style={{ 'border': '0' }}>
 								{[...props.locationsData].map((location) => (
@@ -201,9 +196,6 @@ export default function ModEditForms(props) {
 					</div>
 				</Link>
 			</div>
-
-
 		</>
 	)
-
 }
