@@ -4,8 +4,15 @@ import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 
 import java.util.Scanner;
 
-public class CLIUserController {
-
+/**
+ * Class for executing user command line instructions
+ * @author Gabriel Modin Bärzén
+ * @version 1.0
+ */
+public class CLIUserController implements CLIDelegationController {
+    /**
+     * String containing help information for user level CLI
+     */
     private final String userHelp =
             "==user==Help====" + "\n"+
             "Available commands :"+"\n"+
