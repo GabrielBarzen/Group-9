@@ -16,16 +16,19 @@ export default function Static() {
     content = <Navbar type={'admin'} />
   } else {
     content = ""
-  }  
-    return (
-        <>
-        <div className="row">
-            {content}
-            <Outlet />
-        </div>    
-            
-        </>
-    )
+  }
+  return (
+    <>
+      <div className="row">
+        {content}
+        <Outlet />
+      </div>
+      <div className='row center-align'>
+        <div className='container white container-css'>
+        </div>
+      </div>
+    </>
+  )
 }
 
 /*
