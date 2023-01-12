@@ -143,6 +143,7 @@ public class CLIDataBaseController implements CLIDatabaseInterface {
     }
 
     public void passwordGet() {
+        System.out.println("Database password : " + databaseConfiguration.getPassword());
     }
 
     public void passwordSet(String s) {
@@ -152,6 +153,7 @@ public class CLIDataBaseController implements CLIDatabaseInterface {
     }
 
     public void usernameGet() {
+        System.out.println("Database username : " + databaseConfiguration.getUsername());
     }
 
     public void usernameSet(String s) {
@@ -161,6 +163,7 @@ public class CLIDataBaseController implements CLIDatabaseInterface {
     }
 
     public void portGet() {
+        System.out.println("Database port : " + databaseConfiguration.getPort());
     }
 
     public void portSet(String s) {

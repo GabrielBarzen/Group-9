@@ -33,6 +33,8 @@ public class CLIUserController {
                     } else {
                         System.out.println("Passwords not matching try again");
                     }
+                } else {
+                    System.out.println("\"password\" requires one additional argument {ID}");
                 }
             }
             case "get" -> {

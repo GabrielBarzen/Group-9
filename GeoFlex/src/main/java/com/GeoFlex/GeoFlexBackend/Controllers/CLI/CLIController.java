@@ -34,6 +34,11 @@ public class CLIController {
                         System.out.println("shutting down now");
                         exit();
                     }
+                    case "clear" -> {
+                        for (int i = 0; i < 200; i++) {
+                            System.out.println();
+                        }
+                    }
                     case "database" -> {
                         cliDataBaseController.runCommand(inputSplitArray);
 

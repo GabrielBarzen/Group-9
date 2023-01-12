@@ -39,7 +39,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
         username =  env.getProperty("database.username");
         password = env.getProperty("database.password");
         port = env.getProperty("database.port");
-        System.out.println("ip :" + ip);
         CLIDataBaseController.cliDataBaseController.registerCLIDatabaseConfigurator(this);
         DatabaseConfiguration.databaseConfiguration = this;
     }
