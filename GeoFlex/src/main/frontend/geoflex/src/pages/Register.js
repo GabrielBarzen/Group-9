@@ -89,8 +89,10 @@ export default function Register() {
             </div>
         </div>
         <div className="row">
-            <div className="col s12 offset-s1">
-                <Button text="Registrera" css="col s10" icon={<i className="small material-icons right">arrow_forward</i>} click={handleRegister} />
+            <div className="container">
+                <div className="col s12 btn waves-effect waves-teal btn  btn col btn-large btn-css icon-css z-depth-2" onClick={handleRegister}>
+                    <i className="small material-icons right">arrow_forward</i> Registrera
+                </div>
             </div>
         </div>
     </>
