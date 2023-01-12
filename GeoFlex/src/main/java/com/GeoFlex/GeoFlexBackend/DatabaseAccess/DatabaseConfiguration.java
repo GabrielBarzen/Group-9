@@ -47,7 +47,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
 
     public String getIp() {
-        System.out.println("get ip is " + ip);
         if (ip != null) return ip;
         return "127.0.0.1";
     }
