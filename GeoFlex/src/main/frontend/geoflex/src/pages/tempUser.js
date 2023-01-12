@@ -1,7 +1,5 @@
 import Button from "../shared/Button"
 
-
-
 export default function Register() {
     // Här hamnar logiken
     return (<>

@@ -6,6 +6,10 @@ import AdminModAssignRoutes from './AdminModAssignRoutes';
 import M from 'materialize-css';
 
 export default function AdminModeratorEdit() {
+    /**
+     * functional component to handle administration of moderators
+     * allowing admin to assign and remove routes from moderators
+     */
     const [moderatorRoutes, setModeratorRoutes] = useState([]);
     const [allRoutes, setAllRoutes] = useState([]);
     const [selectItems, setSelectItems] = useState([]);
@@ -18,7 +22,9 @@ export default function AdminModeratorEdit() {
     const moderator = location.state.data;
 
     const handleSelectOptions = () => {
-
+        /**
+         * function to handle the available routes to assign to a moderator
+         */
         var leftUsers = allRoutes.filter(u => moderatorRoutes.findIndex(lu => lu.id === u.id) === -1);
 
         setSelectItems(leftUsers)
@@ -31,9 +37,9 @@ export default function AdminModeratorEdit() {
     }
     useEffect(() => {
         M.AutoInit();
-        console.log(status);
+        
         function getRouteForUser() {
-            console.log("MOD ID: " + moderator["user-id"]);
+        
             var config = {
                 method: 'get',
                 url: '/admin/route/user?user-id=' + moderator["user-id"],
