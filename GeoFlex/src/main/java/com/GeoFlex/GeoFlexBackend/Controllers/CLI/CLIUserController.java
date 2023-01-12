@@ -4,15 +4,23 @@ import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 
 import java.util.Scanner;
 
-public class CLIUserController {
-
+/**
+ * Class for executing user command line instructions
+ * @author Gabriel Modin Bärzén
+ * @version 1.0
+ */
+public class CLIUserController implements CLIDelegationController {
+    /**
+     * String containing help information for user level CLI
+     */
     private final String userHelp =
             "==user==Help====" + "\n"+
             "Available commands :"+"\n"+
             "get                   , gets all users from database"+ "\n"+
             "password {ID}         , sets the user password using id"+ "\n"+
             "================";
-    public CLIUserController(String[] inputSplitArray) {
+
+    public void runCommand(String[] inputSplitArray) {
         if (inputSplitArray.length < 2) {
             System.out.println(userHelp);
             return;
@@ -32,6 +40,8 @@ public class CLIUserController {
                     } else {
                         System.out.println("Passwords not matching try again");
                     }
+                } else {
+                    System.out.println("\"password\" requires one additional argument {ID}");
                 }
             }
             case "get" -> {

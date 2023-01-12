@@ -3,39 +3,45 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Scanner;
 
+
+/**
+ * Class for executing command line instructions
+ * @author Gabriel Modin Bärzén
+ * @version 1.0
+ */
 @Configuration
 public class CLIController {
 
-
+    /**
+     * Constructor, takes no arguments, start cli thread.
+     */
     public CLIController(){
         start();
     }
 
+    /**
+     * Runner thread for command line interface.
+     */
     class CLIThread implements Runnable {
+        /**
+         * String containing help information for ground level CLI
+         */
         private final String help =
                 "====Help====" + "\n"+
                 "Available commands :"+"\n"+
                 "database           , change&view database info"+ "\n"+
                 "user               , change&view user information"+ "\n"+
+                "clear              , clear the terminal"+ "\n"+
                 "exit               , close server"+ "\n"+
                 "============";
 
-        private final String databaseHelp =
-                "==database==Help====" + "\n"+
-                "Available commands :"+"\n"+
-                "ip set {IP}           , set ip for current session"+ "\n"+
-                "port set {PORT}       , set port for current session"+ "\n"+
-                "username set {USER}   , set username for current session"+ "\n"+
-                "password set {PASS}   , set password for current session"+ "\n"+
-                "ip get                , get ip for current session"+ "\n"+
-                "port get              , get port for current session"+ "\n"+
-                "username get          , get username for current session"+ "\n"+
-                "password get          , get password for current session"+ "\n"+
-                "connection get        , get current db connection info"+ "\n"+
-                "====================";
+
 
         Scanner scanner = new Scanner(System.in);
 
+        /**
+         * run method for runner class. Repeatedly scans input from stdin and delegates to {@link CLIDelegationController} objects.
+         */
         @Override
         public void run() {
             while (running) {
@@ -46,105 +52,16 @@ public class CLIController {
                         System.out.println("shutting down now");
                         exit();
                     }
+                    case "clear" -> {
+                        for (int i = 0; i < 200; i++) {
+                            System.out.println();
+                        }
+                    }
                     case "database" -> {
-                        if (inputSplitArray.length>2) {
-                            switch (inputSplitArray[1]) {
-                                case "ip" -> {
-                                    switch ((inputSplitArray[2])) {
-                                        case "set" -> {
-                                            if (inputSplitArray.length >= 4) ipSet(inputSplitArray[3]);
-                                            else {
-                                                System.out.println("IP set requires one additional parameter IP");
-                                            }
-                                        }
-                                        case "get" -> ipGet();
-                                        default -> {
-                                            System.out.println("Help :");
-                                            System.out.println("Available commands :");
-                                            System.out.println("set {ip}");
-                                            System.out.println("get");
-                                        }
-
-                                    }
-                                }
-                                case "port" -> {
-                                    switch ((inputSplitArray[2])) {
-                                        case "set" -> {
-                                            if (inputSplitArray.length >= 4) portSet(inputSplitArray[3]);
-                                            else {
-                                                System.out.println("port set requires one additional parameter PORT");
-                                            }
-                                        }
-                                        case "get" -> portGet();
-
-                                        default -> {
-                                            System.out.println("Help :");
-                                            System.out.println("Available commands :");
-                                            System.out.println("set {port}");
-                                            System.out.println("get");
-                                        }
-                                    }
-                                }
-                                case "username" -> {
-                                    switch ((inputSplitArray[2])) {
-                                        case "set" -> {
-                                            if (inputSplitArray.length >= 4) usernameSet(inputSplitArray[3]);
-                                            else {
-                                                System.out.println("username set requires one additional parameter USERNAME");
-                                            }
-                                        }
-                                        case "get" -> usernameGet();
-
-                                        default -> {
-                                            System.out.println("Help :");
-                                            System.out.println("Available commands :");
-                                            System.out.println("set {username}");
-                                            System.out.println("get");
-
-                                        }
-                                    }
-                                }
-                                case "password" -> {
-                                    switch ((inputSplitArray[2])) {
-                                        case "set" -> {
-                                            if (inputSplitArray.length >= 4) passwordSet(inputSplitArray[3]);
-                                            else {
-                                                System.out.println("password set requires one additional parameter PASSWORD");
-                                            }
-                                        }
-                                        case "get" -> passwordGet();
-                                        default -> {
-                                            System.out.println("Help :");
-                                            System.out.println("Available commands :");
-                                            System.out.println("set {password}");
-                                            System.out.println("get");
-
-
-                                        }
-                                    }
-                                }
-                                case "connection" -> {
-                                    switch ((inputSplitArray[2])) {
-                                        case "get" -> connectionGet();
-                                        default -> {
-                                            System.out.println("Help :");
-                                            System.out.println("Available commands :");
-                                            System.out.println("set {password}");
-                                            System.out.println("get");
-
-
-                                        }
-                                    }
-                                }
-
-                                default -> System.out.println(databaseHelp);
-                            }
-                        } else System.out.println(databaseHelp);
-
-
+                        cliDataBaseController.runCommand(inputSplitArray);
                     }
                     case "user" -> {
-                        new CLIUserController(inputSplitArray);
+                        cliUserController.runCommand(inputSplitArray);
                     }
                     default -> {
                         System.out.println(help);
@@ -155,56 +72,30 @@ public class CLIController {
     }
 
 
+    /**
+     * CLI delegation controllers.
+     * Takes input from cli controller and executes commands based on it.
+     */
+    CLIDelegationController cliDataBaseController = new CLIDataBaseController();
+    CLIDelegationController cliUserController = new CLIUserController();
 
 
-    ////CLI DataBase Methods
-    private void connectionGet() {
-        cliDataBaseController.connectionGet();
-    }
-    CLIDataBaseController cliDataBaseController = new CLIDataBaseController();
-
-    private void ipGet() {
-        cliDataBaseController.ipget();
-    }
-
-    private void ipSet(String ip) {
-        cliDataBaseController.ipSet(ip);
-    }
-
-    private void passwordGet() {
-        cliDataBaseController.passwordGet();
-    }
-
-    private void passwordSet(String s) {
-        cliDataBaseController.passwordSet(s);
-    }
-
-    private void usernameGet() {
-        cliDataBaseController.usernmeGet();
-    }
-
-    private void usernameSet(String s) {
-        cliDataBaseController.usernmeSet(s);
-    }
-
-    private void portGet() {
-        cliDataBaseController.portGet();
-    }
-
-    private void portSet(String s) {
-        cliDataBaseController.portSet(s);
-    }
-
-
-    ////Threading Methods
+    /**
+     * Exit method. Closes the program with System.exit(0)
+     */
     private void exit() {
         running = false;
         System.exit(0);
     }
 
+
     Thread thread = null;
     boolean running = false;
 
+    /**
+     * Method for starting thread.
+     * @return the state of the thread.
+     */
     public boolean start() {
         if (!running) {
             thread = new Thread(new CLIThread());
@@ -215,11 +106,20 @@ public class CLIController {
         }
         return running;
     }
+
+    /**
+     * Method for stopping thread.
+     * @return the state of the thread.
+     */
     public boolean stop(){
         if (running) running = false;
         return running;
     }
 
+    /**
+     * Method for getting thread state.
+     * @return the state of the thread.
+     */
     public boolean isRunning(){
         return running;
     }
