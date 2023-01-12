@@ -8,6 +8,26 @@ database.port=port to database
 database.username=db user
 database.password=db user password
 ```
+## Commandline arguments
+```
+database                       , change&view database info
+user                           , change&view user information
+clear                          , clear the terminal
+exit                           , close server
+
+user get                       , gets all users from database
+user password {ID}             , sets the user password using id
+
+database ip set {IP}           , set ip for current session
+database port set {PORT}       , set port for current session
+database username set {USER}   , set username for current session
+database password set {PASS}   , set password for current session
+database ip get                , get ip for current session
+database port get              , get port for current session
+database username get          , get username for current session
+database password get          , get password for current session
+database connection get        , get current db connection info
+
 
 # Group-9 - GeoFlex
 Student project for a location based application!
