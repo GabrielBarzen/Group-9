@@ -1,3 +1,14 @@
+## The config properties needs to be placed in the [resource](https://github.com/GabrielModin/Group-9/tree/Dev/GeoFlex/src/main/resources) directory BEFORE BUILDING.
+### config.properties
+```
+domain.email=domain email
+domain.password=email password
+database.ip=ip to database
+database.port=port to database
+database.username=db user
+database.password=db user password
+```
+
 # Group-9 - GeoFlex
 Student project for a location based application!
 
@@ -19,13 +30,4 @@ This feture or fix should have a decriptive name alongsite the specification req
 If the feture is missing a requirement in the specification one should be created.
 
 If a working branch concerns more than one requirement from the specification, it should be specified in the pull request.
-## The config properties needs to be placed in the [resource](https://github.com/GabrielModin/Group-9/tree/Dev/GeoFlex/src/main/resources) directory BEFORE BUILDING.
-### config.properties
-```
-domain.email=domain email
-domain.password=email password
-database.ip=ip to database
-database.port=port to database
-database.username=db user
-database.password=db user password
-```
+
