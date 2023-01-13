@@ -19,6 +19,8 @@ exit                           , close server
 
 user get                       , gets all users from database
 user password {ID}             , sets the user password using id
+user new                       , creates new user
+user set-access {ID} {level]   , sets the user accesslevel using id (0, user;1, moderator;2, admin)
 
 database ip set {IP}           , set ip for current session
 database port set {PORT}       , set port for current session
