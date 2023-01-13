@@ -35,18 +35,21 @@ export default function GameFinish(props) {
     setQuestions(quizData);
     setAnswers(loadAnswers);
 
-    
-
   }, [setQuestions, setAnswers])
 
   function checkCookie() {
+    /**
+     * reads and returns cookie value
+     */
     const cookies = new Cookies();
     let cookieValue = cookies.get('user-id')
     return cookieValue
   }
 
   function assignRouteToUser(id) {
-
+    /**
+     * PATCH API-call to assign a finished route to user
+     */
     var data = JSON.stringify(
       {
         "user-id": id,
@@ -78,7 +81,7 @@ export default function GameFinish(props) {
       });
   }
 
-  //verify current user
+  //verify if current user isLoggeIin
   let hasCookie = checkCookie();
   console.log(hasCookie)
   if (hasCookie !== undefined) {
@@ -105,7 +108,6 @@ export default function GameFinish(props) {
                     <img src={data.media[0].mediaURL} alt="questionImage" className='responsive-img' style={{ "borderRadius": "5px" }}></img>
                   )}
                 </div>
-
                 <div className='row'>
                   <div className='col s12 grey lighten-3' style={{ "borderRadius": "5px", "padding": '2rem' }}>
                     <div className='row'>

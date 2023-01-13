@@ -3,6 +3,9 @@ import M from 'materialize-css';
 import axios from 'axios';
 
 export default class LocationFormAnswers extends Component {
+    /**
+     * class component to handle and render the answers section of the LocationForm
+     */
     constructor(props) {
         super(props)
         this.state = {
@@ -16,6 +19,9 @@ export default class LocationFormAnswers extends Component {
         this.fetchUpdatedAnswerArray = this.fetchUpdatedAnswerArray.bind(this);
     }
     componentDidMount() {
+        /**
+         * react method to handle logic to set states before rendering
+         */
         M.updateTextFields();
         if (this.props.content.length !== 0) {
             this.setState({ content: this.props.content })
@@ -25,7 +31,6 @@ export default class LocationFormAnswers extends Component {
     }
 
     fetchUpdatedAnswerArray(locationID) {
-
         /**
          * API-call to fetch an updated array of answers 
          */
@@ -42,8 +47,6 @@ export default class LocationFormAnswers extends Component {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 update(response.data.content);
-
-
             })
             .catch(function (error) {
                 console.log(error);
@@ -59,13 +62,10 @@ export default class LocationFormAnswers extends Component {
     onFieldChange(event) {
         /**
          * passing on the event to parent class method
-         *  */
-
+         */
         this.props.handleInputChange(event);
     }
     handleAddAnswer(locationID) {
-        //this.props.handleAddAnswer(locationID)
-
         /**
      * API-call to add 1 answer 
      */
@@ -105,7 +105,6 @@ export default class LocationFormAnswers extends Component {
         const fetchNewContent = (locationID) => {
             this.fetchUpdatedAnswerArray(locationID)
         }
-
     }
 
     handleRemoveAnswer(locationID, contentID) {
@@ -144,7 +143,10 @@ export default class LocationFormAnswers extends Component {
     }
 
     render() {
-
+/**
+ * react method to render html and other components
+ * in this case conditions and other logic is implemented to determine what should be rendered and when
+ */
         let toReturn;
         let toReturnArray = [];
         if (this.state.content.length !== 0) {
@@ -185,11 +187,9 @@ export default class LocationFormAnswers extends Component {
             }
             )
         };
-
         return (<>
             {[...toReturnArray].map((answer) => (
                 answer
-
             ))}
             {(() => {
                 if (this.state.content.length <= 3) {

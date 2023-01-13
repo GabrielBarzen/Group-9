@@ -1,7 +1,4 @@
 import React, { useRef } from 'react';
-import Logo from "../shared/Logo"
-import Login from "../shared/Login"
-import Button from "../shared/Button"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'universal-cookie';
@@ -14,7 +11,6 @@ export default function Loginpage() {
     let passwordRef = useRef();
 
     function handleLogin(){
-        console.log("Logging in.")
         let message = document.querySelector("#message");
         var data = JSON.stringify
         (

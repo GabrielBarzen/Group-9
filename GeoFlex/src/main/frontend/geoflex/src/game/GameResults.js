@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Button from '../shared/Button';
 
 export default function GameResults(props) {
-
-    console.log("send this questions to game result:" + props.questions)
-    console.log("send this answers to game result:" + props.answers)
+/**
+ * functional component that handles and renders the game results for the user
+ * the useEffect react hook renders when component is loaded and whenever index changes state
+ * in order to handle both quizes and information tours (without questions and answers) it renders either the results or nothing
+ */
 
     const [index, setIndex] = useState(0);
     const [correctAnswers, setCorrectAnswers] = useState([]);
@@ -14,32 +15,14 @@ export default function GameResults(props) {
     const [quizType, setQuizType] = useState("");
 
     const lastIndex = props.answers.length
-    /*
-        const object = {
-      "questionID": "116499",
-      "answers": {
-        "141": true,
-        "142": true
-      }
-    };
-    
-    const answerArray = Object.keys(object.answers);
-    console.log(answerArray); 
-    
-          */
-    // 0 = zero
-    // 1 = one
 
     useEffect(() => {
 
         //collects and sets current answer and question  
         const currentAnswer = props.answers[index]
         const currentQuestion = props.questions[index]
-        console.log("before if PROPS.Q.LENGTH IF")
-        console.log(props.questions)
-        console.log(props.questions.length)
+
         if (props.questions.length !== 0) {
-            console.log("INSIDE PROPS.Q.LENGTH IF")
             setCurrentAnswer(currentAnswer)
             setCurrentQuestion(currentQuestion)
 
@@ -65,11 +48,7 @@ export default function GameResults(props) {
         } else {
             setQuizType("info")
         }
-
-
     }, [index, setCorrectAnswers, setCurrentAnswer, setCurrentQuestion, setRenderUserAnswers])
-
-
 
     const handleNext = () => {
         setIndex(prevIndex => prevIndex + 1);

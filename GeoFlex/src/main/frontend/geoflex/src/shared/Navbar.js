@@ -2,10 +2,10 @@ import logo from '../static/GeoFlexSmallLogo.png'
 import Cookies from 'universal-cookie';
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function Navbar(props) {
-
+/**
+ * functional component to render navbar based on user role
+ */
     const navigate = useNavigate();
     const cookies = new Cookies();
 

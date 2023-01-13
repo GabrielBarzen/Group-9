@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import Button from "../shared/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import GameTour from './GameTour'
+import GameTour from './GameTour';
 import Cookies from 'universal-cookie';
 
-export default function GameStart() {
-    const [tours, setTours] = useState([]);
-    const cookies = new Cookies();
 
+export default function GameStart() {
+    /**
+     * functional component to render homescreen for user
+     * GET API-call to fetch quizes the user has completed and maps them to GameTours component for render
+     */
+    const [tours, setTours] = useState([]);
+    const navigate = useNavigate();
+    const cookies = new Cookies();
 
     useEffect(() => {
 
@@ -24,45 +29,8 @@ export default function GameStart() {
             })
             .catch(function (error) {
                 console.log(error);
-
-                //Dev placeholderdata
-                const placeholder = [{
-                    "title": "T",
-                    "description": "1",
-                    "type": "QUIZ",
-                    "id": "1552",
-                    "code": "8196",
-                    "media": [
-                        {
-                            "mediaUrl": "https://www.twitch.tv/odablock",
-                            "mediaType": "video",
-                            "externalMedia": true
-                        }
-                    ],
-                    "locations": 3,
-                    "timesFinished": "0"
-                }, {
-                    "title": "T",
-                    "description": "1",
-                    "type": "QUIZ",
-                    "id": "1554",
-                    "code": "8193",
-                    "media": [
-                        {
-                            "mediaUrl": "",
-                            "mediaType": "",
-                            "externalMedia": false
-                        }
-                    ],
-                    "locations": 3,
-                    "timesFinished": "0"
-                }];
-                placeholder.reverse();
-                setTours(placeholder);
             });
-    }, [setTours]);
-
-    const navigate = useNavigate();
+    }, [setTours]);    
 
     function navigateToStart() {
         navigate('/game/start', { replace: false });
@@ -85,11 +53,9 @@ export default function GameStart() {
             <>
                 <div className="container white container-css">
                     <div className="row">
-
                         <div className="col s12">
                             <h5 className="center-align">Översikt användare</h5>
                         </div>
-
                     </div>
                     <div className="row">
                         <div className="col s12">
@@ -120,11 +86,9 @@ export default function GameStart() {
             <>
                 <div className="container white container-css">
                     <div className="row">
-
                         <div className="col s12">
                             <h5 className="center-align">Översikt användare</h5>
                         </div>
-
                     </div>
                     <div className="row">
                         <div className="col s12">

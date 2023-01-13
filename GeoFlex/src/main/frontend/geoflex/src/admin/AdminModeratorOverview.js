@@ -5,26 +5,16 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 import Button from '../shared/Button';
 
-
-
 export default function AdminModeratorOverview() {
     const [moderators, setModerators] = useState([]);
-    const [moderatorRoutes, setModeratorRoutes] = useState([]);
-    const [allRoutes, setAllRoutes] = useState([]);
     const [status, setStatus] = useState(false);
-
-
-
-
-
-    //dummmy-data över alla tillgängliga quiz
-    const dummyData = [{ "title": "Test Quiz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "1", "code": "572748", "locations": 3 }, { "title": "Test Info", "description": "This info for testing purposes.", "type": "INFO", "id": "2", "code": "184471", "locations": 3 }, { "title": "Test 2", "description": "More testing tests ", "type": "INFO", "id": "4", "code": "295052", "locations": 0 }, { "title": "Num Location Test1", "description": "test, remove", "type": "INFO", "id": "5", "code": "447827", "locations": 0 }, { "title": "Num Location Test2", "description": "test, remove", "type": "INFO", "id": "6", "code": "625158", "locations": 3 }, { "title": "Num Location Test3", "description": "test, remove", "type": "INFO", "id": "7", "code": "782310", "locations": 4 }, { "title": "Test Quiz2E", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "8", "code": "538027", "locations": 6 }, { "title": "Test Quizz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "10", "code": "983850", "locations": 6 }];
-
 
     useEffect(() => {
         M.AutoInit();
-        console.log("GET MODERATOR LIST");
-        console.log(status);
+
+        /**
+         * GET API-anrop för att hämta en lista på alla moderatorer
+         */
         var config = {
             method: 'get',
             url: '/admin/moderators',
@@ -39,15 +29,14 @@ export default function AdminModeratorOverview() {
             })
             .catch(function (error) {
                 console.log(error);
-                //dummy data som ska tas bort:
-                const dummyModerators = [{ "name": "Max", "user-id": 78 }, { "name": "Jack", "user-id": 79 }, { "name": "Lux", "user-id": 80 }, { "name": "Sivir", "user-id": 81 }];
-                console.log("MODERATOR ERROR");
-                setModerators(dummyModerators);
             });
 
     }, [status]);
 
     function deleteModerator(ModID) {
+        /**
+         * POST API-anrop för att ta bort en moderator
+         */
         var config = {
             method: 'post',
             url: '/admin/delete/moderator?user-id=' + ModID,
@@ -67,21 +56,6 @@ export default function AdminModeratorOverview() {
                 console.log(error);
             });
     }
-
-    /**
-     * Hämtar en lista av alla moderatorer.
-     */
-    /*function getModeratorList() {
-        
-
-    }*/
-
-    /**
-     * Hämtar alla quiz en moderator har blivit tilldelad med hjälp av dens ID.
-     * Bara id 81 har quizzes atm.
-     */
-
-
 
     return (<>
         <div className='container white container-css'>
@@ -106,7 +80,6 @@ export default function AdminModeratorOverview() {
                 <div className="center-align">
                     <Link to="/admin/moderator/create">
                         <Button css=" s12 green lighten-1 "
-
                             icon={<i className="material-icons white-text">
                                 add_circle_outline
                             </i>

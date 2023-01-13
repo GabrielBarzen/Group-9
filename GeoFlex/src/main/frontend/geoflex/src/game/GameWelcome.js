@@ -2,17 +2,14 @@ import React from 'react';
 import Button from '../shared/Button';
 
 export default function GameWelcome(props) {
+  /**
+   * functional component that renders the welcome screen of a quiz
+   * method setGameStart from parent component to start the game when set to "true"
+   */
 
   const handleGameStart = () =>{
     props.setGameStart(true)
   }
-
-
-
-    
-    
-  
-
 
   return (
     <>

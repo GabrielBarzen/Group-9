@@ -1,7 +1,9 @@
 import React from 'react'
 
 export default function ModGeolocate(props) {
-
+  /**
+   * functional component that handles fetching geodata coordinates (long/lat) for the admin/moderator who is at the location where the question should be
+   */
   function getGeolocation() {
     navigator.geolocation.getCurrentPosition(position => {
       let latitude = position.coords.latitude;

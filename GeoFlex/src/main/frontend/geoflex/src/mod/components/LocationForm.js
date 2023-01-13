@@ -3,27 +3,14 @@ import LocationFormAnswers from './LocationFormAnswers';
 import LocationFormMedia from './LocationFormMedia';
 import LocationFormUseQR from './LocationFormUseQR';
 import ModGeolocate from './ModGeolocate';
-//import axios from 'axios';
-
-
-/**
- * TODO:
- *      
- *      setState för media så de kan få rätt url
- *      ordna lägg till content med begränsning på 5
- *      se över API anrop och lägg till TA BORT ett svar
- *      
- *      skicka formulär
- * 
- * DONE:
- *      radiobutton för correct answer
- */
 
 export default class LocationForm extends Component {
+    /**
+     * class component to handle and render the form where a quiz is edited
+     * constructor handles state and bindings for method, prefilled values is set through props from parent component
+     */
     constructor(props) {
         super(props);
-        //Här definierar vi alla förifyllda värden baserat på props
-
 
         this.state = {
             locationName: this.props.currentData.name,
@@ -61,11 +48,12 @@ export default class LocationForm extends Component {
         this.handleGeoLocation = this.handleGeoLocation.bind(this);
         this.handleContentIDState = this.handleContentIDState.bind(this);
         this.handleMediaOptions = this.handleMediaOptions.bind(this);
-        //this.handleRenderAnswers = this.handleRenderAnswers.bind(this);
         this.setParentMediaUrl = this.setParentMediaUrl.bind(this);
     }
     componentDidMount() {
-
+        /**
+         * react method to handle logic before component renders
+         */
         if (this.props.currentData.media[0].mediaType === "video") {
             this.setState({ locationMediaType: false })
         } else if (this.props.currentData.media[0].mediaType === "image") {
@@ -75,17 +63,16 @@ export default class LocationForm extends Component {
         }
 
         if (this.props.currentData.media[0].externalMedia === false) {
-
             this.setState({ locationMediaExternal: false })
         } else if (this.props.currentData.media[0].externalMedia === true) {
             this.setState({ locationMediaExternal: true })
         }
 
-
-
         let contentLength = this.props.currentData.content.length
         if (this.props.currentData.content.length !== 0) {
-
+            /**
+             * since the amount of answers can vary in numbers for each question a switch will handle each case to set prefilled values, if any
+             */
             switch (contentLength) {
                 case 1:
                     this.setState({
@@ -142,7 +129,9 @@ export default class LocationForm extends Component {
     }
 
     handleMediaOptions(mediaType, externalMedia) {
-
+        /**
+             * method to change state of locationMediaType and locatioinMediaExternal
+             */
         this.setState({
             locationMediaType: mediaType,
             locationMediaExternal: externalMedia
@@ -150,6 +139,9 @@ export default class LocationForm extends Component {
     }
 
     handleContentIDState(content) {
+        /**
+         * method to create unique keys for content array
+         */
         let i = 1;
 
         content.forEach(item => {
@@ -162,12 +154,16 @@ export default class LocationForm extends Component {
 
     handleAddAnswer(locationID) {
         /**
-         * Add a new question
+         * Add a new answer
          */
 
         this.props.callAddAnswer(locationID);
     }
+
     handleRemoveAnswer(locationID, contentID) {
+        /**
+         * Remove an answer
+         */
         this.props.callRemoveAnswer(locationID, contentID)
     }
 
@@ -183,6 +179,9 @@ export default class LocationForm extends Component {
     }
 
     handleInputChange(event) {
+        /**
+    * method to handle the various input fields and conditions for the media switches 
+    */
         function youtubeUrlToEmbedUrl(youtubeUrl) {
             // First, check if the URL is a valid YouTube URL
             var youtubeRegex = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.be)\/.+$/;
@@ -235,7 +234,9 @@ export default class LocationForm extends Component {
     }
 
     setParentMediaUrl(mediaPath) {
-        console.log("PARENTMEDIAURL")
+        /**
+     * method to be sent to locationFormMedia 
+     */
         if (this.state.locationMediaUrl === "") {
             this.setState({ locationMediaType: "video" })
         }
@@ -246,9 +247,7 @@ export default class LocationForm extends Component {
         event.preventDefault();
 
         /*
-        här bygger vi objektet som ska till databasen 
-        och anropar sedan funktionen där API-anropet ligger och skickar med objektet
-        just nu får man bara en alert med de värden man fyllt i
+        method to build the data object and send it to API-call to be saved to database
         */
 
 
@@ -314,13 +313,16 @@ export default class LocationForm extends Component {
                 "content": contentArray
             }
         }
-        
-        this.props.callUpdateLocation(data);        
+
+        this.props.callUpdateLocation(data);
     }
 
 
 
     render() {
+        /**
+         * react function to render html and other components
+         */
 
         return (
             <div className='col s12'>
@@ -333,10 +335,8 @@ export default class LocationForm extends Component {
                             name="locationName" type="text"
                             value={this.state.locationName}
                             onChange={this.handleInputChange}
-
                         />
                     </label>
-
                     <label>
                         Platsinformation
                         <textarea
@@ -373,19 +373,13 @@ export default class LocationForm extends Component {
                                         />
                                         <span className="lever"></span>
                                         QR
-
                                     </label>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
-
-
                     {(() => {
                         if (this.state.locationUseQR === true) {
-
                             return (
                                 <LocationFormUseQR
                                     data={this.state}
@@ -394,7 +388,6 @@ export default class LocationForm extends Component {
                                 />
                             )
                         } else if (this.state.locationUseQR === false) {
-
                             return (
                                 <ModGeolocate
                                     data={this.state}
@@ -413,7 +406,6 @@ export default class LocationForm extends Component {
                                 handleRemoveAnswer={this.handleRemoveAnswer}
                                 handleContentIDState={this.handleContentIDState} />
                         </div>
-
                     </fieldset>
                     <input type="submit" value="Spara" className="waves-effect waves-light btn green lighten-1" style={{ 'margin-bottom': '1rem' }} />
                 </form>

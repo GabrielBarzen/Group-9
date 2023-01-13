@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import QRCode from 'qrcode';
 
 export default class LocationFormUseQR extends Component {
-
+    /**
+     * class component that handles creating a qr code for a quiz and the description to find a location when indoors
+     * constructor set states and binds methods used 
+     */
     constructor(props) {
         super(props)
         this.state = {
@@ -18,6 +21,10 @@ export default class LocationFormUseQR extends Component {
         this.onFieldChange = this.onFieldChange.bind(this);
     }
     componentDidMount() {
+        /**
+         * react method to handle logic before rendering
+         * set data 
+         */
 
         this.setState({
             url: [{
@@ -28,17 +35,14 @@ export default class LocationFormUseQR extends Component {
             }]
         })
         var data = this.props.data.locationID.toString();
-        /*        [
-                { data: this.state.routeID, mode: 'alphanumerical' },
-                { data: this.state.locationID, mode: 'numeric' },
-                { data: this.state.url.locationName, mode: 'alphanumerical'},
-                { data: this.state.url.marker, mode: 'bool'}
-              ]*/
+
         this.generateQR(data);
     }
 
     generateQR(data) {
-
+        /**
+         * method to generate a qr-code 
+         */
         QRCode.toDataURL(data, (err, url) => {
             if (err) return console.error(err)
 
@@ -71,10 +75,8 @@ export default class LocationFormUseQR extends Component {
                                 onChange={this.onFieldChange}
                                 style={{ 'padding': '0.5rem' }}
                             />
-
                         </label>
                     </div>
-
                 </div>
                 <div className='row'>
                     <div className='col s12'>
