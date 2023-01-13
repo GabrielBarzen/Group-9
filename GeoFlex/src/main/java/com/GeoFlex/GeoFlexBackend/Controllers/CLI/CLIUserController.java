@@ -20,8 +20,8 @@ public class CLIUserController implements CLIDelegationController {
             "Available commands :"+"\n"+
             "get                     , gets all users from database"+ "\n"+
             "password {ID}           , sets the user password using id"+ "\n"+
-            "new                     , sets the user password using id"+ "\n"+
-            "set-access {ID} {level] , sets the user password using id"+ "\n"+
+            "new                     , creates new user"+ "\n"+
+            "set-access {ID} {level] , sets the user accesslevel using id"+ "\n"+
 
             "================";
 
