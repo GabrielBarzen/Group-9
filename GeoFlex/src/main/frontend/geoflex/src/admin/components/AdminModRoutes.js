@@ -3,7 +3,7 @@ import React from 'react';
 export default function AdminModRoutes(props) {
 
     function handleDelete() {
-        //tar bort en route från en moderator
+        //anrop till parent-komponent; tar bort en route från en moderator
         props.unassignRouteFromMod(props.route.id, props.moderator["user-id"]);
     }
     return (<>

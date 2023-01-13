@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import GameResults from './GameResults';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { Link } from "react-router-dom";
 
 export default function GameFinish(props) {
   const [questions, setQuestions] = useState([]);
@@ -35,18 +36,21 @@ export default function GameFinish(props) {
     setQuestions(quizData);
     setAnswers(loadAnswers);
 
-    
-
   }, [setQuestions, setAnswers])
 
   function checkCookie() {
+    /**
+     * reads and returns cookie value
+     */
     const cookies = new Cookies();
     let cookieValue = cookies.get('user-id')
     return cookieValue
   }
 
   function assignRouteToUser(id) {
-
+    /**
+     * PATCH API-call to assign a finished route to user
+     */
     var data = JSON.stringify(
       {
         "user-id": id,
@@ -71,14 +75,14 @@ export default function GameFinish(props) {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        
+
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  //verify current user
+  //verify if current user isLoggeIin
   let hasCookie = checkCookie();
   console.log(hasCookie)
   if (hasCookie !== undefined) {
@@ -105,7 +109,6 @@ export default function GameFinish(props) {
                     <img src={data.media[0].mediaURL} alt="questionImage" className='responsive-img' style={{ "borderRadius": "5px" }}></img>
                   )}
                 </div>
-
                 <div className='row'>
                   <div className='col s12 grey lighten-3' style={{ "borderRadius": "5px", "padding": '2rem' }}>
                     <div className='row'>
@@ -121,6 +124,11 @@ export default function GameFinish(props) {
                     <GameResults questions={questions} answers={answers} />
                   </p>
                 </div>
+              </div>
+              <div className='row'>
+                <Link className='btn col s12  center-align waves-teal btn col btn-large btn-css icon-css z-depth-2' to="/">
+                   Klar
+                </Link>
               </div>
             </div>
           </div>

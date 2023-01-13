@@ -2,10 +2,9 @@ import React from 'react';
 import Leafletmap from './LeafletMap';
 
 export default function GameOutdoorNavigation(props) {
-  console.log("GAMEOUTDOORNAV")
-  console.log(props.destination[0])
-  console.log(props.destination[1])
-
+  /**
+   * functional component that extends setUserArrived() from parent component and renders the leafletMap component
+   */
   function setUserArrivedHelper(){
     props.setUserArrived(true);
   }

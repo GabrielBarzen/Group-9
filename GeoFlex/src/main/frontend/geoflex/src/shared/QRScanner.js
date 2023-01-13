@@ -1,21 +1,22 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React , {useState} from 'react';
 import { QrReader } from 'react-qr-reader';
 
 export default function QRScanner(props) {
-  const [data, setData] = useState('No result');
+	/**
+	 * functional component that handles the QR-reader
+	 */
+	const [data, setData] = useState('No result');
 
 	const handleError = (err) => {
 		console.err(err)
 	}
 
 	const handleScan = (result) => {
-    if (!!result) {
-      console.log("QRDATA");
-      console.log(result);
-      setData(result?.text);
-      props.handleResult(result)
-    }
+		if (!!result) {
+
+			setData(result?.text);
+			props.handleResult(result)
+		}
 	}
 
 	const previewStyle = {
@@ -26,16 +27,16 @@ export default function QRScanner(props) {
 	return (
 		<div className={"test"}>
 			<QrReader
-			delay={500}
-			style={previewStyle}
-			onError={handleError}
-			//onScan={handleScan} //verkar inte göra något?
-      onResult={handleScan}
-      constraints={{
-        facingMode: 'environment'
-    }}
+				delay={500}
+				style={previewStyle}
+				onError={handleError}
+
+				onResult={handleScan}
+				constraints={{
+					facingMode: 'environment'
+				}}
 			/>
-					
+
 		</div>
 	);
 }

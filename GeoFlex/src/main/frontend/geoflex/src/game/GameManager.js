@@ -30,10 +30,10 @@ export default function GameManager(props) {
          * Please note that this function does NOT overwrite the key in localStorage but adds to the array.
          * Also note that this is an async function that waits until the item is saved to localStorage before it clears the 'clickedIds' and calls 'handleNext()'
          * */
-        if (Object.keys(clickedIds).length === 0) {
+        /*if (Object.keys(clickedIds).length === 0) {
             console.log("clickedIds is empty, skipping handleSave")
             return;
-        }
+        }*/
 
         let userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
 
@@ -56,12 +56,17 @@ export default function GameManager(props) {
         handleNext();
     };
     function handleUserArrivedStatus(result) {
-        if (result === true) {
-            console.log("GAMEMANAGER")
-            setUserArrived(true)
-            console.log(userArrived)
+        /**
+         * lets the system know when user has arrived at location
+         */
+        if (result === true) {      
+            setUserArrived(true)           
         }
     }
+
+    /**
+     * conditional rendering to handle either indoor or outdoor quiz and the current state of the game
+     */
     if (currentQuestion.last_location !== "true") {
         if (currentQuestion.qr === "true") {
             return (
@@ -85,19 +90,12 @@ export default function GameManager(props) {
                 </div>
             );
         } else if (currentQuestion.qr === "false") {
-            console.log("KOLLA HÄR")
-            console.log(currentQuestion.x_coords)
-            console.log(currentQuestion.y_coords)
 
             const destination = []
             let longitude = parseFloat(currentQuestion.x_coords);
             let latitude = parseFloat(currentQuestion.y_coords);
             destination.push(latitude);
             destination.push(longitude);
-
-            console.log(destination[0])
-            console.log(destination[1])
-
 
             return (
                 <div>
@@ -129,74 +127,3 @@ export default function GameManager(props) {
     }
 
 }
-/*
-        <div>
-            {index === props.questions.length - 1 ? (
-
-                <div>
-                    <GameItem
-                        currentQuestion={currentQuestion}
-                    />
-                    
-      </div>
-                </div>
-            ) : (
-                <div>
-                    <GameItem
-                        currentQuestion={currentQuestion}
-                        saveDataToLocalStorage={saveDataToLocalStorage}
-                        handleNext={handleNext}
-                    />
-                </div>
-                <div className='row'>
-        <div className='container'>
-          <Button text="Nästa fråga" css="col s12" click={handleSave} icon={<i className="small material-icons right">arrow_forward</i>} />
-        </div>
-            )}
-        </div>
-
-
-
-
-        <div>
-            {index === props.questions.length - 1 ? (
-                
-                <div>
-                    <h1>{currentQuestion.name}</h1>
-                    <p>{currentQuestion.text_info}</p>
-
-                    {currentQuestion.media.map(media => (
-                        <div key={media.mediaURL}>
-                            {media.mediaType === 'video' && (
-                                <video src={media.mediaURL} />
-                            )}
-                            {media.mediaType === 'image' && (
-                                <img src={media.mediaURL} />
-                            )}
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <div>
-                    <h1>{currentQuestion.name}</h1>
-                    <p>{currentQuestion.text_info}</p>
-
-                    {currentQuestion.media.map(media => (
-                        <div key={media.mediaURL}>
-                            {media.mediaType === 'video' && (
-                                <video src={media.mediaURL} />
-                            )}
-                            {media.mediaType === 'image' && (
-                                <img src={media.mediaURL} />
-                            )}
-                        </div>
-                    ))}
-
-                    {index < props.questions.length - 1 && (
-                        <button onClick={handleNext}>Next</button>
-                    )}
-                </div>
-            )}
-        </div>
-
-*/

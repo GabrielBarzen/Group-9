@@ -53,11 +53,9 @@ export default function AdminAddNew() {
     }
 
     useEffect(() => {
-        //useEffect to initialize M from material css framework every time the page load
+        //useEffect to initialize M from material css framework every time the page load, this assists styling that require javascript to work
         M.AutoInit();
     }, []);
-
-
 
     return (<>
         <div className="container white container-css">
@@ -85,7 +83,6 @@ export default function AdminAddNew() {
                     </div>
                     <div className="row">
                         <div className="input-field col s12">
-
                             <br />
                             <br />
                             <br />
@@ -97,8 +94,6 @@ export default function AdminAddNew() {
                             <br />
                             <br />
                         </div>
-
-
                     </div>
                     <div className='col s12 green lighten-1 center-align btn-css icon-css z-depth-2' onClick={handleAddNew}>
                         <i className="material-icons white-text" style={{ 'padding': '1rem' }}>

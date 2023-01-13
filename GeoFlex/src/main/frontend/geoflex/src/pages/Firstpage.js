@@ -1,7 +1,6 @@
 import Button from "../shared/Button"
 import Logo from "../shared/Logo"
 import { useNavigate } from "react-router-dom";
-import Navbar from "../shared/Navbar";
 import Cookies from 'universal-cookie';
 import { useEffect } from "react";
 

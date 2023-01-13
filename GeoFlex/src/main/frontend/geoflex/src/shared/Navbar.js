@@ -2,10 +2,10 @@ import logo from '../static/GeoFlexSmallLogo.png'
 import Cookies from 'universal-cookie';
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function Navbar(props) {
-
+/**
+ * functional component to render navbar based on user role
+ */
     const navigate = useNavigate();
     const cookies = new Cookies();
 
@@ -34,12 +34,12 @@ export default function Navbar(props) {
         return (<>
             <nav className="nav-extended">
                 <div className="nav-wrapper white">
-                    <a href="/admin/" className="left brand-logo black-text"><img src={logo} width="30%" style={{ 'marginTop': '0.5rem' }} className="responsive-img" alt="logotype" /></a>
+                    <a href="/admin" className="left brand-logo black-text"><img src={logo} width="30%" style={{ 'marginTop': '0.5rem' }} className="responsive-img" alt="logotype" /></a>
                 </div>
                 <div class="nav-content white">
                     <ul class="tabs tabs-transparent">
-                        <li className="tab"><a href="/admin/moderator/overview/" className="black-text" onClick={handleNavigateModerators}>Moderatorer</a></li>
-                        <li className="tab"><a href="/admin/overview/" className="black-text" onClick={handleNavigateAdminOverview}>Översikt</a></li>
+                        <li className="tab"><a href="/admin/moderator/overview" className="black-text" onClick={handleNavigateModerators}>Moderatorer</a></li>
+                        <li className="tab"><a href="/admin" className="black-text" onClick={handleNavigateAdminOverview}>Översikt</a></li>
                         <li className="tab"><a className="active black-text" href="/" onClick={handleLogOut}>Logga ut</a></li>
                     </ul>
                 </div>

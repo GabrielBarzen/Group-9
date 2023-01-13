@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 export default class Codebox extends Component {
+  /**
+   * class component to handle the codebox that starts a specific quiz
+   * constructor sets states and bind methods that need binding
+   */
 
   constructor(props) {
     super(props);
@@ -19,13 +23,19 @@ export default class Codebox extends Component {
   }
 
   componentDidMount() {
+    /**
+     * react method that runs before render
+     */
     const inputs = document.getElementById("inputs");
     inputs.firstElementChild.focus();
   }
 
   handleChange = async event => {
-    console.log(event.target.value)
-    //const { name, value } = event.target;
+    /**
+     * method to handle the codebox input fields
+     * restricts input field to only take numbers and only 1 in each
+     * once one input field is filled focus shift the next sibling element !NOTE next sibling element meean functionality will break if the HTML DOM tree changes and the inputfields arent direct siblings
+     */
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -35,8 +45,6 @@ export default class Codebox extends Component {
 
       this.setState({ [name]: value });
       numbers.push(value);
-      console.log("HÄR")
-      console.log(numbers)
       const nextInputField = this.inputs[name].nextSibling;
       if (nextInputField) {
         nextInputField.focus();
@@ -50,6 +58,9 @@ export default class Codebox extends Component {
   }
 
   handleKeyDown = event => {
+    /**
+     * method the check if backspace or delete key is used in order to clear a faulty enter of an inputfield
+     */
     if ((event.key === 'Backspace' || event.key === 'Delete') && event.target.value === '') {
       event.preventDefault();
       const { name } = event.target;
@@ -62,9 +73,12 @@ export default class Codebox extends Component {
   }
 
   checkRoute(numbers) {
-    console.log("CHECKROUTE")
+    /**
+     * if 4 numbers are entered in the codebox API call to check if the number is valid
+     * if valid a number is entered user will be redirected to the quiz
+     * else the codebox will be cleared and message set to notify the user that the code was wrong
+     */
     let routeCode;
-    console.log(numbers.length)
     if (numbers.length === 4) {
       routeCode = numbers.join('');
       const url = "/user/checkRoute?routeCode=" + routeCode
@@ -90,10 +104,6 @@ export default class Codebox extends Component {
         })
         .catch(error => {
           console.log(error)
-          /*
-          let url = "/game/1234/welcome"
-              this.props.handleNavigate(url, "3956", "2039" );
-          */
         });
     } else {
       this.setState({ status: "Fel kod, försök igen." })
@@ -115,8 +125,7 @@ export default class Codebox extends Component {
         <div className='col center-align'>
           <b>Skriv in din fyrsiffriga kod för att starta rundan.</b>
         </div>
-      </div>
-      
+      </div>      
       <div id="inputs" className='row'>
         <input
           type="text"
@@ -156,10 +165,8 @@ export default class Codebox extends Component {
       </div>
       <div className='row center-align red-text'>
         {this.state.status}
-
       </div>
     </>
     );
   }
-
 }

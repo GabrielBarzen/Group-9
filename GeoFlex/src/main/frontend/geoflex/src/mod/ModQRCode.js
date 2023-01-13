@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import QRCode from 'qrcode';
 
 export default class LocationFormUseQR extends Component {
-
+/**
+ * class component that handles creation and rendering of qrcodes to print
+ * constructor sets states and binds methods used
+ */
     constructor(props) {
         super(props)
         this.state = {
@@ -15,10 +18,9 @@ export default class LocationFormUseQR extends Component {
         this.generateQR = this.generateQR.bind(this);
     }
     componentDidMount() {
-        console.log("KOLLA HÄR");
-        console.log(this.props.data.location_id)
-        console.log(this.props.data.name)
-
+/**
+ * react method that runs before render and update states
+ */
         this.setState({
             url: [{
                 "locationID": this.props.data.location_id,
@@ -49,8 +51,6 @@ export default class LocationFormUseQR extends Component {
                     </div>
                     <div className="divider col s10 offset-s1" style={{ 'marginTop': '1rem' }}></div>
                 </div>
-
-
             </>
         )
     }

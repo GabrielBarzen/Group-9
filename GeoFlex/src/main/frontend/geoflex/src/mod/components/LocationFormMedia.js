@@ -4,15 +4,12 @@ import FormData from 'form-data';
 
 export default class LocationFormMedia extends Component {
     /**
-     * this.state.mediaType: false === video; true === img
-     * Todo: 
-     *          kommentera kod
-     *          Fixa riktig knapp i html
+     * class component to handle internal and external media upload 
+     * constructor sets states of the component and binds methods
      */
-    constructor(props) {        
-        super(props);
-        console.log("MEDIAFORM")
-        console.log(props.routeID)
+    constructor(props) {
+        super(props)
+
         this.state = {
             locationID: props.locationID,
             routeID: props.routeID,
@@ -21,29 +18,24 @@ export default class LocationFormMedia extends Component {
             mediaType: props.locationMediaType,
             selectedFile: "",
             preview: false
-            //addMedia: false
         }
 
         this.handleSaveMediaLocation = this.handleSaveMediaLocation.bind(this);
         this.handleGetMediaLocation = this.handleGetMediaLocation.bind(this);
-        //this.handleMediaOriginSwitch = this.handleMediaOriginSwitch.bind(this);
         this.onFieldChange = this.onFieldChange.bind(this);
         this.setParentMediaUrl = this.setParentMediaUrl.bind(this);
     }
-    /*
     componentDidMount() {
         if (this.props.locationMediaUrl.length !== 0) {
             this.setState({ addMedia: true })
         }
     }
-    */
+
 
     onFileChange = event => {
         // Update the state
         this.setState({ selectedFile: event.target.files[0] });
-        
         this.handleSaveMediaLocation(event);
-
     };
 
     setParentMediaUrl(fileUrl) {
@@ -55,12 +47,11 @@ export default class LocationFormMedia extends Component {
         //API-call to GET the url for an uploaded media file
         //Note that binding to is done inside the axios call in order to access "this".
         let url;
-        if(this.state.routeID !== undefined){
+        if (this.state.routeID !== undefined) {
             url = '/moderator/route/file/retrieve?routeId=' + this.state.routeID
         } else {
             url = '/moderator/location/file/retrieve?locationId=' + this.state.locationID
         }
-
 
         var myData;
         var config = {
@@ -72,38 +63,22 @@ export default class LocationFormMedia extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                
                 myData = response.data
-                //setImage(myData)
                 this.props.setParentMediaUrl(myData);
             }.bind(this))
             .catch(function (error) {
                 console.log(error);
-                console.log("GETMEDIAURL ERROR");
-                //myData = "https://m.media-amazon.com/images/M/MV5BNGJmMWEzOGQtMWZkNS00MGNiLTk5NGEtYzg1YzAyZTgzZTZmXkEyXkFqcGdeQXVyMTE1MTYxNDAw._V1_.jpg";
-                //setImage(myData)
-                //this.props.setParentMediaUrl(myData);
-
             }.bind(this));
-
-        // function setImage(imagePath) {
-        //    console.log("SETIMAGE")
-        //    console.log(imagePath)
-        //   this.props.setParentMediaUrl(imagePath);
-        //this.setState({ mediaUrl: imagePath });
-
-        //}
     }
 
     handleSaveMediaLocation(event) {
         //API-call to upload a media file to the server
-        
+
         event.preventDefault();
-        
 
         var data = new FormData();
         let url;
-        if(this.state.routeID !== undefined){
+        if (this.state.routeID !== undefined) {
             url = '/moderator/route/file/upload?routeId=' + this.state.routeID
         } else {
             url = '/moderator/location/file/upload?locationId=' + this.state.locationID
@@ -123,31 +98,17 @@ export default class LocationFormMedia extends Component {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                //fetchMediaURL();
+
             })
             .catch(function (error) {
                 console.log(error);
-                //fetchMediaURL();
+
             });
-        /*
-                const fetchMediaURL = () => {
-                    this.handleGetMediaLocation();
-                }
-                */
     }
-    /*
-        handleMediaOriginSwitch(event) {
-            
-            const target = event.target;
-            const value = target.type === 'checkbox' ? target.checked : target.value;
-    
-            this.setState({ mediaExternal: value })
-        }
-        */
     onFieldChange(event) {
         /**
          * passing on the event to parent class method
-         *  */
+         */
 
         this.props.handleInputChange(event);
     }
@@ -165,12 +126,13 @@ export default class LocationFormMedia extends Component {
         } else if (value === false) {
             this.setState({ preview: value })
         }
-
     }
 
     render() {
+        /**
+         * react component to handle rendering of html and other components
+         */
 
-        
         //html for upload media files
         let previewMedia = (<>
             <label className='col s2'>
@@ -186,7 +148,6 @@ export default class LocationFormMedia extends Component {
         let uploadMedia = (<>
             <label>
                 Lägg till media
-
                 <div className="file-field input-field">
                     <div className="btn">
                         <span>Välj fil</span>
@@ -278,36 +239,28 @@ export default class LocationFormMedia extends Component {
 
         if (this.props.locationMediaExternal === true) {
             if (this.props.locationMediaType === true) {
-                
+
                 renderInput = externalMedia;
                 renderMediaPreview = renderImage;
 
             } else if (this.props.locationMediaType === false) {
-                
+
                 renderInput = externalMedia;
                 renderMediaPreview = renderExternalVideo;
 
-            } /*else if (this.props.locationMediaType === "") {
-                console.log("IF: EXTERNAL NOMEDIA")
-                renderInput = externalMedia;
-                renderMediaPreview = noMedia;
-            }*/
+            }
         } else if (this.props.locationMediaExternal === false) {
             if (this.props.locationMediaType === true) {
-                
+
                 renderInput = uploadMedia;
                 renderMediaPreview = renderImage
 
             } else if (this.props.locationMediaType === false) {
-                
+
                 renderInput = uploadMedia;
                 renderMediaPreview = renderInternalVideo
 
-            } /*else if (this.props.locationMediaType === "") {
-                console.log("IF ELSE: INTERNAL NOMEDIA")
-                renderInput = uploadMedia;
-                renderMediaPreview = noMedia;
-            }*/
+            }
         }
         if (this.props.locationMediaUrl.length === 0) {
             renderMediaPreview = noMedia
@@ -319,12 +272,10 @@ export default class LocationFormMedia extends Component {
                 <div className='col 10'>
                     <div className="switch row">
                         <h5>Media</h5>
-
                         <i>Välj att ladda upp ett eget klipp/bild, eller hämta från extern källa</i>
                         <br />
                         <br />
                         <label>
-
                             Egen
                             <input type="checkbox"
                                 name="locationMediaExternal"
@@ -333,7 +284,6 @@ export default class LocationFormMedia extends Component {
                             />
                             <span className="lever"></span>
                             Extern
-
                         </label>
                     </div>
                 </div>
@@ -355,9 +305,7 @@ export default class LocationFormMedia extends Component {
                         </label>
                     </div>
                 </div>
-
             </div>
-
         </>)
         if (this.state.preview === false) {
             return (<>
@@ -372,6 +320,5 @@ export default class LocationFormMedia extends Component {
                 {previewMedia}
                 {renderMediaPreview}
             </>)
-
     }
 }

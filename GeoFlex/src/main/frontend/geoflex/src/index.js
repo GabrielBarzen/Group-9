@@ -26,6 +26,8 @@ import StartQuiz from './pages/StartQuiz';
 import GameLoader from './game/GameLoader';
 import ModQrCodes from './mod/ModQrCodes';
 import GameStart from './game/GameStart';
+import Faq from './pages/Faq';
+import About from './pages/About'
 
 
 export default function App() {
@@ -53,6 +55,7 @@ export default function App() {
                     <Route path='/game/:id/navigation' element={<GameNavigation />} />
                     <Route path='/game/route/:id/location/:id' element={<GameItem />} />
                     <Route path='/game/:id/finish' element={<GameFinish />} />
+                    
                     <Route path='/user' element={<GameStart />} />
 
                     <Route path='/test' element={<TestComponents />} />
@@ -60,6 +63,8 @@ export default function App() {
                     <Route path='/Loginpage' element={<Loginpage />} />
                     <Route path='/Register' element={<Register />} />
                     <Route path='/TempUser' element={<TempUser />} />
+                    <Route path='/faq' element={<Faq/>} />
+                    <Route path='/about' element={<About/>} />
                     
                 </Route>
             </Routes>

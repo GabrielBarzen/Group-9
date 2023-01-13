@@ -15,11 +15,8 @@ export default function Location(props) {
     const end = props.dataLength - 1;
     const currentIndex = props.data.location_index;
 
-
     function handleChange(value) {
-
         setTitleValue(value);
-
     }
 
     const firstLocation = () => {
@@ -28,53 +25,47 @@ export default function Location(props) {
          */
         return (
             <>
-                <>
-                    <li className='row'>
-                        <div className='row'>
-                            <div className='col s1 offset-m1'>
-                                <i className="material-icons col s1">place</i>
-                            </div>
-                            <div className='col s7'>
-                                <span className=''>
-                                    <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
-                                </span>
-                            </div>
+                <li className='row'>
+                    <div className='row'>
+                        <div className='col s1 offset-m1'>
+                            <i className="material-icons col s1">place</i>
                         </div>
-                        <div className='row'>
-                            <div className='col s3 m3 l2 offset-s1 offset-m2 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
-                                <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        edit
-                                    </i> Ändra</a>
-                            </div>
-                            <div className='col s3 m3'>
-                                <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.location_id) }} id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        delete_forever
-                                    </i> Radera</a>
-                            </div>
-
-                            <div className='col s1 offset-s3 offset-m2 offset-l3'>
-                                <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
-                                    className='material-icons right black-text large'
-                                    onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
-                            </div>
+                        <div className='col s7'>
+                            <span className=''>
+                                <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
+                            </span>
                         </div>
-                        <div className='collapsible-body col s12'>
-                            <ModEditLocation
-                                routeID={props.routeID}
-                                data={currentValue}
-                                handleChange={handleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className='col s3 m3 l2 offset-s1 offset-m2 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
+                            <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
+                                <i className="material-icons col s1" id="icon-small-screen">
+                                    edit
+                                </i> Ändra</a>
+                        </div>
+                        <div className='col s3 m3'>
+                            <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.location_id) }} id="btn-small-screen">
+                                <i className="material-icons col s1" id="icon-small-screen">
+                                    delete_forever
+                                </i> Radera</a>
                         </div>
 
-                        <div className='row'>
-                            <div className="divider col s10 offset-s1"></div>
+                        <div className='col s1 offset-s3 offset-m2 offset-l3'>
+                            <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
+                                className='material-icons right black-text large'
+                                onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                         </div>
-
-
-                    </li>
-                </>
-
+                    </div>
+                    <div className='collapsible-body col s12'>
+                        <ModEditLocation
+                            routeID={props.routeID}
+                            data={currentValue}
+                            handleChange={handleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className="divider col s10 offset-s1"></div>
+                    </div>
+                </li>
             </>
         )
     }
@@ -85,55 +76,52 @@ export default function Location(props) {
          */
         return (
             <>
-                <>
-                    <li className='row'>
-                        <div className='row'>
-                            <div className='col s1 offset-m1 offset-l1'>
-                                <i className="material-icons col s1">place</i>
-                            </div>
-                            <div className='col s7'>
-                                <span className=''>
-                                    <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
-                                </span>
-                            </div>
-                            <div className='col s1 offset-s2 offset-m1'>
-                                <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
-                                    className='material-icons right black-text large'
-                                    onClick={() => { props.swapLocationsUp(props.data.location_index) }}>keyboard_arrow_up</i>
-                            </div>
+                <li className='row'>
+                    <div className='row'>
+                        <div className='col s1 offset-m1 offset-l1'>
+                            <i className="material-icons col s1">place</i>
                         </div>
-                        <div className='row'>
-                            <div className='col s3 m3 l2 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
-                                <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        edit
-                                    </i> Ändra</a>
-                            </div>
-                            <div className='col s3 m3 l2'>
-                                <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.location_id) }} id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        delete_forever
-                                    </i> Radera</a>
-                            </div>
-
-                            <div className='col s1 offset-s3 offset-m2 offset-l4'>
-                                <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
-                                    className='material-icons right black-text large'
-                                    onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
-                            </div>
+                        <div className='col s7'>
+                            <span className=''>
+                                <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
+                            </span>
                         </div>
-                        <div className='collapsible-body col s12'>
-                            <ModEditLocation
-                                routeID={props.routeID}
-                                data={currentValue}
-                                handleChange={handleChange} />
+                        <div className='col s1 offset-s2 offset-m1'>
+                            <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
+                                className='material-icons right black-text large'
+                                onClick={() => { props.swapLocationsUp(props.data.location_index) }}>keyboard_arrow_up</i>
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='col s3 m3 l2 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
+                            <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
+                                <i className="material-icons col s1" id="icon-small-screen">
+                                    edit
+                                </i> Ändra</a>
+                        </div>
+                        <div className='col s3 m3 l2'>
+                            <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.location_id) }} id="btn-small-screen">
+                                <i className="material-icons col s1" id="icon-small-screen">
+                                    delete_forever
+                                </i> Radera</a>
                         </div>
 
-                        <div className='row'>
-                            <div className="divider col s10 offset-s1"></div>
+                        <div className='col s1 offset-s3 offset-m2 offset-l4'>
+                            <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
+                                className='material-icons right black-text large'
+                                onClick={() => { props.swapLocationsDown(props.data.location_index) }}>keyboard_arrow_down</i>
                         </div>
-                    </li>
-                </>
+                    </div>
+                    <div className='collapsible-body col s12'>
+                        <ModEditLocation
+                            routeID={props.routeID}
+                            data={currentValue}
+                            handleChange={handleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className="divider col s10 offset-s1"></div>
+                    </div>
+                </li>
             </>
         )
     }
@@ -142,54 +130,48 @@ export default function Location(props) {
         /**
          * renders hmtl for the end location
          */
-
         return (
             <>
-                <>
-                    <li className='row'>
-                        <div className='row'>
-                            <div className='col s1 offset-m1 offset-l1'>
-                                <i className="material-icons col s1">place</i>
-                            </div>
-                            <div className='col s7'>
-                                <span className=''>
-                                    <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
-                                </span>
-                            </div>
-                            <div className='col s1 offset-s2 offset-m1'>
-                                <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
-                                    className='material-icons right black-text large'
-                                    onClick={() => { props.swapLocationsUp(props.data.location_index) }}>keyboard_arrow_up</i>
-                            </div>
+                <li className='row'>
+                    <div className='row'>
+                        <div className='col s1 offset-m1 offset-l1'>
+                            <i className="material-icons col s1">place</i>
                         </div>
-                        <div className='row'>
-                            <div className='col s3 m3 l2 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
-                                <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        edit
-                                    </i> Ändra</a>
-                            </div>
-                            <div className='col s3 m3 l2'>
-                                <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.location_id) }} id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        delete_forever
-                                    </i> Radera</a>
-                            </div>
-
-
+                        <div className='col s7'>
+                            <span className=''>
+                                <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
+                            </span>
                         </div>
-                        <div className='collapsible-body col s12'>
-                            <ModEditLocation
-                                routeID={props.routeID}
-                                data={currentValue}
-                                handleChange={handleChange} />
+                        <div className='col s1 offset-s2 offset-m1'>
+                            <i style={{ cursor: 'pointer', 'fontSize': '2rem', 'lineHeight': '1' }}
+                                className='material-icons right black-text large'
+                                onClick={() => { props.swapLocationsUp(props.data.location_index) }}>keyboard_arrow_up</i>
                         </div>
-
-                        <div className='row'>
-                            <div className="divider col s10 offset-s1"></div>
+                    </div>
+                    <div className='row'>
+                        <div className='col s3 m3 l2 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
+                            <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
+                                <i className="material-icons col s1" id="icon-small-screen">
+                                    edit
+                                </i> Ändra</a>
                         </div>
-                    </li>
-                </>
+                        <div className='col s3 m3 l2'>
+                            <a className="waves-effect waves-light btn  red lighten-1" onClick={() => { props.deleteLocation(props.data.location_id) }} id="btn-small-screen">
+                                <i className="material-icons col s1" id="icon-small-screen">
+                                    delete_forever
+                                </i> Radera</a>
+                        </div>
+                    </div>
+                    <div className='collapsible-body col s12'>
+                        <ModEditLocation
+                            routeID={props.routeID}
+                            data={currentValue}
+                            handleChange={handleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className="divider col s10 offset-s1"></div>
+                    </div>
+                </li>
             </>
         )
     }
@@ -198,45 +180,39 @@ export default function Location(props) {
         /**
          * returns html for the last location
          */
-
         return (
             <>
-                <>
-                    <li className='row'>
-                        <div className='row'>
-                            <div className='col s1 offset-m1 offset-l1'>
-                                <i className="material-icons col s1">place</i>
-                            </div>
-                            <div className='col s7'>
-                                <span className=''>
-                                    <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
-                                </span>
-                            </div>
-
+                <li className='row'>
+                    <div className='row'>
+                        <div className='col s1 offset-m1 offset-l1'>
+                            <i className="material-icons col s1">place</i>
                         </div>
-                        <div className='row'>
-                            <div className='col s3 m3 l2 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
-                                <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
-                                    <i className="material-icons col s1" id="icon-small-screen">
-                                        edit
-                                    </i> Ändra</a>
-                            </div>
+                        <div className='col s7'>
+                            <span className=''>
+                                <p style={{ 'margin-left': '1rem' }}>{titleValue}</p>
+                            </span>
                         </div>
-                        <div className='collapsible-body col s12'>
-                            <ModEditLocation
-                                routeID={props.routeID}
-                                data={currentValue}
-                                handleChange={handleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className='col s3 m3 l2 offset-s1 offset-m2 offset-m1 offset-l2 collapsible-header' style={{ 'borderBottom': '0' }}>
+                            <a className="waves-effect waves-light btn grey darken-3" id="btn-small-screen">
+                                <i className="material-icons col s1" id="icon-small-screen">
+                                    edit
+                                </i> Ändra</a>
                         </div>
-
-                        <div className='row'>
-                            <div className="divider col s10 offset-s1"></div>
-                        </div>
-                    </li>
-                </>
+                    </div>
+                    <div className='collapsible-body col s12'>
+                        <ModEditLocation
+                            routeID={props.routeID}
+                            data={currentValue}
+                            handleChange={handleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className="divider col s10 offset-s1"></div>
+                    </div>
+                </li>
             </>
         )
-
     }
 
     if (currentIndex === "1") {
@@ -256,5 +232,4 @@ export default function Location(props) {
             middleLocations()
         )
     }
-
 }

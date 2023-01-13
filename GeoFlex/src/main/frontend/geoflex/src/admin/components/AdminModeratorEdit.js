@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AdminModRoutes from './AdminModRoutes';
-import AdminModAssignRoutes from './AdminModAssignRoutes'
+import AdminModAssignRoutes from './AdminModAssignRoutes';
 import M from 'materialize-css';
 
 export default function AdminModeratorEdit() {
+    /**
+     * functional component to handle administration of moderators
+     * allowing admin to assign and remove routes from moderators
+     */
     const [moderatorRoutes, setModeratorRoutes] = useState([]);
     const [allRoutes, setAllRoutes] = useState([]);
     const [selectItems, setSelectItems] = useState([]);
@@ -13,34 +17,16 @@ export default function AdminModeratorEdit() {
 
 
     const location = useLocation();
-    const navigate = useNavigate();
+
 
     const moderator = location.state.data;
 
-
-
     const handleSelectOptions = () => {
-
-        //
-
-
-
-        //let routes = props.moderatorRoutesData;
-
-
+        /**
+         * function to handle the available routes to assign to a moderator
+         */
         var leftUsers = allRoutes.filter(u => moderatorRoutes.findIndex(lu => lu.id === u.id) === -1);
 
-
-        /*
-                let allRoutes = props.allRoutesData;
-                let availableRoutes = routeData.filter(val => !allRoutes.includes(val));
-                
-                availableRoutes.forEach(element => {
-                    
-                });
-        
-                setSelectItems(availableRoutes);
-        */
         setSelectItems(leftUsers)
         if (!status) {
             setStatus(true);
@@ -51,9 +37,9 @@ export default function AdminModeratorEdit() {
     }
     useEffect(() => {
         M.AutoInit();
-        console.log(status);
+        
         function getRouteForUser() {
-            console.log("MOD ID: " + moderator["user-id"]);
+        
             var config = {
                 method: 'get',
                 url: '/admin/route/user?user-id=' + moderator["user-id"],
@@ -68,29 +54,6 @@ export default function AdminModeratorEdit() {
                 })
                 .catch(function (error) {
                     console.log(error);
-                    //dummy data som ska tas bort:
-                    var assignedRouteExample = {
-                        "routes-for-user": [
-                            {
-                                "code": 6960,
-                                "description": "Postman edit test",
-                                "locations": 17,
-                                "id": 96,
-                                "title": "Spongebob Squarepants",
-                                "type": "INFO"
-                            },
-                            {
-                                "code": 10501,
-                                "description": "Quiz om Malmö",
-                                "locations": 5,
-                                "id": 97,
-                                "title": "Malmö",
-                                "type": "QUIZ"
-                            }
-                        ]
-                    };
-                    console.log("MODERATOR ROUTES DUMMY DATA");
-                    setModeratorRoutes(assignedRouteExample["routes-for-user"]);
                 });
 
         }
@@ -107,10 +70,6 @@ export default function AdminModeratorEdit() {
                 })
                 .catch(function (error) {
                     console.log(error);
-
-                    //Dev placeholderdata
-                    const dummyData = [{ "title": "Test Quiz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "1", "code": "572748", "locations": 3 }, { "title": "Test Info", "description": "This info for testing purposes.", "type": "INFO", "id": "2", "code": "184471", "locations": 3 }, { "title": "Test 2", "description": "More testing tests ", "type": "INFO", "id": "4", "code": "295052", "locations": 0 }, { "title": "Num Location Test1", "description": "test, remove", "type": "INFO", "id": "5", "code": "447827", "locations": 0 }, { "title": "Num Location Test2", "description": "test, remove", "type": "INFO", "id": "6", "code": "625158", "locations": 3 }, { "title": "Num Location Test3", "description": "test, remove", "type": "INFO", "id": "7", "code": "782310", "locations": 4 }, { "title": "Test Quiz2E", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "8", "code": "538027", "locations": 6 }, { "title": "Test Quizz", "description": "This quiz is for testing purposes.", "type": "QUIZ", "id": "10", "code": "983850", "locations": 6 }];
-                    setAllRoutes(dummyData);
 
                 });
         }
