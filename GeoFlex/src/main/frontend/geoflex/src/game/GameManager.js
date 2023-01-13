@@ -30,10 +30,10 @@ export default function GameManager(props) {
          * Please note that this function does NOT overwrite the key in localStorage but adds to the array.
          * Also note that this is an async function that waits until the item is saved to localStorage before it clears the 'clickedIds' and calls 'handleNext()'
          * */
-        if (Object.keys(clickedIds).length === 0) {
+        /*if (Object.keys(clickedIds).length === 0) {
             console.log("clickedIds is empty, skipping handleSave")
             return;
-        }
+        }*/
 
         let userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
 
