@@ -1,9 +1,7 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.CLI;
 
-import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.DatabaseAccess.AuthenticationProcedures;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
@@ -21,9 +19,7 @@ public class CLIUserController implements CLIDelegationController {
             "get                     , gets all users from database"+ "\n"+
             "password {ID}           , sets the user password using id"+ "\n"+
             "new                     , creates new user"+ "\n"+
-            "set-access {ID} {level] , sets the user accesslevel using id"+ "\n"+
-
-            "================";
+            "set-access {ID} {level] , sets the user accesslevel using id"+ "\n";
 
     public void runCommand(String[] inputSplitArray) {
         if (inputSplitArray.length < 2) {
@@ -55,34 +51,6 @@ public class CLIUserController implements CLIDelegationController {
 
                 ap.getAllUsers();
 
-            }
-            case "new" -> {
-                AuthenticationProcedures ap = new AuthenticationProcedures();
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Enter username");
-                String username = scanner.nextLine();
-                System.out.println("Enter email");
-                String email = scanner.nextLine();
-                System.out.println("Enter password");
-                String passwprd = scanner.nextLine();
-                System.out.println("Confirm password");
-                String passwordConfirm = scanner.nextLine();
-                if (passwordConfirm.equals(passwordConfirm)) {
-                    String salt = Authenticator.generateSalt();
-                    String passwordhash = Authenticator.getHash(passwprd,salt);
-                    ap.createUser(username,email,salt,passwordhash);
-                }
-                System.out.println("User created");
-
-            }
-            case "set-access" -> {
-                if (inputSplitArray.length >= 4) {
-                    AuthenticationProcedures ap = new AuthenticationProcedures();
-                    ap.setAccessLevelForUser(inputSplitArray[2],inputSplitArray[3]);
-                    System.out.println("Acces level set");
-                } else {
-                    System.out.println("Missing arguments {ID} or access level {0-2}");
-                }
             }
             default -> System.out.println(userHelp);
         }
