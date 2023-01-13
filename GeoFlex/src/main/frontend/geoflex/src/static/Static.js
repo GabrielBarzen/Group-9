@@ -7,6 +7,18 @@ const cookies = new Cookies();
 
 export default function Static() {
 
+  /**
+   * Redirect the user to the HTTPS version if HTTP is detected in the url.
+   */
+  function redirectToHTTPS() {
+    var loc = window.location.href + '';
+    if (loc.indexOf('http://') == 0) {
+      window.location.href = loc.replace('http://', 'https://');
+    }
+  }
+
+  //redirectToHTTPS(); //Enable this when app is deployed.
+
   let status = cookies.get('role')
   let content;
   if (status === 'moderator') {

@@ -15,8 +15,8 @@ const Faq = () => {
                 <div className='container white container-css'>
                     <h5>Moderator</h5>
                     <p>1. Be en admin att tilldela dig en runda.</p>
-                    <p>2. Redigera rundan</p>
-                    <p>3. Dela ut rundans kod till användare</p>
+                    <p>2. Redigera rundan.</p>
+                    <p>3. Dela ut rundans kod till användare.</p>
                 </div>
             </div>
             <div className='row'>
