@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import GameResults from './GameResults';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { Link } from "react-router-dom";
 
 export default function GameFinish(props) {
   const [questions, setQuestions] = useState([]);
@@ -74,7 +75,7 @@ export default function GameFinish(props) {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        
+
       })
       .catch(function (error) {
         console.log(error);
@@ -123,6 +124,11 @@ export default function GameFinish(props) {
                     <GameResults questions={questions} answers={answers} />
                   </p>
                 </div>
+              </div>
+              <div className='row'>
+                <Link className='btn col s12  center-align waves-teal btn col btn-large btn-css icon-css z-depth-2' to="/">
+                   Klar
+                </Link>
               </div>
             </div>
           </div>
