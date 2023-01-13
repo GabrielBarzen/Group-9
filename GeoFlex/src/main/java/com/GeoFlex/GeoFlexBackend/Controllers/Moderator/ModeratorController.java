@@ -1,6 +1,7 @@
 package com.GeoFlex.GeoFlexBackend.Controllers.Moderator;
 
 import com.GeoFlex.GeoFlexBackend.Controllers.Admin.AdminCompanion;
+import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.AccessLevel;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.AuthenticationController;
 import com.GeoFlex.GeoFlexBackend.Controllers.Authentication.Authenticator;
 import com.GeoFlex.GeoFlexBackend.Model.Token;
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/moderator")
 public class ModeratorController {
 
-    private final int MODERATOR_ACCESS_LEVEL = 1;
+
 
     /**
      * Returns a list of all the routes from the database.
@@ -242,10 +243,10 @@ public class ModeratorController {
      * @return Authentication.
      */
     private ModeratorCompanion getModeratorCompanion(String token, String userID) {
-        System.out.println("Moderator Auth Token : " + token);
-        System.out.println("Moderator Auth UserId : " + userID);
+        //System.out.println("Moderator Auth Token : " + token);
+        //System.out.println("Moderator Auth UserId : " + userID);
 
-        if (AuthenticationController.authenticator.auth(userID,new Token(token),MODERATOR_ACCESS_LEVEL)) {
+        if (AuthenticationController.authenticator.auth(userID,new Token(token), AccessLevel.MODERATOR.getLevel())) {
             return new ModeratorCompanion(userID);
         } else {
             return null;

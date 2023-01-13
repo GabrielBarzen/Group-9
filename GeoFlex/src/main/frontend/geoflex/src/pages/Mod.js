@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ModOverview from '../mod/ModOverview';
 
 export default function Mod() {
@@ -7,6 +6,6 @@ export default function Mod() {
         <section>
             <ModOverview />
         </section>
-        </>
+    </>
     )
 }

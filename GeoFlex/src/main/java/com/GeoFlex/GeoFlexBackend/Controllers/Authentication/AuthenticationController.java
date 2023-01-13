@@ -22,15 +22,15 @@ public class AuthenticationController {
 
     public static Authenticator authenticator = new Authenticator();
 
-    private final int ADMIN_ACCESS_LEVEL = 2;
-    private final int MODERATOR_ACCESS_LEVEL = 1;
-    private final int USER_ACCESS_LEVEL = 0;
-
-
-
+    /**
+     * Endpoint for a user to login.
+     * @param response Adds cookies to the response.
+     * @param body Json body the with relevant data for logging in.
+     * @return Message with status of request.
+     */
     @RequestMapping(method = RequestMethod.POST, value = "login")
     public ResponseEntity<String> login(HttpServletResponse response, @RequestBody String body) {
-        System.out.println("body : " + body);
+        //System.out.println("body : " + body);
         Gson gson = new Gson();
         Login login = gson.fromJson(body, Login.class);
         AuthenticationProcedures ap = new AuthenticationProcedures();
@@ -63,22 +63,20 @@ public class AuthenticationController {
 
             response.addCookie(tokenString);
 
-
-            //TODO clean code, only for reference.
             String path = "";
             int accesslevel = ap.getAccessLevelForUser(id);
-            if (accesslevel == ADMIN_ACCESS_LEVEL) {
-                path =  "/admin/overview";
+            if (accesslevel == AccessLevel.ADMIN.getLevel()) {
+                path =  "/admin";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
                                 "\"path\":\"" + path + "\"}", HttpStatus.OK);
-            } else if (accesslevel == MODERATOR_ACCESS_LEVEL) {
-                path =  "/moderator/overview";
+            } else if (accesslevel == AccessLevel.MODERATOR.getLevel()) {
+                path =  "/moderator";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
                                 "\"path\":\"" + path + "\"}", HttpStatus.OK);
-            } else if (accesslevel == USER_ACCESS_LEVEL) {
-                path =  "/user/overview";
+            } else if (accesslevel == AccessLevel.USER.getLevel()) {
+                path =  "/user";
                 return new ResponseEntity<>(
                         "{\"OK\" : \"Sucessfully authenticated\"," +
                                 "\"path\":\"" + path + "\"}", HttpStatus.OK);
@@ -88,6 +86,13 @@ public class AuthenticationController {
         }
         return new ResponseEntity<>("{\"OK\" : \"Authentication unsucessfull, please retry\"}", HttpStatus.FORBIDDEN);
     }
+
+    /**
+     * Endpoint for a user to register an account.
+     * @param response Adds cookies to the response.
+     * @param body Json body containing data for the account creation.
+     * @return Message containing status of the request.
+     */
     @RequestMapping(method = RequestMethod.POST, value = "register")
     public ResponseEntity<String> register(HttpServletResponse response,@RequestBody String body) {
         AuthenticationCompanion authenticationCompanion = new AuthenticationCompanion();
@@ -112,13 +117,21 @@ public class AuthenticationController {
         return new ResponseEntity<>("{\"success\" : \"registred user : "+register.userName+"\"}", HttpStatus.OK);
     }
 
+    /**
+     * Updates user access for a route.
+     * @param response NOT USED.
+     * @param body Json body containing user information.
+     * @param token The user token sent as a cookie.
+     * @param userID The uer id sent as a cookie.
+     * @return Message with the status of the request.
+     */
     @RequestMapping(method = RequestMethod.PATCH, value = "user")
     public ResponseEntity<String> updateUser(HttpServletResponse response,@RequestBody String body,
                                              @CookieValue(name = "authentication-token") String token,
                                              @CookieValue(name = "user-id") String userID) {
         AuthenticationCompanion authenticationCompanion = new AuthenticationCompanion();
         try {
-            if (authenticator.auth(userID, new Token(token), ADMIN_ACCESS_LEVEL)) {
+            if (authenticator.auth(userID, new Token(token), AccessLevel.ADMIN.getLevel())) {
                 return authenticationCompanion.updateUser(body);
             } else if (userID == null || token == null) {
                 return new ResponseEntity<>("{\"error\" : \"bad request\"}", HttpStatus.BAD_REQUEST);

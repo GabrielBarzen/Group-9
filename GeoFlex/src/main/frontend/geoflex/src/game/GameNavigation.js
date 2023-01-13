@@ -1,7 +1,6 @@
-import React from 'react'
-import Button from '../shared/Button'
-import QRScanner from '../shared/QRScanner'
-// import QRscanner from '../shared/QR'
+import React from 'react';
+import Button from '../shared/Button';
+import QRScanner from '../shared/QRScanner';
 
 export default function GameNavigation(props) {
 

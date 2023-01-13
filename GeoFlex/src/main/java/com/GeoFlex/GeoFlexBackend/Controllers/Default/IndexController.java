@@ -13,11 +13,19 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController implements ErrorController {
     private static final String PATH = "/error";
 
+    /**
+     * Forwards to correct urls to avoid the white-label error..
+     * @return
+     */
     @RequestMapping(value = PATH)
     public ModelAndView saveLeadQuery() {
         return new ModelAndView("forward:/");
     }
 
+    /**
+     * Returns the error path.
+     * @return error PATH.
+     */
     public String getErrorPath() {
         return PATH;
     }

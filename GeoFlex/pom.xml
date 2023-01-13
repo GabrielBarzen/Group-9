@@ -83,7 +83,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>GeoFlex</finalName>
+		<finalName>GeoFlex-1.0.0-SNAPSHOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -3,6 +3,9 @@ import M from 'materialize-css';
 import axios from 'axios';
 
 export default class LocationFormAnswers extends Component {
+    /**
+     * class component to handle and render the answers section of the LocationForm
+     */
     constructor(props) {
         super(props)
         this.state = {
@@ -16,6 +19,9 @@ export default class LocationFormAnswers extends Component {
         this.fetchUpdatedAnswerArray = this.fetchUpdatedAnswerArray.bind(this);
     }
     componentDidMount() {
+        /**
+         * react method to handle logic to set states before rendering
+         */
         M.updateTextFields();
         if (this.props.content.length !== 0) {
             this.setState({ content: this.props.content })
@@ -25,7 +31,6 @@ export default class LocationFormAnswers extends Component {
     }
 
     fetchUpdatedAnswerArray(locationID) {
-        
         /**
          * API-call to fetch an updated array of answers 
          */
@@ -42,32 +47,25 @@ export default class LocationFormAnswers extends Component {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 update(response.data.content);
-                
-
             })
             .catch(function (error) {
                 console.log(error);
             });
 
-            const update = (data) => {
-                this.setState({ content: data })
-                this.props.handleContentIDState(data)
-                this.forceUpdate()
-            }
+        const update = (data) => {
+            this.setState({ content: data })
+            this.props.handleContentIDState(data)
+            this.forceUpdate()
+        }
     }
 
     onFieldChange(event) {
         /**
          * passing on the event to parent class method
-         *  */
-        console.log("ONFIELDCHANGE")
-        console.log(event.target.name)
-        console.log(event.target.value)
+         */
         this.props.handleInputChange(event);
     }
     handleAddAnswer(locationID) {
-        //this.props.handleAddAnswer(locationID)
-
         /**
      * API-call to add 1 answer 
      */
@@ -104,49 +102,51 @@ export default class LocationFormAnswers extends Component {
                 console.log(error);
             });
 
-            const fetchNewContent = (locationID) => {
-                this.fetchUpdatedAnswerArray(locationID)
-            }
-
+        const fetchNewContent = (locationID) => {
+            this.fetchUpdatedAnswerArray(locationID)
+        }
     }
 
     handleRemoveAnswer(locationID, contentID) {
         var data = JSON.stringify(
-            {"location-update":{
-              "location-id": locationID,
-              "content" :[{
-                  "delete" : contentID
-                }]
+            {
+                "location-update": {
+                    "location-id": locationID,
+                    "content": [{
+                        "delete": contentID
+                    }]
+                }
             }
-            }
-          );
-      
-          var config = {
+        );
+
+        var config = {
             method: "patch",
             url: "/moderator/location",
             headers: {
-              "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             data: data,
-          };
-      
-          axios(config)
+        };
+
+        axios(config)
             .then(function (response) {
-              console.log(JSON.stringify(response.data));
+                console.log(JSON.stringify(response.data));
                 fetchNewContent(locationID);
             })
             .catch(function (error) {
-              console.log(error);
+                console.log(error);
             });
 
-            const fetchNewContent = (locationID) => {
-                this.fetchUpdatedAnswerArray(locationID)
-            }
+        const fetchNewContent = (locationID) => {
+            this.fetchUpdatedAnswerArray(locationID)
+        }
     }
 
     render() {
-        console.log("ANSWER RENDER")
-        console.log(this.props.data)
+/**
+ * react method to render html and other components
+ * in this case conditions and other logic is implemented to determine what should be rendered and when
+ */
         let toReturn;
         let toReturnArray = [];
         if (this.state.content.length !== 0) {
@@ -162,23 +162,23 @@ export default class LocationFormAnswers extends Component {
 
                 toReturn = (
                     <div key={contentID} className="row">
-                        <label className='col s9'>
+                        <label className='col s8 m9'>
                             Fråga
-                            <input className="blue lighten-4"
+                            <input className="grey lighten-3"
                                 name={inputName}
                                 type="text"
                                 value={inputValue}
                                 onChange={this.onFieldChange.bind(this)} />
                         </label>
-                        <label className='col s2'>
-                            <input className='text-black'                                
+                        <label className='col s1' style={{ 'marginTop': '1rem' }}>
+                            <input className='text-black'
                                 name={checkboxName}
                                 checked={checkboxValue}
                                 type="checkbox"
                                 onChange={this.onFieldChange.bind(this)} />
                             <span>Rätt svar</span>
                         </label>
-                        <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.state.locationID, contentID)}> <i className="material-icons">delete_forever</i></span>
+                        <span className='col s1 right' onClick={() => this.handleRemoveAnswer(this.state.locationID, contentID)} style={{ 'marginTop': '1rem' }}> <i className="material-icons">delete_forever</i></span>
                     </div>
                 );
                 toReturnArray.push(toReturn);
@@ -187,11 +187,9 @@ export default class LocationFormAnswers extends Component {
             }
             )
         };
-
         return (<>
             {[...toReturnArray].map((answer) => (
                 answer
-                
             ))}
             {(() => {
                 if (this.state.content.length <= 3) {

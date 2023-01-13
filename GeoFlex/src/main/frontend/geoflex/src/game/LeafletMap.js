@@ -4,7 +4,6 @@ import "leaflet/dist/leaflet.css";
 import CurrentPosIcon from "./Map-Pin.png"
 
 const Maps = (props) => {
-  console.log(props.destination)
   function LocationMarker() {
     const [position, setPosition] = useState(null);
 
@@ -46,10 +45,7 @@ const Maps = (props) => {
   }
 
   function QuestionMarker() {
-    /*
-    Här måste vi läsa in koordinater från API till frågan.
-    Koordinaterna sätts in i position.
-    */
+
     var L = window.L;
     let visitorIcon = L.icon({
       iconSize: [25, 41],
@@ -83,4 +79,3 @@ const Maps = (props) => {
 };
 
 export default Maps;
-

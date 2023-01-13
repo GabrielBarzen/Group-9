@@ -22,16 +22,13 @@ public class ModeratorProcedures {
      * @param userID The user id.
      * @return The routes as a string.
      */
-    public static String getRoutes(String userID) {
+    public String getRoutes(String userID) {
         DatabaseConnection dc = new DatabaseConnection();
         String response = "";
-        System.out.println("Starting cs");
         List<Route> routes = new ArrayList<>();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_all_routes_for_user(?)}")) {
             cs.setInt("in_user_id", Integer.parseInt(userID));
-            System.out.println("executing");
             cs.executeQuery();
-            System.out.println("executed");
             ResultSet res = cs.getResultSet();
             while (res.next()) {
                 Route route = new Route();
@@ -47,6 +44,11 @@ public class ModeratorProcedures {
                 media.mediaUrl = res.getString("media");
                 media.mediaType = res.getString("mediaType");
                 media.externalMedia = res.getBoolean("external_media");
+                if(res.getString("media") == null){
+                    //If media from database is null, insert "" as the default value.
+                    media.mediaUrl = "";
+                    media.mediaType = "";
+                }
                 route.media.add(media);
 
                 route.locations = res.getInt("locations");
@@ -67,7 +69,6 @@ public class ModeratorProcedures {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println(response);
         return response;
     }
 
@@ -77,7 +78,7 @@ public class ModeratorProcedures {
      * @param routeId The id of the route.
      * @return Json object with route information.
      */
-    public static String getRoute(String routeId, String userId) {
+    public String getRoute(String routeId, String userId) {
         DatabaseConnection dc = new DatabaseConnection();
         Root r = new Root();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_full_route_no_imgvideo_with_id(?, ?, ?)}")) {
@@ -145,7 +146,7 @@ public class ModeratorProcedures {
      * @param routeId The route id.
      * @param locationIdDelete The location id to delete.
      */
-    public static void routeDeleteLocation(int routeId, int locationIdDelete) {
+    public void routeDeleteLocation(int routeId, int locationIdDelete) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_location(?,?)}")) {
             cs.setInt("in_route_id", routeId);
@@ -168,9 +169,7 @@ public class ModeratorProcedures {
      * @param locationIdFrom The id from where to swap.
      * @param locationIdTo The id to swap with.
      */
-    public static void routeSwapLocation(int locationIdFrom, int locationIdTo) {
-        System.out.println("from id : " + locationIdFrom);
-        System.out.println("to id : " + locationIdTo);
+    public void routeSwapLocation(int locationIdFrom, int locationIdTo) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_swap_location(?,?)}")) {
             cs.setInt(1, locationIdFrom);
@@ -193,7 +192,7 @@ public class ModeratorProcedures {
      * @param routeID The id of the route.
      * @param title The new title of the route.
      */
-    public static void routeUpdateTitle(String routeID, String title){
+    public void routeUpdateTitle(String routeID, String title){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_title(?, ?)}")) {
             cs.setString("in_route_id", String.valueOf(routeID));
@@ -216,7 +215,7 @@ public class ModeratorProcedures {
      * @param routeID The id of the route.
      * @param description The new description of the route.
      */
-    public static void routeUpdateDescription(String routeID, String description){
+    public void routeUpdateDescription(String routeID, String description){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_description(?, ?)}")) {
             cs.setString("in_route_id", String.valueOf(routeID));
@@ -239,7 +238,7 @@ public class ModeratorProcedures {
      * @param routeID The id of the route.
      * @param type The description of the route.
      */
-    public static void routeUpdateType(String routeID, String type){
+    public void routeUpdateType(String routeID, String type){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_type(?, ?)}")) {
             cs.setString("in_route_id", String.valueOf(routeID));
@@ -263,7 +262,7 @@ public class ModeratorProcedures {
      * @param routeID The id of the route.
      * @return Json containing all locations of a specific route.
      */
-    public static String getRouteLocations(String routeID) {
+    public String getRouteLocations(String routeID) {
         DatabaseConnection dc = new DatabaseConnection();
         Root r = new Root();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_locations_for_route(?)}")) {
@@ -291,7 +290,6 @@ public class ModeratorProcedures {
             }
             r.route.location.add(currentLocation);
             Gson gson = new Gson();
-            System.out.println(gson.toJson(r));
             return gson.toJson(r);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -310,7 +308,7 @@ public class ModeratorProcedures {
      * @param numLocations Amount of locations to add.
      * @param routeId The id of the route.
      */
-    public static void routeNewLocations(int numLocations, int routeId) {
+    public void routeNewLocations(int numLocations, int routeId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_route_add_location(?, ?)}")) {
             cs.setInt("in_num_locations", numLocations);
@@ -334,10 +332,10 @@ public class ModeratorProcedures {
      * @param routeId The id of the route.
      * @param filePath The path to save in the database.
      */
-    public static void routeUploadFile(int routeId, String filePath, String mediaType, boolean externalMedia) {
+    public void routeUploadFile(int routeId, String filePath, String mediaType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
         if(!externalMedia){
-            filePath = "http://geoflex.westeurope.cloudapp.azure.com/"+filePath;
+            filePath = "https://geoflex.vardspel.se/"+filePath;
         }
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_route_image(?, ?, ?, ?)}")) {
             cs.setInt("in_route_id", routeId);
@@ -361,7 +359,7 @@ public class ModeratorProcedures {
      * @param routeId The id of the route to retrieve from.
      * @return Filepath of a video or image saved on the server.
      */
-    public static String routeGetFile(int routeId){
+    public String routeGetFile(int routeId){
         DatabaseConnection dc = new DatabaseConnection();
         String filepath = "";
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_route_imgvid(?)}")) {
@@ -389,7 +387,7 @@ public class ModeratorProcedures {
      * @param locationId The id of the location.
      * @param name The name of the location.
      */
-    public static void locationUpdateName(String locationId, String name) {
+    public void locationUpdateName(String locationId, String name) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_name(?, ?)}")) {
             cs.setString("in_location_id", String.valueOf(locationId));
@@ -412,7 +410,7 @@ public class ModeratorProcedures {
      * @param locationId The id of the location.
      * @param textInfo The text info of the location.
      */
-    public static void locationUpdateTextInfo(String locationId, String textInfo) {
+    public void locationUpdateTextInfo(String locationId, String textInfo) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_text_info(?, ?)}")) {
             cs.setString("in_location_id", String.valueOf(locationId));
@@ -435,7 +433,7 @@ public class ModeratorProcedures {
      * @param locationId The id of the location.
      * @param xCoords The locations x coordinate.
      */
-    public static void locationPositionUpdateXcoords(String locationId, String xCoords) {
+    public void locationPositionUpdateXcoords(String locationId, String xCoords) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_x_coordinate(?, ?)}")) {
             cs.setString("in_location_id", String.valueOf(locationId));
@@ -458,7 +456,7 @@ public class ModeratorProcedures {
      * @param locationId The id of the location.
      * @param yCoords The locations y coordinate.
      */
-     public static void locationPositionUpdateYcoords(String locationId, String yCoords) {
+     public void locationPositionUpdateYcoords(String locationId, String yCoords) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_y_coordinate(?, ?)}")) {
             cs.setString("in_location_id", String.valueOf(locationId));
@@ -481,7 +479,7 @@ public class ModeratorProcedures {
      * @param locationId The id of the location.
      * @param directions The locations directions.
      */
-    public static void locationPositionUpdateDirections(String locationId, String directions) {
+    public void locationPositionUpdateDirections(String locationId, String directions) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_position_directions(?, ?)}")) {
             cs.setString("in_location_id", String.valueOf(locationId));
@@ -505,7 +503,7 @@ public class ModeratorProcedures {
      * @param answer The answer to add, will be placeholder until changed.
      * @param correct Wether the answer is correct or not, default value is false.
      */
-    public static void createContent(String locationId, String answer, boolean correct, String contentId) {
+    public void createContent(String locationId, String answer, boolean correct, String contentId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_create_content(?, ?, ?, ?)}")) {
             cs.setString("in_location_id", locationId);
@@ -529,7 +527,7 @@ public class ModeratorProcedures {
      * Function to delete content from the database.
      * @param contentId The id of the content to delete.
      */
-    public static void deleteContent(String contentId) {
+    public void deleteContent(String contentId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_content(?)}")) {
             cs.setString("in_content_id", String.valueOf(contentId));
@@ -551,10 +549,10 @@ public class ModeratorProcedures {
      * @param locationId The id of the route.
      * @param filePath The path to save in the database.
      */
-    public static void locationUploadFile(int locationId, String filePath, String dataType, boolean externalMedia) {
+    public void locationUploadFile(int locationId, String filePath, String dataType, boolean externalMedia) {
         DatabaseConnection dc = new DatabaseConnection();
         if(!externalMedia){
-            filePath = "http://geoflex.westeurope.cloudapp.azure.com/"+filePath;
+            filePath = "https://geoflex.vardspel.se/"+filePath;
         }
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_update_location_data(?, ?, ?, ?)}")) {
             cs.setInt("in_location_id", locationId);
@@ -578,7 +576,7 @@ public class ModeratorProcedures {
      * @param locationId The id of the route to retrieve from.
      * @return Filepath of a video or image saved on the server.
      */
-    public static String locationGetFile(int locationId){
+    public String locationGetFile(int locationId){
         DatabaseConnection dc = new DatabaseConnection();
         String filepath = "";
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_location_get_imgvid(?)}")) {
@@ -605,7 +603,7 @@ public class ModeratorProcedures {
      * @param locationId The ID of the location.
      * @return Json object containing the content.
      */
-    public static String locationGetContent(int locationId){
+    public String locationGetContent(int locationId){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_content_for_location(?)}")) {
             cs.setInt("in_location_id", locationId);
@@ -648,7 +646,7 @@ public class ModeratorProcedures {
      * @param locationId The ID of the location.
      * @return Json object containing the content.
      */
-    public static String locationGetPosition(int locationId){
+    public String locationGetPosition(int locationId){
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_location_position_by_id(?)}")) {
             cs.setInt("in_location_id", locationId);
@@ -687,11 +685,7 @@ public class ModeratorProcedures {
             }
         }
     }
-
-    public static void main(String[] args) {
-        getRouteLocationsExperimental(String.valueOf(103));
-    }
-    public static String getRouteLocationsExperimental(String routeID) {
+    public String getRouteLocationsExperimental(String routeID) {
         DatabaseConnection dc = new DatabaseConnection();
         CompleteLocationRoot clr = new CompleteLocationRoot();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_get_location_for_route_test_experimental(?)}")) {
@@ -741,7 +735,6 @@ public class ModeratorProcedures {
                 }
             }
             Gson gson = new Gson();
-            System.out.println(gson.toJson(list));
             return gson.toJson(list);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -759,7 +752,7 @@ public class ModeratorProcedures {
      * Sets the QR value in the database to true or false.
      * @param useQr Determines if the user wants to use QR or not.
      */
-    public static void setQr(String locationId, Boolean useQr) {
+    public void setQr(String locationId, Boolean useQr) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_set_qr_bit(?, ?)}")) {
             cs.setInt("in_location_id", Integer.parseInt(locationId));
@@ -780,7 +773,7 @@ public class ModeratorProcedures {
      * Deletes a route and all related location/content from the database.
      * @param routeId The ID of the route to be deleted.
      */
-    public static void deleteRoute(String routeId) {
+    public void deleteRoute(String routeId) {
         DatabaseConnection dc = new DatabaseConnection();
         try (CallableStatement cs = dc.getConnection().prepareCall("{CALL sp_delete_route_with_id(?)}")) {
             cs.setInt(1, Integer.parseInt(routeId));

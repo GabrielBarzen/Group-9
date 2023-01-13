@@ -3,6 +3,10 @@ import LastLocationUpdate from './LastLocationUpdate';
 import LocationFormMedia from './LocationFormMedia';
 
 export default class LastLocationForm extends Component {
+  /**
+   * class component to handle the last_location that will work as the GameFinish screen later on for users
+   * constructor sets the state of the component and binds methods used
+   */
   constructor(props) {
     super(props)
 
@@ -20,12 +24,10 @@ export default class LastLocationForm extends Component {
   }
 
   componentDidMount() {
-    console.log("LAST LOCATION FORM PROPS DATA")
-    console.log(this.props.data)
-    console.log(this.props.data.name)
-    console.log(this.props.data.text_info)
-
-
+    /**
+     * react method that allows logic before the render() method
+     * helps to set state on certain parameters
+     */
     if (this.props.data.media[0].mediaType === "video") {
       this.setState({ locationMediaType: false })
     } else if (this.props.data.media[0].mediaType === "image") {
@@ -43,7 +45,9 @@ export default class LastLocationForm extends Component {
   }
 
   handleMediaOptions(mediaType, externalMedia) {
-    console.log("HANDLE MEDIA OPTIONS")
+    /**
+     * method to change state of locationMediaType and locatioinMediaExternal
+     */
     this.setState({
       locationMediaType: mediaType,
       locationMediaExternal: externalMedia
@@ -51,7 +55,9 @@ export default class LastLocationForm extends Component {
   }
 
   setParentMediaUrl(mediaPath) {
-    console.log("PARENTMEDIAURL")
+    /**
+     * method to be sent to locationFormMedia 
+     */
     if (this.state.locationMediaUrl === "") {
       this.setState({ locationMediaType: "video" })
     }
@@ -59,7 +65,14 @@ export default class LastLocationForm extends Component {
   }
 
   handleInputChange(event) {
+    /**
+     * method to handle the various input fields and conditions for the media switches 
+     */
     function youtubeUrlToEmbedUrl(youtubeUrl) {
+      /**
+       * function to handle a youtube url to make sure it will work 
+       */
+      
       // First, check if the URL is a valid YouTube URL
       var youtubeRegex = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.be)\/.+$/;
       if (!youtubeRegex.test(youtubeUrl)) {
@@ -85,7 +98,7 @@ export default class LastLocationForm extends Component {
     this.setState({ [name]: value });
     if (name === "title") {
       this.props.handleChange(value)
-  }
+    }
 
     if ((name === "locationMediaExternal") || (name === "locationMediaType")) {
       this.setState({ locationMediaUrl: "" })
@@ -103,6 +116,9 @@ export default class LastLocationForm extends Component {
 
   }
   handleSubmit(event) {
+    /**
+     * method to handle saving the last location. builds the data object that is later sent to API call function
+     */
     event.preventDefault();
     let mediaType;
 
@@ -134,10 +150,12 @@ export default class LastLocationForm extends Component {
   }
 
   render() {
+    /**
+     * react function that handles rendering in react class component
+     */
     return (<>
       <form onSubmit={this.handleSubmit}>
         <fieldset>
-
           <label>
             Rubrik
             <input
@@ -148,9 +166,9 @@ export default class LastLocationForm extends Component {
           </label>
           <label>
             Innehåll
-            <textarea 
+            <textarea
               className='blue lighten-4 materialize-textarea'
-              name="description" 
+              name="description"
               value={this.state.description}
               onChange={this.handleInputChange} />
           </label>

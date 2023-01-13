@@ -21,10 +21,18 @@ public class AdminCompanion {
 
     final String userID;
 
+    /**
+     * Returns the userID.
+     * @return The id of the user that used the endpoint.
+     */
     public String getUserID() {
         return userID;
     }
 
+    /**
+     * Sets the userID to the variable.
+     * @param userID The id of the user that used the endpoint.
+     */
     public AdminCompanion(String userID) {
         this.userID = userID;
     }
@@ -34,9 +42,10 @@ public class AdminCompanion {
      * @return Response entity containing json of all routes.
      */
     public ResponseEntity<String> routesGet() {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
         HttpStatus responseStatus = HttpStatus.OK;
-        String json = AdminProcedures.getRoutes(userID);
+        String json = ap.getRoutes(userID);
         if (json == null) {
             json = "{\"error\" : \"Internal server error, contact administrator\"}";
             responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -54,9 +63,10 @@ public class AdminCompanion {
      * @return Json of the route to be edited or Error json if not found.
      */
     public ResponseEntity<String> routeGet(String routeID) {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
         HttpStatus responseStatus = HttpStatus.OK;
-        String json = AdminProcedures.getRoute(routeID, userID);
+        String json = ap.getRoute(routeID, userID);
         if (json == null) {
             json = "{\"error\" : \"Internal server error, contact administrator\"}";
             responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -74,6 +84,7 @@ public class AdminCompanion {
      * @return OK response or error.
      */
     public ResponseEntity<String> routePost(String body) {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
         if(body.isEmpty() || body == null){
             response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -84,7 +95,7 @@ public class AdminCompanion {
             Root r;
             r = gson.fromJson(body, Root.class);
             int numLocations = r.route.locations;
-            AdminProcedures.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
+            ap.createRoute(r.route.title, r.route.description, r.route.type, numLocations);
         }
         return response;
     }
@@ -95,6 +106,7 @@ public class AdminCompanion {
      * @return OK message body if sucessfull, error with details if not.
      */
     public ResponseEntity<String> routePatch(String body) {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
         response = new ResponseEntity<>("{\"error\" : \"Internal server error, contact the admin.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         Gson gson = new Gson();
@@ -103,51 +115,44 @@ public class AdminCompanion {
             return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
         }
         if(ru.routeUpdate.title != null){
-            AdminProcedures.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
+            ap.routeUpdateTitle(ru.routeUpdate.routeId, ru.routeUpdate.title);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.description != null){
-            AdminProcedures.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
+            ap.routeUpdateDescription(ru.routeUpdate.routeId, ru.routeUpdate.description);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.type != null){
-            AdminProcedures.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
+            ap.routeUpdateType(ru.routeUpdate.routeId, ru.routeUpdate.type);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.image != null){
-            System.out.println(ru.routeUpdate.image);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         if(ru.routeUpdate.location != null){
             for (int i = 0; i < ru.routeUpdate.location.size(); i++) {
                 if(ru.routeUpdate.location.get(i).to != null){
                     try {
-                        System.out.println("swapping from: " + Integer.parseInt(ru.routeUpdate.location.get(i).from) + ", to :" +  Integer.parseInt(ru.routeUpdate.location.get(i).to));
-                        AdminProcedures.routeSwapLocation(Integer.parseInt(ru.routeUpdate.location.get(i).from), Integer.parseInt(ru.routeUpdate.location.get(i).to));
+                        ap.routeSwapLocation(Integer.parseInt(ru.routeUpdate.location.get(i).from), Integer.parseInt(ru.routeUpdate.location.get(i).to));
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
-                        System.out.println("excepting swap");
                         response = new ResponseEntity<>("{\"error\" : \"malformatted input\"}", HttpStatus.BAD_REQUEST);
                     }
                 } else if (ru.routeUpdate.location.get(i).newLocation != null) {
                     try {
-                        System.out.println("addning: " + Integer.parseInt(ru.routeUpdate.location.get(i).newLocation));
-                        AdminProcedures.routeNewLocations(Integer.parseInt(ru.routeUpdate.location.get(i).newLocation), Integer.parseInt(ru.routeUpdate.routeId));
+                        ap.routeNewLocations(Integer.parseInt(ru.routeUpdate.location.get(i).newLocation), Integer.parseInt(ru.routeUpdate.routeId));
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
-                        System.out.println("excepting delete");
                         response = new ResponseEntity<>("{\"error\" : \"malformatted input\"}", HttpStatus.BAD_REQUEST);
                     }
                 }
                 else {
                     try {
-                        System.out.println("deleting: " + Integer.parseInt(ru.routeUpdate.location.get(i).delete));
-                        AdminProcedures.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
+                        ap.routeDeleteLocation(Integer.parseInt(ru.routeUpdate.routeId),Integer.parseInt(ru.routeUpdate.location.get(i).delete));
                         FileHandler fh = new FileHandler();
                         fh.deleteFileDirectory(Integer.parseInt(ru.routeUpdate.location.get(i).delete), "locations");
                         response = new ResponseEntity<>("", HttpStatus.OK);
                     } catch (NumberFormatException e) {
-                        System.out.println("excepting delete");
                         response = new ResponseEntity<>("{\"error\" : \"malformatted input\"}", HttpStatus.BAD_REQUEST);
                     }
                 }
@@ -162,13 +167,14 @@ public class AdminCompanion {
      * @return OK if deleted, Error if not found.
      */
     public ResponseEntity<String> routeDelete(String routeID) {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
         if(routeID.isEmpty() || routeID == null){
             response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         else {
             response = new ResponseEntity<>("{\"OK\" : \"Request recieved by server.\"}", HttpStatus.OK);
-            AdminProcedures.deleteRoute(routeID);
+            ap.deleteRoute(routeID);
             FileHandler fh = new FileHandler();
             fh.deleteFileDirectory(Integer.parseInt(routeID), "routes");
         }
@@ -181,18 +187,24 @@ public class AdminCompanion {
      * @return Json object containing all locations of a route.
      */
     public ResponseEntity<String> routeGetLocations(String routeID) {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
         if(routeID.isEmpty() || routeID == null){
             response = new ResponseEntity<>("{\"error\" : \"Internal Server Error.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         else {
-            String json = AdminProcedures.getRouteLocations(routeID);
+            String json = ap.getRouteLocations(routeID);
             response = new ResponseEntity<>(json, HttpStatus.OK);
         }
         return response;
     }
 
 
+    /**
+     * Allows changing whether a moderator has access to a route or not.
+     * @param body
+     * @return OK message body if sucessfull, error with details if not.
+     */
     public ResponseEntity<String> routeChangeAccess(String body) {
         Gson gson = new Gson();
         AdminProcedures ap = new AdminProcedures();
@@ -214,6 +226,7 @@ public class AdminCompanion {
      * @return OK message body if sucessfull, error with details if not.
      */
     public ResponseEntity<String> createModerator(String body) {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
         if(body.isEmpty() || body == null){
             response = new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
@@ -226,7 +239,7 @@ public class AdminCompanion {
             String unsaltedPassword = jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString();
             String salt = Authenticator.generateSalt();
             String password = Authenticator.getHash(jsonObject.get("create-moderator").getAsJsonObject().get("password").getAsString() ,salt);
-            AdminProcedures.createModerator(name, email, password, salt);
+            ap.createModerator(name, email, password, salt);
             MailService ms = new MailService();
             ms.sendEmailCreateAccount(email, name, unsaltedPassword, AccountTypes.MODERATOR);
             response = new ResponseEntity<>("", HttpStatus.OK);
@@ -234,10 +247,16 @@ public class AdminCompanion {
         return response;
     }
 
+    /**
+     * Allows the admin to delete a moderator account.
+     * @param userId
+     * @return OK message body if sucessfull, error with details if not.
+     */
     public ResponseEntity<String> deleteModerator(String userId) {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
         if(userId != null){
-            AdminProcedures.deleteModerator(userId);
+            ap.deleteModerator(userId);
             response = new ResponseEntity<>("", HttpStatus.OK);
         }
         else {
@@ -251,8 +270,9 @@ public class AdminCompanion {
      * @return Returns a json filled with all moderators.
      */
     public ResponseEntity<String> getAllModerators() {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
-            String json = AdminProcedures.getAllModerators();
+            String json = ap.getAllModerators();
             if(json.isEmpty()){
                 response = new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
             }
@@ -268,8 +288,9 @@ public class AdminCompanion {
      * @return OK message body if sucessfull, error with details if not.
      */
     public ResponseEntity<String> getRouteForUser(String userId) {
+        AdminProcedures ap = new AdminProcedures();
         ResponseEntity<String> response;
-        String json = AdminProcedures.getRoutesForUser(Integer.parseInt(userId));
+        String json = ap.getRoutesForUser(Integer.parseInt(userId));
         if(json.isEmpty()){
             response = new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
         }

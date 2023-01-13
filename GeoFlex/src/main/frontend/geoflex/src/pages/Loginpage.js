@@ -1,7 +1,4 @@
 import React, { useRef } from 'react';
-import Logo from "../shared/Logo"
-import Login from "../shared/Login"
-import Button from "../shared/Button"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'universal-cookie';
@@ -36,16 +33,17 @@ export default function Loginpage() {
         axios(config)
         .then(function (response) {
         console.log(JSON.stringify(response.data));
-        if(response.data.path == "/admin/overview"){
-            cookies.set('role', 'admin', { path: '/' });
+        if(response.data.path === "/admin"){
+            cookies.set('role', 'admin', { path: '/' , expires: new Date(Date.now()+86400)});
         }
-        else if(response.data.path == "/moderator/overview"){
-            cookies.set('role', 'moderator', { path: '/' });
+        else if(response.data.path === "/moderator"){
+            cookies.set('role', 'moderator', { path: '/', expires: new Date(Date.now()+86400)});
         }
-        else if(response.data.path == "/user/overview"){
-            cookies.set('role', 'user', { path: '/' });
+        else if(response.data.path === "/user"){
+            cookies.set('role', 'user', { path: '/', expires: new Date(Date.now()+86400)});
         }
         navigate(response.data.path, { replace: true })
+        window.location.reload(false);
         })
         .catch(function (error) {
         console.log(error.response.data);
@@ -79,8 +77,10 @@ export default function Loginpage() {
         </div>
     </div>
         <div className="row">
-            <div className="col s12 offset-s1"> 
-            <Button text="Logga in" css="col s10" icon={<i className="small material-icons right">arrow_forward</i>} click={handleLogin}/>
+            <div className="container">
+                <div className="col s12 btn waves-effect waves-teal btn col btn-large btn-css icon-css z-depth-2" onClick={handleLogin}>
+                    <i className="small material-icons right">arrow_forward</i>Logga in
+                </div>
             </div>
         </div>
         </>

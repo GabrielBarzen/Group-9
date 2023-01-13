@@ -79,3 +79,59 @@ p {
     -moz-osx-font-smoothing: grayscale;
     color: black;
 }
+
+
+
+
+@media only screen and (max-width: 700px) {
+    #btn-small-screen {
+        padding-left: 0.3rem !important;
+        padding-right: 0.3rem !important;
+        font-size: 0.7rem;
+        padding: 0rem;
+    }
+
+    #icon-small-screen {
+        padding-left: 0rem;
+        margin-right: 0rem;
+        font-size: 1rem;
+    }
+
+    #hideOnSmall {
+        display: none;
+    }
+
+    .centerWhenSmall {
+        text-align: center;
+        background: blue !important;
+        display: flex;
+        justify-content: center;
+
+    }
+}
+
+
+@media print {
+    body {
+        background-color: #FFFFFF;
+        background-image: none;
+        color: #000000
+    }
+
+    #contentarea {
+        width: 100%;
+    }
+
+    #PrintReadyQR {
+        width: 500px;
+        height: 500px;
+    }
+
+    #printQR {
+        height: 900px;
+    }
+
+    #hideWhenPrint {
+        display: none;
+    }
+}
