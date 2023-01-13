@@ -17,7 +17,7 @@ export default function Static() {
     }
   }
 
-  //redirectToHTTPS(); //Enable this when app is deployed.
+  redirectToHTTPS(); //Enable this when app is deployed.
 
   let status = cookies.get('role')
   let content;
