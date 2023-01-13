@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { QrReader } from 'react-qr-reader';
 
 export default function QRScanner(props) {
