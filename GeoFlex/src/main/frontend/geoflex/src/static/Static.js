@@ -22,6 +22,12 @@ export default function Static() {
         {content}
         <Outlet />
       </div>
+      <div className='row center-align'>
+        <div className='container white container-css'>
+        </div>
+      </div>
     </>
   )
 }
+
+
