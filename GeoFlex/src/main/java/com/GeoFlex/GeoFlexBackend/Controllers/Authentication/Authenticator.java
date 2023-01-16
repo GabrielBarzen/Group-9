@@ -84,9 +84,15 @@ public class Authenticator {
      * @return true if access is granted and token is stored.
      */
     public boolean auth(String userId, Token authToken, int accessLevel) {
-        Token storedToken = userIdTokenMap.get(userId);
-        LocalDate ld = LocalDate.now();
-        return ld.isBefore(storedToken.getExpiery()) && authToken.getToken().equals(storedToken.getToken()) && ap.getAccesLevel(userId) >= accessLevel; // Return true if user is logged in and session has not expired.
+        try {
+            Token storedToken = userIdTokenMap.get(userId);
+            LocalDate ld = LocalDate.now();
+            return ld.isBefore(storedToken.getExpiery()) && authToken.getToken().equals(storedToken.getToken()) && ap.getAccesLevel(userId) >= accessLevel; // Return true if user is logged in and session has not expired.
+        }
+        catch (NullPointerException e){
+            System.err.println("Failed to authenticate login, please try logging in again.");
+            return false;
+        }
     }
 
     /**

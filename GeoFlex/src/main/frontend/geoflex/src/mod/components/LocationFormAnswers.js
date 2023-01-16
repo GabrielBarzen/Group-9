@@ -163,7 +163,7 @@ export default class LocationFormAnswers extends Component {
                 toReturn = (
                     <div key={contentID} className="row">
                         <label className='col s8 m9'>
-                            Fråga
+                            Svar
                             <input className="grey lighten-3"
                                 name={inputName}
                                 type="text"
@@ -194,7 +194,9 @@ export default class LocationFormAnswers extends Component {
             {(() => {
                 if (this.state.content.length <= 3) {
                     return (
-                        <div onClick={() => this.handleAddAnswer(this.state.locationID)}>Lägga till här</div>
+                        <div className="row">
+                        <div className="btn waves-teal btn col btn-small btn-css icon-css z-depth-2" onClick={() => this.handleAddAnswer(this.state.locationID)}>Lägg till svar</div>
+                        </div>
                     )
                 }
             })()}

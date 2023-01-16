@@ -171,7 +171,7 @@ export default class LocationFormMedia extends Component {
         //html to add external mediaURL
         let externalMedia = (<>
             <label>
-                Titel
+                Media url
                 <input
                     className='grey lighten-3'
                     name="locationMediaUrl" type="text"
